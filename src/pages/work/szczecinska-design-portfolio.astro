@@ -1,0 +1,31 @@
+---
+import WorkCaseShell from "../../components/work/WorkCaseShell.astro";
+import PortfolioCaseContent from "../../components/work/cases/PortfolioCaseContent.astro";
+import { getProjectBySlug } from "../../lib/projects";
+
+const project = getProjectBySlug("szczecinska-design-portfolio");
+
+if (!project) {
+  return Astro.redirect("/work");
+}
+
+const tools = [
+  { src: "/icons/tool-figma.png", alt: "Figma" },
+  { src: "/icons/tool-claude-code.png", alt: "Claude Code" },
+  { src: "/icons/tool-cursor.svg", alt: "Cursor" },
+  { src: "/icons/tool-openai.png", alt: "Codex" },
+] as const;
+---
+
+<WorkCaseShell
+  project={project}
+  tools={tools}
+  heroImage="/assets/portfolio/hero-portfolio.png"
+  overviewHeading="Wstęp"
+  overviewText="Portfolio to jeden z trudniejszych projektów, jakie mogę sobie zlecić. Jest jednocześnie produktem i wizytówką, a każda decyzja projektowa staje się od razu dowodem na to, jak myślę o designie. Zależało mi, żeby strona była minimalistyczna, z jasnym komunikatem i prostą nawigacją, ale jednocześnie nie była przy tym nudna. Miała pokazywać dużo treści bez przytłaczania, prowadzić przez projekty bez zmuszania do szukania i mieć kilka detali, które mówią coś o mnie zanim jeszcze ktoś przeczyta pierwsze słowo."
+  primaryMetaLabel="Czas trwania"
+  primaryMetaValue="3 tygodnie"
+  projectType="Osobisty"
+>
+  <PortfolioCaseContent />
+</WorkCaseShell>
