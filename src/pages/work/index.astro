@@ -22,7 +22,7 @@ const projects = getAllProjects();
           <article class="w-full" aria-labelledby={`work-title-${project.slug}`}>
             <a
               href={`/work/${project.slug}`}
-              class="group flex flex-col gap-[28px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)] md:flex-row md:items-center md:gap-[28px] lg:gap-[34px]"
+              class="group flex flex-col gap-[28px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)] md:flex-row md:items-center md:gap-[40px] lg:gap-[52px]"
               transition:name={`work-${project.slug}-card`}
             >
               <div
@@ -78,7 +78,7 @@ const projects = getAllProjects();
                     {project.description}
                   </p>
 
-                  <span class="btn-primary w-fit px-[24px] py-[14px] text-[14px] lg:text-[16px] font-medium leading-[20px]">
+                  <span class="btn-primary w-fit px-[24px] py-[14px] text-[14px] lg:text-[16px] font-semibold leading-[20px]">
                     Zobacz więcej
                   </span>
                 </div>
