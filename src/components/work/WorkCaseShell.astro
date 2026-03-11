@@ -49,6 +49,10 @@ function getDarkIconSrc(src: string): string | undefined {
     return "/icons/vercel-dark-icon.png";
   }
 
+  if (src === "/icons/tool-codex.png") {
+    return "/icons/tool-codex-light.png";
+  }
+
   return undefined;
 }
 ---
