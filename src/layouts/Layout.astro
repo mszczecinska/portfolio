@@ -37,9 +37,7 @@ import SpeedInsights from "@vercel/speed-insights/astro";
         root.style.backgroundColor = isDark ? "#111111" : "#fefefe";
       })();
     </script>
-    <link rel="preconnect" href="https://api.fontshare.com" />
-    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin />
-    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500&display=swap" />
+    <link rel="preload" href="/fonts/Satoshi.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="shortcut icon" href="/favicon-light.ico"  media="(prefers-color-scheme:light)" />
     <link rel="shortcut icon" href="/favicon-dark.ico"  media="(prefers-color-scheme:dark)" />
