@@ -147,7 +147,7 @@ function getDarkIconSrc(src: string): string | undefined {
     </div>
   </div>
 
-  <section class="about-intro-desktop mx-auto hidden max-w-[1040px] px-[8px] pb-[120px] pt-[32px] md:flex md:flex-col md:items-center md:gap-[56px] md:px-8 md:pb-[144px] md:pt-[48px] lg:flex-row lg:items-start lg:justify-between lg:gap-0 lg:px-[8px] lg:pb-[200px] lg:pt-[80px]">
+  <section class="about-intro-desktop mx-auto hidden max-w-[1040px] px-[8px] pb-[120px] pt-[32px] md:flex md:flex-col md:items-center md:gap-[56px] md:px-8 md:pb-[144px] md:pt-[48px] lg:flex-row lg:items-start lg:justify-between lg:gap-0 lg:px-8 lg:pb-[200px] lg:pt-[80px]">
     <img
       class="about-intro-photo size-[245px] shrink-0 rounded-[20px] object-cover"
       src="/about-photo.JPG"
@@ -157,10 +157,10 @@ function getDarkIconSrc(src: string): string | undefined {
       transition:name="about-profile-photo"
     />
 
-    <div class="about-intro-content w-full md:max-w-[720px] lg:w-[688px]">
+    <div class="about-intro-content w-full md:max-w-[560px] lg:w-[688px]">
       <div class="flex flex-col gap-[64px]">
         <div class="flex flex-col gap-[24px]">
-          <div class="flex items-center gap-[10px]">
+          <div class="flex items-center gap-[10px] md:justify-center lg:justify-start">
             <h1 class="text-[36px] font-semibold leading-[44px] tracking-[0] text-[var(--color-text)]" transition:name="about-title">Cześć, jestem Magda</h1>
             <TablerIcon name="sparkles" class="size-8 text-[var(--color-text)]" />
           </div>
@@ -248,7 +248,7 @@ function getDarkIconSrc(src: string): string | undefined {
       transition:name="about-profile-photo"
     />
 
-    <div class="mt-[64px] flex flex-col gap-[64px]">
+    <div class="mt-[48px] flex flex-col gap-[64px]">
       <div class="flex flex-col gap-[24px]">
         <div class="flex items-center justify-center gap-[10px]">
           <h1 class="text-[24px] font-semibold leading-[44px] text-[var(--color-text)]" transition:name="about-title">Cześć, jestem Magda</h1>
@@ -256,6 +256,14 @@ function getDarkIconSrc(src: string): string | undefined {
         </div>
 
         <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
+
+        <div class="flex items-center gap-[12px]">
+          <span class="availability-dot-wrap" aria-hidden="true">
+            <span class="availability-dot-ping"></span>
+            <span class="availability-dot-core"></span>
+          </span>
+          <p class="text-[14px] leading-[24px] tracking-[0.5px] text-[var(--color-text-muted)]">Wrocław, PL</p>
+        </div>
 
         <div class="space-y-4 text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
           {introMobile.map((paragraph) => <p>{paragraph}</p>)}
@@ -771,12 +779,13 @@ function getDarkIconSrc(src: string): string | undefined {
         (window[STATE_KEY] = {
           observer: null,
           pageLoadBound: false,
+          mqBound: false,
         });
 
       const initAboutAnimations = () => {
         const introDesktop = document.querySelector(".about-intro-desktop");
         const introMobile = document.querySelector(".about-intro-mobile");
-        const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+        const isMobile = window.matchMedia("(max-width: 767px)").matches;
         const testimonialSections = Array.from(
           document.querySelectorAll(".about-testimonials-section")
         ).filter((section) => section instanceof HTMLElement && section.offsetParent !== null);
@@ -850,6 +859,10 @@ function getDarkIconSrc(src: string): string | undefined {
       if (!state.pageLoadBound) {
         document.addEventListener("astro:page-load", initAboutAnimations);
         state.pageLoadBound = true;
+      }
+      if (!state.mqBound) {
+        window.matchMedia("(max-width: 767px)").addEventListener("change", initAboutAnimations);
+        state.mqBound = true;
       }
     })();
   </script>
