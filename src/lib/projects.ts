@@ -13,6 +13,16 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    slug: "szczecinska-design-portfolio",
+    title: "szczecinska.design - case study portfolio",
+    description:
+      "  Opis procesu projektowania i budowania portfolio od podstaw. Od pierwszych inspiracji i szkiców, przez makietę, po wdrwdroenie strony.",
+    image: "/assets/portfolio/portfolio-work.png",
+    tags: ["Product Design", "Development", "Personal project"],
+    content:
+      "Portfolio to jeden z trudniejszych projektów, jakie mogę sobie zlecić. Jest jednocześnie produktem i wizytówką, a każda decyzja projektowa staje się od razu dowodem na to, jak myślę o designie.",
+  },
+  {
     slug: "miropoix-saas-dla-szefow-kuchni",
     title: "Miropoix - SaaS dla szefów kuchni",
     description:
@@ -61,16 +71,6 @@ export const projects: Project[] = [
     tags: ["UX / UI Design", "Design system", "E-commerce"],
     content:
       "AuraPura to projekt stworzony w ramach kursu Design system intro. Punktem wyjścia był brief marki, zapis wywiadu z klientem i zestaw assetów. Na tej podstawie miałam samodzielnie zbudować kompletny design system i doprowadzić go do finalnych widoków na trzech wielkościach ekranu.",
-  },
-  {
-    slug: "szczecinska-design-portfolio",
-    title: "szczecinska.design - projektowanie i wdrożenie portfolio",
-    description:
-      "Portfolio to jeden z trudniejszych projektów, jakie mogę sobie zlecić. Jest jednocześnie produktem i wizytówką, a każda decyzja projektowa staje się od razu dowodem na to, jak myślę o designie. Zależało mi, żeby strona była minimalistyczna, z jasnym komunikatem i prostą nawigacją, ale jednocześnie nie była przy tym nudna.",
-    image: "/assets/portfolio/portfolio-work.png",
-    tags: ["Product Design", "Development", "Personal project"],
-    content:
-      "Portfolio to jeden z trudniejszych projektów, jakie mogę sobie zlecić. Jest jednocześnie produktem i wizytówką, a każda decyzja projektowa staje się od razu dowodem na to, jak myślę o designie.",
   },
 ];
 
