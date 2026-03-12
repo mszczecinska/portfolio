@@ -20,6 +20,7 @@ interface Props {
   primaryMetaLabel?: string;
   primaryMetaValue?: string;
   projectType: string;
+  toolsCompact?: boolean;
 }
 
 const {
@@ -34,6 +35,7 @@ const {
   primaryMetaLabel = "Czas trwania",
   primaryMetaValue,
   projectType,
+  toolsCompact = false,
 } = Astro.props;
 
 const resolvedPrimaryMetaValue = primaryMetaValue ?? duration ?? "";
@@ -45,6 +47,10 @@ function getDarkIconSrc(src: string): string | undefined {
 
   if (src === "/icons/tool-vercel.svg") {
     return "/icons/vercel-dark-icon.png";
+  }
+
+  if (src === "/icons/tool-codex.png") {
+    return "/icons/tool-codex-light.png";
   }
 
   return undefined;
@@ -126,35 +132,36 @@ function getDarkIconSrc(src: string): string | undefined {
         <aside class="flex flex-col gap-[20px] md:gap-[16px] lg:gap-[20px]" aria-label="Informacje o projekcie">
           <div class="rounded-[12px] border border-[var(--color-border)] px-[20px] py-[14px] md:px-[16px] md:py-[12px] lg:px-[20px] lg:py-[14px]">
             <div class="flex items-center justify-between gap-[12px] md:flex-col md:items-start md:justify-start">
-              <p class="text-[14px] font-medium leading-[20px] tracking-[0.25px] text-[var(--color-text)]">{primaryMetaLabel}</p>
+              <p class="text-[14px] font-semibold leading-[20px] tracking-[0.25px] text-[var(--color-text)]">{primaryMetaLabel}</p>
               <p class="text-right text-[14px] leading-[20px] tracking-[0.25px] text-[var(--color-meta)] md:text-left">{resolvedPrimaryMetaValue}</p>
             </div>
           </div>
 
           <div class="rounded-[12px] border border-[var(--color-border)] px-[20px] py-[14px] md:px-[16px] md:py-[12px] lg:px-[20px] lg:py-[14px]">
             <div class="flex items-center justify-between gap-[12px] md:flex-col md:items-start md:justify-start">
-              <p class="text-[14px] font-medium leading-[20px] tracking-[0.25px] text-[var(--color-text)]">Typ projektu</p>
+              <p class="text-[14px] font-semibold leading-[20px] tracking-[0.25px] text-[var(--color-text)]">Typ projektu</p>
               <p class="text-right text-[14px] leading-[20px] tracking-[0.25px] text-[var(--color-meta)] md:text-left">{projectType}</p>
             </div>
           </div>
 
           <div class="rounded-[12px] border border-[var(--color-border)] px-[20px] py-[14px] md:px-[16px] md:py-[12px] lg:px-[20px] lg:py-[14px]">
             <div class="flex items-center justify-between gap-[12px] md:flex-col md:items-start md:justify-start">
-              <p class="text-[14px] font-medium leading-[20px] tracking-[0.25px] text-[var(--color-text)]">Narzędzia</p>
-              <ul class="flex flex-nowrap items-center gap-[12px] lg:gap-[16px]" aria-label="Narzędzia projektu">
+              <p class="text-[14px] font-semibold leading-[20px] tracking-[0.25px] text-[var(--color-text)]">Narzędzia</p>
+              <ul class:list={["flex flex-wrap items-center", toolsCompact ? "gap-[10px]" : "gap-[12px] lg:gap-[16px]"]} aria-label="Narzędzia projektu">
                 {
                   tools.map((tool) => {
                     const darkIconSrc = getDarkIconSrc(tool.src);
+                    const iconSize = toolsCompact ? "size-[20px]" : "size-[24px]";
 
                     return (
-                      <li class="inline-flex size-[24px] items-center justify-center">
+                      <li class:list={["inline-flex items-center justify-center", iconSize]}>
                         {darkIconSrc ? (
-                          <span class="relative inline-flex size-[24px]">
+                          <span class:list={["relative inline-flex", iconSize]}>
                             <img src={tool.src} alt={tool.alt} class="theme-icon-light size-full object-contain" loading="lazy" />
                             <img src={darkIconSrc} alt={tool.alt} class="theme-icon-dark size-full object-contain" loading="lazy" />
                           </span>
                         ) : (
-                          <img src={tool.src} alt={tool.alt} class="size-[24px] object-contain" loading="lazy" />
+                          <img src={tool.src} alt={tool.alt} class:list={["object-contain", iconSize]} loading="lazy" />
                         )}
                       </li>
                     );

@@ -3,13 +3,13 @@ import Layout from "../layouts/Layout.astro";
 import TablerIcon from "../components/TablerIcon.astro";
 
 const introDesktop = [
-  "W swoich projektach łączę estetykę z użytecznością, dbając o to, aby interfejsy były nie tylko dopracowane wizualnie, ale także przejrzyste i intuicyjne. Pracuję głównie w Figmie i wykorzystuję narzędzia AI, aby szybciej przejść od koncepcji do pierwszych wersji widoków, a następnie wdrożyć je na produkcję.",
-  "Jestem otwarta na feedback i stale rozwijam swoje umiejętności, ponieważ świadomość tego, jak wiele mogę się jeszcze nauczyć, bardzo mnie motywuje. Inspiracji szukam również poza designem m.in. w modzie i kinematografii - to one pomagają mi odkrywać nowe kierunki estetyczne, które dzięki technologii mogę przekładać na konkretne projekty.",
+  "W swoich projektach łączę estetykę z użytecznością, dbając o to, aby interfejsy były nie tylko dopracowane wizualnie, ale także przejrzyste i intuicyjne. Pracuję głównie w Figmie - od pierwszych szkiców po wdrożenie gotowych widoków z pomocą AI.",
+  "Aktywnie rozwijam się w obszarze design systemów. Tworzenie spójnych i skalowalnych fundamentów produktu to coś, w czym szczególnie chciałabym się rozwijać. Jestem otwarta na feedback i stale poszerzam kompetencje, bo świadomość tego, ile jeszcze mogę się nauczyć, bardzo mnie motywuje. Inspiracji szukam też poza designem m.in. w modzie i kinematografii.",
 ];
 
 const introMobile = [
-  "W swoich projektach łączę estetykę z użytecznością, dbając o to, aby interfejsy były nie tylko dopracowane wizualnie, ale także przejrzyste i intuicyjne. Pracuję głównie w Figmie i wykorzystuję narzędzia AI, aby szybciej przejść od koncepcji do pierwszych wersji widoków, a następnie wdrożyć je na produkcję.",
-  "Jestem otwarta na feedback i stale rozwijam swoje umiejętności, ponieważ świadomość tego, jak wiele mogę się jeszcze nauczyć, bardzo mnie motywuje. Inspiracji szukam również poza designem m.in. w modzie i kinematografii - to one pomagają mi odkrywać nowe kierunki estetyczne, które dzięki technologii mogę przekładać na konkretne projekty.",
+  "W swoich projektach łączę estetykę z użytecznością, dbając o to, aby interfejsy były nie tylko dopracowane wizualnie, ale także przejrzyste i intuicyjne. Pracuję głównie w Figmie - od pierwszych szkiców po wdrożenie gotowych widoków z pomocą AI.",
+  "Aktywnie rozwijam się w obszarze design systemów. Tworzenie spójnych i skalowalnych fundamentów produktu to coś, w czym szczególnie chciałabym się rozwijać. Jestem otwarta na feedback i stale poszerzam kompetencje, bo świadomość tego, ile jeszcze mogę się nauczyć, bardzo mnie motywuje. Inspiracji szukam też poza designem m.in. w modzie i kinematografii.",
 ];
 
 const socialLinks = [
@@ -38,8 +38,7 @@ const techStackDesktop = [
     title: "AI",
     tools: [
       { label: "Claude Code", icon: "/icons/tool-claude-code.png" },
-      { label: "Codex", icon: "/icons/tool-chatgpt.svg" },
-      { label: "Perplexity", icon: "/icons/tool-perplexity.svg" },
+      { label: "Codex", icon: "/icons/tool-codex.png" },
       { label: "ChatGPT", icon: "/icons/tool-chatgpt.svg" },
     ],
   },
@@ -72,8 +71,7 @@ const techStackMobile = [
     title: "AI",
     tools: [
       { label: "Claude Code", icon: "/icons/tool-claude-code.png" },
-      { label: "Codex", icon: "/icons/tool-chatgpt.svg" },
-      { label: "Perplexity", icon: "/icons/tool-perplexity.svg" },
+      { label: "Codex", icon: "/icons/tool-codex.png" },
       { label: "ChatGPT", icon: "/icons/tool-chatgpt.svg" },
     ],
   },
@@ -128,6 +126,10 @@ function getDarkIconSrc(src: string): string | undefined {
     return "/icons/vercel-dark-icon.png";
   }
 
+  if (src === "/icons/tool-codex.png") {
+    return "/icons/tool-codex-light.png";
+  }
+
   return undefined;
 }
 ---
@@ -145,7 +147,7 @@ function getDarkIconSrc(src: string): string | undefined {
     </div>
   </div>
 
-  <section class="about-intro-desktop mx-auto hidden max-w-[1040px] px-[8px] pb-[120px] pt-[32px] md:flex md:flex-col md:items-center md:gap-[56px] md:px-8 md:pb-[144px] md:pt-[48px] lg:flex-row lg:items-start lg:justify-between lg:gap-0 lg:px-[8px] lg:pb-[200px] lg:pt-[80px]">
+  <section class="about-intro-desktop mx-auto hidden max-w-[1040px] px-[8px] pb-[120px] pt-[32px] md:flex md:flex-col md:items-center md:gap-[56px] md:px-8 md:pb-[144px] md:pt-[48px] lg:flex-row lg:items-start lg:justify-between lg:gap-0 lg:px-8 lg:pb-[200px] lg:pt-[80px]">
     <img
       class="about-intro-photo size-[245px] shrink-0 rounded-[20px] object-cover"
       src="/about-photo.JPG"
@@ -155,11 +157,11 @@ function getDarkIconSrc(src: string): string | undefined {
       transition:name="about-profile-photo"
     />
 
-    <div class="about-intro-content w-full md:max-w-[720px] lg:w-[688px]">
+    <div class="about-intro-content w-full md:max-w-[560px] lg:w-[688px]">
       <div class="flex flex-col gap-[64px]">
         <div class="flex flex-col gap-[24px]">
-          <div class="flex items-center gap-[10px]">
-            <h1 class="text-[36px] font-medium leading-[44px] tracking-[0] text-[var(--color-text)]" transition:name="about-title">Cześć, jestem Magda</h1>
+          <div class="flex items-center gap-[10px] md:justify-center lg:justify-start">
+            <h1 class="text-[36px] font-semibold leading-[44px] tracking-[0] text-[var(--color-text)]" transition:name="about-title">Cześć, jestem Magda</h1>
             <TablerIcon name="sparkles" class="size-8 text-[var(--color-text)]" />
           </div>
 
@@ -197,7 +199,7 @@ function getDarkIconSrc(src: string): string | undefined {
         </div>
 
         <div class="flex flex-col gap-[24px]">
-          <h2 class="text-[36px] font-medium leading-[44px] text-[var(--color-text)]">Tech stack</h2>
+          <h2 class="text-[36px] font-semibold leading-[44px] text-[var(--color-text)]">Tech stack</h2>
 
           <div class="grid gap-[16px] md:grid-cols-2 lg:grid-cols-4">
             {
@@ -246,14 +248,22 @@ function getDarkIconSrc(src: string): string | undefined {
       transition:name="about-profile-photo"
     />
 
-    <div class="mt-[64px] flex flex-col gap-[64px]">
+    <div class="mt-[48px] flex flex-col gap-[64px]">
       <div class="flex flex-col gap-[24px]">
         <div class="flex items-center justify-center gap-[10px]">
-          <h1 class="text-[24px] font-medium leading-[44px] text-[var(--color-text)]" transition:name="about-title">Cześć, jestem Magda</h1>
+          <h1 class="text-[24px] font-semibold leading-[44px] text-[var(--color-text)]" transition:name="about-title">Cześć, jestem Magda</h1>
           <TablerIcon name="sparkles" class="size-6 text-[var(--color-text)]" />
         </div>
 
         <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
+
+        <div class="flex items-center gap-[12px]">
+          <span class="availability-dot-wrap" aria-hidden="true">
+            <span class="availability-dot-ping"></span>
+            <span class="availability-dot-core"></span>
+          </span>
+          <p class="text-[14px] leading-[24px] tracking-[0.5px] text-[var(--color-text-muted)]">Wrocław, PL</p>
+        </div>
 
         <div class="space-y-4 text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
           {introMobile.map((paragraph) => <p>{paragraph}</p>)}
@@ -280,7 +290,7 @@ function getDarkIconSrc(src: string): string | undefined {
       </div>
 
       <div class="flex flex-col gap-[24px]">
-        <h2 class="text-center text-[24px] font-medium leading-[44px] text-[var(--color-text)]">Tech stack</h2>
+        <h2 class="text-center text-[24px] font-semibold leading-[44px] text-[var(--color-text)]">Tech stack</h2>
 
         <div class="grid grid-cols-2 gap-x-[18px] gap-y-[24px]">
           {
@@ -320,7 +330,7 @@ function getDarkIconSrc(src: string): string | undefined {
 
   <section class="about-testimonials-section mx-auto hidden max-w-[1040px] pb-[120px] md:block md:px-8 md:pb-[144px] lg:px-0 lg:pb-[200px]">
     <div class="flex items-center justify-between gap-[20px]">
-      <h2 class="text-[30px] font-medium leading-[38px] text-[var(--color-text)] lg:text-[36px] lg:leading-[44px]">Co mówią o mnie inni?</h2>
+      <h2 class="text-[30px] font-semibold leading-[38px] text-[var(--color-text)] lg:text-[36px] lg:leading-[44px]">Co mówią o mnie inni?</h2>
       <a
         href={testimonialsCtaHref}
         target="_blank"
@@ -375,7 +385,7 @@ function getDarkIconSrc(src: string): string | undefined {
 
   <section class="about-testimonials-section mx-auto max-w-[327px] px-[0] pb-[120px] sm:max-w-[560px] md:hidden">
     <div class="flex flex-col items-center gap-[12px]">
-      <h2 class="text-center text-[24px] font-medium leading-[32px] text-[var(--color-text)]">Co mówią o mnie inni?</h2>
+      <h2 class="text-center text-[24px] font-semibold leading-[32px] text-[var(--color-text)]">Co mówią o mnie inni?</h2>
       <a
         href={testimonialsCtaHref}
         target="_blank"
@@ -769,12 +779,13 @@ function getDarkIconSrc(src: string): string | undefined {
         (window[STATE_KEY] = {
           observer: null,
           pageLoadBound: false,
+          mqBound: false,
         });
 
       const initAboutAnimations = () => {
         const introDesktop = document.querySelector(".about-intro-desktop");
         const introMobile = document.querySelector(".about-intro-mobile");
-        const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+        const isMobile = window.matchMedia("(max-width: 767px)").matches;
         const testimonialSections = Array.from(
           document.querySelectorAll(".about-testimonials-section")
         ).filter((section) => section instanceof HTMLElement && section.offsetParent !== null);
@@ -848,6 +859,10 @@ function getDarkIconSrc(src: string): string | undefined {
       if (!state.pageLoadBound) {
         document.addEventListener("astro:page-load", initAboutAnimations);
         state.pageLoadBound = true;
+      }
+      if (!state.mqBound) {
+        window.matchMedia("(max-width: 767px)").addEventListener("change", initAboutAnimations);
+        state.mqBound = true;
       }
     })();
   </script>

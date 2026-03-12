@@ -1,0 +1,189 @@
+---
+import TablerIcon from "../../TablerIcon.astro";
+
+const challenges = [
+  {
+    icon: "layout-list",
+    title: "Informacja bez przytłoczenia",
+    description:
+      "Największym wyzwaniem było pokazanie bardzo dużej ilości informacji w sposób przejrzysty. Zdecydowałam się na layout z różnymi marginesami, który wprowadza oddech i rytm między sekcjami. Tekst przeplata się z grafikami, co rozbija długie treści i nadaje czytaniu naturalny rytm.",
+  },
+  {
+    icon: "ripple",
+    title: "Animacje i layout",
+    description:
+      "Przy pierwszych testach poprawy wymagały animacje View Transition oraz zachowanie layoutu w kilku miejscach. Animacje początkowo działały niespójnie między podstronami, a układ w niektórych widokach nie zachowywał się poprawnie. Wymagało to kilku iteracji, żeby doprowadzić całość do stanu, który w każdym miejscu zachowuje się tak jak powinien.",
+  },
+  {
+    icon: "arrow-bar-up",
+    title: "Wysuwanie menu podczas scrolla",
+    description:
+      "Żeby użytkownik czytający długie case study nie musiał wracać na samą górę strony tylko po to, żeby zobaczyć nawigację, dodałam funkcjonalność wysuwania menu podczas scrolla w górę. Menu chowa się podczas przewijania w dół i pojawia ponownie, gdy użytkownik zaczyna scrollować w górę. Mały detal z dużym wpływem na komfort czytania.",
+  },
+  {
+    icon: "rocket",
+    title: "Wydajność",
+    description:
+      "Z racji dużej ilości zdjęć i filmów, które pojawiają się na stronie, skorzystałam z możliwości kompresji multimediów, żeby zachować jakość materiałów przy jednoczesnym utrzymaniu rozsądnych czasów ładowania.",
+  },
+] as const;
+---
+
+<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="goal-title">
+  <h2 id="goal-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Cel projektu</h2>
+  <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
+  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Zaprojektować i wdrożyć portfolio, które:</p>
+  <ul class="list-disc pl-[24px] flex flex-col gap-[8px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+    <li>prezentuje prace w sposób przejrzysty, mimo dużej ilości materiałów i informacji,</li>
+    <li>zachowuje minimalistyczny charakter z jasnym przekazem,</li>
+    <li>odzwierciedla podejście do designu na poziomie samego interfejsu,</li>
+    <li>działa równie dobrze na urządzeniach mobilnych i desktopowych.</li>
+  </ul>
+</section>
+
+<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[48px] lg:gap-[64px]" aria-labelledby="process-title">
+  <div class="flex flex-col gap-[24px]">
+    <h2 id="process-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Proces</h2>
+    <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
+  </div>
+
+  <section class="flex flex-col gap-[32px]" aria-labelledby="moodboard-title">
+    <div class="flex flex-col gap-[24px]">
+      <h3 id="moodboard-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Moodboard i inspiracje</h3>
+      <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
+      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+        Zanim powstał jakikolwiek wireframe, zebrałam moodboard z inspiracjami. Na tym etapie nie szukałam gotowych rozwiązań, a raczej próbowałam znaleźć kierunek, w którym chcę iść. Postawiłam na minimalistyczne designy, ale z charakterem. Zebranie wizualnych odniesień pozwoliło mi zdefiniować to, co chcę osiągnąć.
+      </p>
+    </div>
+    <div class="w-full overflow-hidden">
+      <img src="/assets/portfolio/inspo-portfolio.png" alt="Moodboard i inspiracje do projektu portfolio" class="w-full h-auto object-cover" loading="lazy" />
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-[32px]" aria-labelledby="lofi-title">
+    <div class="flex flex-col gap-[24px]">
+      <h3 id="lofi-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Lo-fi i architektura treści</h3>
+      <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
+      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+        Kolejnym krokiem były proste szkice i lo-fi wireframe'y. Na tym etapie skupiłam się przede wszystkim na architekturze treści i logice nawigacji, zanim w ogóle zaczęłam myśleć o tym, jak to wygląda.
+      </p>
+      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+        Kluczową decyzją była struktura strony głównej. Zależało mi, żeby użytkownik nie musiał przeklikiwać się przez całą stronę w poszukiwaniu podstawowych informacji. Homepage miał zawierać wszystko, co najważniejsze: krótki header z buttonami do szybkiego przejścia na podstrony, najnowsze prace dostępne od razu, bez dodatkowych kliknięć oraz krótką informację o mnie.
+      </p>
+      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+        Równie ważna była spójna struktura case study. Zależało mi, żeby każde case study było zbudowane według podobnego schematu. Użytkownik, który przeczyta jedno, od razu wie, gdzie szukać konkretnych informacji w kolejnym.
+      </p>
+    </div>
+    <div class="w-full overflow-hidden">
+      <span class="relative block w-full">
+        <img src="/assets/portfolio/wireframe-light-portfolio.png" alt="Lo-fi wireframe portfolio" class="theme-icon-light w-full h-auto object-cover" loading="lazy" />
+        <img src="/assets/portfolio/wireframe-dark-portfolio.png" alt="Lo-fi wireframe portfolio" class="theme-icon-dark w-full h-auto object-cover" loading="lazy" />
+      </span>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-[32px]" aria-labelledby="hifi-title">
+    <div class="flex flex-col gap-[24px]">
+      <h3 id="hifi-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">High-fidelity design</h3>
+      <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
+      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+        <strong>Typografia i whitespace</strong> - wybrałam font <strong>Satoshi</strong> jako główny krój pisma - nowoczesny, ale z osobowością. Dużo świadomiej podeszłam też do whitespace'u, traktując go nie jako brak treści, ale jako element layoutu. Duże odstępy między sekcjami, luźne rozmieszczenie elementów i unikanie wypełniania każdego miejsca sprawiają, że treść jest łatwiejsza do przyswojenia.
+      </p>
+      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+        <strong>Zdjęcia bez tła</strong> - na stronie głównej i w sekcji z pracami zdecydowałam się usunąć tła ze zdjęć. Projekty "leżą" na stronie, a nie są zamknięte w kafelkach. Dzięki temu pomimo bardzo kolorowych zdjęć strona dalej pozostaje lekka.
+      </p>
+      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+        <strong>Desktop i mobile jako równorzędne widoki</strong> - zaprojektowałam makiety zarówno na widok desktopowy, jak i mobilny, traktując oba jako równorzędne. Z perspektywy czasu wiem, jak ważna to była decyzja, ponieważ stronę odwiedzają użytkownicy korzystający zarówno z urządzeń mobilnych, jak i desktopowych.
+      </p>
+    </div>
+    <div class="w-full overflow-hidden">
+      <span class="relative block w-full">
+        <img src="/assets/portfolio/remove-background-light-portfolio.png" alt="Projekt high-fidelity portfolio - widok jasny" class="theme-icon-light w-full h-auto object-cover" loading="lazy" />
+        <img src="/assets/portfolio/remove-background-dark-portfolio.png" alt="Projekt high-fidelity portfolio - widok ciemny" class="theme-icon-dark w-full h-auto object-cover" loading="lazy" />
+      </span>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-[32px]" aria-labelledby="logo-title">
+    <div class="flex flex-col gap-[24px]">
+      <h3 id="logo-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Identyfikacja wizualna - logo i ikona</h3>
+      <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
+      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+        Dwa elementy, które na pierwszy rzut oka mogą wyglądać jak detal, ale mają swoje drugie dno. W logo użyłam fontu <strong>Geist Pixel</strong>, a ikonę w footerze stworzyłam samodzielnie. Pikselowe podejście do obu elementów ma odzwierciedlać moją naturę "pixel perfect" - dbałość o każdy detal, precyzję i świadomość skali. To mały sygnał skierowany do tych, którzy patrzą uważnie.
+      </p>
+    </div>
+    <div class="w-full overflow-hidden">
+      <span class="relative block w-full">
+        <img src="/assets/portfolio/icon-logo-light-portfolio.png" alt="Logo i ikona portfolio - wersja jasna" class="theme-icon-light w-full h-auto object-cover" loading="lazy" />
+        <img src="/assets/portfolio/icon-logo-dark-portfolio.png" alt="Logo i ikona portfolio - wersja ciemna" class="theme-icon-dark w-full h-auto object-cover" loading="lazy" />
+      </span>
+    </div>
+  </section>
+
+  <section class="flex flex-col gap-[24px]" aria-labelledby="menu-title">
+    <h3 id="menu-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Menu</h3>
+    <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
+    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+      Zdecydowałam się na klasyczne menu z lekkim twistem przy aktywacji danej podstrony. Aktywna zakładka nie zmienia koloru ani grubości, zmienia <strong>wielkość</strong>. Dzięki temu sama animacja przejścia na kolejne podstrony jest ciekawa, a dosyć prosta strona zyskuje trochę więcej życia. Zastosowałam je zarówno w wersji desktopowej, jak i mobilnej. Jest to na tyle subtelny zabieg, że nie rozprasza, ale na tyle nieoczywiste, że pozostaje w pamięci.
+    </p>
+  </section>
+
+  <section class="flex flex-col gap-[24px]" aria-labelledby="implementation-title">
+    <h3 id="implementation-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Implementacja</h3>
+    <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
+    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+      Implementację prowadziłam iteracyjnie, przeplatając pracę w Figmie z kodowaniem. Nie czekałam, aż design będzie w 100% gotowy, zanim zacznę implementację. Na bieżąco sprawdzałam, jak decyzje projektowe działają w przeglądarce i wracałam do Figmy z wnioskami.
+    </p>
+    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+      Do budowy strony zdecydowałam się użyć <strong>Astro</strong>, przede wszystkim ze względu na wbudowaną funkcjonalność <strong>View Transitions</strong>. Zależało mi na tym, żeby przejścia między podstronami były płynne, bez mignięcia przy ładowaniu. View Transitions pozwalają animować przejście między podstronami tak, jakby cała strona była jedną aplikacją, a nie zbiorem osobnych podstron. Podczas developmentu używałam <strong>Claude Code</strong>, <strong>Codex</strong> i <strong>Cursor'a</strong>, a dzięki technologii <strong>MCP</strong> mogłam "pokazać" AI, jaki efekt chcę osiągnąć, bez pisania długich opisów tekstowych.
+    </p>
+  </section>
+</section>
+
+<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[48px]" aria-labelledby="challenges-title">
+  <div class="flex flex-col gap-[24px]">
+    <h2 id="challenges-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Wyzwania</h2>
+    <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
+  </div>
+
+  <div class="flex flex-col gap-[24px]">
+    {challenges.map((challenge) => (
+      <article class="rounded-[12px] border border-[var(--color-border)] bg-[var(--color-foreground)] px-[20px] py-[28px]">
+        <div class="flex flex-col gap-[20px] lg:flex-row lg:items-center lg:gap-[24px]">
+          <TablerIcon name={challenge.icon} class="size-[56px] text-[var(--color-text)]" />
+          <div class="flex-1">
+            <h3 class="text-[20px] leading-[28px] lg:text-[22px] lg:leading-[28px] text-[var(--color-text)]">{challenge.title}</h3>
+            <p class="mt-[20px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">{challenge.description}</p>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[48px]" aria-labelledby="results-title">
+  <div class="flex flex-col gap-[24px]">
+    <h2 id="results-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Efekty</h2>
+    <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
+    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+      Cały projekt, od moodboardu do wdrożonej strony, zamknęłam w 3 tygodnie. Wyniki Lighthouse potwierdziły, że krótki czas realizacji nie poszedł kosztem jakości: <strong>97/100 Performance</strong>, <strong>100/100 Accessibility</strong>, <strong>96/100 Best Practices</strong>, <strong>100/100 SEO</strong>. Portfolio traktuję jako żywy projekt. Wracam do niego regularnie, aktualizuję projekty i rozwijam treści w miarę jak zmienia się moje doświadczenie.
+    </p>
+  </div>
+  <div class="w-full overflow-hidden">
+    <img src="/assets/portfolio/lighthouse-portfolio.png" alt="Wyniki Lighthouse dla szczecinska.design" class="w-full h-auto object-cover" loading="lazy" />
+  </div>
+</section>
+
+<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="learnings-title">
+  <h2 id="learnings-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Czego się nauczyłam?</h2>
+  <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
+  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+    Projektowanie własnego portfolio to zupełnie inne doświadczenie niż praca dla klienta. Brak zewnętrznych ograniczeń, które zwykle pomagają w podejmowaniu decyzji, sprawia, że łatwo wpaść w pułapkę nieskończonych iteracji. Dzięki temu projektowi nauczyłam się wyznaczać granice tam, gdzie nikt inny ich nie wyznaczy.
+  </p>
+  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+    Ten projekt utwierdził mnie też w przekonaniu, że detal naprawdę ma znaczenie. Pikselowe logo i ikona, zmiana wielkości w menu, płynna animacja przejścia - to rzeczy, które na pierwszy rzut oka nie są zauważalne, ale razem budują charakter strony i mówią coś o podejściu do pracy. To samo dotyczy procesu: iteracyjne przeplatanie designu z implementacją okazało się bardzo efektywnym modelem. Kiedy decyzje podjęte w Figmie okazywały się trudne do zrealizowania w przeglądarce, bez problemu mogłam szybko wprowadzać zmiany.
+  </p>
+  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+    Samodzielne przejście od moodboardu do działającej strony pokazało mi też, jak bardzo zmieniły się możliwości pracy designera. Technologia MCP i narzędzia AI pozwalają skrócić dystans między stworzeniem makiety a realizacją w sposób, który jeszcze kilka lat temu wymagałby wiedzy developerskiej lub współpracy z programistą. Przy aktualnej technologii jestem w stanie przeprowadzić cały proces samodzielnie.
+  </p>
+</section>
