@@ -69,12 +69,12 @@ wdrażam"
         featuredProjects.map((project) => {
           const isComingSoon = Boolean(project.comingSoon);
           const transitionKey = isComingSoon ? undefined : project.slug;
+          const CardTag = isComingSoon ? "span" : "a";
 
           return (
             <article aria-labelledby={`home-work-title-${project.slug}`}>
-              <a
-                href={isComingSoon ? undefined : `/work/${project.slug}`}
-                aria-disabled={isComingSoon ? "true" : undefined}
+              <CardTag
+                {...(!isComingSoon ? { href: `/work/${project.slug}` } : {})}
                 class:list={[
                   "group flex flex-col gap-[32px]",
                   isComingSoon ? "cursor-default" : "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]",
@@ -119,7 +119,7 @@ wdrażam"
 
                   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0] text-[var(--color-text)]">{project.description}</p>
                 </div>
-              </a>
+              </CardTag>
             </article>
           );
         })

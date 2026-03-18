@@ -67,8 +67,65 @@ import SpeedInsights from "@vercel/speed-insights/astro";
         applyThemeToRoot(document.documentElement);
       }
 
+      const PROJECT_SCROLL_STATE_KEY = "__portfolioProjectScrollState";
+
+      function isProjectDetailPath(pathname) {
+        return /^\/(?:work|project)\/[^/]+\/?$/.test(pathname);
+      }
+
+      function canRestoreProjectScroll(pathname) {
+        return pathname === "/" || pathname === "/work";
+      }
+
+      function saveProjectScrollPosition(link) {
+        if (!(link instanceof HTMLAnchorElement)) return;
+
+        const currentPath = window.location.pathname;
+        const targetPath = new URL(link.href, window.location.origin).pathname;
+
+        if (!canRestoreProjectScroll(currentPath) || !isProjectDetailPath(targetPath)) return;
+
+        sessionStorage.setItem(
+          PROJECT_SCROLL_STATE_KEY,
+          JSON.stringify({
+            path: currentPath,
+            scrollY: window.scrollY,
+          }),
+        );
+      }
+
+      function restoreProjectScrollPosition() {
+        const rawState = sessionStorage.getItem(PROJECT_SCROLL_STATE_KEY);
+        if (!rawState) return;
+
+        try {
+          const state = JSON.parse(rawState);
+          if (state?.path !== window.location.pathname || typeof state?.scrollY !== "number") return;
+
+          sessionStorage.removeItem(PROJECT_SCROLL_STATE_KEY);
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              window.scrollTo({ top: state.scrollY, behavior: "auto" });
+            });
+          });
+        } catch {
+          sessionStorage.removeItem(PROJECT_SCROLL_STATE_KEY);
+        }
+      }
+
       // Apply on initial load
       applyTheme();
+      restoreProjectScrollPosition();
+
+      document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+
+        const link = target.closest("a[href]");
+        if (!(link instanceof HTMLAnchorElement)) return;
+
+        saveProjectScrollPosition(link);
+      });
 
       // Apply to current and incoming document before swap to avoid theme flash
       document.addEventListener("astro:before-swap", (event) => {
@@ -78,7 +135,10 @@ import SpeedInsights from "@vercel/speed-insights/astro";
           applyThemeToRoot(incomingRoot);
         }
       });
-      document.addEventListener("astro:after-swap", applyTheme);
+      document.addEventListener("astro:after-swap", () => {
+        applyTheme();
+        restoreProjectScrollPosition();
+      });
     </script>
     <Analytics />
     <SpeedInsights />

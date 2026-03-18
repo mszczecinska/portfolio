@@ -19,12 +19,12 @@ const projects = getAllProjects();
         const reverseOnDesktop = index % 2 === 1;
         const isComingSoon = Boolean(project.comingSoon);
         const transitionKey = isComingSoon ? undefined : project.slug;
+        const CardTag = isComingSoon ? "span" : "a";
 
         return (
           <article class="w-full" aria-labelledby={`work-title-${project.slug}`}>
-            <a
-              href={isComingSoon ? undefined : `/work/${project.slug}`}
-              aria-disabled={isComingSoon ? "true" : undefined}
+            <CardTag
+              {...(!isComingSoon ? { href: `/work/${project.slug}` } : {})}
               class:list={[
                 "group flex flex-col gap-[28px] md:flex-row md:items-center md:gap-[40px] lg:gap-[52px]",
                 isComingSoon ? "cursor-default" : "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]",
@@ -91,7 +91,7 @@ const projects = getAllProjects();
                   )}
                 </div>
               </div>
-            </a>
+            </CardTag>
           </article>
         );
       })
