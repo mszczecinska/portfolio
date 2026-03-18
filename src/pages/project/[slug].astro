@@ -2,9 +2,11 @@
 import { getAllProjects } from "../../lib/projects";
 
 export function getStaticPaths() {
-  return getAllProjects().map((project) => ({
+  return getAllProjects()
+    .filter((project) => !project.comingSoon)
+    .map((project) => ({
     params: { slug: project.slug },
-  }));
+    }));
 }
 
 const { slug } = Astro.params;

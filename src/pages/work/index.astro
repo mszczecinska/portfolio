@@ -17,13 +17,19 @@ const projects = getAllProjects();
     {
       projects.map((project, index) => {
         const reverseOnDesktop = index % 2 === 1;
+        const isComingSoon = Boolean(project.comingSoon);
+        const transitionKey = isComingSoon ? undefined : project.slug;
 
         return (
           <article class="w-full" aria-labelledby={`work-title-${project.slug}`}>
             <a
-              href={`/work/${project.slug}`}
-              class="group flex flex-col gap-[28px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)] md:flex-row md:items-center md:gap-[28px] lg:gap-[34px]"
-              transition:name={`work-${project.slug}-card`}
+              href={isComingSoon ? undefined : `/work/${project.slug}`}
+              aria-disabled={isComingSoon ? "true" : undefined}
+              class:list={[
+                "group flex flex-col gap-[28px] md:flex-row md:items-center md:gap-[40px] lg:gap-[52px]",
+                isComingSoon ? "cursor-default" : "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]",
+              ]}
+              transition:name={transitionKey ? `work-${transitionKey}-card` : undefined}
             >
               <div
                 class:list={[
@@ -36,7 +42,7 @@ const projects = getAllProjects();
                   alt={`Podgląd projektu ${project.title}`}
                   class="size-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.01]"
                   loading="lazy"
-                  transition:name={`work-${project.slug}-image`}
+                  transition:name={transitionKey ? `work-${transitionKey}-image` : undefined}
                 />
               </div>
 
@@ -53,7 +59,7 @@ const projects = getAllProjects();
                     <h2
                       id={`work-title-${project.slug}`}
                       class="text-[28px] leading-[1.2] tracking-[0] text-[var(--color-text)] md:text-[26px] lg:text-[24px] lg:leading-[44px]"
-                      transition:name={`work-${project.slug}-title`}
+                      transition:name={transitionKey ? `work-${transitionKey}-title` : undefined}
                     >
                       {project.title}
                     </h2>
@@ -63,7 +69,7 @@ const projects = getAllProjects();
                         project.tags.map((tag, tagIndex) => (
                           <li
                             class="rounded-[5555px] border border-[var(--color-border)] px-[12px] py-[8px] text-[12px] leading-[16px] tracking-[0.25px] text-[var(--color-text)]"
-                            transition:name={`work-${project.slug}-tag-${tagIndex}`}
+                            transition:name={transitionKey ? `work-${transitionKey}-tag-${tagIndex}` : undefined}
                           >
                             {tag}
                           </li>
@@ -78,9 +84,11 @@ const projects = getAllProjects();
                     {project.description}
                   </p>
 
-                  <span class="btn-primary w-fit px-[24px] py-[14px] text-[14px] lg:text-[16px] font-medium leading-[20px]">
-                    Zobacz więcej
-                  </span>
+                  {!isComingSoon && (
+                    <span class="btn-primary w-fit px-[24px] py-[14px] text-[14px] lg:text-[16px] font-semibold leading-[20px]">
+                      Zobacz więcej
+                    </span>
+                  )}
                 </div>
               </div>
             </a>

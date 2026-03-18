@@ -34,7 +34,7 @@ export default function GreetingMessage() {
   return (
     <div className="text-center py-4">
       <p className="text-lg text-[var(--color-text-muted)]">
-        {greeting} — {time}
+        {greeting} - {time}
       </p>
     </div>
   );
