@@ -5,6 +5,7 @@ export interface Project {
   image: string;
   tags: string[];
   content: string;
+  comingSoon?: boolean;
   links?: {
     live?: string;
     github?: string;
@@ -12,6 +13,17 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    slug: "multiplatform-design-system",
+    title: "Multiplatform design system",
+    description:
+      " Comming soon...",
+    image: "/assets/multiplatform/multi-work.png",
+    tags: ["UI Design", "Design system", "Web", "E-commerce"],
+    content:
+      "Portfolio to jeden z trudniejszych projektów, jakie mogę sobie zlecić. Jest jednocześnie produktem i wizytówką, a każda decyzja projektowa staje się od razu dowodem na to, jak myślę o designie.",
+    comingSoon: true,
+  },
   {
     slug: "szczecinska-design-portfolio",
     title: "szczecinska.design - case study portfolio",

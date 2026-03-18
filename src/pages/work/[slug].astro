@@ -4,10 +4,12 @@ import TablerIcon from "../../components/TablerIcon.astro";
 import { getAllProjects } from "../../lib/projects";
 
 export function getStaticPaths() {
-  return getAllProjects().map((project) => ({
+  return getAllProjects()
+    .filter((project) => !project.comingSoon)
+    .map((project) => ({
     params: { slug: project.slug },
     props: { project },
-  }));
+    }));
 }
 
 const { project } = Astro.props;
