@@ -157,7 +157,7 @@ function getDarkIconSrc(src: string): string | undefined {
       transition:name="about-profile-photo"
     />
 
-    <div class="about-intro-content w-full md:max-w-[560px] lg:w-[688px]">
+    <div class="about-intro-content w-full md:max-w-[560px] lg:max-w-none lg:w-[688px]">
       <div class="flex flex-col gap-[64px]">
         <div class="flex flex-col gap-[24px]">
           <div class="flex items-center gap-[10px] md:justify-center lg:justify-start">
@@ -211,7 +211,7 @@ function getDarkIconSrc(src: string): string | undefined {
                       column.tools.map((tool) => (
                         <li>
                           <div class="flex items-center gap-[12px] rounded-[12px] border border-[var(--color-border)] px-[16px] py-[14px]">
-                            <span class="inline-flex size-[40px] items-center justify-center rounded-[8px] bg-[var(--color-surface)] p-[8px]">
+                            <span class="inline-flex size-[40px] shrink-0 items-center justify-center rounded-[8px] bg-[var(--color-surface)] p-[8px]">
                               {
                                 getDarkIconSrc(tool.icon) ? (
                                   <>
@@ -476,37 +476,44 @@ function getDarkIconSrc(src: string): string | undefined {
 
     .about-intro-desktop .about-intro-photo,
     .about-intro-desktop .about-intro-content {
-      opacity: 0;
       transition:
         opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
         transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
       will-change: opacity, transform;
     }
 
-    .about-intro-desktop .about-intro-photo {
+    :global(html.about-animations-ready) .about-intro-desktop .about-intro-photo,
+    :global(html.about-animations-ready) .about-intro-desktop .about-intro-content {
+      opacity: 0;
+    }
+
+    :global(html.about-animations-ready) .about-intro-desktop .about-intro-photo {
       transform: translateX(30px);
     }
 
-    .about-intro-desktop .about-intro-content {
+    :global(html.about-animations-ready) .about-intro-desktop .about-intro-content {
       transform: translateX(-30px);
     }
 
-    .about-intro-desktop.is-visible .about-intro-photo,
-    .about-intro-desktop.is-visible .about-intro-content {
+    :global(html.about-animations-ready) .about-intro-desktop.is-visible .about-intro-photo,
+    :global(html.about-animations-ready) .about-intro-desktop.is-visible .about-intro-content {
       opacity: 1;
       transform: translateX(0);
     }
 
     .about-intro-mobile {
-      opacity: 0;
-      transform: translateY(14px) scale(0.99);
       transition:
         opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
         transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
       will-change: opacity, transform;
     }
 
-    .about-intro-mobile.is-visible {
+    :global(html.about-animations-ready) .about-intro-mobile {
+      opacity: 0;
+      transform: translateY(14px) scale(0.99);
+    }
+
+    :global(html.about-animations-ready) .about-intro-mobile.is-visible {
       opacity: 1;
       transform: translateY(0) scale(1);
     }
