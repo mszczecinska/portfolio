@@ -21,10 +21,10 @@ export const projects: Project[] = [
     image: "/assets/multiplatform/multi-work.png",
     tags: ["UI Design", "Design system", "Web", "E-commerce"],
     content:
-      "Portfolio to jeden z trudniejszych projektów, jakie mogę sobie zlecić. Jest jednocześnie produktem i wizytówką, a każda decyzja projektowa staje się od razu dowodem na to, jak myślę o designie.",
+      "Cse study proejktu design systemu dla dwóch platform e-commerce.",
     comingSoon: true,
     links: {
-      live: "https://www.figma.com/design/mEABLW7h4I8OAZ3RWlDhz2/multiplatrform_preview?node-id=3676-16",
+      live: "https://www.figma.com/design/Ggr7GFMPPOK58bETbzztxC/multiplatform_preview?node-id=3676-16",
     },
   },
   {
