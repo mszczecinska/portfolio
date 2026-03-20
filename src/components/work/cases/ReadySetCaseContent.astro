@@ -266,8 +266,8 @@ const successMetrics = [
     <h2 id="design-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Decyzje projektowe i ekrany</h2>
   </div>
   <div class="h-px w-full bg-[var(--color-border)]"></div>
-
-  <section class="flex flex-col gap-[40px]" aria-labelledby="home-screen-title">
+  <div class="flex flex-col gap-[48px] lg:gap-[64px]">
+  <section class="flex flex-col gap-[32px]" aria-labelledby="home-screen-title">
     <div class="flex flex-col gap-[24px]">
       <h3 id="home-screen-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Ekran domowy</h3>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Na ekranie domowym użytkownika korzystającego z aplikacji możemy wyróżnić sekcje wyjazdów aktywnych oraz zarchiwizowanych. Z tego poziomu użytkownik ma możliwość stworzenia nowego wyjazdu i przejścia do aktywnych bądź zakończonych. Nowi użytkownicy otrzymują informację o braku wyjazdów i komunikat CTA o stworzeniu nowego wyjazdu. Proces tworzenia wyjazdu jest taki sam niezależnie od użytkownika.</p>
@@ -277,7 +277,7 @@ const successMetrics = [
     </div>
   </section>
 
-  <section class="flex flex-col gap-[40px]" aria-labelledby="dashboard-title">
+  <section class="flex flex-col gap-[32px]" aria-labelledby="dashboard-title">
     <div class="flex flex-col gap-[24px]">
       <h3 id="dashboard-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Dashboard wyjazdu</h3>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Widok wyjazdu jest głównym ekranem wyjazdu. Z poziomu tego widoku użytkownik może zarządzać całym wyjazdem, jego kategoriami, opcjami kategorii czy zaproszonymi osobami. Zamiast niekończącej się listy, zastosowałam kafelki kategorii, które od razu pokazują status. Dodatkowo użytkownik może eksportować gotowy plan jako gotowy plik PDF z całym planem i informacjami o danych opcjach.</p>
@@ -287,7 +287,7 @@ const successMetrics = [
     </div>
   </section>
 
-  <section class="flex flex-col gap-[40px]" aria-labelledby="options-title">
+  <section class="flex flex-col gap-[32px]" aria-labelledby="options-title">
     <div class="flex flex-col gap-[24px]">
       <h3 id="options-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Dodawanie opcji</h3>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Użytkownik ma możliwość dodania opcji na etapie tworzenia kategorii lub po jej utworzeniu. Podczas dodawania kolejnych np. hoteli wyświetlany jest modal, który pozwala użytkownikowi natychmiast wrócić do widoku kategorii jeśli zmieni zdanie. Samo dodanie opcji polega głównie na wklejeniu linku, a aplikacja automatycznie zaciągnie zdjęcie i nazwę. To kluczowe dla szybkości dodawania propozycji.</p>
@@ -305,7 +305,7 @@ const successMetrics = [
     </div>
   </section>
 
-  <section class="flex flex-col gap-[40px]" aria-labelledby="schedule-title">
+  <section class="flex flex-col gap-[32px]" aria-labelledby="schedule-title">
     <div class="flex flex-col gap-[24px]">
       <h3 id="schedule-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Harmonogram</h3>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Po zakończeniu planowania, aplikacja generuje czysty, czytelny harmonogram.Dodatkowo zaprojektowałam funkcję "Pobierz PDF".</p>
@@ -314,6 +314,7 @@ const successMetrics = [
       <img src="/assets/ready-set/harmonogram-readyset.png" alt="Widok harmonogramu wyjazdu" class="size-full object-cover" loading="lazy" />
     </div>
   </section>
+  </div>
 </section>
 
 <section class="grid gap-[48px] lg:grid-cols-[467px_509px] lg:items-center lg:gap-[64px]" aria-labelledby="style-title">

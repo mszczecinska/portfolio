@@ -17,12 +17,15 @@ export const projects: Project[] = [
     slug: "multiplatform-design-system",
     title: "Multiplatform design system",
     description:
-      " Comming soon...",
+      "Coming soon... ale już teraz możesz zobaczyć preview projektu.",
     image: "/assets/multiplatform/multi-work.png",
     tags: ["UI Design", "Design system", "Web", "E-commerce"],
     content:
       "Portfolio to jeden z trudniejszych projektów, jakie mogę sobie zlecić. Jest jednocześnie produktem i wizytówką, a każda decyzja projektowa staje się od razu dowodem na to, jak myślę o designie.",
     comingSoon: true,
+    links: {
+      live: "https://www.figma.com/design/mEABLW7h4I8OAZ3RWlDhz2/multiplatrform_preview?node-id=3676-16",
+    },
   },
   {
     slug: "szczecinska-design-portfolio",

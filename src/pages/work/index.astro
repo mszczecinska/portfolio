@@ -84,6 +84,17 @@ const projects = getAllProjects();
                     {project.description}
                   </p>
 
+                  {isComingSoon && project.links?.live && (
+                    <a
+                      href={project.links.live}
+                      target="_blank"
+                      rel="noreferrer"
+                      class="w-fit text-[14px] lg:text-[16px] font-semibold leading-[24px] text-[var(--color-accent)] underline underline-offset-4"
+                    >
+                      Zobacz preview
+                    </a>
+                  )}
+
                   {!isComingSoon && (
                     <span class="btn-primary w-fit px-[24px] py-[14px] text-[14px] lg:text-[16px] font-semibold leading-[20px]">
                       Zobacz więcej
