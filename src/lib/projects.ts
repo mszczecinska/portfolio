@@ -33,7 +33,7 @@ export const projects: Project[] = [
     description:
       "  Opis procesu projektowania i budowania portfolio od podstaw. Od pierwszych inspiracji i szkiców, przez makietę, po wdrwdroenie strony.",
     image: "/assets/portfolio/portfolio-work.png",
-    tags: ["UX/UI Design", "Development", "Web"],
+    tags: ["UX/UI Design", "Development", "Web", "Motion Design"],
     content:
       "Portfolio to jeden z trudniejszych projektów, jakie mogę sobie zlecić. Jest jednocześnie produktem i wizytówką, a każda decyzja projektowa staje się od razu dowodem na to, jak myślę o designie.",
   },
