@@ -14,6 +14,7 @@ const tools = [
   { src: "/icons/tool-jitter.png", alt: "Jitter" },
   { src: "/icons/tool-cursor.svg", alt: "Cursor" },
   { src: "/icons/tool-claude-code.png", alt: "Claude Code" },
+  { src: "/icons/tool-vercel.svg", alt: "Vercel" },
 ] as const;
 ---
 
@@ -26,6 +27,7 @@ const tools = [
   primaryMetaLabel="Rola"
   primaryMetaValue="Product engineer"
   projectType="Komercyjny"
+  toolsCompact={true}
 >
   <MiropoixCaseContent liveUrl={project.links?.live} />
 </WorkCaseShell>
