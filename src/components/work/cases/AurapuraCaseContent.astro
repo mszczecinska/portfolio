@@ -5,69 +5,51 @@ const nextSteps = [
   {
     icon: "users-group",
     title: "Zasady współpracy z systemem",
-    description: "Ustaliłabym kto i jak może dodawać nowe komponenty, jak wygląda zgłaszanie potrzeb i kto zatwierdza zmiany. Czy system prowadzi jeden zespół, czy każdy zespół produktowy może dorzucać swoje komponenty. To ma ogromne znaczenie dla tego, jak system się skaluje i działa.",
+    description: "Ustaliłabym, kto dodaje komponenty, kto zatwierdza zmiany i jak zespoły zgłaszają potrzeby. Bez takich zasad system szybko traci spójność.",
   },
   {
     icon: "file-description",
     title: "Dokumentacja komponentów",
-    description: "Każdy komponent opisałabym tak, żeby nowa osoba w zespole wiedziała do czego służy, jakie ma warianty, kiedy go użyć, a kiedy lepiej sięgnąć po coś innego. Do tego wytyczne dostępności oraz konkretne przykłady dobrych i złych zastosowań. Osobno dla designerów, osobno dla developerów.",
+    description: "Opisałabym zastosowanie, warianty, dostępność i przykłady użycia komponentów, osobno z perspektywy designu i developmentu.",
   },
   {
     icon: "puzzle",
     title: "Uzupełnienie brakujących komponentów",
-    description: "Wykonałabym audyt dzięki któremu ustaliłabym jakich elementów brakuje, które powtarzają się najczęściej w produkcie, i od nich bym zaczęła. Nie budując wszystkiego na raz, tylko priorytetyzując po realnych potrzebach zespołu.",
+    description: "Zaczęłabym od audytu braków i powtarzających się wzorców, a potem priorytetyzowała komponenty według realnego użycia, nie ambicji zbudowania wszystkiego naraz.",
   },
   {
     icon: "git-branch",
     title: "Wersjonowanie i informowanie o zmianach",
-    description: "Wprowadziłabym numerowanie wersji i listę zmian przy każdym uaktualnieniu, żeby zespoły wiedziały co się zmieniło i czy update coś im zepsuje. Plus synchronizacja wersji między Figmą a kodem.",
+    description: "Dodałabym wersjonowanie, changelog i synchronizację zmian między Figmą a kodem, żeby zespoły wiedziały, co zmienia aktualizacja.",
   },
   {
     icon: "chart-bar",
     title: "Mierzenie czy system działa",
-    description: "Samo zbudowanie DS nie wystarczy - trzeba wiedzieć, czy ludzie z niego korzystają. Śledziłabym ile UI jest pokryte systemem, jak często ktoś odłącza komponent w Figmie zamiast go użyć i jak szybko nowe osoby się wdrażają.",
+    description: "Sprawdzałabym pokrycie UI systemem, odłączanie komponentów w Figmie i czas wdrażania nowych osób. To pokazuje, czy system naprawdę pomaga.",
   },
   {
     icon: "arrows-exchange",
     title: "Spójność między designem a kodem",
-    description: "Zadbałabym o to, żeby nazwy tokenów w Figmie odpowiadały zmiennym w kodzie 1:1. Dzięki temu designer i developer mówią tym samym językiem, a zmiany w tokenach przechodzą płynnie z designu do implementacji.",
+    description: "Nazwy tokenów w Figmie powinny odpowiadać zmiennym w kodzie 1:1. Dzięki temu designer i developer pracują na tym samym języku systemu.",
   },
 ] as const;
 ---
-
-<section class="grid gap-[48px] lg:grid-cols-[509px_467px] lg:items-center lg:gap-[64px]" aria-labelledby="goal-title">
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="goal-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Cel</h2>
-    <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Przejście przez cały proces tworzenia design systemu od podstaw. Od zdefiniowania core tokenów (kolory, typografia, spacing itd.) przez
-      budowę komponentów i ich dokumentację, aż po ich zastosowanie w konkretnych layoutach. Chciałam przejść przez każdy etap tego procesu, żeby lepiej zrozumieć jak decyzje na poziomie fundamentów wpływają na cały system.
-    </p>
-  </div>
-  <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[467px]">
-    <img src="/assets/aurapura/mac-mockup.png" alt="Makieta desktopowa projektu AuraPura" class="size-full object-cover" loading="lazy" />
-  </div>
-</section>
 
 <section class="mx-auto flex w-full max-w-[1040px] flex-col gap-[24px]" aria-labelledby="process-title">
   <h2 id="process-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Proces</h2>
   <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Pracę zaczęłam od analizy briefu i assetów marki, z których wyciągnęłam paletę kolorów, styl typografii i ogólny kierunek wizualny.
-    Następnie zbudowałam system od fundamentów, opierając go na podziale między <strong>core tokenami</strong> (surowe wartości, np.
-    konkretne odcienie kolorów) a <strong>alias tokenami</strong> (znaczenie w kontekście interfejsu, np.
-    <code>background-primary</code>, <code>text-error</code>). Ten podział pozwala zmieniać wartości na poziomie core, nie ruszając logiki
-    komponentów, które odwołują się tylko do aliasów. Na tokenach zbudowałam komponenty wielokrotnego użytku.
+    Z briefu i assetów marki wyciągnęłam paletę, typografię i kierunek wizualny, a potem przełożyłam je na strukturę tokenów. System oparłam na podziale na <strong>core tokeny</strong> i <strong>alias tokeny</strong>, żeby zmiany wartości nie psuły logiki komponentów.
   </p>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Kluczowym elementem projektu było wykorzystanie <strong>Figma variables</strong> w dwóch rolach:
+    <strong>Figma variables</strong> wykorzystałam w dwóch rolach:
   </p>
   <ol class="list-decimal pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
     <li>Do obsługi <strong>themingu</strong> (np. warianty kolorystyczne),</li>
     <li>Do <strong>dostosowania komponentów do różnych breakpointów</strong>.</li>
   </ol>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Dzięki temu komponenty automatycznie adaptowały się do widoku mobile, tablet i desktop bez konieczności tworzenia osobnych wersji.
+    Dzięki temu komponenty mogły adaptować się do mobile, tablet i desktop bez tworzenia osobnych wersji każdego wariantu.
   </p>
 </section>
 
@@ -84,14 +66,10 @@ const nextSteps = [
     <h2 id="learnings-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Czego się nauczyłam?</h2>
     <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Przede wszystkim tego, jak dużo pracy kryje się za design systemem. Samodzielne przejście przez cały proces, od tokenów do
-      gotowych ekranów, uświadomiło mi, jak ważna jest spójność na każdym poziomie i jak decyzje podjęte na samym początku wpływają na
-      kolejne działania. Cały projekt pozwolił mi lepiej zrozumieć podstawy budowania systemów projektowych i ich wartość dla całego
-      zespołu.
+      Najważniejszą lekcją było to, że design system zaczyna się długo przed komponentami. Decyzje o tokenach, nazewnictwie i strukturze wpływają później na każdy widok.
     </p>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Drugą kluczową lekcją było wykorzystanie <strong>Figma variables</strong> do zarządzania zarówno motywem, jak i responsywnością komponentów. To podejście pozwoliło mi budować system, który skaluje się bez chaosu, a ewentualne zmiany można wprowadzać globalnie bez
-      potrzeby kontrolowania poszczególnych komponentów.
+      Drugą lekcją było użycie <strong>Figma variables</strong> nie tylko do kolorów, ale też do responsywności. To podejście pozwala skalować system bez mnożenia wariantów.
     </p>
   </div>
 </section>
@@ -116,10 +94,7 @@ const nextSteps = [
   <h2 id="next-steps-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Co zrobiłabym dalej?</h2>
   <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Projekt kursowy pozwolił mi przejść przez fundament budowania design systemu. Ale design system
-    to nie tylko ładna biblioteka komponentów - <strong>to produkt</strong>, który wymaga strategii, procesów i ciągłego
-    utrzymania. Gdybym rozwijała Aurapurę jako realny system, skupiłabym się na kilku kluczowych
-    obszarach
+    Gdybym rozwijała Aurapurę jako realny system, potraktowałabym go jak produkt, nie tylko bibliotekę komponentów. Najważniejsze byłyby procesy, dokumentacja i mierzenie użycia.
   </p>
 
   <div class="flex flex-col gap-[24px]">
