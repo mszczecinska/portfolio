@@ -3,13 +3,13 @@ import Layout from "../layouts/Layout.astro";
 import TablerIcon from "../components/TablerIcon.astro";
 
 const introDesktop = [
-  "W swoich projektach łączę estetykę z użytecznością, dbając o to, aby interfejsy były nie tylko dopracowane wizualnie, ale także przejrzyste i intuicyjne. Pracuję głównie w Figmie - od pierwszych szkiców po wdrożenie gotowych widoków z pomocą AI.",
-  "Aktywnie rozwijam się w obszarze design systemów. Tworzenie spójnych i skalowalnych fundamentów produktu to coś, w czym szczególnie chciałabym się rozwijać. Jestem otwarta na feedback i stale poszerzam kompetencje, bo świadomość tego, ile jeszcze mogę się nauczyć, bardzo mnie motywuje. Inspiracji szukam też poza designem m.in. w modzie i kinematografii.",
+  "Jestem projektantką UI/UX, która lubi dowozić rzeczy do końca. Pracuję w Figmie, ale myślę też o tym, jak projekt zachowa się w przeglądarce: w responsywności, animacji, komponentach i realnym użyciu.",
+  "Najmocniej rozwijam się w obszarze design systemów i wdrażania interfejsów z pomocą AI. Lubię porządkować złożone pomysły, budować spójne fundamenty produktu i dopracowywać detale, które sprawiają, że gotowy projekt działa tak dobrze, jak wygląda. Inspiracji szukam też poza designem, m.in. w modzie i kinematografii.",
 ];
 
 const introMobile = [
-  "W swoich projektach łączę estetykę z użytecznością, dbając o to, aby interfejsy były nie tylko dopracowane wizualnie, ale także przejrzyste i intuicyjne. Pracuję głównie w Figmie - od pierwszych szkiców po wdrożenie gotowych widoków z pomocą AI.",
-  "Aktywnie rozwijam się w obszarze design systemów. Tworzenie spójnych i skalowalnych fundamentów produktu to coś, w czym szczególnie chciałabym się rozwijać. Jestem otwarta na feedback i stale poszerzam kompetencje, bo świadomość tego, ile jeszcze mogę się nauczyć, bardzo mnie motywuje. Inspiracji szukam też poza designem m.in. w modzie i kinematografii.",
+  "Jestem projektantką UI/UX, która lubi dowozić rzeczy do końca. Pracuję w Figmie, ale myślę też o tym, jak projekt zachowa się w przeglądarce: w responsywności, animacji, komponentach i realnym użyciu.",
+  "Najmocniej rozwijam się w obszarze design systemów i wdrażania interfejsów z pomocą AI. Lubię porządkować złożone pomysły, budować spójne fundamenty produktu i dopracowywać detale, które sprawiają, że gotowy projekt działa tak dobrze, jak wygląda. Inspiracji szukam też poza designem, m.in. w modzie i kinematografii.",
 ];
 
 const socialLinks = [
@@ -553,15 +553,12 @@ function getDarkIconSrc(src: string): string | undefined {
       transition: border-color 220ms ease;
     }
 
-    .testimonial-card-desktop {
-      min-height: 352px;
+    .testimonial-card.has-reference-height {
+      min-height: var(--testimonial-reference-card-height);
     }
 
-    .testimonial-card-mobile {
-      min-height: 286px;
-    }
-
-    .testimonial-card.is-collapsed {
+    .testimonial-card.has-reference-height.is-collapsed {
+      height: var(--testimonial-reference-card-height);
       overflow: clip;
     }
 
@@ -580,20 +577,86 @@ function getDarkIconSrc(src: string): string | undefined {
       const cardAnimationState = new WeakMap();
       const DURATION_MS = 360;
       const EASING = "cubic-bezier(0.16, 1, 0.3, 1)";
-      const STAN_NAME_PATTERN = /stan\b/i;
+      const REFERENCE_NAME_PATTERN = /^natalia$/i;
 
-      const stanQuoteLength = (() => {
+      const referenceQuoteLength = (() => {
         for (const card of cards) {
           if (!(card instanceof HTMLElement)) continue;
           const name = card.querySelector("[data-testimonial-name]");
           const quote = card.querySelector("[data-testimonial-quote]");
           if (!(name instanceof HTMLElement) || !(quote instanceof HTMLElement)) continue;
-          if (STAN_NAME_PATTERN.test(name.textContent?.trim() ?? "")) {
+          if (REFERENCE_NAME_PATTERN.test(name.textContent?.trim() ?? "")) {
             return (quote.textContent?.trim() ?? "").length;
           }
         }
         return 0;
       })();
+
+      function isReferenceCard(card) {
+        const name = card.querySelector("[data-testimonial-name]");
+        return name instanceof HTMLElement && REFERENCE_NAME_PATTERN.test(name.textContent?.trim() ?? "");
+      }
+
+      function getVisibleCards() {
+        return cards.filter((card) => card instanceof HTMLElement && card.offsetParent !== null);
+      }
+
+      function measureNaturalCardHeight(card) {
+        const quote = card.querySelector("[data-testimonial-quote]");
+        const wasCollapsed = card.classList.contains("is-collapsed");
+        const hadReferenceHeight = card.classList.contains("has-reference-height");
+        const previousCardHeight = card.style.height;
+        const previousReferenceHeight = card.style.getPropertyValue("--testimonial-reference-card-height");
+        const previousLineClamp = quote instanceof HTMLElement
+          ? quote.style.getPropertyValue("--testimonial-line-clamp")
+          : "";
+        const hadClampClass = quote instanceof HTMLElement && quote.classList.contains("is-dynamic-clamped");
+
+        card.classList.remove("is-collapsed", "has-reference-height");
+        card.style.removeProperty("height");
+        card.style.removeProperty("--testimonial-reference-card-height");
+
+        if (quote instanceof HTMLElement) {
+          quote.classList.remove("is-dynamic-clamped");
+          quote.style.removeProperty("--testimonial-line-clamp");
+        }
+
+        const height = Math.ceil(card.getBoundingClientRect().height);
+
+        card.classList.toggle("is-collapsed", wasCollapsed);
+        card.classList.toggle("has-reference-height", hadReferenceHeight);
+        card.style.height = previousCardHeight;
+
+        if (previousReferenceHeight) {
+          card.style.setProperty("--testimonial-reference-card-height", previousReferenceHeight);
+        }
+
+        if (quote instanceof HTMLElement) {
+          quote.classList.toggle("is-dynamic-clamped", hadClampClass);
+          if (previousLineClamp) {
+            quote.style.setProperty("--testimonial-line-clamp", previousLineClamp);
+          }
+        }
+
+        return height;
+      }
+
+      function getReferenceCardHeight(visibleCards) {
+        const referenceCard = visibleCards.find((card) => card instanceof HTMLElement && isReferenceCard(card));
+        if (!(referenceCard instanceof HTMLElement)) return 0;
+        return measureNaturalCardHeight(referenceCard);
+      }
+
+      function applyReferenceHeight(card, referenceHeight) {
+        if (referenceHeight > 0) {
+          card.style.setProperty("--testimonial-reference-card-height", `${referenceHeight}px`);
+          card.classList.add("has-reference-height");
+          return;
+        }
+
+        card.style.removeProperty("--testimonial-reference-card-height");
+        card.classList.remove("has-reference-height");
+      }
 
       function syncTestimonialCard(card) {
         if (!(card instanceof HTMLElement) || card.offsetParent === null) return;
@@ -602,7 +665,7 @@ function getDarkIconSrc(src: string): string | undefined {
         const toggle = card.querySelector("[data-testimonial-toggle]");
         if (!(quote instanceof HTMLElement) || !(toggle instanceof HTMLButtonElement)) return;
         const quoteLength = (quote.textContent?.trim() ?? "").length;
-        const canExpand = stanQuoteLength > 0 ? quoteLength > stanQuoteLength : false;
+        const canExpand = referenceQuoteLength > 0 ? quoteLength > referenceQuoteLength : false;
 
         if (!canExpand) {
           quote.style.removeProperty("--testimonial-line-clamp");
@@ -656,8 +719,12 @@ function getDarkIconSrc(src: string): string | undefined {
       }
 
       function syncAllTestimonialCards(excludedCard) {
-        cards.forEach((card) => {
+        const visibleCards = getVisibleCards();
+        const referenceHeight = getReferenceCardHeight(visibleCards);
+
+        visibleCards.forEach((card) => {
           if (excludedCard && card === excludedCard) return;
+          applyReferenceHeight(card, referenceHeight);
           syncTestimonialCard(card);
         });
       }

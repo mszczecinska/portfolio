@@ -16,13 +16,13 @@ const { liveUrl } = Astro.props;
   <section class="flex flex-col gap-[32px]" aria-labelledby="app-redesign-title">
     <h3 id="app-redesign-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Redesign aplikacji</h3>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Punktem wyjścia była istniejąca aplikacja oraz strona, które działały poprawnie, ale wizualnie były generyczne i nie budowały żadnych skojarzeń z branżą gastronomiczną. Brakowało im charakteru, który sprawiłby, że użytkownik rozpoznałby je i zapamiętał.
+      Punktem wyjścia była aplikacja, która działała poprawnie, ale wizualnie nie budowała skojarzeń z gastronomią. Redesign miał nadać produktowi charakter bez utraty czytelności potrzebnej w pracy kuchni.
     </p>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Podczas redesignu skupiłam się na kilku kluczowych obszarach. Przede wszystkim na zbudowaniu spójnej tożsamości wizualnej, która łączy profesjonalizm narzędzia SaaS z energią i dynamiką środowiska kuchennego. Zależało mi, aby aplikacja nie wyglądała jak kolejny nudny panel administracyjny, ale była czytelna i funkcjonalna dla kucharzy. Zdecydowałam się m.in. na powiększenie kluczowych przycisków (kucharze często mają brudne dłonie, a większe przyciski pozwalają łatwiej wykonać akcję), zmianę kolorów oraz dodanie animacji.
+      Kluczowe decyzje dotyczyły koloru, większych przycisków i animacji. Większe akcje miały praktyczny powód: kucharze często pracują szybko i nie zawsze w idealnych warunkach, więc interfejs musi być łatwy do trafienia.
     </p>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Zaprojektowałam kompletne widoki aplikacji obejmujące kluczowe ekrany, takie jak dodawanie produktów do listy, segregację zamówień według dostawców czy akceptację próśb innych kucharzy. Oprócz statycznych ekranów opracowałam animacje, które pojawiły się na landing page'u. Dodały one dynamiki i pomogły pokazać działanie aplikacji.
+      Zaprojektowałam kluczowe widoki: dodawanie produktów, segregację zamówień według dostawców i akceptację próśb. Animacje wykorzystałam na landing page'u, żeby szybciej pokazać mechanikę aplikacji.
     </p>
     <div class="overflow-hidden bg-transparent sm:h-auto sm:aspect-[432/271] lg:h-[542px]">
       <img src="/assets/miropoix/miropoix-before-after.png" aria-label="Animacja prezentująca redesign aplikacji Miropoix" class="size-full object-cover" loading="lazy" />
@@ -40,8 +40,7 @@ const { liveUrl } = Astro.props;
   <section class="flex flex-col gap-[32px]" aria-labelledby="website-title">
     <h3 id="website-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Strona internetowa</h3>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Równolegle z redesignem widoków stworzyłam stronę internetową, która pełniła rolę głównego punktu styku z potencjalnymi użytkownikami. Współpracowałam z analitykiem i UX designerem. Został mi dostarczony wireframe układu landing page'a oraz teksty, a moim zadaniem było opracowanie designu, implementacja i animacje.
-      Do budowy strony wybrałam stack technologiczny oparty na <strong>Vite</strong>, <strong>React</strong> i <strong>Tailwind CSS</strong>. Dodatkowo wykorzystałam technologię <strong>MCP</strong>, dzięki której mogłam „pokazać" AI, jaki efekt chcę osiągnąć bez wysyłania zdjęć poglądowych i pisania długich promptów.
+      Równolegle przygotowałam landing page na bazie dostarczonego wireframe'u i tekstów. Moja odpowiedzialność obejmowała design, animacje i wdrożenie w stacku <strong>Vite</strong>, <strong>React</strong> i <strong>Tailwind CSS</strong>.
     </p>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
       <strong>Live:</strong>
@@ -70,12 +69,12 @@ const { liveUrl } = Astro.props;
   </div>
   <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Ten projekt pokazał mi, jak duży wpływ na odbiór produktu ma spójna tożsamość wizualna. Pierwotna wersja aplikacji działała poprawnie, ale bez wyrazistego charakteru nie budowała zaangażowania ani rozpoznawalności. Redesign nie polegał na dodawaniu nowych funkcji, a na nadaniu istniejącemu produktowi osobowości.
+    Ten projekt pokazał mi, że redesign nie zawsze oznacza dodawanie funkcji. Tutaj największą wartością było nadanie działającemu produktowi osobowości i czytelnego związku z branżą.
   </p>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Współpraca z analitykiem i UX designerem przy landing page'u nauczyła mnie, jak ważne jest jasne rozdzielenie odpowiedzialności. Wireframe i teksty dostarczane z jego strony stanowiły solidną bazę, na której mogłam budować warstwę wizualną bez zgadywania intencji komunikacyjnych.
+    Jasny podział odpowiedzialności przy landing page'u przyspieszył pracę: wireframe i teksty dały bazę komunikacyjną, a ja mogłam skupić się na warstwie wizualnej, ruchu i wdrożeniu.
   </p>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    W ramach tego projektu mogłam lepiej zaznajomić się ze współpracą z AI. Jako designerka mogłam samodzielnie doprowadzić projekt od designu do działającej strony, zachowując pełną kontrolę nad efektem wizualnym.
+    Praca z AI pomogła mi szybciej przejść od projektu do działającej strony, bez oddawania kontroli nad detalami wizualnymi.
   </p>
 </section>

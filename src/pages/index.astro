@@ -3,7 +3,14 @@ import Layout from "../layouts/Layout.astro";
 import TablerIcon from "../components/TablerIcon.astro";
 import { getAllProjects } from "../lib/projects";
 
-const featuredProjects = getAllProjects().slice(0, 2);
+const featuredProjectSlugs = [
+  "koncepcja-wizji-produktu-b2c",
+  "szczecinska-design-portfolio",
+] as const;
+
+const featuredProjects = featuredProjectSlugs
+  .map((slug) => getAllProjects().find((project) => project.slug === slug))
+  .filter((project) => project !== undefined);
 ---
 
 <Layout title="Home" description="Portfolio UX/UI - strona główna">
@@ -33,7 +40,7 @@ wdrażam"
         data-home-subheader
         class="home-reveal text-center text-[16px] leading-[1.2] tracking-[0] text-[var(--color-text-muted)] sm:text-[18px] md:text-[20px] lg:text-[22px]"
       >
-        UI/UX designerka napędzana AI - tworzę intuicyjne interfejsy od pierwszego szkicu po produkcję. Pomagam przejść od pomysłu do działającego produktu.
+        Najlepiej odnajduję się tam, gdzie design spotyka wdrożenie: porządkuję pomysł, projektuję interfejs i dopracowuję detale, które robią różnicę w gotowym produkcie.
       </p>
 
       <div data-home-cta class="home-reveal flex flex-wrap items-center justify-center gap-[12px] pt-[10px] sm:pt-[12px] lg:pt-[14px]">
@@ -187,7 +194,7 @@ wdrażam"
         </div>
 
         <p class="mt-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-          Projektuję intuicyjne interfejsy i doprowadzam projekty od szkicu aż po wdrożenie.</p>
+          Łączę projektowanie UI/UX z wdrażaniem, żeby pomysły szybciej przechodziły z makiety do działającego produktu.</p>
       </div>
 
       <a
