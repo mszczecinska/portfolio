@@ -6,25 +6,25 @@ const challenges = [
     icon: "layout-list",
     title: "Informacja bez przytłoczenia",
     description:
-      "Największym wyzwaniem było pokazanie bardzo dużej ilości informacji w sposób przejrzysty. Zdecydowałam się na layout z różnymi marginesami, który wprowadza oddech i rytm między sekcjami. Tekst przeplata się z grafikami, co rozbija długie treści i nadaje czytaniu naturalny rytm.",
+      "Problemem była ilość materiałów: case studies, obrazy, filmy i teksty. Zamiast zamykać wszystko w kartach, rozdzieliłam treść dużymi odstępami i rytmem obraz-tekst, żeby strona prowadziła przez projekty bez poczucia ciężaru.",
   },
   {
     icon: "ripple",
     title: "Animacje i layout",
     description:
-      "Przy pierwszych testach poprawy wymagały animacje View Transition oraz zachowanie layoutu w kilku miejscach. Animacje początkowo działały niespójnie między podstronami, a układ w niektórych widokach nie zachowywał się poprawnie. Wymagało to kilku iteracji, żeby doprowadzić całość do stanu, który w każdym miejscu zachowuje się tak jak powinien.",
+      "View Transitions miały wzmacniać płynność strony, a nie odciągać uwagę. Iterowałam animacje i układ między podstronami, dopóki przejścia nie zaczęły działać jak naturalna część nawigacji.",
   },
   {
     icon: "arrow-bar-up",
     title: "Wysuwanie menu podczas scrolla",
     description:
-      "Żeby użytkownik czytający długie case study nie musiał wracać na samą górę strony tylko po to, żeby zobaczyć nawigację, dodałam funkcjonalność wysuwania menu podczas scrolla w górę. Menu chowa się podczas przewijania w dół i pojawia ponownie, gdy użytkownik zaczyna scrollować w górę. Mały detal z dużym wpływem na komfort czytania.",
+      "Długie case studies potrzebowały łatwego powrotu do nawigacji. Menu chowa się przy scrollu w dół i wraca, gdy użytkownik przewija w górę, dzięki czemu nie zabiera miejsca, ale jest pod ręką.",
   },
   {
     icon: "rocket",
     title: "Wydajność",
     description:
-      "Z racji dużej ilości zdjęć i filmów, które pojawiają się na stronie, skorzystałam z możliwości kompresji multimediów, żeby zachować jakość materiałów przy jednoczesnym utrzymaniu rozsądnych czasów ładowania.",
+      "Duża liczba zdjęć i filmów mogła spowolnić stronę, więc od początku traktowałam kompresję multimediów jako część designu. Efektem jest bogata warstwa wizualna bez rezygnowania z szybkości.",
   },
 ] as const;
 ---
@@ -36,7 +36,7 @@ const challenges = [
       <h2 id="moodboard-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Moodboard i inspiracje</h2>
       <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-        Zanim powstał jakikolwiek wireframe, zebrałam moodboard z inspiracjami. Na tym etapie nie szukałam gotowych rozwiązań, a raczej próbowałam znaleźć kierunek, w którym chcę iść. Postawiłam na minimalistyczny design, ale z charakterem. Zebranie wizualnych odniesień pozwoliło mi zdefiniować to, co chcę osiągnąć.
+        Zaczęłam od moodboardu, żeby zawęzić kierunek wizualny przed projektowaniem layoutu. Wybrałam minimalistyczny system z mocnym kontrastem, dużym whitespace'em i detalami pixel-artowymi, bo portfolio miało być spokojne, ale nie anonimowe.
       </p>
     </div>
     <div class="w-full overflow-hidden">
@@ -49,13 +49,13 @@ const challenges = [
       <h2 id="lofi-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Lo-fi i architektura treści</h2>
       <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-        Kolejnym krokiem były proste szkice i lo-fi wireframe'y. Na tym etapie skupiłam się przede wszystkim na architekturze treści i logice nawigacji, zanim w ogóle zaczęłam myśleć o tym, jak to wygląda.
+        W lo-fi skupiłam się na architekturze treści, nie na estetyce. Najpierw ustaliłam, co użytkownik powinien zobaczyć od razu, a dopiero później szukałam formy wizualnej.
       </p>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-        Kluczową decyzją była struktura strony głównej. Zależało mi, żeby użytkownik nie musiał przeklikiwać się przez całą stronę w poszukiwaniu podstawowych informacji. Strona główna miała zawierać wszystko, co najważniejsze: krótki nagłówek z przyciskami do szybkiego przejścia na podstrony, najnowsze prace dostępne od razu, bez dodatkowych kliknięć oraz krótką informację o mnie.
+        Strona główna miała działać jak skrót do najważniejszych informacji: jasny nagłówek, szybkie przejścia, wybrane projekty i krótki kontekst o mnie. Dzięki temu odbiorca nie musi szukać podstawowych informacji po całym portfolio.
       </p>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-        Równie ważna była spójna struktura case study. Zależało mi, żeby każde case study było zbudowane według podobnego schematu. Użytkownik, który przeczyta jedno, od razu wie, gdzie szukać konkretnych informacji w kolejnym.
+        Case studies oparłam na powtarzalnym schemacie, żeby po przeczytaniu jednego projektu użytkownik wiedział, gdzie szukać kontekstu, decyzji i efektów w kolejnym.
       </p>
     </div>
     <div class="w-full overflow-hidden">
@@ -74,13 +74,13 @@ const challenges = [
       <h2 id="hifi-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Projekt high-fidelity</h2>
       <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-        Zdecydowałam się na font Satoshi jako główny krój pisma - nowoczesny, ale z osobowością. Dużo świadomiej podeszłam też do whitespace'u, traktując go nie jako pustą przestrzeń, ale jako element layoutu. Duże odstępy między sekcjami, luźne rozmieszczenie elementów i unikanie wypełniania każdego miejsca sprawiają, że treść jest łatwiejsza do przyswojenia.
+        Wybrałam Satoshi, bo daje stronie nowoczesny, ale nie sterylny charakter. Whitespace potraktowałam jak element layoutu: duże odstępy prowadzą wzrok i dają odpocząć między kolejnymi fragmentami case studies.
       </p>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-        Dodatkowo na stronie głównej i w sekcji z pracami zdecydowałam się usunąć tła ze zdjęć. Projekty "leżą" na stronie, a nie są zamknięte w kafelkach. Dzięki temu pomimo bardzo kolorowych zdjęć strona dalej pozostaje lekka.
+        Zamiast klasycznych kafelków usunęłam tła z wybranych mockupów. Projekty "leżą" bezpośrednio na stronie, więc nawet kolorowe materiały nie rozbijają minimalistycznego kierunku.
       </p>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-        Zaprojektowałam równocześnie makiety na widok desktopowy i mobilny, traktując oba jako równorzędne. Z perspektywy czasu wiem, jak ważna to była decyzja, ponieważ stronę odwiedzają użytkownicy korzystający zarówno z urządzeń mobilnych, jak i desktopowych.
+        Desktop i mobile projektowałam równolegle, bo portfolio musi działać dobrze w obu kontekstach: szybkim przeglądaniu na telefonie i spokojnym czytaniu case studies na większym ekranie.
       </p>
     </div>
     <div class="w-full overflow-hidden">
@@ -111,7 +111,7 @@ const challenges = [
     <h2 id="menu-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Menu</h2>
     <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Zdecydowałam się na klasyczne menu z lekkim twistem przy aktywacji danej podstrony. Aktywna zakładka nie zmienia koloru ani grubości, zmienia wielkość. Dzięki temu zabiegowi sama animacja przejścia na kolejne podstrony jest ciekawa, a prosta strona zyskuje trochę więcej życia. Zastosowałam to zarówno w wersji desktopowej, jak i mobilnej. Jest to subtelny zabieg, który nie rozprasza, ale na tyle nieoczywisty, że pozostaje w pamięci użytkownika.
+      Menu zostawiłam klasyczne, ale aktywną zakładkę wyróżniłam skalą zamiast kolorem. To prosty detal, który dodaje stronie ruchu i charakteru, a jednocześnie nie konkuruje z treścią projektów.
     </p>
   </section>
 
@@ -120,10 +120,10 @@ const challenges = [
     <h2 id="implementation-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Implementacja</h2>
     <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Implementację prowadziłam iteracyjnie, przeplatając pracę w Figmie z kodowaniem. Nie czekałam, aż design będzie w 100% gotowy, zanim zacznę implementację. Na bieżąco sprawdzałam, jak decyzje projektowe działają w przeglądarce i wracałam do Figmy z wnioskami.
+      Implementację prowadziłam równolegle z projektowaniem. Dzięki temu szybko sprawdzałam, które decyzje działają w przeglądarce, a które dobrze wyglądają tylko w makiecie.
     </p>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Do budowy strony zdecydowałam się użyć Astro ze względu na wsparcie funkcjonalności View Transitions. Zależało mi na tym, żeby przejścia między kolejnymi podstronami były płynne, bez mignięcia przy ładowaniu. View Transitions pozwala animować przejście między kolejnymi podstronami tak, jakby cała strona była jedną aplikacją, a nie tylko zbiorem osobnych podstron. Podczas developmentu używałam Claude Code, Codex i Cursor'a, a dzięki technologii MCP mogłam "pokazać" AI, jaki efekt chcę osiągnąć, bez pisania długich opisów tekstowych.
+      Astro wybrałam głównie ze względu na View Transitions. Chciałam, żeby przejścia między podstronami były płynne i wspierały charakter portfolio, bez efektu przeładowywania kolejnych widoków.
     </p>
   </section>
 </section>
@@ -166,12 +166,12 @@ const challenges = [
   <h2 id="learnings-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Czego się nauczyłam?</h2>
   <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Projektowanie własnego portfolio to zupełnie inne doświadczenie niż praca dla klienta. Brak ograniczeń, które zwykle pomagają w podejmowaniu decyzji, sprawia, że łatwo wpaść w pułapkę nieskończonych poprawek. Dzięki temu projektowi nauczyłam się wyznaczać granice tam, gdzie nikt inny mi ich nie wyznaczy. Samą stronę traktuję jako żywy projekt, do którego wracam regularnie, aktualizując projekty i rozwijając treści w miarę jak zmienia się moje doświadczenie.
+    Największą lekcją było wyznaczanie granic w projekcie, w którym sama jestem klientem. Portfolio łatwo poprawiać bez końca, więc potraktowałam je jak produkt: z jasnym zakresem, priorytetami i miejscem na dalsze iteracje.
   </p>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Ten projekt utwierdził mnie też w przekonaniu, że detal naprawdę ma znaczenie. Pikselowe logo i ikona, zmiana wielkości w menu, płynna animacja przejścia to rzeczy, które na pierwszy rzut oka nie są zauważalne, ale razem budują charakter strony i mówią coś o podejściu do pracy. To samo dotyczy procesu. Iteracyjne przeplatanie designu z implementacją okazało się bardzo efektywnym modelem.
+    Potwierdziłam też, że detale budują charakter dopiero jako system: pikselowe logo, aktywne menu, przejścia i rytm sekcji osobno są małe, ale razem mówią o podejściu do pracy.
   </p>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Samodzielne przejście od moodboardu do działającej strony pokazało mi też, jak bardzo zmieniły się możliwości pracy designera. Technologia MCP i narzędzia AI pozwalają skrócić dystans między stworzeniem makiety, a realizacją w sposób, który jeszcze kilka lat temu wymagałby wiedzy developerskiej lub współpracy z programistą. Przy aktualnej technologii jestem w stanie przeprowadzić cały proces samodzielnie.
+    Przejście od moodboardu do działającej strony pokazało mi, jak bardzo AI skraca dystans między makietą a wdrożeniem. Designer może szybciej testować decyzje w realnym środowisku, nie tracąc kontroli nad efektem wizualnym.
   </p>
 </section>

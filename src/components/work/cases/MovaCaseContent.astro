@@ -45,7 +45,7 @@ const scheduleFlow = [
     </div>
     <div class="h-px w-full bg-[var(--color-border)]"></div>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      W researchu przeanalizowałam Duolingo, Babbel i Busuu pod kątem budowania nawyku, prezentacji progresu i prowadzenia użytkownika przez materiał.
+      W researchu porównałam Duolingo, Babbel i Busuu pod kątem trzech rzeczy: nawyku, progresu i sposobu prowadzenia przez materiał.
     </p>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Najważniejsze obserwacje z analizy:</p>
     <ul class="list-disc pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
@@ -65,7 +65,7 @@ const scheduleFlow = [
     <h2 id="conclusions-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Definiowanie założeń projektowych</h2>
     <div class="h-px w-full bg-[var(--color-border)]"></div>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Na podstawie analizy zdefiniowałam główne zasady, którymi kierowałam się podczas projektowania.
+      Z analizy wyciągnęłam zasady projektowe, które miały chronić aplikację przed dwoma skrajnościami: chaosem gamifikacji i zbyt ciężką strukturą kursu.
     </p>
 
     <div class="flex flex-col gap-[24px]">
@@ -93,10 +93,10 @@ const scheduleFlow = [
     <div class="h-px w-full bg-[var(--color-border)]"></div>
     <div class="flex flex-col gap-[16px]">
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-        Struktura aplikacji została zaprojektowana tak, aby użytkownik zawsze miał pewność, w jakim miejscu całego procesu się znajduje. Lekcje uporządkowane są tematycznie w ramach modułów, a każda lekcja jest podzielona na trzy logiczne etapy: poznanie materiału, gdzie wprowadzane są nowe treści; ćwiczenia, czyli interaktywna praktyka; podsumowanie, które dostarcza feedback i wskazówki do dalszej pracy.
+        Strukturę oparłam na modułach i trzech etapach lekcji: materiał, ćwiczenia, podsumowanie. Dzięki temu użytkownik wie, gdzie jest w kursie i czego spodziewać się po kolejnym kroku.
       </p>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-        Dodatkowo użytkownik może tworzyć własną bazę słówek w słowniku i powtarzać je za pomocą fiszek dostępnych na stronie głównej. Ta funkcjonalność ma dać poczucie, że aktywnie buduje swoją wiedzę, a nie tylko konsumuje przygotowany materiał.
+        Słownik i fiszki dają użytkownikowi własną bazę materiału do powtórek. To przesuwa doświadczenie z biernego przechodzenia lekcji w aktywne budowanie wiedzy.
       </p>
     </div>
   </div>
@@ -114,7 +114,7 @@ const scheduleFlow = [
     </div>
 
     <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Jednym z głównych wyzwań było pokazanie progresu bez przytłaczania użytkownika. Rozwiązałam to, koncentrując uwagę na bieżącym module i subtelnym wskaźniku pozycji w kursie.</p>
+    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Największym wyzwaniem było pokazanie progresu bez presji i hałasu. Dlatego centrum widoku stanowi bieżący moduł, a wskaźniki postępu są pomocne, ale nie dominują ekranu.</p>
 
     <h3 class="text-[14px] lg:text-[16px] font-semibold leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Progres</h3>
     <ul class="list-disc pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
@@ -142,7 +142,7 @@ const scheduleFlow = [
   <section class="flex flex-col gap-[32px]" aria-labelledby="home-screen-title">
     <div class="flex flex-col gap-[24px]">
       <h3 id="home-screen-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Kolorystyka i hierarchia wizualna</h3>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Kolor brandowy (#FF6B35) wykorzystałam oszczędnie jako akcent dla głównych akcji, nawigacji i progresu. Dzięki temu użytkownik szybko skanuje ekran i skupia się na nauce zamiast na bodźcach wizualnych.</p>
+      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Kolor brandowy (#FF6B35) ograniczyłam do akcji, nawigacji i progresu. Dzięki temu ekran prowadzi użytkownika, ale nie konkuruje z materiałem edukacyjnym.</p>
     </div>
     <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/225] lg:h-[449px]">
       <img src="/assets/mova/2mocks-mova.png" alt="Widok stylu wizualnego aplikacji Mova" class="size-full object-cover" loading="lazy" />
@@ -152,7 +152,7 @@ const scheduleFlow = [
   <section class="flex flex-col gap-[32px]" aria-labelledby="dashboard-title">
     <div class="flex flex-col gap-[24px]">
       <h3 id="dashboard-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Ekrany lekcji i podsumowań</h3>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Najwięcej uwagi poświęciłam lekcjom i ekranom podsumowań. Feedback jest konkretny: użytkownik widzi co zrobił dobrze, gdzie popełnił błąd i co poprawić, zamiast ogólnych komunikatów.</p>
+      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Najwięcej uwagi poświęciłam lekcjom i podsumowaniom. Feedback pokazuje, co poszło dobrze, gdzie pojawił się błąd i co poprawić dalej, zamiast kończyć się ogólnym komunikatem.</p>
     </div>
     <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/309] lg:h-[618px]">
       <img src="/assets/mova/screens-2-mova.png" alt="Ekrany lekcji i podsumowań Mova" class="size-full object-cover" loading="lazy" />
@@ -162,7 +162,7 @@ const scheduleFlow = [
   <section class="flex flex-col gap-[32px]" aria-labelledby="options-title">
     <div class="flex flex-col gap-[24px]">
       <h3 id="options-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Podejście do wersji mobilnej i webowej</h3>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Mobile i web projektowałam równolegle jako równorzędne narzędzia. Mobile wspiera krótkie sesje i powtórki, a web dłuższą pracę z materiałem. Spójność między platformami ułatwia płynne przechodzenie między urządzeniami.</p>
+      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Mobile i web potraktowałam jako dwa różne konteksty nauki. Telefon wspiera krótkie sesje i powtórki, a web spokojniejszą pracę z materiałem.</p>
     </div>
     <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/253] lg:h-[506px]">
       <img src="/assets/mova/desk+mobile-mova.png" alt="Widok wersji mobilnej Mova" class="size-full object-cover" loading="lazy" />
@@ -172,7 +172,7 @@ const scheduleFlow = [
   <section class="flex flex-col gap-[32px]" aria-labelledby="schedule-title">
     <div class="flex flex-col gap-[24px]">
       <h3 id="schedule-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">System projektowy</h3>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Stworzyłam skalowalny UI Kit z komponentami, stanami interakcji, tagami, kartami lekcji i systemem kolorów opartym o Figma Variables. To pozwoliło zachować spójność i łatwo rozwijać kolejne widoki.</p>
+      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">UI Kit zbudowałam wokół komponentów lekcji, stanów interakcji, tagów i Figma Variables. Dzięki temu kolejne widoki można rozwijać bez rozbijania spójności produktu.</p>
     </div>
     <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/233] lg:h-[465px]">
       <img src="/assets/mova/UI-MOVA.png" alt="Widok systemu projektowego Mova" class="size-full object-cover" loading="lazy" />
@@ -209,8 +209,7 @@ const scheduleFlow = [
   <div class="flex flex-col gap-[24px] lg:justify-center">
     <h2 id="success-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Dalsze kroki</h2>
     <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Gdyby projekt był kontynuowany, kolejnym etapem byłyby testy użyteczności prototypu z grupą docelową.</p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Ważnym elementem byłoby też zaprojektowanie pełnej ścieżki onboardingowej, która wprowadza użytkowników w możliwości aplikacji bez przytłaczania informacjami.</p>
+    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Kolejnym krokiem byłyby testy prototypu z osobami uczącymi się języków oraz onboarding, który pokazuje możliwości aplikacji bez zalewania użytkownika informacjami.</p>
   </div>
   <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[488px]">
     <img src="/assets/mova/two-phones-mova.png" alt="Ilustracja dalszych kroków dla projektu Mova" class="size-full object-cover" loading="lazy" />
