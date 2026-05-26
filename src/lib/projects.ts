@@ -17,11 +17,11 @@ export const projects: Project[] = [
     slug: "multiplatform-design-system",
     title: "Multiplatform design system",
     description:
-      "Coming soon... ale już teraz możesz zobaczyć preview projektu.",
+      "Case study w przygotowaniu, ale już teraz możesz zobaczyć preview projektu.",
     image: "/assets/multiplatform/multi-work.png",
     tags: ["UI Design", "Design system", "Web", "E-commerce"],
     content:
-      "Cse study proejktu design systemu dla dwóch platform e-commerce.",
+      "Case study projektu design systemu dla dwóch platform e-commerce.",
     comingSoon: true,
     links: {
       live: "https://www.figma.com/design/Ggr7GFMPPOK58bETbzztxC/multiplatform_preview?node-id=3676-16",
@@ -31,7 +31,7 @@ export const projects: Project[] = [
     slug: "szczecinska-design-portfolio",
     title: "szczecinska.design - case study portfolio",
     description:
-      "  Opis procesu projektowania i budowania portfolio od podstaw. Od pierwszych inspiracji i szkiców, przez makietę, po wdrwdroenie strony.",
+      "Opis procesu projektowania i budowania portfolio od podstaw: od pierwszych inspiracji i szkiców, przez makietę, po wdrożenie strony.",
     image: "/assets/portfolio/portfolio-work.png",
     tags: ["UX/UI Design", "Development", "Web", "Motion Design"],
     content:
@@ -61,17 +61,17 @@ export const projects: Project[] = [
     slug: "readyset-aplikacja-do-planowania-wyjazdow",
     title: "ReadySet - aplikacja do planowania wyjazdów",
     description:
-      "Aplikacja mobilna do wspólnego planowania wyjazdów. Umożliwia tworzenie planów ze znajomymi, dodawanie spersonalizowanych kategorii i formularzy, wspólne głosowanie na opcję, oraz prowadzenie rozmów w komentarzach przypiętych do konkretnych kategorii",
+      "Aplikacja mobilna do wspólnego planowania wyjazdów. Umożliwia tworzenie planów ze znajomymi, dodawanie spersonalizowanych kategorii i formularzy, wspólne głosowanie na opcje oraz prowadzenie rozmów w komentarzach przypiętych do konkretnych kategorii.",
     image: "/assets/ready-set/work-readyset.png",
     tags: ["UX/UI Design", "Mobile", "Travel"],
     content:
-      "Aplikacja mobilna do wspólnego planowania wyjazdów. Umożliwia tworzenie planów ze znajomymi, dodawanie spersonalizowanych kategorii i formularzy, wspólne głosowanie na opcję, oraz prowadzenie rozmów w komentarzach przypiętych do konkretnych kategorii",
+      "Aplikacja mobilna do wspólnego planowania wyjazdów. Umożliwia tworzenie planów ze znajomymi, dodawanie spersonalizowanych kategorii i formularzy, wspólne głosowanie na opcje oraz prowadzenie rozmów w komentarzach przypiętych do konkretnych kategorii.",
   },
   {
     slug: "mova-aplikacja-do-nauki-jezykow",
     title: "Mova - aplikacja do nauki języków",
     description:
-      "Nowoczesna platforma do nauki języków obcych. Zaprojektowana z myślą o użytkownikach poszukujących skutecznego i angażującego sposobu na rozwijanie umiejętności językowych. Dostępna zarówno w formie aplikacji mobilnej jak i wersji webowej, tak aby użytkownik miał możliwość skorzystania z niej w każdych okolicznościach.",
+      "Nowoczesna platforma do nauki języków obcych. Zaprojektowana z myślą o użytkownikach szukających skutecznego i angażującego sposobu na rozwijanie umiejętności językowych. Dostępna jako aplikacja mobilna i wersja webowa, żeby użytkownik mógł korzystać z niej w różnych kontekstach.",
     image: "/assets/mova/work-mova.png",
     tags: ["UX/UI Design", "Web & Mobile", "EduTech"],
     content:

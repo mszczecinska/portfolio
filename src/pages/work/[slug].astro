@@ -46,7 +46,7 @@ const conclusionsRows = isMova
       {
         aspect: "Komunikacja",
         traditional: "Chat (Messenger/WhatsApp)",
-        finding: "Szybka, ale informacje giną w historii",
+        finding: "Szybka komunikacja, ale informacje giną w historii",
       },
       {
         aspect: "Dane",
@@ -243,10 +243,10 @@ function getDarkIconSrc(src: string): string | undefined {
       </div>
     </header>
 
-    <section class="mx-auto grid w-full max-w-[864px] gap-[32px] lg:grid-cols-[598px_215px] lg:items-start" aria-label="Project overview">
+    <section class="mx-auto grid w-full max-w-[864px] gap-[32px] lg:grid-cols-[598px_215px] lg:items-start" aria-label="Podsumowanie projektu">
       <div class="flex flex-col gap-[24px]">
         <div class="flex flex-col gap-[14px]">
-          <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Project overview</p>
+          <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Podsumowanie projektu</p>
           <h2 class="text-[36px] leading-[44px] text-[var(--color-text)]">{isMova ? "Kontekst projektu" : "Wstęp"}</h2>
         </div>
         <div class="h-px w-full bg-[var(--color-border)]"></div>
@@ -305,7 +305,7 @@ function getDarkIconSrc(src: string): string | undefined {
         </p>
         <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]"><strong>{isMova ? "Nadmierna gamifikacja:" : "Frustracja:"}</strong> {isMova ? "użytkownik wraca dla streaka i rankingu, zamiast realnie uczyć się języka." : "Uczestnicy gubią się w wątkach i tracą poczucie kontroli."}</p>
         <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]"><strong>{isMova ? "Przytłoczenie treścią:" : "Paraliż decyzyjny:"}</strong> {isMova ? "zbyt duża ilość materiału na wejściu zniechęca jeszcze przed rozpoczęciem nauki." : "Trudno ustalić jedną wersję wydarzeń, gdy opinie są rozsiane po różnych kanałach."}</p>
-        {!isMova && <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]"><strong>Strata czasu:</strong> Organizer musi ręcznie spinać ustalenia w całość.</p>}
+        {!isMova && <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]"><strong>Strata czasu:</strong> Organizator musi ręcznie spinać ustalenia w całość.</p>}
       </div>
       <div class="h-[360px] overflow-hidden rounded-[12px] bg-[var(--color-surface)] lg:h-[467px]">
         {isMova ? (
@@ -334,7 +334,7 @@ function getDarkIconSrc(src: string): string | undefined {
     <section class={isMova ? "order-3 grid gap-[48px] lg:grid-cols-[504px_467px] lg:items-center lg:gap-[64px]" : "flex flex-col gap-[64px]"} aria-labelledby="research-title">
       <div class="flex flex-col gap-[24px]">
         <div class="flex flex-col gap-[14px]">
-          <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">{isMova ? "Design process" : "Research"}</p>
+          <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">{isMova ? "Proces projektowy" : "Research"}</p>
           <h2 id="research-title" class="text-[36px] leading-[44px] text-[var(--color-text)]">{isMova ? "Research i analiza konkurencji" : "Proces badawczy"}</h2>
         </div>
         <div class="h-px w-full bg-[var(--color-border)]"></div>
@@ -415,7 +415,7 @@ function getDarkIconSrc(src: string): string | undefined {
     <section class={isMova ? "order-5 grid gap-[48px] lg:grid-cols-[467px_507px] lg:items-center lg:gap-[64px]" : "flex flex-col gap-[64px]"} aria-labelledby="define-title">
       <div class={`flex flex-col gap-[24px] lg:justify-center ${isMova ? "lg:order-2" : ""}`}>
         <div class="flex flex-col gap-[14px]">
-          <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">{isMova ? "Information architecture" : "Define"}</p>
+          <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">{isMova ? "Architektura informacji" : "Define"}</p>
           <h2 id="define-title" class="text-[36px] leading-[44px] text-[var(--color-text)]">{isMova ? "Architektura informacji" : "Definiowanie rozwiązania"}</h2>
         </div>
         <div class="h-px w-full bg-[var(--color-border)]"></div>
@@ -425,7 +425,7 @@ function getDarkIconSrc(src: string): string | undefined {
               Struktura aplikacji została zaprojektowana tak, aby użytkownik zawsze miał pewność, w jakim miejscu całego procesu się znajduje. Lekcje uporządkowane są tematycznie w ramach modułów, a każda lekcja jest podzielona na trzy logiczne etapy: poznanie materiału, gdzie wprowadzane są nowe treści; ćwiczenia, czyli interaktywna praktyka; podsumowanie, które dostarcza feedback i wskazówki do dalszej pracy.
             </p>
             <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-              Dodatkowo użytkownik może tworzyć własną bazę słówek w słowniku i powtarzać je za pomocą fiszek dostępnych na stronie głównej. Ta funkcjonalność ma dać poczucie, że aktywnie budują swoją wiedzę, a nie tylko konsumują przygotowany materiał.
+              Dodatkowo użytkownik może tworzyć własną bazę słówek w słowniku i powtarzać je za pomocą fiszek dostępnych na stronie głównej. Ta funkcjonalność ma dać poczucie, że aktywnie buduje swoją wiedzę, a nie tylko konsumuje przygotowany materiał.
             </p>
           </div>
         ) : (
@@ -498,7 +498,7 @@ function getDarkIconSrc(src: string): string | undefined {
     <section class={`grid gap-[48px] lg:grid-cols-[514px_457px] lg:items-center lg:gap-[64px] ${isMova ? "order-7" : ""}`} aria-labelledby="user-flow-title">
       <div class="flex flex-col gap-[24px]">
         <div class="flex flex-col gap-[14px]">
-          <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">{isMova ? "Challenges" : "User flow"}</p>
+          <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">{isMova ? "Wyzwania" : "Przepływ użytkownika"}</p>
           <h2 id="user-flow-title" class="text-[36px] leading-[44px] text-[var(--color-text)]">{isMova ? "Wyzwania i rozwiązania" : "Architektura i kluczowe decyzje projektowe"}</h2>
         </div>
 
@@ -541,7 +541,7 @@ function getDarkIconSrc(src: string): string | undefined {
       <section class="flex flex-col gap-[40px]" aria-labelledby="dashboard-title">
         <div class="flex flex-col gap-[24px]">
           <h3 id="dashboard-title" class="text-[28px] leading-[36px] text-[var(--color-text)]">{isMova ? "Ekrany lekcji i podsumowań" : "Dashboard wyjazdu"}</h3>
-          <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">{isMova ? "Najwięcej uwagi poświęciłam lekcjom i ekranom podsumowań. Feedback jest konkretny: użytkownik widzi co zrobił dobrze, gdzie popełnił błąd i co poprawić, zamiast ogólnych komunikatów." : "Widok wyjazdu jest głównym ekranem wyjazdu. Z poziomu tego widoku użytkownik może zarządzać całym wyjazdem, jego kategoriami, opcjami kategorii czy zaproszonymi osobami. Zamiast niekończącej się listy, zastosowałam kafelki kategorii, które od razu pokazują status. Dodatkowo użytkownik może eksportować gotowy plan jako gotowy plik PDF z całym planem i informacjami o danych opcjach."}</p>
+          <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">{isMova ? "Najwięcej uwagi poświęciłam lekcjom i ekranom podsumowań. Feedback jest konkretny: użytkownik widzi co zrobił dobrze, gdzie popełnił błąd i co poprawić, zamiast ogólnych komunikatów." : "Widok wyjazdu jest głównym ekranem wyjazdu. Z poziomu tego widoku użytkownik może zarządzać całym wyjazdem, jego kategoriami, opcjami kategorii czy zaproszonymi osobami. Zamiast niekończącej się listy, zastosowałam kafelki kategorii, które od razu pokazują status. Dodatkowo użytkownik może eksportować gotowy plan jako plik PDF z całym planem i informacjami o danych opcjach."}</p>
         </div>
         <div class="h-[360px] overflow-hidden bg-[var(--color-surface)] lg:h-[618px]">
           <img src={isMova ? "/assets/mova/screens-mova.png" : "/assets/ready-set/dashboard-wyjazdu-readyset.png"} alt={isMova ? "Ekrany lekcji i podsumowań Mova" : "Dashboard wyjazdu"} class="size-full object-cover" loading="lazy" />
@@ -577,7 +577,7 @@ function getDarkIconSrc(src: string): string | undefined {
       <section class="flex flex-col gap-[40px]" aria-labelledby="schedule-title">
         <div class="flex flex-col gap-[24px]">
           <h3 id="schedule-title" class="text-[28px] leading-[36px] text-[var(--color-text)]">{isMova ? "System projektowy" : "Harmonogram"}</h3>
-          <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">{isMova ? "Stworzyłam skalowalny UI Kit z komponentami, stanami interakcji, tagami, kartami lekcji i systemem kolorów opartym o Figma Variables. To pozwoliło zachować spójność i łatwo rozwijać kolejne widoki." : "Po zakończeniu planowania, aplikacja generuje czysty, czytelny harmonogram.Dodatkowo zaprojektowałam funkcję \"Pobierz PDF\"."}</p>
+          <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">{isMova ? "Stworzyłam skalowalny UI Kit z komponentami, stanami interakcji, tagami, kartami lekcji i systemem kolorów opartym o Figma Variables. To pozwoliło zachować spójność i łatwo rozwijać kolejne widoki." : "Po zakończeniu planowania aplikacja generuje czysty, czytelny harmonogram. Dodatkowo zaprojektowałam funkcję \"Pobierz PDF\"."}</p>
         </div>
         <div class="h-[360px] overflow-hidden bg-[var(--color-surface)] lg:h-[465px]">
           <img src={isMova ? "/assets/mova/UI-MOVA.png" : "/assets/ready-set/harmonogram-readyset.png"} alt={isMova ? "Widok systemu projektowego Mova" : "Widok harmonogramu wyjazdu"} class="size-full object-cover" loading="lazy" />
@@ -600,7 +600,7 @@ function getDarkIconSrc(src: string): string | undefined {
     {!isMova && <section class="grid gap-[48px] lg:grid-cols-[511px_283px] lg:items-center lg:justify-between" aria-labelledby="user-tests-title">
       <div class="flex flex-col gap-[24px] lg:justify-center">
         <div class="flex flex-col gap-[14px]">
-          <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">User tests</p>
+          <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Testy użytkowników</p>
           <h2 id="user-tests-title" class="text-[36px] leading-[44px] text-[var(--color-text)]">Testy użytkowników</h2>
         </div>
         <div class="h-px w-full bg-[var(--color-border)]"></div>
@@ -630,7 +630,7 @@ function getDarkIconSrc(src: string): string | undefined {
           <ol class="flex flex-col gap-[20px]">
             <li class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">1. Uświadomiłam sobie, jak kluczowa jest hierarchia informacji w aplikacjach edukacyjnych.</li>
             <li class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">2. Przekonałam się, że prostota wymaga dyscypliny i skupienia na tym, co najważniejsze.</li>
-            <li class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">3. Design responsywny to więcej niż skalowanie elementów, każda platforma ma inny kontekst użycia.</li>
+            <li class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">3. Design responsywny to więcej niż skalowanie elementów. Każda platforma ma inny kontekst użycia.</li>
             <li class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">4. Inwestycja w system projektowy na starcie przyspiesza późniejsze iteracje i utrzymanie spójności.</li>
           </ol>
         ) : (

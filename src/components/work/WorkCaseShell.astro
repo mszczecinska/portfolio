@@ -8,6 +8,11 @@ interface Tool {
   alt: string;
 }
 
+interface ImpactItem {
+  title: string;
+  text: string;
+}
+
 interface Props {
   project: Project;
   tools: readonly Tool[];
@@ -21,6 +26,7 @@ interface Props {
   primaryMetaValue?: string;
   projectType: string;
   toolsCompact?: boolean;
+  impactItems?: readonly ImpactItem[];
 }
 
 const {
@@ -36,6 +42,7 @@ const {
   primaryMetaValue,
   projectType,
   toolsCompact = false,
+  impactItems = [],
 } = Astro.props;
 
 const resolvedPrimaryMetaValue = primaryMetaValue ?? duration ?? "";
@@ -119,10 +126,10 @@ function getDarkIconSrc(src: string): string | undefined {
         </div>
       </header>
 
-      <section class="mx-auto grid w-full max-w-[864px] gap-[32px] md:grid-cols-[1fr_220px] md:items-start lg:grid-cols-[598px_215px]" aria-label="Project overview">
+      <section class="mx-auto grid w-full max-w-[864px] gap-[32px] md:grid-cols-[1fr_220px] md:items-start lg:grid-cols-[598px_215px]" aria-label="Podsumowanie projektu">
         <div class="flex flex-col gap-[24px]">
           <div class="flex flex-col gap-[14px]">
-            <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Project overview</p>
+            <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Podsumowanie projektu</p>
             <h2 class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">{overviewHeading}</h2>
           </div>
           <div class="h-px w-full bg-[var(--color-border)]"></div>
@@ -172,6 +179,26 @@ function getDarkIconSrc(src: string): string | undefined {
           </div>
         </aside>
       </section>
+
+      {
+        impactItems.length > 0 && (
+          <section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="impact-title">
+            <div class="flex flex-col gap-[14px]">
+              <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Najważniejsze</p>
+              <h2 id="impact-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Projekt w skrócie</h2>
+            </div>
+            <div class="h-px w-full bg-[var(--color-border)]"></div>
+            <div class="grid gap-[16px] md:grid-cols-3">
+              {impactItems.map((item) => (
+                <article class="rounded-[12px] border border-[var(--color-border)] bg-[var(--color-foreground)] px-[20px] py-[24px]">
+                  <h3 class="text-[16px] font-semibold leading-[24px] tracking-[0.25px] text-[var(--color-text)]">{item.title}</h3>
+                  <p class="mt-[16px] text-[14px] lg:text-[15px] leading-[23px] tracking-[0.25px] text-[var(--color-text)]">{item.text}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+        )
+      }
 
       <slot />
     </div>
