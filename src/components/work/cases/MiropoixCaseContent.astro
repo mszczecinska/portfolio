@@ -6,45 +6,6 @@ interface Props {
 const { liveUrl } = Astro.props;
 ---
 
-<section class="grid gap-[48px] lg:grid-cols-[509px_467px] lg:items-center lg:gap-[64px]" aria-labelledby="problem-title">
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="problem-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Problem</h2>
-    <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Aplikacja, która ma rozwiązać konkretny problem: chaos w składaniu zamówień do hurtowni. W praktyce cały proces wygląda tak, że kucharze pracujący pod szefem kuchni prowadzą własne listy zakupowe na sticky notes, w prywatnych notatkach czy na kartkach. Każdy ma inny styl zapisywania informacji, co w rezultacie prowadzi do rozproszenia, a szef kuchni musi ręcznie zbierać i scalać wszystko przed złożeniem zamówienia.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Pomimo działania na rynku aplikacja miała wyraźne problemy - brak rozpoznawalnego charakteru wizualnego, niska konwersja i niewielkie zainteresowanie grupy docelowej. Klient przyszedł z zadaniem odświeżenia UI i zbudowania marki, która będzie wyróżniać się na tle konkurencji.
-    </p>
-  </div>
-
-  <div class="overflow-hidden bg-transparent sm:h-auto sm:aspect-square lg:h-[467px]">
-    <video src="/assets/miropoix/hero-animation.mp4" aria-label="Animacja prezentująca redesign aplikacji Miropoix" class="size-full object-cover" autoplay loop muted playsinline></video>
-  </div>
-</section>
-
-<section class="grid gap-[48px] lg:grid-cols-[467px_509px] lg:items-center lg:gap-[64px]" aria-labelledby="goal-title">
-  <div class="overflow-hidden bg-transparent sm:h-auto sm:aspect-square lg:h-[467px]">
-    <img src="/assets/miropoix/screens-miropoix.png" alt="Kluczowe widoki aplikacji Miropoix" class="size-full object-cover" loading="lazy" />
-  </div>
-
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="goal-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Cel projektu</h2>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Przeprowadzić kompleksowy redesign landing page oraz ekranów aplikacji na potrzeby strony i zaproponować nową tożsamość wizualną, która:
-    </p>
-    <ul class="list-disc pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      <li>nada marce wyrazisty, rozpoznawalny charakter kojarzący się z kuchnią,</li>
-      <li>wyróżni Miropoix na tle innych narzędzi do zarządzania zamówieniami,</li>
-      <li>zwiększy konwersję i zainteresowanie aplikacją wśród grupy docelowej.</li>
-    </ul>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Moim zadaniem było przede wszystkim wykreowanie designu nowej strony, stworzenie widoków aplikacji oraz animacji. Współpracowałam z analitykiem i UX designerem, który odpowiadał za teksty i wstępny wireframe układu landing page'a.
-    </p>
-  </div>
-</section>
-
 <section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="process-title">
   <div class="flex flex-col gap-[14px]">
     <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Design</p>
@@ -55,10 +16,10 @@ const { liveUrl } = Astro.props;
   <section class="flex flex-col gap-[32px]" aria-labelledby="app-redesign-title">
     <h3 id="app-redesign-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Redesign aplikacji</h3>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Punktem wyjścia była istniejąca aplikacja oraz strona, które działały poprawnie, ale wizualnie były generyczne i nie budowały żadnych skojarzeń z branżą gastronomiczną. Brakowało im charakteru, który sprawiłby, że użytkownik rozpoznałby je i zapamiętaliby.
+      Punktem wyjścia była istniejąca aplikacja oraz strona, które działały poprawnie, ale wizualnie były generyczne i nie budowały żadnych skojarzeń z branżą gastronomiczną. Brakowało im charakteru, który sprawiłby, że użytkownik rozpoznałby je i zapamiętał.
     </p>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Podczas redesignu skupiłam się na kilku kluczowych obszarach. Przede wszystkim na zbudowaniu spójnej tożsamości wizualnej, która łączy profesjonalizm narzędzia SaaS z energią i dynamiką środowiska kuchennego. Zależało mi, aby aplikacja nie wyglądała jak kolejny nudny panel administracyjny, ale była czytelna i funkcjonalna dla kucharzy. Zdecydowałam się m.in. na powiększenie kluczowych buttonów (kucharze często mają brudne dłonie, a większe przyciski pozwalają łatwiej wykonać akcję), zmianę kolorów oraz dodanie animacji.
+      Podczas redesignu skupiłam się na kilku kluczowych obszarach. Przede wszystkim na zbudowaniu spójnej tożsamości wizualnej, która łączy profesjonalizm narzędzia SaaS z energią i dynamiką środowiska kuchennego. Zależało mi, aby aplikacja nie wyglądała jak kolejny nudny panel administracyjny, ale była czytelna i funkcjonalna dla kucharzy. Zdecydowałam się m.in. na powiększenie kluczowych przycisków (kucharze często mają brudne dłonie, a większe przyciski pozwalają łatwiej wykonać akcję), zmianę kolorów oraz dodanie animacji.
     </p>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
       Zaprojektowałam kompletne widoki aplikacji obejmujące kluczowe ekrany, takie jak dodawanie produktów do listy, segregację zamówień według dostawców czy akceptację próśb innych kucharzy. Oprócz statycznych ekranów opracowałam animacje, które pojawiły się na landing page'u. Dodały one dynamiki i pomogły pokazać działanie aplikacji.
@@ -104,7 +65,7 @@ const { liveUrl } = Astro.props;
 
 <section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="lessons-title">
   <div class="flex flex-col gap-[14px]">
-    <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">conclusions</p>
+    <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Wnioski</p>
     <h2 id="lessons-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Czego się nauczyłam?</h2>
   </div>
   <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>

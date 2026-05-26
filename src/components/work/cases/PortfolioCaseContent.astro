@@ -29,18 +29,6 @@ const challenges = [
 ] as const;
 ---
 
-<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="goal-title">
-  <h2 id="goal-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Cel projektu</h2>
-  <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Zaprojektować i wdrożyć portfolio, które:</p>
-  <ul class="list-disc pl-[24px] flex flex-col gap-[8px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    <li>prezentuje prace w sposób przejrzysty, mimo dużej ilości materiałów i informacji,</li>
-    <li>zachowuje minimalistyczny charakter z jasnym przekazem,</li>
-    <li>odzwierciedla podejście do designu na poziomie samego interfejsu,</li>
-    <li>działa równie dobrze na urządzeniach mobilnych i desktopowych.</li>
-  </ul>
-</section>
-
 <section class="mx-auto flex w-full max-w-[864px] flex-col gap-[48px] lg:gap-[64px]" aria-label="Proces">
   <section class="flex flex-col gap-[32px]" aria-labelledby="moodboard-title">
     <div class="flex flex-col gap-[24px]">
@@ -64,7 +52,7 @@ const challenges = [
         Kolejnym krokiem były proste szkice i lo-fi wireframe'y. Na tym etapie skupiłam się przede wszystkim na architekturze treści i logice nawigacji, zanim w ogóle zaczęłam myśleć o tym, jak to wygląda.
       </p>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-        Kluczową decyzją była struktura strony głównej. Zależało mi, żeby użytkownik nie musiał przeklikiwać się przez całą stronę w poszukiwaniu podstawowych informacji. Homepage miał zawierać wszystko, co najważniejsze: krótki header z buttonami do szybkiego przejścia na podstrony, najnowsze prace dostępne od razu, bez dodatkowych kliknięć oraz krótką informację o mnie.
+        Kluczową decyzją była struktura strony głównej. Zależało mi, żeby użytkownik nie musiał przeklikiwać się przez całą stronę w poszukiwaniu podstawowych informacji. Strona główna miała zawierać wszystko, co najważniejsze: krótki nagłówek z przyciskami do szybkiego przejścia na podstrony, najnowsze prace dostępne od razu, bez dodatkowych kliknięć oraz krótką informację o mnie.
       </p>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
         Równie ważna była spójna struktura case study. Zależało mi, żeby każde case study było zbudowane według podobnego schematu. Użytkownik, który przeczyta jedno, od razu wie, gdzie szukać konkretnych informacji w kolejnym.
@@ -83,7 +71,7 @@ const challenges = [
   <section class="flex flex-col gap-[32px]" aria-labelledby="hifi-title">
     <div class="flex flex-col gap-[24px]">
       <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Design</p>
-      <h2 id="hifi-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">High-fidelity design</h2>
+      <h2 id="hifi-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Projekt high-fidelity</h2>
       <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
         Zdecydowałam się na font Satoshi jako główny krój pisma - nowoczesny, ale z osobowością. Dużo świadomiej podeszłam też do whitespace'u, traktując go nie jako pustą przestrzeń, ale jako element layoutu. Duże odstępy między sekcjami, luźne rozmieszczenie elementów i unikanie wypełniania każdego miejsca sprawiają, że treść jest łatwiejsza do przyswojenia.
@@ -108,7 +96,7 @@ const challenges = [
       <h2 id="logo-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Identyfikacja wizualna - logo i ikona</h2>
       <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-        Dwa elementy, które na pierwszy rzut oka mogą wyglądać jak detal, ale mają swoje drugie dno. W logo użyłam fontu Geist Pixel, a ikonę w footerze stworzyłam samodzielnie w Figmie. Pikselowe podejście do obu elementów ma odzwierciedlać moją naturę "pixel perfect" - dbałość o każdy detal, precyzję i świadomość skali. To mały sygnał skierowany do tych, którzy patrzą uważnie.
+        Dwa elementy, które na pierwszy rzut oka mogą wyglądać jak detal, ale mają swoje drugie dno. W logo użyłam fontu Geist Pixel, a ikonę w stopce stworzyłam samodzielnie w Figmie. Pikselowe podejście do obu elementów ma odzwierciedlać moją naturę "pixel perfect" - dbałość o każdy detal, precyzję i świadomość skali. To mały sygnał skierowany do tych, którzy patrzą uważnie.
       </p>
     </div>
     <div class="w-full overflow-hidden">
@@ -178,10 +166,10 @@ const challenges = [
   <h2 id="learnings-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Czego się nauczyłam?</h2>
   <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Projektowanie własnego portfolio to zupełnie inne doświadczenie niż praca dla klienta. Brak ograniczeń, które zwykle pomagają w podejmowaniu decyzji sprawia, że łatwo wpaść w pułapkę nieskończonych poprawek. Dzięki temu projektowi nauczyłam się wyznaczać granice tam, gdzie nikt inny mi ich nie wyznaczy. Samą stronę traktuję jako żywy projekt, do którego wracam regularnie aktualizując projekty  i rozwijając treści w miarę jak zmienia się moje doświadczenie.
+    Projektowanie własnego portfolio to zupełnie inne doświadczenie niż praca dla klienta. Brak ograniczeń, które zwykle pomagają w podejmowaniu decyzji, sprawia, że łatwo wpaść w pułapkę nieskończonych poprawek. Dzięki temu projektowi nauczyłam się wyznaczać granice tam, gdzie nikt inny mi ich nie wyznaczy. Samą stronę traktuję jako żywy projekt, do którego wracam regularnie, aktualizując projekty i rozwijając treści w miarę jak zmienia się moje doświadczenie.
   </p>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Ten projekt utwierdził mnie też w przekonaniu, że detal naprawdę ma znaczenie. Pikselowe logo i ikona, zmiana wielkości w menu, płynna animacja przejścia to rzeczy, które na pierwszy rzut oka nie są zauważalne, ale razem budują charakter strony i mówią coś o podejściu do pracy. To samo dotyczy procesu. iIteracyjne przeplatanie designu z implementacją okazało się bardzo efektywnym modelem.
+    Ten projekt utwierdził mnie też w przekonaniu, że detal naprawdę ma znaczenie. Pikselowe logo i ikona, zmiana wielkości w menu, płynna animacja przejścia to rzeczy, które na pierwszy rzut oka nie są zauważalne, ale razem budują charakter strony i mówią coś o podejściu do pracy. To samo dotyczy procesu. Iteracyjne przeplatanie designu z implementacją okazało się bardzo efektywnym modelem.
   </p>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
     Samodzielne przejście od moodboardu do działającej strony pokazało mi też, jak bardzo zmieniły się możliwości pracy designera. Technologia MCP i narzędzia AI pozwalają skrócić dystans między stworzeniem makiety, a realizacją w sposób, który jeszcze kilka lat temu wymagałby wiedzy developerskiej lub współpracy z programistą. Przy aktualnej technologii jestem w stanie przeprowadzić cały proces samodzielnie.

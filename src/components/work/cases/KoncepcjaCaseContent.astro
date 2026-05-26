@@ -18,32 +18,10 @@ const figmaLinks = {
 } as const;
 ---
 
-<section class="mx-auto grid w-full max-w-[864px] gap-[32px] lg:grid-cols-2 lg:gap-[48px]" aria-label="Problem i cel">
-  <article class="flex flex-col gap-[24px]" aria-labelledby="problem-title">
-    <h2 id="problem-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Problem</h2>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Największym problemem firmy było to, że pomimo wielu użytkowników żaden z nich nie wiedział, że korzysta z produktu INX. Firma posiadała miesięcznie od 1 do 6 mln userów w ramach integracji z partnerami. Narzędzia siedziały w tle produktów, jak niewidzialna funkcja. Dodatkowo duży, problemem była ilość konkurencyjnych narzędzi, które miały takie same bądź zbliżone działanie.
-    </p>
-  </article>
-
-  <article class="flex flex-col gap-[24px]" aria-labelledby="goal-title">
-    <h2 id="goal-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Cel</h2>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Przekształcić cichy, potężny fundament B2B w wyrazisty, samodzielny produkt B2C. Konkretnie: zrozumieć, kto faktycznie korzysta z
-      danych InsightX, znaleźć lukę na rynku i zaproponować kierunek produktowy, który można dalej rozwijać i testować.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      <strong>To nie był projekt interfejsu.</strong> To była praca koncepcyjna i researchowa.
-    </p>
-  </article>
-</section>
-
 <section class="grid gap-[48px] lg:grid-cols-[504px_467px] lg:items-center lg:gap-[64px]" aria-labelledby="process-title">
   <div class="flex flex-col gap-[24px]">
     <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Process</p>
+      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Proces</p>
       <h2 id="process-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Jak pracowaliśmy</h2>
     </div>
     <div class="h-px w-full bg-[var(--color-border)]"></div>
@@ -71,7 +49,7 @@ const figmaLinks = {
 
 <section class="flex w-full flex-col gap-[24px]" aria-labelledby="hypotheses-title">
   <div class="flex flex-col gap-[14px]">
-    <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Hypotheses</p>
+    <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Hipotezy</p>
     <h2 id="hypotheses-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Pierwsze hipotezy produktowe</h2>
   </div>
   <div class="h-px w-full bg-[var(--color-border)]"></div>
@@ -98,7 +76,7 @@ const figmaLinks = {
   <article class="flex flex-col gap-[24px]">
     <h3 class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Hipoteza #2 - Newbie friendly</h3>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      W trakcie researchu pierwszej hipotezy udało nam się dotrzeć to bardzo ważnego insighta, którym była informacja, że znaczna większość osób na rynku kryptowalut, bo około 80-90%,  to osoby początkujące, które podejmują decyzje emocjonalnie i nie rozumieją narzędzi dla „pro”. Dzięki temu odrazu pojawiła się nowa wizja, w której skupiamy się właśnie na tej dużej grupie osób. Głównym zamysłem była platforma bezpieczeństwa, ale w wersji dla nowicjuszy - lekka, przyjazna, momentami memiczna, nastawiona na edukację i minimalizowanie ryzyka scamów.
+      W trakcie researchu pierwszej hipotezy udało nam się dotrzeć do bardzo ważnego insightu: znaczna większość osób na rynku kryptowalut, około 80-90%, to osoby początkujące, które podejmują decyzje emocjonalnie i nie rozumieją narzędzi dla „pro”. Dzięki temu od razu pojawiła się nowa wizja, w której skupiamy się właśnie na tej dużej grupie osób. Głównym zamysłem była platforma bezpieczeństwa, ale w wersji dla nowicjuszy - lekka, przyjazna, momentami memiczna, nastawiona na edukację i minimalizowanie ryzyka scamów.
     </p>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
       Kierunek został odrzucony biznesowo: <strong>zespół InsightX nie chciał iść w stronę początkujących</strong>. Celem byli
@@ -144,7 +122,7 @@ const figmaLinks = {
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
       Na bazie wywiadów i danych od zespołu powstała mapa person. Główną personą był <strong>Smart Trader</strong>, a pod nią m.in.:
       Whale watcher, Event snipers, Social Follower, Course student, Coin community member i Bot operator.
-      Każda taka pod-persona miała swój indywidualny JTBD, dzięki któremu łatwiej było nam zrozumieć jak działają i czego potrzebują. To pozwoliło nam lepiej zrozumieć, jakie decyzje podejmują i jakich danych potrzebują w danym momencie.
+      Każda taka pod-persona miała swój indywidualny JTBD, dzięki któremu łatwiej było nam zrozumieć, jak działają i czego potrzebują. To pozwoliło nam lepiej zrozumieć, jakie decyzje podejmują i jakich danych potrzebują w danym momencie.
     </p>
     <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
       <a href={figmaLinks.personas} target="_blank" rel="noopener noreferrer" class="font-semibold underline">Zobacz w Figmie: Mapa person i JTBD</a>
@@ -156,12 +134,13 @@ const figmaLinks = {
   <h2 id="gap-analysis-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Analiza narzędzi: gdzie są luki?</h2>
   <div class="h-px w-full bg-[var(--color-border)]"></div>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Kolejnym krokiem w całym procesie była dokładna analiza narzędzi. Chcieliśmy skupić się na tym jak te toole działają, jakie informacje dostarczają i do czego wykorzystują je użytkownicy oraz jakie luki w ich działaniu możemy wykorzystać. Skupiliśmy się na narzędziach używanych przez docelowych użytkowników, głównie Arkham. Dodatkowo przeanalizowaliśmy również Dune i bezpośrednich konkurentów INX.
+    Kolejnym krokiem w całym procesie była dokładna analiza narzędzi. Chcieliśmy zrozumieć, jak działają, jakie informacje dostarczają, do czego wykorzystują je użytkownicy oraz jakie luki możemy znaleźć w ich działaniu. Skupiliśmy się na narzędziach używanych przez docelowych użytkowników, głównie Arkham. Dodatkowo przeanalizowaliśmy również Dune i bezpośrednich konkurentów INX.
   </p>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
     <strong>Dune</strong> - ma ogromne możliwości, ale wymaga znajomości SQL-a, więc próg wejścia jest wysoki.
+  </p>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    <strong>Arkham</strong> - ma dużo danych, ale zakłada, że użytkownikwie, czego szuka i nie łączy danych on-chain z giełdowymi w spójną narrację.
+    <strong>Arkham</strong> - ma dużo danych, ale zakłada, że użytkownik wie, czego szuka i nie łączy danych on-chain z giełdowymi w spójną narrację.
   </p>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
     <strong>To tutaj pojawiło się pojęcie „research-ready workspace”</strong>: środowiska, w którym można opowiadać historię na danych.
@@ -187,7 +166,7 @@ const figmaLinks = {
 
 <section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="vision-title">
   <div class="flex flex-col gap-[14px]">
-    <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Final concept</p>
+    <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Finalna koncepcja</p>
     <h2 id="vision-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Finalna wizja - InfoFi</h2>
   </div>
   <div class="h-px w-full bg-[var(--color-border)]"></div>
@@ -227,7 +206,7 @@ const figmaLinks = {
     konkretnej rekomendacji produktowej. Z tego projektu nauczyłam się bardzo dużo, zarówno o branży, jak i o procesie researchowym.
   </p>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Współpraca z doświadczonym product designerem nauczyła mnie bardziej biznesowego myślenia o produkcie. Zrozumiałam, że UX to nie nie tylko co jest dobre dla
+    Współpraca z doświadczonym product designerem nauczyła mnie bardziej biznesowego myślenia o produkcie. Zrozumiałam, że UX to nie tylko to, co jest dobre dla
     użytkownika, ale też gdzie jest realna szansa rynkowa.
   </p>
   <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">

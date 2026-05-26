@@ -37,38 +37,10 @@ const scheduleFlow = [
 ] as const;
 ---
 
-<section class="grid gap-[48px] lg:grid-cols-[509px_467px] lg:items-center lg:gap-[64px] order-1" aria-labelledby="problem-title">
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="problem-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Problem</h2>
-    <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Nauka języków obcych wymaga regularności i poczucia postępu. W aplikacjach rynkowych często pojawiają się dwa skrajne problemy: nadmierna gamifikacja lub przytłoczenie ogromem treści na starcie.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]"><strong>Nadmierna gamifikacja:</strong> użytkownik wraca dla streaka i rankingu, zamiast realnie uczyć się języka.</p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]"><strong>Przytłoczenie treścią:</strong> zbyt duża ilość materiału na wejściu zniechęca jeszcze przed rozpoczęciem nauki.</p>
-  </div>
-  <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[467px]">
-    <video src="/assets/mova/IOS-Stack-1-1.mp4" aria-label="Animacja kart do nauki języków" class="size-full object-cover" autoplay loop muted playsinline></video>
-  </div>
-</section>
-
-<section class="grid gap-[48px] lg:grid-cols-[467px_507px] lg:items-center lg:gap-[64px] order-2" aria-labelledby="goal-title">
-  <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[467px]">
-    <img src="/assets/mova/macbook-mova.png" alt="Widok aplikacji Mova w wersji webowej" class="size-full object-cover" loading="lazy" />
-  </div>
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="goal-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Cel</h2>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Celem było zaprojektowanie aplikacji, która prowadzi użytkownika przez naukę spokojnie i konsekwentnie. Narzędzie ma pokazywać, co zostało zrobione, co jest w toku i co jest kolejnym krokiem, bez walki o uwagę użytkownika.
-    </p>
-  </div>
-</section>
-
 <section class="order-3 grid gap-[48px] lg:grid-cols-[504px_467px] lg:items-center lg:gap-[64px]" aria-labelledby="research-title">
   <div class="flex flex-col gap-[24px]">
     <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Design process</p>
+      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Proces projektowy</p>
       <h2 id="research-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Research i analiza konkurencji</h2>
     </div>
     <div class="h-px w-full bg-[var(--color-border)]"></div>
@@ -115,7 +87,7 @@ const scheduleFlow = [
 <section class="order-5 grid gap-[48px] lg:grid-cols-[467px_507px] lg:items-center lg:gap-[64px]" aria-labelledby="define-title">
   <div class="flex flex-col gap-[24px] lg:justify-center lg:order-2">
     <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Information architecture</p>
+      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Architektura informacji</p>
       <h2 id="define-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Architektura informacji</h2>
     </div>
     <div class="h-px w-full bg-[var(--color-border)]"></div>
@@ -124,7 +96,7 @@ const scheduleFlow = [
         Struktura aplikacji została zaprojektowana tak, aby użytkownik zawsze miał pewność, w jakim miejscu całego procesu się znajduje. Lekcje uporządkowane są tematycznie w ramach modułów, a każda lekcja jest podzielona na trzy logiczne etapy: poznanie materiału, gdzie wprowadzane są nowe treści; ćwiczenia, czyli interaktywna praktyka; podsumowanie, które dostarcza feedback i wskazówki do dalszej pracy.
       </p>
       <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-        Dodatkowo użytkownik może tworzyć własną bazę słówek w słowniku i powtarzać je za pomocą fiszek dostępnych na stronie głównej. Ta funkcjonalność ma dać poczucie, że aktywnie budują swoją wiedzę, a nie tylko konsumują przygotowany materiał.
+        Dodatkowo użytkownik może tworzyć własną bazę słówek w słowniku i powtarzać je za pomocą fiszek dostępnych na stronie głównej. Ta funkcjonalność ma dać poczucie, że aktywnie buduje swoją wiedzę, a nie tylko konsumuje przygotowany materiał.
       </p>
     </div>
   </div>
@@ -137,7 +109,7 @@ const scheduleFlow = [
 <section class="grid gap-[48px] lg:grid-cols-[514px_457px] lg:items-center lg:gap-[64px] order-7" aria-labelledby="user-flow-title">
   <div class="flex flex-col gap-[24px]">
     <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Challenges</p>
+      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Wyzwania</p>
       <h2 id="user-flow-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Wyzwania i rozwiązania</h2>
     </div>
 
@@ -227,7 +199,7 @@ const scheduleFlow = [
     <ol class="flex flex-col gap-[20px]">
       <li class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">1. Uświadomiłam sobie, jak kluczowa jest hierarchia informacji w aplikacjach edukacyjnych.</li>
       <li class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">2. Przekonałam się, że prostota wymaga dyscypliny i skupienia na tym, co najważniejsze.</li>
-      <li class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">3. Design responsywny to więcej niż skalowanie elementów, każda platforma ma inny kontekst użycia.</li>
+      <li class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">3. Design responsywny to więcej niż skalowanie elementów. Każda platforma ma inny kontekst użycia.</li>
       <li class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">4. Inwestycja w system projektowy na starcie przyspiesza późniejsze iteracje i utrzymanie spójności.</li>
     </ol>
   </div>

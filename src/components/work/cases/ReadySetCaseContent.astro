@@ -5,7 +5,7 @@ const conclusionsRows = [
   {
     aspect: "Komunikacja",
     traditional: "Chat (Messenger/WhatsApp)",
-    finding: "Szybka, ale informacje giną w historii",
+    finding: "Szybka komunikacja, ale informacje giną w historii",
   },
   {
     aspect: "Dane",
@@ -74,35 +74,6 @@ const successMetrics = [
   "Skuteczność parsowania linków - niska częstotliwość błędów przy automatycznym pobieraniu danych z zewnętrznych źródeł.",
 ] as const;
 ---
-
-<section class="grid gap-[48px] lg:grid-cols-[509px_467px] lg:items-center lg:gap-[64px]" aria-labelledby="problem-title">
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="problem-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Problem</h2>
-    <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Planowanie wyjazdów w grupie generuje chaos z powodu rozproszenia informacji między różnymi narzędziami. Użytkownicy tracą kontrolę nad planem, decyzje gubią się w wątkach, a organizator musi ręcznie spinać ustalenia.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]"><strong>Frustracja:</strong> Uczestnicy gubią się w wątkach i tracą poczucie kontroli.</p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]"><strong>Paraliż decyzyjny:</strong> Trudno ustalić jedną wersję wydarzeń, gdy opinie są rozsiane po różnych kanałach.</p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]"><strong>Strata czasu:</strong> Organizer musi ręcznie spinać ustalenia w całość.</p>
-  </div>
-  <div class="overflow-hidden bg-transparent sm:h-auto sm:aspect-square lg:h-[467px]">
-    <video src="/assets/ready-set/start-page (1).mp4" aria-label="Animacja ekranu startowego aplikacji" class="size-full object-cover" autoplay loop muted playsinline></video>
-  </div>
-</section>
-
-<section class="grid gap-[48px] lg:grid-cols-[467px_507px] lg:items-center lg:gap-[64px]" aria-labelledby="goal-title">
-  <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[467px]">
-    <img src="/assets/ready-set/invite-readyset.png" alt="Widok zaproszenia do planowania wyjazdu" class="size-full object-cover" loading="lazy" />
-  </div>
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="goal-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Cel</h2>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Zaprojektować platformę, która w jasny sposób zbiera propozycje, ułatwia grupie szybkie podjęcie decyzji oraz weryfikuje postęp, przenosząc cały proces planowania z chaotycznych czatów i rozsianych narzędzi do jednego, spójnego harmonogramu. Krótko mówiąc: cały wyjazd w jednym miejscu.
-    </p>
-  </div>
-</section>
 
 <section class="flex flex-col gap-[64px]" aria-labelledby="research-title">
   <div class="flex flex-col gap-[24px]">
@@ -237,7 +208,7 @@ const successMetrics = [
 <section class="grid gap-[48px] lg:grid-cols-[1fr_1fr] lg:items-stretch lg:gap-[64px]" aria-labelledby="user-flow-title">
   <div class="flex flex-col gap-[24px]">
     <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">User flow</p>
+      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Przepływ użytkownika</p>
       <h2 id="user-flow-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Architektura i kluczowe decyzje projektowe</h2>
     </div>
 
@@ -280,7 +251,7 @@ const successMetrics = [
   <section class="flex flex-col gap-[32px]" aria-labelledby="dashboard-title">
     <div class="flex flex-col gap-[24px]">
       <h3 id="dashboard-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Dashboard wyjazdu</h3>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Widok wyjazdu jest głównym ekranem wyjazdu. Z poziomu tego widoku użytkownik może zarządzać całym wyjazdem, jego kategoriami, opcjami kategorii czy zaproszonymi osobami. Zamiast niekończącej się listy, zastosowałam kafelki kategorii, które od razu pokazują status. Dodatkowo użytkownik może eksportować gotowy plan jako gotowy plik PDF z całym planem i informacjami o danych opcjach.</p>
+      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Widok wyjazdu jest głównym ekranem wyjazdu. Z poziomu tego widoku użytkownik może zarządzać całym wyjazdem, jego kategoriami, opcjami kategorii czy zaproszonymi osobami. Zamiast niekończącej się listy, zastosowałam kafelki kategorii, które od razu pokazują status. Dodatkowo użytkownik może eksportować gotowy plan jako plik PDF z całym planem i informacjami o danych opcjach.</p>
     </div>
     <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/309] lg:h-[618px]">
       <img src="/assets/ready-set/dashboard-wyjazdu-readyset.png" alt="Dashboard wyjazdu" class="size-full object-cover" loading="lazy" />
@@ -308,7 +279,7 @@ const successMetrics = [
   <section class="flex flex-col gap-[32px]" aria-labelledby="schedule-title">
     <div class="flex flex-col gap-[24px]">
       <h3 id="schedule-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Harmonogram</h3>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Po zakończeniu planowania, aplikacja generuje czysty, czytelny harmonogram.Dodatkowo zaprojektowałam funkcję "Pobierz PDF".</p>
+      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Po zakończeniu planowania aplikacja generuje czysty, czytelny harmonogram. Dodatkowo zaprojektowałam funkcję "Pobierz PDF".</p>
     </div>
     <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/233] lg:h-[465px]">
       <img src="/assets/ready-set/harmonogram-readyset.png" alt="Widok harmonogramu wyjazdu" class="size-full object-cover" loading="lazy" />
@@ -332,7 +303,7 @@ const successMetrics = [
 <section class="grid gap-[48px] lg:grid-cols-[511px_283px] lg:items-start lg:justify-between" aria-labelledby="user-tests-title">
   <div class="flex flex-col gap-[24px] lg:justify-center">
     <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">User tests</p>
+      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Testy użytkowników</p>
       <h2 id="user-tests-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Testy użytkowników</h2>
     </div>
     <div class="h-px w-full bg-[var(--color-border)]"></div>
