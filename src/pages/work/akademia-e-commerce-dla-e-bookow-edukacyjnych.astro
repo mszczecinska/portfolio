@@ -1,0 +1,43 @@
+---
+import WorkCaseShell from "../../components/work/WorkCaseShell.astro";
+import AkademiaCaseContent from "../../components/work/cases/AkademiaCaseContent.astro";
+import { getProjectBySlug } from "../../lib/projects";
+
+const project = getProjectBySlug("akademia-e-commerce-dla-e-bookow-edukacyjnych");
+
+if (!project) {
+  return Astro.redirect("/work");
+}
+
+const tools = [
+  { src: "/icons/tool-figma.png", alt: "Figma" },
+  { src: "/icons/tool-codex.png", alt: "Codex" },
+] as const;
+---
+
+<WorkCaseShell
+  project={project}
+  tools={tools}
+  heroImage="/assets/akademia/hero-akademia.png"
+  overviewHeading="Wstęp"
+  overviewText="Akademia to sklep z e-bookami edukacyjnymi zaprojektowany jako subaplikacja strony Studio Nauczania Justyna Magiera. Projekt miał przenieść charakter marki do bardziej przejrzystego i nowoczesnego interfejsu, który lepiej odpowiada potrzebom sklepu internetowego."
+  primaryMetaLabel="Rola"
+  primaryMetaValue="UX/UI Designer"
+  projectType="Projekt komercyjny"
+  impactItems={[
+    {
+      title: "Problem",
+      text: "Stworzenie projektu sklepu internetowego, który będzie naturalnym przedłużeniem istniejącej marki.",
+    },
+    {
+      title: "Cel",
+      text: "Zaprojektowanie pełnego flow sprzedaży e-booków oraz odświeżenie warstwy wizualnej.",
+    },
+    {
+      title: "Efekt",
+      text: "Pełna makieta w Figmie, gotowa do dalszych prac developerskich.",
+    },
+  ]}
+>
+  <AkademiaCaseContent />
+</WorkCaseShell>
