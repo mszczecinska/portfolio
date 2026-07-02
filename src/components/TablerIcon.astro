@@ -19,10 +19,16 @@ interface Props {
     | "file-description"
     | "arrows-exchange"
     | "git-branch"
-  | "layout-list"
-  | "ripple"
-  | "arrow-bar-up"
-  | "rocket";
+    | "layout-list"
+    | "ripple"
+    | "arrow-bar-up"
+    | "rocket"
+    | "brush"
+    | "contrast"
+    | "route"
+    | "book-open"
+    | "user-check"
+    | "smartphone";
   class?: string;
   strokeWidth?: number;
 }
@@ -129,6 +135,35 @@ const iconPaths: Record<Props["name"], string[]> = {
     "M7 14a6 6 0 0 0 -3 6a6 6 0 0 0 6 -3",
     "M14 9a1 1 0 1 0 2 0a1 1 0 1 0 -2 0",
   ],
+  brush: [
+    "M4 18a4 4 0 0 1 4 -4h3",
+    "M19 5a14 14 0 0 0 -10.5 8.5",
+    "M19 5a14 14 0 0 1 -8.5 10.5",
+    "M9.5 14.5l4 4",
+  ],
+  contrast: [
+    "M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0",
+    "M12 3v18",
+    "M12 7a5 5 0 0 1 0 10",
+  ],
+  route: [
+    "M4 19a2 2 0 1 0 4 0a2 2 0 0 0 -4 0",
+    "M16 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0",
+    "M12 19h4.5a3.5 3.5 0 0 0 0 -7h-8a3.5 3.5 0 0 1 0 -7h3.5",
+  ],
+  "book-open": [
+    "M12 7v14",
+    "M3 18a1 1 0 0 1 1 -1h5a3 3 0 0 1 3 3a3 3 0 0 1 3 -3h5a1 1 0 0 1 1 1v-13a1 1 0 0 0 -1 -1h-5a3 3 0 0 0 -3 3a3 3 0 0 0 -3 -3h-5a1 1 0 0 0 -1 1v13z",
+  ],
+  "user-check": [
+    "M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0",
+    "M6 21v-2a4 4 0 0 1 4 -4h4",
+    "M15 19l2 2l4 -4",
+  ],
+  smartphone: [
+    "M7 5a2 2 0 0 1 2 -2h6a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-6a2 2 0 0 1 -2 -2v-14z",
+    "M11 18h2",
+  ],
 };
 
 const paths = iconPaths[name] ?? [];
@@ -136,6 +171,7 @@ const paths = iconPaths[name] ?? [];
 
 <svg
   class={className}
+  style="overflow: visible;"
   viewBox="0 0 24 24"
   fill="none"
   stroke="currentColor"

@@ -1,0 +1,166 @@
+---
+import TablerIcon from "../../TablerIcon.astro";
+
+const designDecisions = [
+  {
+    icon: "brush",
+    title: "Spójność z marką",
+    description:
+      "Sklep miał być naturalnym przedłużeniem Studio Nauczania, a nie osobnym produktem wizualnym. Zachowałam ciepłą paletę i edukacyjny charakter marki, ale uporządkowałam je w lżejszym interfejsie, który lepiej wspiera sprzedaż online.",
+  },
+  {
+    icon: "contrast",
+    title: "Kolor i dostępność",
+    description:
+      "Obecna paleta marki wymagała dopracowania pod kątem czytelności. Dodałam nowe odcienie koloru brandowego, żeby można było używać go w różnych kontekstach bez problemów z kontrastem i zasadami WCAG.",
+  },
+  {
+    icon: "route",
+    title: "Czytelny flow zakupowy",
+    description:
+      "Proces zakupu miał być prosty i przewidywalny. Dlatego oparłam go na znanych wzorcach e-commerce: listing produktów, karta e-booka, koszyk, checkout i potwierdzenie zakupu prowadzą użytkownika krok po kroku bez zbędnych rozproszeń.",
+  },
+  {
+    icon: "book-open",
+    title: "Karta produktu jako źródło decyzji",
+    description:
+      "E-book edukacyjny wymaga więcej kontekstu niż sam tytuł i cena. Karta produktu została zaprojektowana tak, żeby szybko wyjaśniała, czego dotyczy materiał, dla kogo jest przeznaczony i jaką wartość daje po zakupie.",
+  },
+  {
+    icon: "user-check",
+    title: "Doświadczenie po zakupie",
+    description:
+      "W przypadku produktu cyfrowego ścieżka nie kończy się na płatności. Zaprojektowałam widoki konta, zakupionych e-booków i historii zamówień, żeby użytkownik od razu wiedział, gdzie znaleźć swój materiał i jak może do niego wrócić.",
+  },
+  {
+    icon: "smartphone",
+    title: "Mobile jako pełny scenariusz",
+    description:
+      "Widoki desktop i mobile powstawały równolegle, bo użytkownik może trafić do sklepu z różnych miejsc: strony głównej, wiadomości, social mediów albo linku. Mobilna wersja miała zachować pełny flow zakupowy, ale w prostszej, bardziej kompaktowej hierarchii.",
+  },
+] as const;
+---
+
+<section class="flex w-full flex-col gap-[32px]" aria-labelledby="context-title">
+  <div class="flex w-full flex-col gap-[24px]">
+    <h2 id="context-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Kontekst</h2>
+    <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
+    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+      Studio Nauczania Justyna Magiera opiera komunikację na wsparciu i przygotowaniu uczniów z różnych grup wiekowych do egzaminów. Sklep miał być naturalnym przedłużeniem marki nastawionym na szybkie zrozumienie produktu i jego wartości.
+    </p>
+    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+      Mimo że e-booki to produkty cyfrowe, użytkownik powinien wiedzieć, czego dotyczy materiał, co otrzyma po zakupie i gdzie później znajdzie swoje pliki. Dlatego projekt obejmuje nie tylko proces sprzedaży, ale też moment po zakupie.
+    </p>
+  </div>
+
+  <div class="w-full overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/250] lg:h-[512px]">
+    <img src="/assets/akademia/porównanie-akademia.png" alt="Porównanie kierunku wizualnego projektu Akademia" class="size-full object-cover" loading="lazy" />
+  </div>
+</section>
+
+<section class="flex w-full flex-col gap-[32px]" aria-labelledby="process-title">
+  <div class="flex flex-col gap-[24px]">
+    <h2 id="process-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Proces</h2>
+    <div class="h-px w-full bg-[var(--color-border)]"></div>
+    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+      Pracę zaczęłam od ułożenia pełnej ścieżki użytkownika. W ramach projektu powstały kluczowe dla e-commerce strony takie jak główna, listing produktów, karta produktu, koszyk, logowanie i rejestracja, dane do płatności, potwierdzenie zakupu oraz widok konta użytkownika.
+    </p>
+    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+      Widoki powstały równolegle w wersji desktop i mobile, żeby cały serwis był responsywny, a makieta mogła być realną podstawą do wdrożenia.
+    </p>
+  </div>
+
+  <div class="grid gap-[24px] md:grid-cols-2">
+    <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[508px]">
+      <video
+        src="/assets/akademia/animation-1-akademia%20.mp4"
+        aria-label="Animacja pierwszego flow projektu Akademia"
+        class="size-full object-cover"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+    </div>
+    <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[508px]">
+      <video
+        src="/assets/akademia/animation-2-akademia%20.mp4"
+        aria-label="Animacja drugiego flow projektu Akademia"
+        class="size-full object-cover"
+        autoplay
+        loop
+        muted
+        playsinline
+      ></video>
+    </div>
+  </div>
+</section>
+
+<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="design-title">
+  <div class="flex flex-col gap-[14px]">
+    <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Design</p>
+    <h2 id="design-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Design i decyzje projektowe</h2>
+  </div>
+  <div class="h-px w-full bg-[var(--color-border)]"></div>
+
+  <div class="flex flex-col gap-[24px]">
+    {designDecisions.map((decision) => (
+      <article class="rounded-[12px] border border-[var(--color-border)] bg-[var(--color-foreground)] px-[20px] py-[28px]">
+        <div class="flex flex-col gap-[20px] lg:flex-row lg:items-center lg:gap-[24px]">
+          <span class="flex size-[56px] shrink-0 items-center justify-center text-[var(--color-text)]">
+            <TablerIcon name={decision.icon} class="size-[36px]" />
+          </span>
+          <div class="flex-1">
+            <h3 class="text-[20px] leading-[28px] lg:text-[22px] lg:leading-[28px] text-[var(--color-text)]">{decision.title}</h3>
+            <p class="mt-[20px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">{decision.description}</p>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<section class="grid gap-[48px] lg:grid-cols-[467px_509px] lg:items-center lg:gap-[64px]" aria-labelledby="handoff-title">
+  <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[467px]">
+    <img src="/assets/akademia/file-akademia.png" alt="Uporządkowany plik Figma projektu Akademia" class="size-full object-cover" loading="lazy" />
+  </div>
+
+  <div class="flex flex-col gap-[24px] lg:justify-center">
+    <h2 id="handoff-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Przygotowanie do wdrożenia</h2>
+    <div class="h-px w-full bg-[var(--color-border)]"></div>
+    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+      Plik Figma został uporządkowany z myślą o pracy developerskiej. Kolory zostały zmapowane na zmienne, które zostały podpięte bezpośrednio do projektu.
+    </p>
+    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+      Dzięki temu makieta nie opiera się na rozproszonych, ręcznych wartościach, tylko na spójnym systemie kolorów i wartości.
+    </p>
+  </div>
+</section>
+
+<section class="grid gap-[48px] lg:grid-cols-[511px_465px] lg:items-center lg:gap-[64px]" aria-labelledby="result-title">
+  <div class="flex flex-col gap-[24px] lg:justify-center">
+    <h2 id="result-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Rezultat</h2>
+    <div class="h-px w-full bg-[var(--color-border)]"></div>
+    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+      Efektem jest kompletna makieta e-commerce zawierająca kluczowe widoki, komponenty i modale. Projekt porządkuje sprzedaż cyfrowych materiałów edukacyjnych, zachowując przy tym spokojny charakter marki.
+    </p>
+  </div>
+
+  <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[465px]">
+    <img src="/assets/akademia/phone+desk-akademia.png" alt="Widoki desktop i mobile projektu Akademia" class="size-full object-cover" loading="lazy" />
+  </div>
+</section>
+
+<section class="grid gap-[48px] lg:grid-cols-[488px_488px] lg:items-center lg:gap-[64px]" aria-labelledby="next-steps-title">
+  <div class="overflow-hidden bg-transparent lg:order-1 lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[488px]">
+    <img src="/assets/akademia/macbook-akademia.png" alt="Makieta projektu Akademia na MacBooku" class="size-full object-cover" loading="lazy" />
+  </div>
+
+  <div class="flex flex-col gap-[24px] lg:order-2 lg:justify-center">
+    <h2 id="next-steps-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Dalsze kroki</h2>
+    <div class="h-px w-full bg-[var(--color-border)]"></div>
+    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
+      Kolejnym etapem projektu będzie development przygotowanej makiety przez programistę. Po wdrożeniu sklepu warto wrócić do projektu i sprawdzić metryki, między innymi jak użytkownicy przechodzą przez proces zakupu, gdzie pojawiają się ewentualne porzucenia oraz które elementy wspierają sprzedaż e-booków najlepiej.
+    </p>
+  </div>
+</section>
