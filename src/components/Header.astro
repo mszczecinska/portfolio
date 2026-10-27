@@ -2,8 +2,8 @@
 import TablerIcon from "./TablerIcon.astro";
 import LogoIcon from "./LogoIcon.astro";
 
-interface Props { caseStudy?: boolean; }
-const { caseStudy = false } = Astro.props;
+interface Props { caseStudy?: boolean; workPage?: boolean; }
+const { caseStudy = false, workPage = false } = Astro.props;
 
 const navItems = [
   { key: "work", href: "/work", label: "Realizacje" },
@@ -21,17 +21,17 @@ const activeKey = currentPath.startsWith("/about")
       : null;
 ---
 
-<header class:list={["relative z-40", { "case-header": caseStudy }]} data-scroll-header transition:name="site-header">
+<header class:list={["relative z-40", { "case-header": caseStudy || workPage, "work-header": workPage }]} data-scroll-header transition:name="site-header">
   <div class="page-container pt-[var(--space-5)]">
     <nav class="flex items-center justify-between lg:min-h-[140px] lg:items-start" aria-label="Główna nawigacja">
       <a
         href="/"
         class="inline-flex items-center lg:py-[12px]"
         aria-label="Strona główna"
-        transition:name={caseStudy ? "case-brand" : "site-brand"}
+        transition:name={caseStudy || workPage ? "case-brand" : "site-brand"}
         transition:persist
       >
-        {caseStudy ? <span class="case-header__home">Główna</span> : (
+        {caseStudy || workPage ? <span class="case-header__home">Główna</span> : (
         <span class="h-[16px] w-auto lg:h-[18px] text-[var(--color-text)]">
           <LogoIcon class="size-6" />
         </span>
@@ -39,6 +39,7 @@ const activeKey = currentPath.startsWith("/about")
       </a>
 
       {caseStudy && <a href="/work" class="case-header__current" aria-label="Wróć do realizacji">Realizacje</a>}
+      {workPage && <a href="/work" class="case-header__current" aria-current="page">Work</a>}
 
       <div class="flex items-center gap-[24px] sm:gap-[32px] lg:items-start lg:gap-[64px]">
         <ul class="hidden items-start pt-[12px] self-center gap-[64px] text-[var(--color-text)] lg:flex">
@@ -67,6 +68,7 @@ const activeKey = currentPath.startsWith("/about")
           }
         </ul>
 
+        {workPage && <span class="work-header__language" aria-label="Język: polski">PL</span>}
         <div class="lg:hidden" data-mobile-menu>
           <button
             type="button"
@@ -356,6 +358,13 @@ const activeKey = currentPath.startsWith("/about")
 </script>
 
 <style>
+  .work-header__language { display: grid; place-items: center; width: 44px; height: 44px; font-family: var(--font-label); line-height: 1; }
+  .work-header nav > div { gap: var(--space-2); }
+  .work-header .case-header__current { font-weight: var(--weight-regular); }
+  @media (min-width: 64rem) {
+    .work-header nav :global(.type-nav:not([aria-current="page"])) { color: var(--color-text-muted); }
+    .work-header nav > div, .work-header nav ul, .work-header nav ul li { display: contents; }
+  }
   .case-header > div { padding-block: var(--space-3); }
   .case-header[data-scroll-header].is-floating > div { padding-bottom: var(--space-3); }
   .case-header nav { min-height: var(--control-height); align-items: center; }
