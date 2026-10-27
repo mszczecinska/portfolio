@@ -1,0 +1,13 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "./case-study.css";
+
+interface Props { title: string; description: string; }
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description} showFooter={false} caseStudyHeader>
+  <article class="case-study" aria-labelledby="case-study-title">
+    <slot />
+  </article>
+</Layout>

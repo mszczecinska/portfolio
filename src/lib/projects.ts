@@ -33,6 +33,7 @@ export const projects: Project[] = [
     description:
       "Kompletna makieta e-commerce dla e-booków edukacyjnych: pełny flow zakupowy, desktop, mobile i uporządkowane zmienne w Figmie.",
     image: "/assets/akademia/work-akademia.png",
+    links: { live: "https://studionauczaniakursy.pl/" },
     tags: ["UX/UI Design", "E-commerce", "EduTech"],
     content:
       "Akademia to sklep z e-bookami edukacyjnymi zaprojektowany jako subaplikacja strony Studio Nauczania Justyna Magiera. Projekt miał przenieść charakter marki do bardziej przejrzystego i nowoczesnego interfejsu, który lepiej odpowiada potrzebom sklepu internetowego.",
@@ -53,6 +54,7 @@ export const projects: Project[] = [
     description:
       "Redesign SaaS dla zespołów kuchennych: nowa warstwa UI, animacje, landing page i wdrożona strona.",
     image: "/assets/miropoix/work-miropoix.png",
+    links: { live: "https://miropoix.com/en/" },
     tags: ["UI Design", "Development", "Web", "Motion Design"],
     content:
       "Miropoix to aplikacja SaaS skierowana do zespołów kuchennych. Aplikacja daje zespołowi jedno wspólne narzędzie, w którym każdy kucharz dodaje to, co potrzebuje danego dnia.",

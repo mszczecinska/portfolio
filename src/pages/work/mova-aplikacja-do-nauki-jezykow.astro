@@ -1,39 +1,31 @@
 ---
-import WorkCaseShell from "../../components/work/WorkCaseShell.astro";
+import CaseStudyShell from "../../components/work/CaseStudyShell.astro";
+import CaseStudyIntro from "../../components/work/CaseStudyIntro.astro";
+import CaseStudyPagination from "../../components/work/CaseStudyPagination.astro";
 import MovaCaseContent from "../../components/work/cases/MovaCaseContent.astro";
 import { getProjectBySlug } from "../../lib/projects";
 
 const project = getProjectBySlug("mova-aplikacja-do-nauki-jezykow");
-
-if (!project) {
-  return Astro.redirect("/work");
-}
-
-const tools = [{ src: "/icons/tool-figma.png", alt: "Figma" }] as const;
+if (!project) return Astro.redirect("/work");
 ---
 
-<WorkCaseShell
-  project={project}
-  tools={tools}
-  heroImage="/assets/mova/hero-mova.png"
-  overviewHeading="Kontekst projektu"
-  overviewText="Mova to koncept aplikacji do nauki języków oparty na realnym projekcie komercyjnym. Skupiłam się na strukturze lekcji, czytelnym progresie i systemie UI, który wspiera naukę zamiast konkurować z treścią."
-  duration="2 tygodnie"
-  projectType="Konceptualny na bazie projektu komercyjnego"
-  impactItems={[
-    {
-      title: "Problem",
-      text: "Aplikacje do nauki języków często wpadają w nadmierną gamifikację albo przytłaczają użytkownika zbyt dużą ilością treści.",
-    },
-    {
-      title: "Cel",
-      text: "Zaprojektować spokojną, czytelną aplikację, która prowadzi przez naukę krok po kroku i jasno pokazuje progres.",
-    },
-    {
-      title: "Efekt",
-      text: "Powstał koncept aplikacji mobile i web z logiczną strukturą lekcji, ekranami feedbacku i skalowalnym UI Kitem.",
-    },
-  ]}
->
+<CaseStudyShell title="Mova — czytelna ścieżka nauki języków" description={project.description}>
+  <CaseStudyIntro
+    title="Mova"
+    subtitle="Czytelna ścieżka nauki języków"
+    overview="Mova to koncepcja aplikacji do nauki języków, oparta na projekcie komercyjnym. Skupiłam się na strukturze lekcji, prezentacji postępów i spójnym interfejsie mobile i web, który wspiera naukę zamiast konkurować z materiałem."
+    role="UX/UI designer"
+    projectType="Projekt koncepcyjny na bazie projektu komercyjnego"
+    tools={[{ src: "/icons/tool-figma.png", alt: "Figma" }]}
+    facts={[
+      { title: "Problem", text: "Znalezienie równowagi między motywującym interfejsem a spokojną przestrzenią do nauki, bez nadmiaru elementów grywalizacji i przytłaczającej ilości treści." },
+      { title: "Cel", text: "Zaprojektowanie aplikacji, która prowadzi przez materiał krok po kroku i jasno pokazuje postęp." },
+      { title: "Efekt", text: "Projekt widoków mobile i web ze strukturą lekcji, informacją zwrotną oraz UI Kitem przygotowanym do rozwijania kolejnych ekranów." },
+    ]}
+  />
   <MovaCaseContent />
-</WorkCaseShell>
+  <CaseStudyPagination
+    previous={{ title: "ReadySet", description: "Wspólny wyjazd. Jeden plan.", href: "/work/readyset-aplikacja-do-planowania-wyjazdow" }}
+    next={{ title: "AuraPura", description: "Od założeń marki do design systemu", href: "/work/aurapura-design-system" }}
+  />
+</CaseStudyShell>

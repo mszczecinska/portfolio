@@ -1,0 +1,99 @@
+---
+import TablerIcon from "../TablerIcon.astro";
+import CaseStudyMedia from "./CaseStudyMedia.astro";
+
+interface RelatedProject {
+  title: string;
+  description: string;
+  href: string;
+}
+interface Props { previous: RelatedProject; next: RelatedProject; }
+const { previous, next } = Astro.props;
+const projects = [
+  { ...next, direction: "next", label: "Następny projekt" },
+  { ...previous, direction: "previous", label: "Poprzedni projekt" },
+];
+---
+
+<nav class="case-pagination page-container" aria-label="Inne projekty">
+  {projects.map(project => (
+    <a class:list={["case-pagination__project", `case-pagination__${project.direction}`]} href={project.href}>
+      <div class="case-pagination__direction">
+        {project.direction === "previous" && <TablerIcon name="arrow-narrow-right" class="case-pagination__arrow case-pagination__arrow--previous" />}
+        <p class="type-label">{project.label}</p>
+        {project.direction === "next" && <TablerIcon name="arrow-narrow-right" class="case-pagination__arrow" />}
+      </div>
+      <CaseStudyMedia label={`${project.title} — podgląd projektu`} ratio="8 / 5" />
+      <div class="case-pagination__caption">
+        <h2>{project.title}</h2>
+        <p>{project.description}</p>
+      </div>
+    </a>
+  ))}
+</nav>
+
+<style>
+  .case-pagination {
+    display: grid;
+    gap: var(--space-12);
+    padding-bottom: var(--space-16);
+  }
+  .case-pagination__project {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    align-content: start;
+    gap: var(--space-5);
+    min-width: 0;
+    padding-top: var(--space-4);
+    text-decoration: none;
+  }
+  .case-pagination__direction {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+  .case-pagination__caption {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+  }
+  .case-pagination__previous .case-pagination__direction { justify-content: flex-start; }
+  .case-pagination h2 {
+    font-size: 1.5rem;
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-heading);
+  }
+  .case-pagination__caption p {
+    max-width: 40ch;
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    color: var(--color-text-muted);
+  }
+  .case-pagination :global(.case-pagination__arrow) {
+    width: var(--space-6);
+    height: var(--space-6);
+    flex-shrink: 0;
+    transition: transform var(--duration-ui) var(--ease-ui);
+  }
+  .case-pagination :global(.case-pagination__arrow--previous) { transform: rotate(180deg); }
+  .case-pagination__project:focus-visible h2 {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  @media (hover: hover) {
+    .case-pagination__next:hover :global(.case-pagination__arrow) { transform: translateX(4px); }
+    .case-pagination__previous:hover :global(.case-pagination__arrow) { transform: translateX(-4px) rotate(180deg); }
+  }
+  @media (min-width: 48rem) {
+    .case-pagination {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-10);
+    }
+    .case-pagination__previous { grid-column: 1; grid-row: 1; }
+    .case-pagination__next { grid-column: 2; grid-row: 1; }
+  }
+  @media (min-width: 64rem) {
+    .case-pagination h2 { font-size: 2rem; }
+  }
+</style>

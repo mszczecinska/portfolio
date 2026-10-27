@@ -1,0 +1,36 @@
+/* Shared by the migrated case studies only. Legacy pages retain their own layout. */
+.case-study {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+  padding-top: var(--space-3);
+  color: var(--color-text);
+}
+
+.case-study .case-body,
+.case-study .case-prose {
+  font-size: var(--text-small);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+  text-wrap: pretty;
+}
+
+.case-study .case-prose {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.case-study .case-heading {
+  font-size: 1.5rem;
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-heading);
+  text-wrap: balance;
+}
+
+@media (min-width: 64rem) {
+  .case-study { padding-top: var(--space-2); }
+  .case-study .case-body,
+  .case-study .case-prose { font-size: var(--text-body); }
+  .case-study .case-heading { font-size: var(--text-heading); }
+}

@@ -262,7 +262,7 @@ const tabs: Tab[] = [
             {
               tab.cards.map((card) => (
                 <article class:list={["newbies-card", card.desktopStart ? `newbies-card--start-${card.desktopStart}` : ""]}>
-                  <h4 class="newbies-card-title">{card.title}</h4>
+                  <h3 class="newbies-card-title">{card.title}</h3>
 
                   {card.description && <p class="newbies-card-description">{card.description}</p>}
 
@@ -519,44 +519,8 @@ const tabs: Tab[] = [
   }
 </style>
 
-<script is:inline data-astro-rerun>
-  (() => {
-    const roots = document.querySelectorAll("[data-newbies-cards]");
-    if (!roots.length) return;
-
-    roots.forEach((root) => {
-      if (!(root instanceof HTMLElement)) return;
-      if (root.dataset.tabsInitialized === "true") return;
-      root.dataset.tabsInitialized = "true";
-
-      const buttons = root.querySelectorAll("[data-newbies-tab]");
-      const panels = root.querySelectorAll("[data-newbies-panel]");
-
-      const setActive = (tabId) => {
-        buttons.forEach((button) => {
-          const isActive = button.getAttribute("data-newbies-tab") === tabId;
-          button.classList.toggle("is-active", isActive);
-          button.setAttribute("aria-selected", isActive ? "true" : "false");
-        });
-
-        panels.forEach((panel) => {
-          const isActive = panel.getAttribute("data-newbies-panel") === tabId;
-          panel.classList.toggle("hidden", !isActive);
-
-          if (isActive) {
-            panel.classList.remove("newbies-panel-enter");
-            void panel.offsetWidth;
-            panel.classList.add("newbies-panel-enter");
-          }
-        });
-      };
-
-      buttons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const tabId = button.getAttribute("data-newbies-tab");
-          if (tabId) setActive(tabId);
-        });
-      });
-    });
-  })();
+<script>
+  import { setupHypothesisCards } from "./hypothesis-tabs";
+  setupHypothesisCards();
+  document.addEventListener("astro:page-load", setupHypothesisCards);
 </script>

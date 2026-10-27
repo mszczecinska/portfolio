@@ -1,0 +1,117 @@
+---
+import CaseStudyMedia, { type Props as Media } from "./CaseStudyMedia.astro";
+
+interface Props {
+  id: string;
+  label: string;
+  items: Media[];
+}
+const { id, label, items } = Astro.props;
+---
+
+<div class="case-screens" data-case-screens>
+  <div class="case-screens__copy case-prose"><slot /></div>
+  <div class="case-screens__track" id={id} data-screens-track tabindex="0" role="region" aria-label={label}>
+    {items.map(item => (
+      <div class="case-screens__slide" role="group" aria-label={item.label}>
+        <CaseStudyMedia {...item} />
+      </div>
+    ))}
+  </div>
+  <div class="case-screens__controls" role="group" aria-label="Wybierz ekran aplikacji">
+    {items.map((item, index) => (
+      <button type="button" data-screen-index={index} aria-controls={id} aria-pressed={index === 0 ? "true" : "false"} aria-label={`Ekran ${index + 1}: ${item.label}`}>
+        <span aria-hidden="true"></span>
+      </button>
+    ))}
+  </div>
+</div>
+
+<style>
+  .case-screens {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+  .case-screens__track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+  .case-screens__track::-webkit-scrollbar { display: none; }
+  .case-screens__slide {
+    display: grid;
+    place-items: center;
+    flex: 0 0 100%;
+    min-width: 0;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+  .case-screens__slide :global(.case-media) { max-width: 12.9375rem; }
+  .case-screens__controls { display: flex; justify-content: center; }
+  .case-screens__controls button {
+    display: grid;
+    place-items: center;
+    width: var(--control-height);
+    height: var(--control-height);
+    cursor: pointer;
+  }
+  .case-screens__controls span {
+    width: var(--space-3);
+    height: var(--space-3);
+    border: var(--border-width) solid var(--color-text-muted);
+    border-radius: 50%;
+    background: var(--color-background);
+  }
+  .case-screens__controls [aria-pressed="true"] span { background: var(--color-text); border-color: var(--color-text); }
+  @media (min-width: 64rem) {
+    .case-screens {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-10);
+      align-items: center;
+    }
+    .case-screens__copy { grid-column: 3; grid-row: 1; }
+    .case-screens__track { display: contents; }
+    .case-screens__slide :global(.case-media) { max-width: 20.15625rem; }
+    .case-screens__slide:nth-child(1) { grid-column: 1; grid-row: 1; }
+    .case-screens__slide:nth-child(2) { grid-column: 2; grid-row: 1; }
+    .case-screens__slide:nth-child(3) { grid-column: 2; grid-row: 2; }
+    .case-screens__slide:nth-child(4) { grid-column: 3; grid-row: 2; justify-items: start; }
+    .case-screens__controls { display: none; }
+  }
+</style>
+
+<script>
+  function setupScreenGalleries() {
+    document.querySelectorAll<HTMLElement>("[data-case-screens]").forEach(root => {
+      if (root.dataset.initialized) return;
+      const track = root.querySelector<HTMLElement>("[data-screens-track]");
+      const buttons = [...root.querySelectorAll<HTMLButtonElement>("[data-screen-index]")];
+      if (!track || !buttons.length) return;
+      root.dataset.initialized = "true";
+
+      const currentIndex = () => Math.round(track.scrollLeft / Math.max(track.clientWidth, 1));
+      const goTo = (index: number) => {
+        const target = Math.max(0, Math.min(buttons.length - 1, index));
+        track.scrollTo({ left: target * track.clientWidth, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+      };
+      buttons.forEach((button, index) => button.addEventListener("click", () => goTo(index)));
+      track.addEventListener("scroll", () => {
+        const index = currentIndex();
+        buttons.forEach((button, i) => button.setAttribute("aria-pressed", String(i === index)));
+      }, { passive: true });
+      track.addEventListener("keydown", event => {
+        if (window.matchMedia("(min-width: 64rem)").matches) return;
+        const offsets: Record<string, number> = { ArrowRight: currentIndex() + 1, ArrowLeft: currentIndex() - 1, Home: 0, End: buttons.length - 1 };
+        if (event.key in offsets) {
+          event.preventDefault();
+          goTo(offsets[event.key]);
+        }
+      });
+    });
+  }
+  setupScreenGalleries();
+  document.addEventListener("astro:page-load", setupScreenGalleries);
+</script>
