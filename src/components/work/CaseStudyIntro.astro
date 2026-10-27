@@ -1,0 +1,99 @@
+---
+import TablerIcon from "../TablerIcon.astro";
+import CaseStudyMedia from "./CaseStudyMedia.astro";
+
+interface Props {
+  title: string;
+  subtitle: string;
+  overview: string;
+  role: string;
+  projectType: string;
+  tools: readonly { src: string; alt: string }[];
+  liveUrl?: string;
+  liveHoverColor?: string;
+  facts?: readonly { title: string; text: string }[];
+}
+const { title, subtitle, overview, role, projectType, tools, liveUrl, liveHoverColor = "var(--color-surface)", facts = [] } = Astro.props;
+---
+
+<header class="case-intro">
+  <div class="page-container">
+    <CaseStudyMedia label={`${title} — okładka projektu`} ratio="361 / 186" desktopRatio="1216 / 520" />
+  </div>
+
+  <div class="case-intro__details page-container">
+    <div class="case-intro__heading">
+      <div class="case-intro__titles">
+        <h1 id="case-study-title" class="type-title">{title}</h1>
+        <p class="case-intro__subtitle">{subtitle}</p>
+      </div>
+      {liveUrl && <a class="btn-primary" style={`--case-live-hover: ${liveHoverColor};`} href={liveUrl} target="_blank" rel="noopener noreferrer">Zobacz live <TablerIcon name="arrow-up-right" class="size-6" /></a>}
+    </div>
+
+    <div class="case-intro__overview">
+      <dl class="case-intro__metadata">
+        <div><dt class="type-label">Rola</dt><dd>{role}</dd></div>
+        <div><dt class="type-label">Typ</dt><dd>{projectType}</dd></div>
+        <div>
+          <dt class="type-label">Narzędzia</dt>
+          <dd><ul class="case-intro__tools" aria-label="Narzędzia projektu">{tools.map(tool => <li><img src={tool.src} alt={tool.alt} width="24" height="24" /></li>)}</ul></dd>
+        </div>
+      </dl>
+      <p class="case-body">{overview}</p>
+    </div>
+  </div>
+
+  {facts.length > 0 && (
+    <div class="case-intro__facts" role="group" aria-label="Projekt w skrócie">
+      <dl class="case-intro__facts-grid page-container">
+        {facts.map(fact => <div><dt class="type-label">{fact.title}</dt><dd class="case-body">{fact.text}</dd></div>)}
+      </dl>
+    </div>
+  )}
+</header>
+
+<style>
+  @media (hover: hover) {
+    .case-intro__heading .btn-primary:hover { background-color: var(--case-live-hover); }
+  }
+  .case-intro { display: flex; flex-direction: column; gap: var(--space-6); }
+  .case-intro > .page-container:first-child { margin-bottom: calc(-1 * var(--space-4)); }
+  .case-intro__details { display: grid; gap: var(--space-5); }
+  .case-intro__heading, .case-intro__overview { display: flex; flex-direction: column; gap: var(--space-5); min-width: 0; }
+  .case-intro__heading { align-items: flex-end; gap: var(--space-4); }
+  .case-intro__titles { display: grid; gap: var(--space-2); width: 100%; }
+  .case-intro__subtitle { font-size: 1.5rem; line-height: var(--leading-heading); }
+  .case-intro__metadata { margin: 0; }
+  .case-intro__metadata > div {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.16fr);
+    align-items: center;
+    gap: var(--space-6);
+    padding-block: var(--space-3);
+    border-top: var(--border-width) solid var(--color-border);
+  }
+  .case-intro__metadata > div:last-child { border-bottom: var(--border-width) solid var(--color-border); }
+  .case-intro__metadata dd { margin: 0; font-size: var(--text-small); line-height: var(--leading-body); }
+  .case-intro__tools { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .case-intro__tools img { display: block; width: var(--space-5); height: var(--space-5); object-fit: contain; }
+  .case-intro__facts { border-block: var(--border-width) solid var(--color-border); }
+  .case-intro__facts-grid { display: grid; margin-block: 0; padding-inline: 0; }
+  .case-intro__facts-grid > div { display: grid; align-content: start; grid-template-rows: auto 1fr; gap: var(--space-4); padding: var(--space-4) calc(var(--page-gutter) + var(--space-3)); }
+  .case-intro__facts dt { font-size: 1.25rem; }
+  .case-intro__facts-grid > div + div { border-top: var(--border-width) solid var(--color-border); }
+  .case-intro__facts dd { margin: 0; }
+  @media (min-width: 64rem) {
+    .case-intro { gap: var(--space-10); }
+    .case-intro > .page-container:first-child { margin-bottom: 0; }
+    .case-intro__details { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-5); }
+    .case-intro__heading { align-items: flex-start; gap: var(--space-8); }
+    .case-intro__subtitle { font-size: var(--text-heading); }
+    .case-intro__metadata { max-width: 34.5rem; }
+    .case-intro__metadata > div { grid-template-columns: minmax(0, 156fr) minmax(0, 372fr); }
+    .case-intro__metadata dd { font-size: var(--text-body); }
+    .case-intro__tools img { width: var(--space-6); height: var(--space-6); }
+    .case-intro__facts-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-inline: var(--page-gutter); }
+    .case-intro__facts-grid > div { gap: var(--space-6); padding: var(--space-12) var(--space-6); }
+    .case-intro__facts-grid > div + div { border-top: 0; border-left: var(--border-width) solid var(--color-border); }
+  }
+</style>

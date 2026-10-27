@@ -33,6 +33,7 @@ export const projects: Project[] = [
     description:
       "Kompletna makieta e-commerce dla e-booków edukacyjnych: pełny flow zakupowy, desktop, mobile i uporządkowane zmienne w Figmie.",
     image: "/assets/akademia/work-akademia.png",
+    links: { live: "https://studionauczaniakursy.pl/" },
     tags: ["UX/UI Design", "E-commerce", "EduTech"],
     content:
       "Akademia to sklep z e-bookami edukacyjnymi zaprojektowany jako subaplikacja strony Studio Nauczania Justyna Magiera. Projekt miał przenieść charakter marki do bardziej przejrzystego i nowoczesnego interfejsu, który lepiej odpowiada potrzebom sklepu internetowego.",

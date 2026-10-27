@@ -1,0 +1,63 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  layout?: "split" | "editorial" | "centered";
+  mediaSide?: "left" | "right";
+  align?: "start" | "center";
+  mediaWidth?: "equal" | "wide";
+}
+
+const { id, title, layout = "editorial", mediaSide = "right", align = "start", mediaWidth = "equal" } = Astro.props;
+---
+
+<section
+  class:list={["case-section page-container", `case-section--${layout}`, { "case-section--media-left": mediaSide === "left", "case-section--center": align === "center", "case-section--wide-media": mediaWidth === "wide" }]}
+  aria-labelledby={`${id}-title`}
+>
+  <div class="case-section__layout">
+    <div class="case-section__copy">
+      <h2 class="case-heading" id={`${id}-title`}>{title}</h2>
+      <div class="case-prose"><slot /></div>
+    </div>
+    {Astro.slots.has("media") && <div class="case-section__media"><slot name="media" /></div>}
+  </div>
+  {Astro.slots.has("visuals") && <div class="case-section__visuals"><slot name="visuals" /></div>}
+</section>
+
+<style>
+  .case-section, .case-section__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--content-gap);
+  }
+  .case-section__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--content-gap);
+  }
+  .case-section__copy, .case-section__media, .case-section__visuals { min-width: 0; }
+  @media (min-width: 64rem) {
+    .case-section--split .case-section__layout {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--column-gap);
+    }
+    .case-section--wide-media .case-section__layout { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+    .case-section--wide-media.case-section--media-left .case-section__layout { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    .case-section--media-left .case-section__media { grid-column: 1; grid-row: 1; }
+    .case-section--media-left .case-section__copy { grid-column: 2; grid-row: 1; }
+    .case-section--center .case-section__copy { align-self: center; }
+    .case-section--editorial .case-section__copy {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: var(--space-5);
+    }
+    .case-section--centered .case-section__copy {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+      gap: var(--space-20);
+      max-width: 50.25rem;
+      margin-inline: auto;
+    }
+  }
+</style>

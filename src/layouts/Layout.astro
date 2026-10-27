@@ -3,12 +3,14 @@ interface Props {
   title: string;
   description?: string;
   showFooter?: boolean;
+  caseStudyHeader?: boolean;
 }
 
 const {
   title,
   description = "Portfolio UX/UI z płynnymi przejściami między podstronami",
   showFooter = true,
+  caseStudyHeader = false,
 } = Astro.props;
 
 import { ClientRouter } from "astro:transitions";
@@ -106,7 +108,7 @@ import SpeedInsights from "@vercel/speed-insights/astro";
       <a href="#main-content" class="skip-to-content">
         Przejdź do treści
       </a>
-      <Header />
+      <Header caseStudy={caseStudyHeader} />
       <main id="main-content" class="flex-1">
         <slot />
       </main>

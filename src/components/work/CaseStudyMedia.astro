@@ -1,0 +1,50 @@
+---
+export interface Props {
+  label: string;
+  ratio?: string;
+  desktopRatio?: string;
+  src?: string;
+  kind?: "image" | "video";
+}
+
+const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image" } = Astro.props;
+---
+
+<figure class="case-media" style={`--media-ratio: ${ratio}; --media-ratio-desktop: ${desktopRatio};`}>
+  {src ? (
+    kind === "video" ? (
+      <video src={src} controls playsinline preload="metadata" aria-label={label}></video>
+    ) : (
+      <img src={src} alt={label} loading="lazy" decoding="async" />
+    )
+  ) : (
+    <div class="media-placeholder case-media__placeholder" role="img" aria-label={`${label} — materiał w przygotowaniu`}>
+      <span class="type-label">{label}</span>
+    </div>
+  )}
+</figure>
+
+<style>
+  .case-media {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    aspect-ratio: var(--media-ratio);
+    overflow: hidden;
+  }
+  .case-media__placeholder {
+    width: 100%;
+    height: 100%;
+    padding: var(--space-5);
+    text-align: center;
+  }
+  .case-media img, .case-media video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  @media (min-width: 64rem) {
+    .case-media { aspect-ratio: var(--media-ratio-desktop); }
+  }
+</style>

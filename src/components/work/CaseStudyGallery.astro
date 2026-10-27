@@ -1,0 +1,30 @@
+---
+import CaseStudyMedia, { type Props as Media } from "./CaseStudyMedia.astro";
+
+interface Props {
+  items: Media[];
+  layout?: "pair" | "phones";
+}
+const { items, layout = "pair" } = Astro.props;
+---
+
+<div class:list={["case-gallery", `case-gallery--${layout}`]}>
+  {items.map((item) => <CaseStudyMedia {...item} />)}
+</div>
+
+<style>
+  .case-gallery {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-5);
+  }
+  .case-gallery--phones { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 64rem) {
+    .case-gallery--pair { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .case-gallery--phones {
+      max-width: 42.8125rem;
+      margin-inline: auto;
+      gap: var(--space-10);
+    }
+  }
+</style>

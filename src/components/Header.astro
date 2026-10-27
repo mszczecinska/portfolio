@@ -2,6 +2,9 @@
 import TablerIcon from "./TablerIcon.astro";
 import LogoIcon from "./LogoIcon.astro";
 
+interface Props { caseStudy?: boolean; }
+const { caseStudy = false } = Astro.props;
+
 const navItems = [
   { key: "work", href: "/work", label: "Realizacje" },
   { key: "about", href: "/about", label: "O mnie" },
@@ -18,20 +21,24 @@ const activeKey = currentPath.startsWith("/about")
       : null;
 ---
 
-<header class="relative z-40" data-scroll-header transition:name="site-header">
+<header class:list={["relative z-40", { "case-header": caseStudy }]} data-scroll-header transition:name="site-header">
   <div class="page-container pt-[var(--space-5)]">
     <nav class="flex items-center justify-between lg:min-h-[140px] lg:items-start" aria-label="Główna nawigacja">
       <a
         href="/"
         class="inline-flex items-center lg:py-[12px]"
         aria-label="Strona główna"
-        transition:name="site-brand"
+        transition:name={caseStudy ? "case-brand" : "site-brand"}
         transition:persist
       >
+        {caseStudy ? <span class="case-header__home">Główna</span> : (
         <span class="h-[16px] w-auto lg:h-[18px] text-[var(--color-text)]">
           <LogoIcon class="size-6" />
         </span>
+        )}
       </a>
+
+      {caseStudy && <a href="/work" class="case-header__current" aria-label="Wróć do realizacji">Realizacje</a>}
 
       <div class="flex items-center gap-[24px] sm:gap-[32px] lg:items-start lg:gap-[64px]">
         <ul class="hidden items-start pt-[12px] self-center gap-[64px] text-[var(--color-text)] lg:flex">
@@ -349,6 +356,22 @@ const activeKey = currentPath.startsWith("/about")
 </script>
 
 <style>
+  .case-header > div { padding-block: var(--space-3); }
+  .case-header[data-scroll-header].is-floating > div { padding-bottom: var(--space-3); }
+  .case-header nav { min-height: var(--control-height); align-items: center; }
+  .case-header nav > a:first-child { display: none; }
+  .case-header__current { font-size: 1.5rem; font-weight: var(--weight-medium); }
+  @media (min-width: 64rem) {
+    .case-header > div { padding-block: var(--space-5); }
+    .case-header[data-scroll-header].is-floating > div { padding-bottom: var(--space-5); }
+    .case-header nav { min-height: 3.5rem; }
+    .case-header nav > a:first-child { display: inline-flex; padding-block: 0; }
+    .case-header__home { font-size: 1.25rem; color: var(--color-text-muted); }
+    .case-header__current { display: none; }
+    .case-header nav > div { flex: 1; }
+    .case-header nav ul { flex: 1; justify-content: space-evenly; align-items: center; padding-top: 0; }
+  }
+
   [data-scroll-header] {
     position: relative;
     z-index: 40;
