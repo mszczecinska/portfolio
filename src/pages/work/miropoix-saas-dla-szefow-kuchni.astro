@@ -1,47 +1,42 @@
 ---
-import WorkCaseShell from "../../components/work/WorkCaseShell.astro";
+import CaseStudyShell from "../../components/work/CaseStudyShell.astro";
+import CaseStudyIntro from "../../components/work/CaseStudyIntro.astro";
+import CaseStudyPagination from "../../components/work/CaseStudyPagination.astro";
 import MiropoixCaseContent from "../../components/work/cases/MiropoixCaseContent.astro";
 import { getProjectBySlug } from "../../lib/projects";
 
 const project = getProjectBySlug("miropoix-saas-dla-szefow-kuchni");
-
-if (!project) {
-  return Astro.redirect("/work");
-}
+if (!project) return Astro.redirect("/work");
 
 const tools = [
   { src: "/icons/tool-figma.png", alt: "Figma" },
   { src: "/icons/tool-jitter.png", alt: "Jitter" },
-  { src: "/icons/tool-cursor.svg", alt: "Cursor" },
   { src: "/icons/tool-claude-code.png", alt: "Claude Code" },
-  { src: "/icons/tool-vercel.svg", alt: "Vercel" },
-] as const;
+  { src: "/icons/tool-cursor.svg", alt: "Cursor" },
+];
 ---
 
-<WorkCaseShell
-  project={project}
-  tools={tools}
-  heroImage="/assets/miropoix/hero-miropoix.png"
-  overviewHeading="Wstęp"
-  overviewText="Miropoix pomaga zespołom kuchennym zebrać codzienne potrzeby zakupowe w jednej liście, podzielonej według dostawców. Moim zadaniem było nadać działającemu produktowi wyraźniejszy charakter: odświeżyć UI, przygotować animacje i zaprojektować landing page."
-  primaryMetaLabel="Rola"
-  primaryMetaValue="Product Engineer"
-  projectType="Komercyjny"
-  toolsCompact={true}
-  impactItems={[
-    {
-      title: "Problem",
-      text: "Aplikacja rozwiązywała realny problem zamówień w kuchni, ale wizualnie była generyczna i nie budowała rozpoznawalnego charakteru marki.",
-    },
-    {
-      title: "Cel",
-      text: "Odświeżyć UI, zaprojektować landing page i nadać produktowi wyrazisty kierunek wizualny związany z branżą gastronomiczną.",
-    },
-    {
-      title: "Efekt",
-      text: "Powstały nowe widoki aplikacji, animacje, landing page i wdrożona strona internetowa dla Miropoix.",
-    },
-  ]}
->
-  <MiropoixCaseContent liveUrl={project.links?.live} />
-</WorkCaseShell>
+<CaseStudyShell title="Miropoix — redesign landing page aplikacji SaaS" description={project.description}>
+  <CaseStudyIntro
+    title="Miropoix"
+    subtitle="redesign landing page aplikacji SaaS"
+    overview="Miropoix to aplikacja dla gastronomii, która pomaga zespołom kuchennym zbierać zapotrzebowanie na produkty i porządkować je według dostawców. Zaprojektowałam nową stronę produktu, odświeżyłam wybrane ekrany aplikacji do materiałów prezentacyjnych i wdrożyłam stronę przy wsparciu narzędzi AI."
+    role="UX/UI designer / Design Engineer"
+    projectType="Projekt komercyjny"
+    tools={tools}
+    liveUrl={project.links?.live}
+    liveHoverColor="#B44B23"
+    liveHoverTextColor="#FAFAF9"
+    liveHoverBorderColor="#FAFAF9"
+    facts={[
+      { title: "Problem", text: "Aplikacja rozwiązywała realny problem zamówień w kuchni, ale wizualnie była generyczna i nie budowała rozpoznawalnego charakteru marki." },
+      { title: "Cel", text: "Odświeżyć UI, zaprojektować landing page i nadać produktowi wyrazisty kierunek wizualny związany z branżą gastronomiczną." },
+      { title: "Efekt", text: "Powstały nowe widoki aplikacji, animacje, landing page i wdrożona strona internetowa dla Miropoix." },
+    ]}
+  />
+  <MiropoixCaseContent />
+  <CaseStudyPagination
+    previous={{ title: "Akademia", description: "E-commerce dla e-booków edukacyjnych", href: "/work/akademia-e-commerce-dla-e-bookow-edukacyjnych" }}
+    next={{ title: "InsightX", description: "Od hipotez do kierunku produktu B2C", href: "/work/koncepcja-wizji-produktu-b2c" }}
+  />
+</CaseStudyShell>

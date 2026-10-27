@@ -11,9 +11,11 @@ interface Props {
   tools: readonly { src: string; alt: string }[];
   liveUrl?: string;
   liveHoverColor?: string;
+  liveHoverTextColor?: string;
+  liveHoverBorderColor?: string;
   facts?: readonly { title: string; text: string }[];
 }
-const { title, subtitle, overview, role, projectType, tools, liveUrl, liveHoverColor = "var(--color-surface)", facts = [] } = Astro.props;
+const { title, subtitle, overview, role, projectType, tools, liveUrl, liveHoverColor = "var(--color-surface)", liveHoverTextColor = "var(--color-text)", liveHoverBorderColor = "var(--color-text)", facts = [] } = Astro.props;
 ---
 
 <header class="case-intro">
@@ -27,7 +29,7 @@ const { title, subtitle, overview, role, projectType, tools, liveUrl, liveHoverC
         <h1 id="case-study-title" class="type-title">{title}</h1>
         <p class="case-intro__subtitle">{subtitle}</p>
       </div>
-      {liveUrl && <a class="btn-primary" style={`--case-live-hover: ${liveHoverColor};`} href={liveUrl} target="_blank" rel="noopener noreferrer">Zobacz live <TablerIcon name="arrow-up-right" class="size-6" /></a>}
+      {liveUrl && <a class="btn-primary" style={`--case-live-hover: ${liveHoverColor}; --case-live-hover-text: ${liveHoverTextColor}; --case-live-hover-border: ${liveHoverBorderColor};`} href={liveUrl} target="_blank" rel="noopener noreferrer">Zobacz live <TablerIcon name="arrow-up-right" class="size-6" /></a>}
     </div>
 
     <div class="case-intro__overview">
@@ -54,7 +56,11 @@ const { title, subtitle, overview, role, projectType, tools, liveUrl, liveHoverC
 
 <style>
   @media (hover: hover) {
-    .case-intro__heading .btn-primary:hover { background-color: var(--case-live-hover); }
+    .case-intro__heading .btn-primary:hover {
+      background-color: var(--case-live-hover);
+      color: var(--case-live-hover-text);
+      border-color: var(--case-live-hover-border);
+    }
   }
   .case-intro { display: flex; flex-direction: column; gap: var(--space-6); }
   .case-intro > .page-container:first-child { margin-bottom: calc(-1 * var(--space-4)); }

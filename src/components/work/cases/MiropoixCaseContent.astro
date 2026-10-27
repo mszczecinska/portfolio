@@ -1,80 +1,54 @@
 ---
-interface Props {
-  liveUrl?: string;
-}
-
-const { liveUrl } = Astro.props;
+import CaseStudySection from "../CaseStudySection.astro";
+import CaseStudyMedia from "../CaseStudyMedia.astro";
+import CaseStudyGallery from "../CaseStudyGallery.astro";
+import CaseStudyScreens from "../CaseStudyScreens.astro";
 ---
 
-<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="process-title">
-  <div class="flex flex-col gap-[14px]">
-    <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Design</p>
-    <h2 id="process-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Proces</h2>
-  </div>
-  <div class="h-px w-full bg-[var(--color-border)]"></div>
-  <div class="flex flex-col gap-[48px] lg:gap-[64px]">
-  <section class="flex flex-col gap-[32px]" aria-labelledby="app-redesign-title">
-    <h3 id="app-redesign-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Redesign aplikacji</h3>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Punktem wyjścia była aplikacja, która działała poprawnie, ale wizualnie nie budowała skojarzeń z gastronomią. Redesign miał nadać produktowi charakter bez utraty czytelności potrzebnej w pracy kuchni.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Kluczowe decyzje dotyczyły koloru, większych przycisków i animacji. Większe akcje miały praktyczny powód: kucharze często pracują szybko i nie zawsze w idealnych warunkach, więc interfejs musi być łatwy do trafienia.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Zaprojektowałam kluczowe widoki: dodawanie produktów, segregację zamówień według dostawców i akceptację próśb. Animacje wykorzystałam na landing page'u, żeby szybciej pokazać mechanikę aplikacji.
-    </p>
-    <div class="overflow-hidden bg-transparent sm:h-auto sm:aspect-[432/271] lg:h-[542px]">
-      <img src="/assets/miropoix/miropoix-before-after.png" aria-label="Animacja prezentująca redesign aplikacji Miropoix" class="size-full object-cover" loading="lazy" />
-    </div>
-    <div class="grid gap-[24px] sm:grid-cols-2">
-      <div class="overflow-hidden sm:h-auto sm:aspect-[149/103] lg:h-[298px]">
-        <video src="/assets/miropoix/miropoix-animation-1.mp4" aria-label="Animacja prezentująca redesign aplikacji Miropoix" class="size-full object-cover" autoplay loop muted playsinline></video>
-      </div>
-      <div class="overflow-hidden sm:h-auto sm:aspect-[149/103] lg:h-[298px]">
-        <video src="/assets/miropoix/miropoix-animation-2.mp4" aria-label="Porównanie interfejsu Miropoix po zmianach" class="size-full object-cover" autoplay loop muted playsinline></video>
-      </div>
-    </div>
-  </section>
+<CaseStudySection id="context" title="Punkt wyjścia" layout="split" mediaSide="left">
+  <p>Projekt opierał się na istniejącym produkcie oraz dostarczonym wireframie i tekstach strony. Moim zadaniem było nadanie im wizualnej formy, przygotowanie materiałów prezentujących aplikację i przełożenie projektu na działającą stronę.</p>
+  <p>Dodatkowo odświeżyłam wybrane ekrany aplikacji potrzebne do pokazania produktu na stronie. Zakres tych zmian dotyczył materiałów prezentacyjnych, a nie przebudowy całej aplikacji.</p>
+  <CaseStudyMedia slot="media" label="Miropoix — porównanie aplikacji przed i po zmianach" />
+</CaseStudySection>
 
-  <section class="flex flex-col gap-[32px]" aria-labelledby="website-title">
-    <h3 id="website-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Strona internetowa</h3>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Równolegle przygotowałam landing page na bazie dostarczonego wireframe'u i tekstów. Moja odpowiedzialność obejmowała design, animacje i wdrożenie w stacku <strong>Vite</strong>, <strong>React</strong> i <strong>Tailwind CSS</strong>.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      <strong>Live:</strong>
-      {
-        liveUrl
-          ? <a href={liveUrl} target="_blank" rel="noopener noreferrer" class="ml-[6px] font-semibold underline">Zobacz stronę</a>
-          : <a href="https://miropoix.com/en/" target="_blank" rel="noopener noreferrer" class="ml-[6px] font-semibold underline">https://miropoix.com/en/</a>
-      }
-    </p>
-    <div class="overflow-hidden bg-transparent">
-      <img
-        src="/assets/miropoix/landing-screen.png"
-        alt="Widok strony internetowej Miropoix"
-        class="w-full h-auto object-contain"
-        loading="lazy"
-      />
-    </div>
-  </section>
-  </div>
-</section>
+<CaseStudySection id="process" title="Proces" layout="centered">
+  <p>Pracę rozpoczęłam od zapoznania się z działaniem produktu i uporządkowania jego prezentacji na podstawie otrzymanych materiałów. Następnie opracowałam kierunek wizualny strony oraz ekrany aplikacji ilustrujące najważniejsze działania.</p>
+  <p>Na tej podstawie przygotowałam animacje produktowe i przeszłam do wdrożenia strony. Połączenie projektowania z implementacją pozwoliło mi dopracowywać również zachowanie elementów i sposób prezentowania treści w przeglądarce.</p>
+  <CaseStudyGallery slot="visuals" items={[
+    { label: "Zamówienie według dostawcy — animacja", kind: "video", ratio: "598 / 424.206" },
+    { label: "Dodawanie produktów — animacja", kind: "video", ratio: "598 / 424.206" },
+  ]} />
+</CaseStudySection>
 
-<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="lessons-title">
-  <div class="flex flex-col gap-[14px]">
-    <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Wnioski</p>
-    <h2 id="lessons-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Czego się nauczyłam?</h2>
-  </div>
-  <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Ten projekt pokazał mi, że redesign nie zawsze oznacza dodawanie funkcji. Tutaj największą wartością było nadanie działającemu produktowi osobowości i czytelnego związku z branżą.
-  </p>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Jasny podział odpowiedzialności przy landing page'u przyspieszył pracę: wireframe i teksty dały bazę komunikacyjną, a ja mogłam skupić się na warstwie wizualnej, ruchu i wdrożeniu.
-  </p>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Praca z AI pomogła mi szybciej przejść od projektu do działającej strony, bez oddawania kontroli nad detalami wizualnymi.
-  </p>
-</section>
+<CaseStudySection id="design" title="Design i decyzje projektowe" layout="split">
+  <p>Wyrazista, wąska typografia nagłówków nadaje Miropoix charakter i odróżnia markę od generycznych narzędzi SaaS. Zestawiłam ją z Interem w tekstach i elementach interfejsu, aby zachować czytelność informacji. Paletę oparłam na złamanej bieli i czerni, a pomarańczowy akcent wykorzystałam do wyróżnienia głównych działań.</p>
+  <CaseStudyMedia slot="media" label="Miropoix — typografia i paleta kolorów" />
+  <CaseStudyScreens
+    slot="visuals"
+    id="miropoix-app-screens"
+    label="Widoki aplikacji Miropoix"
+    items={[
+      { label: "Pusta lista zamówień", ratio: "207 / 424.94", desktopRatio: "322.48 / 662" },
+      { label: "Zapotrzebowanie zespołu", ratio: "207 / 424.94", desktopRatio: "322.48 / 662" },
+      { label: "Zamówienia według dostawców", ratio: "207 / 424.94", desktopRatio: "322.48 / 662" },
+      { label: "Powiadomienia i akceptacja zgłoszeń", ratio: "207 / 424.94", desktopRatio: "322.48 / 662" },
+    ]}
+  >
+    <p>Odświeżając wybrane ekrany, uwzględniłam warunki pracy kucharzy. Większe przyciski i obszary klikalne miały ułatwiać szybką obsługę, również przy zabrudzonych dłoniach. Hierarchia informacji eksponuje zamówienia, dostawców i działania wymagające reakcji. Przygotowane na potrzeby strony widoki pokazują różne stany aplikacji: pustą listę, zgłoszenia oczekujące na akceptację i zamówienia pogrupowane według dostawców.</p>
+  </CaseStudyScreens>
+</CaseStudySection>
+
+<CaseStudySection id="motion" title="Motion" layout="split" mediaSide="left">
+  <p>Przygotowałam animacje pokazujące najważniejsze działania w aplikacji: dodawanie produktów, grupowanie ich według dostawców i zatwierdzanie zapotrzebowania. Ruch pozwolił przedstawić sposób działania Miropoix i powiązania między ekranami.</p>
+  <CaseStudyMedia slot="media" label="Miropoix — animacja produktowa" kind="video" />
+</CaseStudySection>
+
+<CaseStudySection id="implementation" title="Wdrożenie">
+  <p>Stronę wdrożyłam przy wsparciu narzędzi AI, wykorzystując React, Vite i Tailwind CSS. Narzędzia pomagały mi w przekładaniu projektu na kod, a po mojej stronie pozostawały decyzje wizualne, weryfikacja efektu i dopracowanie implementacji.</p>
+  <CaseStudyMedia slot="visuals" label="Miropoix — wdrożona strona internetowa" ratio="361 / 186" desktopRatio="1216 / 520" />
+</CaseStudySection>
+
+<CaseStudySection id="results" title="Rezultat i wnioski">
+  <p>Powstała działająca strona, która łączy nową warstwę wizualną z prezentacją interfejsu i animacjami produktowymi. Mój zakres objął cały etap od projektu wizualnego po wdrożenie strony.</p>
+  <p>Projekt był okazją do połączenia UI, motion i pracy z kodem wspieranej przez AI. Ważnym doświadczeniem było dopracowywanie projektu bezpośrednio w przeglądarce, gdzie mogłam ocenić nie tylko statyczny układ, ale też responsywność i zachowanie animacji.</p>
+</CaseStudySection>

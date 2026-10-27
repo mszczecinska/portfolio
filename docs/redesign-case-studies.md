@@ -14,6 +14,7 @@ Wszystkie komponenty znajdują się w `src/components/work/`.
 | `CaseStudyMedia.astro` | Opisany placeholder z zarezerwowanymi proporcjami; po podaniu `src` — obraz lub film |
 | `CaseStudyGallery.astro` | Dwa materiały jeden pod drugim na mobile i obok siebie na desktopie; wariant `phones` utrzymuje parę telefonów również na mobile |
 | `CaseStudyPagination.astro` | Linki do poprzedniego i następnego projektu; kolejność mobile: następny, poprzedni |
+| `CaseStudyScreens.astro` | Cztery ekrany: przewijana galeria z przyciskami wyboru na mobile, kompozycja ekranów i opisu od 1024 px |
 
 Style wspólne dla nowych case studies są w `case-study.css` i korzystają z foundations. Dotychczasowy `WorkCaseShell.astro` pozostaje dla pozostałych projektów do czasu ich migracji. Nowe style są ograniczone do nowych komponentów / `.case-study`.
 
@@ -61,3 +62,25 @@ Nawigacja między projektami wykorzystuje istniejące trasy Mova i InsightX. Pow
 ## Nawigacja między projektami
 
 Dwa równorzędne podglądy: etykieta kierunku ze strzałką, miniatura 8:5 oraz tytuł i opis pod spodem. Od 768 px poprzedni projekt jest po lewej, następny po prawej. Na mobile następny poprzedza poprzedni. Obie miniatury pozostają placeholderami.
+
+## Miropoix
+
+Źródło: [desktop](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=260-11984), [mobile](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=289-39966), [hover przycisku Live](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=391-5357).
+
+Wykorzystuje ten sam shell, intro, sekcje, galerie i nawigację co Akademia. Sekcje: Punkt wyjścia, Proces, Design i decyzje projektowe, Motion, Wdrożenie, Rezultat i wnioski. Po rezultacie dodajemy wspólną nawigację do Akademii i InsightX. Ikony narzędzi pochodzą z istniejących plików: Figma, Jitter, Claude Code, Cursor.
+
+Wszystkie zdjęcia i filmy pozostają placeholderami. Proporcje:
+
+| Materiał | Mobile | Desktop |
+| --- | --- | --- |
+| Okładka | 361 / 186 | 1216 / 520 |
+| Porównanie aplikacji | 1 / 1 | 1 / 1 |
+| Animacje procesu (2) | 598 / 424.206 | 598 / 424.206 |
+| Typografia i paleta | 1 / 1 | 1 / 1 |
+| Ekrany aplikacji (4) | 207 / 424.94 | 322.48 / 662 |
+| Motion | 1 / 1 | 1 / 1 |
+| Wdrożona strona | 361 / 186 | 1216 / 520 |
+
+`CaseStudyScreens` utrzymuje opis nad ekranami na mobile. Ekrany można przewijać dotykiem, wybierać czterema przyciskami lub klawiszami ArrowLeft / ArrowRight / Home / End po ustawieniu fokusu na galerii. Aktywny przycisk ma `aria-pressed="true"`. Przy ograniczeniu animacji zmiana ekranu jest natychmiastowa. Na desktopie cztery ekrany są widoczne równocześnie, a przyciski są ukryte.
+
+Przycisk Live prowadzi do `https://miropoix.com/en/` (adres zachowany z poprzedniego case study). `CaseStudyIntro` przyjmuje `liveHoverColor`, `liveHoverTextColor` i `liveHoverBorderColor`. Miropoix używa tła `#B44B23`, tekstu/strzałki i obramowania `#FAFAF9`. Domyślne wartości pozostałych przycisków się nie zmieniają; Akademia zachowuje tło hover `#F5EDE5`.

@@ -54,6 +54,7 @@ export const projects: Project[] = [
     description:
       "Redesign SaaS dla zespołów kuchennych: nowa warstwa UI, animacje, landing page i wdrożona strona.",
     image: "/assets/miropoix/work-miropoix.png",
+    links: { live: "https://miropoix.com/en/" },
     tags: ["UI Design", "Development", "Web", "Motion Design"],
     content:
       "Miropoix to aplikacja SaaS skierowana do zespołów kuchennych. Aplikacja daje zespołowi jedno wspólne narzędzie, w którym każdy kucharz dodaje to, co potrzebuje danego dnia.",
