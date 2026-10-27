@@ -1,0 +1,74 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+// A review surface for foundations; no route or sitemap entry in production builds.
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { preview: "foundations" } }] : [];
+}
+
+const colors = [
+  ["Tło", "background"],
+  ["Powierzchnia", "surface"],
+  ["Tekst", "text"],
+  ["Tekst pomocniczy", "text-muted"],
+  ["Linie", "border"],
+];
+---
+
+<Layout title="Foundations — podgląd lokalny" showFooter={false}>
+  <div class="page-container content-stack pb-16" data-foundations-preview>
+    <p class="type-label">Portfolio / foundations / podgląd lokalny</p>
+    <h1 class="type-display">Magda<br />Szczecińska</h1>
+    <p class="type-body content-prose">Wspólne kolory, typografia, odstępy i kontrolki. Ten widok służy do oceny podstaw przed przebudową podstron.</p>
+
+    <section class="content-stack section-space" aria-labelledby="colors-title">
+      <h2 class="type-heading" id="colors-title">Kolory</h2>
+      <div class="swatches">
+        {colors.map(([label, color]) => (
+          <div>
+            <div class="swatch" style={`--swatch: var(--color-${color})`}></div>
+            <p class="type-small">{label}</p>
+            <p class="type-label">{color}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="content-stack section-space" aria-labelledby="type-title">
+      <h2 class="type-heading" id="type-title">Typografia</h2>
+      <p class="type-title">Akademia</p>
+      <p class="type-heading">Design i decyzje projektowe</p>
+      <p class="type-subheading">Od pomysłu do wdrożenia</p>
+      <p class="type-body content-prose">Projektuję strony i aplikacje, łącząc potrzeby użytkowników z dopracowanym UI. Wybrane projekty rozwijam od koncepcji po wdrożenie, korzystając z narzędzi AI.</p>
+      <p class="type-small">Satoshi Regular · Zażółć gęślą jaźń · 0123456789</p>
+      <p class="type-label">UX/UI / E-commerce / EduTech · Zażółć gęślą jaźń</p>
+      <div class="preview-nav" aria-label="Przykład stylów nawigacji">
+        <span class="type-nav">Główna</span>
+        <span class="type-nav" aria-current="page">Realizacje</span>
+      </div>
+    </section>
+
+    <section class="content-stack section-space" aria-labelledby="controls-title">
+      <h2 class="type-heading" id="controls-title">Przyciski</h2>
+      <div class="preview-controls">
+        <a class="btn-primary" href="/work">Zobacz moje prace <span aria-hidden="true">↗</span></a>
+        <a class="btn-secondary" href="/about">O mnie <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+
+    <section class="content-stack section-space" aria-labelledby="spacing-title">
+      <h2 class="type-heading" id="spacing-title">Odstępy i multimedia</h2>
+      <p class="type-body content-prose">Odstęp przed sekcją: 64 px na mobile, 120 px na desktopie. Marginesy kontenera: 16 i 32 px.</p>
+      <div class="media-placeholder preview-media">
+        <span class="type-label">Miejsce na docelowy mockup PNG</span>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: var(--space-6); }
+  .swatch { height: var(--space-24); background: var(--swatch); border: var(--border-width) solid var(--color-border); margin-bottom: var(--space-3); }
+  .preview-controls, .preview-nav { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-5); }
+  .preview-media { --media-ratio: 16 / 9; padding: var(--space-4); text-align: center; }
+</style>

@@ -1,0 +1,206 @@
+/* Redesign foundations. Values describe the portfolio UI, not imagery inside case studies. */
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+
+  --font-body: "Satoshi", "Avenir Next", "Segoe UI", sans-serif;
+  --font-label: "Geist Mono", "SFMono-Regular", Consolas, monospace;
+  --weight-regular: 400;
+  --weight-medium: 500;
+
+  --color-background: #ffffff;
+  --color-foreground: var(--color-background);
+  --color-surface: #eeeeec;
+  --color-text: #171717;
+  --color-text-muted: #676767;
+  --color-border: #c8c8c5;
+  --color-divider: var(--color-border);
+  --color-accent: var(--color-text);
+  --color-subtle: var(--color-text-muted);
+  --color-meta: var(--color-text-muted);
+  --color-eyebrow: var(--color-text);
+
+  /* Compatibility aliases while existing sections migrate to the new foundations. */
+  --color-primary-bg: var(--color-background);
+  --color-primary-fg: var(--color-text);
+  --color-primary-bg-hover: var(--color-surface);
+  --color-primary-border: var(--color-text);
+  --color-secondary-bg: transparent;
+  --color-secondary-fg: var(--color-text);
+  --color-secondary-bg-hover: var(--color-surface);
+
+  /* Functional colors belong to embedded examples, not the portfolio's neutral palette. */
+  --color-success: #216e2a;
+  --color-success-bg: #dff0e3;
+  --color-warning: #855f15;
+  --color-warning-bg: #f5e8cc;
+  --color-danger: #9a2f2f;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-30: 7.5rem;
+
+  /* Container widths include their gutters: 1216px of content at a 1280px viewport. */
+  --container-width: 80rem;
+  --container-reading-width: 67.125rem;
+  --page-gutter: var(--space-4);
+  --section-gap: var(--space-16);
+  --column-gap: var(--space-5);
+  --content-gap: var(--space-5);
+
+  --text-display: clamp(3rem, 16.3vw, 4rem);
+  --text-title: clamp(2.5rem, 5vw, 4rem);
+  --text-heading: clamp(2rem, 3.125vw, 2.5rem);
+  --text-subheading: clamp(1.5rem, 2.5vw, 2rem);
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-label: 0.75rem;
+  --leading-display: 1;
+  --leading-title: 1.15;
+  --leading-heading: 1.3;
+  --leading-body: 1.6;
+  --leading-label: 1.5;
+  --tracking-display: -0.035em;
+
+  --border-width: 1px;
+  --radius-control: 0;
+  --control-height: 2.75rem;
+  --shadow-control: 0 1px 2px rgb(0 0 0 / 10%);
+  --duration-ui: 200ms;
+  --ease-ui: ease-out;
+}
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-label);
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --page-gutter: var(--space-8);
+    --content-gap: var(--space-10);
+    --text-display: clamp(4rem, 10vw, 8rem);
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --section-gap: var(--space-30);
+    --column-gap: var(--space-10);
+  }
+}
+
+@layer base {
+  html, body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--color-background);
+    color: var(--color-text);
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    font-weight: var(--weight-regular);
+    line-height: var(--leading-body);
+  }
+
+  button, input, select, textarea { font: inherit; }
+}
+
+/* Explicit classes avoid changing legacy headings before their layout is migrated. */
+.type-display, .type-title, .type-heading, .type-subheading {
+  font-family: var(--font-body);
+  font-weight: var(--weight-regular);
+  text-wrap: balance;
+}
+.type-display {
+  font-size: var(--text-display);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+}
+.type-title { font-size: var(--text-title); line-height: var(--leading-title); }
+.type-heading { font-size: var(--text-heading); line-height: var(--leading-heading); }
+.type-subheading { font-size: var(--text-subheading); line-height: var(--leading-heading); }
+.type-body, .type-small {
+  font-family: var(--font-body);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+  text-wrap: pretty;
+}
+.type-body { font-size: var(--text-body); }
+.type-small { font-size: var(--text-small); }
+.type-label {
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-label);
+  text-transform: uppercase;
+}
+.type-nav {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-label);
+}
+.type-nav[aria-current="page"] {
+  font-size: 2rem;
+  font-weight: var(--weight-medium);
+}
+
+.page-container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+.page-container--reading { max-width: var(--container-reading-width); }
+.section-space { margin-block-start: var(--section-gap); }
+.content-stack { display: flex; flex-direction: column; gap: var(--content-gap); }
+.content-prose { max-width: 65ch; }
+.media-placeholder {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  aspect-ratio: var(--media-ratio, 1);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --duration-ui: 0ms; }
+}
