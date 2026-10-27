@@ -61,7 +61,7 @@ const { title, subtitle, overview, role, projectType, tools, liveUrl, liveHoverC
   .case-intro > .page-container:first-child { margin-bottom: calc(-1 * var(--space-4)); }
   .case-intro__details { display: grid; gap: var(--space-5); }
   .case-intro__heading, .case-intro__overview { display: flex; flex-direction: column; gap: var(--space-5); min-width: 0; }
-  .case-intro__heading { align-items: flex-end; gap: var(--space-4); }
+  .case-intro__heading { align-items: flex-start; gap: var(--space-4); }
   .case-intro__titles { display: grid; gap: var(--space-2); width: 100%; }
   .case-intro__subtitle { font-size: 1.5rem; line-height: var(--leading-heading); }
   .case-intro__metadata { margin: 0; }
@@ -87,5 +87,6 @@ const { title, subtitle, overview, role, projectType, tools, liveUrl, liveHoverC
     .case-intro__metadata > div { grid-template-columns: minmax(0, 156fr) minmax(0, 372fr); }
     .case-intro__metadata dd { font-size: var(--text-body); }
     .case-intro__tools img { width: var(--space-6); height: var(--space-6); }
+    .case-intro__tools { gap: var(--space-5); }
   }
 </style>

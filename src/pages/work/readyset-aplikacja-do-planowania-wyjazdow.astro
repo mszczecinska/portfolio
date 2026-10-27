@@ -1,44 +1,35 @@
 ---
-import WorkCaseShell from "../../components/work/WorkCaseShell.astro";
+import CaseStudyShell from "../../components/work/CaseStudyShell.astro";
+import CaseStudyIntro from "../../components/work/CaseStudyIntro.astro";
+import CaseStudyPagination from "../../components/work/CaseStudyPagination.astro";
 import ReadySetCaseContent from "../../components/work/cases/ReadySetCaseContent.astro";
 import { getProjectBySlug } from "../../lib/projects";
 
 const project = getProjectBySlug("readyset-aplikacja-do-planowania-wyjazdow");
-
-if (!project) {
-  return Astro.redirect("/work");
-}
-
-const tools = [
-  { src: "/icons/tool-figma.png", alt: "Figma" },
-  { src: "/icons/tool-notion.png", alt: "Notion" },
-  { src: "/icons/tool-openai.png", alt: "OpenAI" },
-  { src: "/icons/tool-gemini.png", alt: "Gemini" },
-] as const;
+if (!project) return Astro.redirect("/work");
 ---
 
-<WorkCaseShell
-  project={project}
-  tools={tools}
-  heroImage="/assets/ready-set/hero-readyset.png"
-  overviewHeading="Wstęp"
-  overviewText="ReadySet porządkuje planowanie grupowych wyjazdów: zbiera linki, decyzje i komentarze w jednym miejscu, zamiast zostawiać je w czatach i arkuszach. Kluczową decyzją było rozdzielenie procesu na planowanie i gotowy harmonogram, żeby grupa mogła najpierw wybrać opcje, a później korzystać z jednego finalnego planu."
-  duration="około 5 tygodni"
-  projectType="Konceptualny"
-  impactItems={[
-    {
-      title: "Problem",
-      text: "Planowanie wyjazdów w grupie generuje chaos, bo informacje, decyzje i linki są rozproszone między czatami, mailami i arkuszami.",
-    },
-    {
-      title: "Cel",
-      text: "Zaprojektować aplikację, która zbiera propozycje, ułatwia wspólne decyzje i zamienia ustalenia w jeden czytelny harmonogram.",
-    },
-    {
-      title: "Efekt",
-      text: "Powstał koncept aplikacji mobilnej z kategoriami, opcjami, głosowaniem, komentarzami i generowanym harmonogramem wyjazdu.",
-    },
-  ]}
->
+<CaseStudyShell title="ReadySet — wspólny wyjazd, jeden plan" description={project.description}>
+  <CaseStudyIntro
+    title="ReadySet"
+    subtitle="Wspólny wyjazd. Jeden plan."
+    overview="ReadySet to koncepcja aplikacji mobilnej do grupowego planowania wyjazdów. Łączy propozycje, głosowanie i ustalony harmonogram, pomagając uczestnikom wspólnie podejmować decyzje."
+    role="UX/UI designer"
+    projectType="Projekt koncepcyjny"
+    tools={[
+      { src: "/icons/tool-figma.png", alt: "Figma" },
+      { src: "/icons/tool-notion.png", alt: "Notion" },
+      { src: "/icons/tool-openai.png", alt: "OpenAI" },
+    ]}
+    facts={[
+      { title: "Problem", text: "Pomysły i ustalenia dotyczące wyjazdu giną w rozmowach, a zebranie ich w jeden plan wymaga dodatkowej pracy." },
+      { title: "Cel", text: "Zaprojektowanie miejsca, w którym grupa może zgłaszać propozycje, wybierać je i układać wspólny harmonogram." },
+      { title: "Efekt", text: "Interaktywny prototyp aplikacji, sprawdzony w testach wybranych zadań." },
+    ]}
+  />
   <ReadySetCaseContent />
-</WorkCaseShell>
+  <CaseStudyPagination
+    previous={{ title: "InsightX", description: "Od hipotez do kierunku produktu B2C", href: "/work/koncepcja-wizji-produktu-b2c" }}
+    next={{ title: "Mova", description: "Czytelna ścieżka nauki języków", href: "/work/mova-aplikacja-do-nauki-jezykow" }}
+  />
+</CaseStudyShell>

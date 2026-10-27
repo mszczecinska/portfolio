@@ -38,6 +38,8 @@ Nagłówek strony ma wariant `caseStudy`, włączany przez `caseStudyHeader` w `
 
 Treść trafia do głównego slotu, materiał obok tekstu do `media`, a materiały pod całym układem do `visuals`. Opcjonalne `align="center"` wyśrodkowuje tekst w pionie na desktopie. `mediaWidth="wide"` poszerza kolumnę materiału (np. bibliotekę e-booków).
 
+Sekcja może pominąć widoczny `title`, jeśli otrzyma opisowe `label` dla czytników ekranu. `contained={false}` wyłącza kontener z marginesami przy zagnieżdżaniu sekcji, aby nie powielać bocznych odstępów. Wyśrodkowany wariant rezerwuje naturalną szerokość nagłówka oraz do 598 px na tekst, dzięki czemu dłuższy nagłówek (np. „Testy prototypu”) nie jest sztucznie ściskany.
+
 ## Multimedia Akademii
 
 Wszystkie zdjęcia, mockupy i filmy są placeholderami. Zachowany jest istniejący lokalny logotyp Figmy w metadanych. Nie pobieramy tymczasowych assetów z Figmy.
@@ -97,3 +99,24 @@ Zachowujemy istniejącą zawartość `HypothesisSecurityCards` i `HypothesisNewb
 Multimedia pozostają placeholderami: okładka 361:186 / 1216:520, ilustracja punktu wyjścia i mapa person 1:1, analiza Arkham 1216:506.765625. Lokalne ikony Figma, Notion i OpenAI pozostają w metadanych. Karty i ich przykłady są renderowane jako HTML, nie obrazy. Zachowane są dotychczasowe odnośniki do odpowiednich map w FigJam.
 
 W mobilnej makiecie druga hipoteza powiela opis Security. Wdrożenie korzysta z właściwej treści Newbie friendly z desktopu i istniejącego kodu. Poprawione są oczywiste literówki: „Technologia” oraz „konfigurowalnej przestrzeni”. Nawigacja na końcu prowadzi do Miropoix i ReadySet.
+
+## ReadySet
+
+Źródło: [desktop](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=274-15865) i [mobile](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=292-41990).
+
+Wdrożenie używa wspólnego shellu, intro, paska wniosków, sekcji, galerii i nawigacji. Treści obejmują badania, wnioski z trzech wywiadów, podział na Planowanie i Harmonogram, rozwiązanie, testy prototypu i rezultat. W metadanych pozostają lokalne ikony Figma, Notion i OpenAI. Nie dodajemy przycisku Live do projektu koncepcyjnego.
+
+Na mobile opis poprzedza materiały. Sekcja rozwiązania pokazuje kolejno opis, pierwszą parę telefonów, tekst o Material Design i drugą parę. Na desktopie dwie pary telefonów i opisy tworzą naprzemienne układy z szerszą kolumną multimediów. Cztery telefony zachowują jednakowe proporcje i rozmiary. Sekcje bez widocznego nagłówka mają etykiety dostępności; wewnętrzny układ rozwiązania nie dubluje marginesów kontenera.
+
+Multimedia są placeholderami:
+
+| Materiał | Mobile | Desktop |
+| --- | --- | --- |
+| Okładka | 361 / 186 | 1216 / 520 |
+| Wywiady / notatki badawcze | 1 / 1 | 1 / 1 |
+| Synteza badań | 1216 / 515.375 | 1216 / 515.375 |
+| Przepływ Planowania i Harmonogramu | 361 / 598 | 1 / 1 |
+| Ekrany aplikacji (4, w parach) | 175.07 / 361.32 | 175.07 / 361.32 |
+| Nagrania testów prototypu (2) | 598 / 424.206 | 598 / 424.206 |
+
+Nawigacja prowadzi do InsightX i Movy. Poprawiono oczywistą literówkę w opisie badań: „zawiłe o chaotyczne” → „zawiłe i chaotyczne”. Nie przenosimy błędnych przesunięć warstw i sztywnych wysokości tekstu z makiety do kodu.

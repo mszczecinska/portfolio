@@ -1,7 +1,9 @@
 ---
 interface Props {
   id: string;
-  title: string;
+  title?: string;
+  label?: string;
+  contained?: boolean;
   subtitle?: string;
   layout?: "split" | "editorial" | "centered";
   mediaSide?: "left" | "right";
@@ -9,19 +11,20 @@ interface Props {
   mediaWidth?: "equal" | "wide";
 }
 
-const { id, title, subtitle, layout = "editorial", mediaSide = "right", align = "start", mediaWidth = "equal" } = Astro.props;
+const { id, title, label, contained = true, subtitle, layout = "editorial", mediaSide = "right", align = "start", mediaWidth = "equal" } = Astro.props;
 ---
 
 <section
-  class:list={["case-section page-container", `case-section--${layout}`, { "case-section--media-left": mediaSide === "left", "case-section--center": align === "center", "case-section--wide-media": mediaWidth === "wide" }]}
-  aria-labelledby={`${id}-title`}
+  class:list={["case-section", `case-section--${layout}`, { "page-container": contained, "case-section--media-left": mediaSide === "left", "case-section--center": align === "center", "case-section--wide-media": mediaWidth === "wide" }]}
+  aria-labelledby={title ? `${id}-title` : undefined}
+  aria-label={title ? undefined : label}
 >
   <div class="case-section__layout">
     <div class="case-section__copy">
-      <div class="case-section__heading">
+      {(title || Astro.slots.has("heading-extra")) && <div class="case-section__heading">
         <h2 class="case-heading" id={`${id}-title`}>{title}{subtitle && <span class="case-section__subtitle"> {subtitle}</span>}</h2>
         <slot name="heading-extra" />
-      </div>
+      </div>}
       <div class="case-prose"><slot /></div>
     </div>
     {Astro.slots.has("media") && <div class="case-section__media"><slot name="media" /></div>}
@@ -60,9 +63,10 @@ const { id, title, subtitle, layout = "editorial", mediaSide = "right", align = 
     }
     .case-section--centered .case-section__copy {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+      grid-template-columns: max-content minmax(0, 37.375rem);
       gap: var(--space-20);
-      max-width: 50.25rem;
+      width: fit-content;
+      max-width: 100%;
       margin-inline: auto;
     }
   }

@@ -1,348 +1,66 @@
 ---
-import TablerIcon from "../../TablerIcon.astro";
-
-const conclusionsRows = [
-  {
-    aspect: "Komunikacja",
-    traditional: "Chat (Messenger/WhatsApp)",
-    finding: "Szybka komunikacja, ale informacje giną w historii",
-  },
-  {
-    aspect: "Dane",
-    traditional: "Linki, arkusze, maile",
-    finding: "Rozproszone między wieloma narzędziami",
-  },
-  {
-    aspect: "Decyzje",
-    traditional: "Ankiety w komunikatorach",
-    finding: "Brak trwałej akceptacji, giną w konwersacji",
-  },
-] as const;
-
-const jobsToBeDone = [
-  {
-    icon: "notes",
-    title: "Zebrać wszystkie propozycje w jednym miejscu",
-    description:
-      "Kiedy pomysły na nocleg, transport i atrakcje są rozproszone po czatach i narzędziach, potrzebuję jednego miejsca do zbierania i porządkowania wszystkich informacji.",
-  },
-  {
-    icon: "scale",
-    title: "Porównać opcje i podjąć wspólną decyzję",
-    description:
-      "Kiedy mamy kilka propozycji, chcę zobaczyć je obok siebie wraz z opiniami grupy, żeby wybrać najlepszą opcję dla wszystkich.",
-  },
-  {
-    icon: "chart-bar",
-    title: "Monitorować postęp planowania",
-    description:
-      "Kiedy część decyzji jest zamknięta, a część wciąż otwarta, potrzebuję przejrzystego widoku statusu każdej kategorii.",
-  },
-  {
-    icon: "download",
-    title: "Mieć gotowy plan zawsze pod ręką",
-    description:
-      "Kiedy wyjazd jest już zaplanowany, chcę mieć wszystkie informacje (adresy, godziny, linki) w jednym miejscu, dostępne nawet bez internetu.",
-  },
-] as const;
-
-const planningFlow = [
-  "Prosty start: użytkownik tworzy wyjazd przez formularz (data, nazwa, kierunek), który natychmiast generuje współdzieloną przestrzeń.",
-  "Dashboard z kafelkami kategorii: status każdej kategorii (np. aktywne głosowanie, zakończone) daje poczucie kontroli nad procesem.",
-  "Automatyczne parsowanie linków: system pobiera zdjęcia, ceny i nazwy z wklejanych linków (np. Airbnb, Booking), eliminując ręczne uzupełnianie danych.",
-  "Kontekst komentarzy: komentarze są przypisane do konkretnych kategorii zamiast jednego chaotycznego wątku.",
-] as const;
-
-const scheduleFlow = [
-  "Po zamknięciu głosowań aplikacja automatycznie generuje czytelny harmonogram z zatwierdzonymi opcjami.",
-  'Funkcja "Pobierz PDF": harmonogram można wyeksportować jako PDF dostępny offline.',
-] as const;
-
-const testTasks = [
-  "Dodanie nowej kategorii.",
-  "Dodanie opcji do kategorii.",
-  "Ogólne poruszanie się po aplikacji.",
-] as const;
-
-const nextSteps = [
-  "Guest Mode - umożliwienie udziału w planowaniu bez zakładania konta, co obniży barierę wejścia.",
-  "Audyt WCAG - weryfikacja kontrastów i hierarchii dla dostępności.",
-] as const;
-
-const successMetrics = [
-  "Czas podjęcia decyzji - skrócenie czasu od dodania propozycji do zamknięcia głosowania (dane analityczne + badania jakościowe).",
-  "Skuteczność parsowania linków - niska częstotliwość błędów przy automatycznym pobieraniu danych z zewnętrznych źródeł.",
-] as const;
+import CaseStudySection from "../CaseStudySection.astro";
+import CaseStudyMedia from "../CaseStudyMedia.astro";
+import CaseStudyFacts from "../CaseStudyFacts.astro";
+import CaseStudyGallery from "../CaseStudyGallery.astro";
 ---
 
-<section class="flex flex-col gap-[64px]" aria-labelledby="research-title">
-  <div class="flex flex-col gap-[24px]">
-    <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Research</p>
-      <h2 id="research-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Proces badawczy</h2>
-    </div>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Przeprowadziłam 3 wywiady z osobami organizującymi wyjazdy grupowe. Skupiłam się na tym, gdzie giną informacje, jak grupa podejmuje decyzje i co najbardziej spowalnia planowanie.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Kluczowe pytania, które zadałam w trakcie każdego wywiadu to:</p>
-    <ul class="list-disc pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      <li>Jakie były największe wyzwania podczas planowania ostatniego wyjazdu?</li>
-      <li>W jaki sposób grupa wymienia się uwagami i podejmuje decyzje?</li>
-      <li>Co chcieliby uprościć w całym procesie?</li>
-    </ul>
+<CaseStudySection id="research" title="Badania" layout="split" mediaSide="left">
+  <p>Chciałam zrozumieć, jak grupy organizują wyjazdy i w których momentach planowanie staje się zawiłe i chaotyczne. W tym celu przeprowadziłam trzy wywiady pogłębione z osobami organizującymi wyjazdy grupowe.</p>
+  <p>Pytałam o doświadczenia z ostatnich podróży m.in. największe trudności, sposób wymiany informacji i podejmowania decyzji oraz czynności, które uczestnicy chcieliby uprościć. Rozmowy miały charakter eksploracyjny i pomogły mi określić problemy warte dalszego sprawdzenia.</p>
+  <CaseStudyMedia slot="media" label="ReadySet — wypowiedzi z wywiadów" />
+</CaseStudySection>
+
+<div class="readyset-findings">
+  <CaseStudySection id="findings" title="Wnioski" layout="centered">
+    <p>W FigJam pogrupowałam wypowiedzi w obszary tematyczne. Wyłoniły się trzy powiązane trudności:</p>
+  </CaseStudySection>
+  <CaseStudyFacts label="Wnioski z badań ReadySet" items={[
+    { title: "Informacje giną w rozmowach", text: "Komunikatory umożliwiają szybką wymianę pomysłów, ale utrudniają powrót do konkretnych propozycji i ustaleń." },
+    { title: "Porządkowanie wymaga kolejnych narzędzi", text: "Linki, arkusze i wiadomości przechowują różne fragmenty planu. Zebranie całości wymaga przełączania się między nimi." },
+    { title: "Trudno rozpoznać ostateczną decyzję", text: "Ankiety i ustalenia pozostają w historii rozmowy. Nie zawsze wiadomo, co zostało zaakceptowane, a co nadal wymaga dyskusji." },
+  ]} />
+  <div class="page-container">
+    <CaseStudyMedia label="ReadySet — obszary problemowe i synteza badań" ratio="1216 / 515.375" />
   </div>
+</div>
 
-  <div class="overflow-hidden">
-    <img src="/assets/ready-set/stickynotes-readyset.png" alt="Wyniki i artefakty procesu badawczego" class="w-full h-auto" loading="lazy" />
-  </div>
-</section>
+<CaseStudySection id="architecture" label="Planowanie i harmonogram — architektura informacji" layout="split" mediaSide="left" align="center">
+  <p>Wnioski przełożyłam na pytania How Might We, Jobs to Be Done i storyboard. Wyznaczyły one trzy zadania dla aplikacji — porządkowanie propozycji, pokazywanie postępu ustaleń i zapewnienie łatwego dostępu do gotowego planu.</p>
+  <p>Na tej podstawie rozdzieliłam aplikację na „Planowanie” i „Harmonogram”. Pierwszy obszar pozostaje przestrzenią do zgłaszania pomysłów i podejmowania decyzji, drugi pokazuje już ustalony plan. Ten podział stał się podstawą architektury informacji i dalszego projektowania ekranów.</p>
+  <CaseStudyMedia slot="media" label="ReadySet — przepływ planowania i harmonogramu" ratio="361 / 598" desktopRatio="1 / 1" />
+</CaseStudySection>
 
-<section class="grid gap-[48px] lg:grid-cols-[504px_467px] lg:items-stretch lg:gap-[64px]" aria-labelledby="conclusions-title">
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="conclusions-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Wnioski</h2>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Affinity mapping pokazał jeden główny wzór: problemem nie jest brak komunikacji, tylko brak trwałej struktury dla linków, opinii i decyzji.
-    </p>
+<CaseStudySection id="solution" title="Rozwiązanie i kluczowe decyzje" layout="split" mediaWidth="wide">
+  <p>Propozycje uporządkowałam w kategoriach, takich jak nocleg czy transport. Każda ma własny status, głosowanie i komentarze, dzięki czemu dyskusja pozostaje przy konkretnym temacie. Uczestnicy mogą sprawdzić, co wymaga decyzji, bez przeszukiwania historii rozmowy.</p>
+  <p>W koncepcji uwzględniłam dodawanie propozycji przez link z automatycznym pobieraniem nazwy i zdjęcia. Miało to ograniczyć ręczne uzupełnianie informacji. Wybrane opcje trafiają do harmonogramu, który można wyeksportować do PDF i zachować na czas podróży.</p>
+  <CaseStudyGallery slot="media" layout="phones" items={[
+    { label: "ReadySet — planowanie wyjazdu", ratio: "175.07 / 361.32" },
+    { label: "ReadySet — komentarze do propozycji", ratio: "175.07 / 361.32" },
+  ]} />
+  <CaseStudySection slot="visuals" id="interface" label="Interfejs oparty na Material Design" layout="split" mediaSide="left" mediaWidth="wide" align="center" contained={false}>
+    <p>Interfejs oparłam na komponentach Material Design, dostosowując ich wygląd do ReadySet. Pozwoliło mi to skupić się na strukturze aplikacji i zachować znane wzorce interakcji.</p>
+    <CaseStudyGallery slot="media" layout="phones" items={[
+      { label: "ReadySet — dodawanie propozycji", ratio: "175.07 / 361.32" },
+      { label: "ReadySet — ustalony harmonogram", ratio: "175.07 / 361.32" },
+    ]} />
+  </CaseStudySection>
+</CaseStudySection>
 
-    <div class="overflow-hidden rounded-[16px] border border-[var(--color-border)]">
-      <div class="grid grid-cols-3 border-b border-[var(--color-border)] bg-[var(--color-foreground)]">
-        <p class="min-w-0 px-[16px] py-[12px] text-[14px] font-semibold leading-[20px] tracking-[0.25px] [overflow-wrap:anywhere]">Aspekt</p>
-        <p class="min-w-0 px-[16px] py-[12px] text-[14px] font-semibold leading-[20px] tracking-[0.25px] [overflow-wrap:anywhere]">Tradycyjny proces</p>
-        <p class="min-w-0 px-[16px] py-[12px] text-[14px] font-semibold leading-[20px] tracking-[0.25px] [overflow-wrap:anywhere]">Wnioski</p>
-      </div>
+<CaseStudySection id="testing" title="Testy prototypu" layout="centered">
+  <p>Klikalny prototyp sprawdziłam z kilkoma znajomymi. Poprosiłam ich o dodanie kategorii i propozycji oraz poruszanie się po aplikacji. Chciałam ocenić, czy struktura i podstawowe działania są zrozumiałe.</p>
+  <p>Uczestnicy pozytywnie oceniali przejrzystość informacji i łatwość nawigacji. Była to jednak wstępna ocena z osobami z mojego otoczenia, a nie weryfikacja rzeczywistego planowania wyjazdu przez całą grupę.</p>
+  <CaseStudyGallery slot="visuals" items={[
+    { label: "ReadySet — test dodawania opcji", kind: "video", ratio: "598 / 424.206" },
+    { label: "ReadySet — test dodawania kategorii", kind: "video", ratio: "598 / 424.206" },
+  ]} />
+</CaseStudySection>
 
-      {
-        conclusionsRows.map((row, index) => (
-          <div class:list={["grid grid-cols-3", index < conclusionsRows.length - 1 ? "border-b border-[var(--color-border)]" : ""]}>
-            <p class="min-w-0 px-[16px] py-[12px] text-[14px] leading-[20px] tracking-[0.25px] text-[var(--color-text)] [overflow-wrap:anywhere]">{row.aspect}</p>
-            <p class="min-w-0 px-[16px] py-[12px] text-[14px] leading-[20px] tracking-[0.25px] text-[var(--color-text)] [overflow-wrap:anywhere]">{row.traditional}</p>
-            <p class="min-w-0 px-[16px] py-[12px] text-[14px] leading-[20px] tracking-[0.25px] text-[var(--color-text)] [overflow-wrap:anywhere]">{row.finding}</p>
-          </div>
-        ))
-      }
-    </div>
-  </div>
+<CaseStudySection id="results" title="Rezultat i wnioski">
+  <p>Powstał prototyp łączący zbieranie pomysłów, podejmowanie decyzji i dostęp do harmonogramu. Największym wyzwaniem było pokazanie wielu informacji i stanów bez zacierania różnicy między propozycją a ustaleniem.</p>
+  <p>Kolejnym krokiem byłoby sprawdzenie aplikacji podczas planowania prawdziwego wyjazdu. Pozwoliłoby to ocenić współpracę grupy, potrzebę trybu gościa i to, czy rozwiązanie pomaga domykać decyzje. Osobnej weryfikacji wymagałyby dostępność interfejsu oraz niezawodność pobierania danych z linków.</p>
+</CaseStudySection>
 
-  <div class="overflow-hidden rounded-[16px] p-[16px] lg:p-[24px]">
-    <img
-      src="/assets/ready-set/problem-notes-readyset.png"
-      alt="Mapa wniosków i głównego problemu z badań ReadySet"
-      class="w-full h-auto object-contain"
-      loading="lazy"
-    />
-  </div>
-</section>
-
-<section class="flex flex-col gap-[64px]" aria-labelledby="define-title">
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Define</p>
-      <h2 id="define-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Definiowanie rozwiązania</h2>
-    </div>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Wnioski z badań zamieniłam na pytania "How Might We", a potem na konkretne decyzje produktowe: kategorie, wspólne opcje i automatyczny harmonogram.
-    </p>
-
-    <ol class="flex flex-col gap-[32px]">
-      <li class="grid gap-[12px] lg:grid-cols-[27px_1fr] lg:gap-[16px]">
-        <p class="text-[45px] font-bold leading-[52px] text-[var(--color-eyebrow)]">1</p>
-        <div class="flex flex-col gap-[12px]">
-          <p class="text-[14px] lg:text-[16px] leading-[22px] tracking-[0.25px] text-[var(--color-text)]">Jak możemy uporządkować różne typy informacji o wyjeździe?</p>
-          <p class="text-[14px] lg:text-[16px] italic leading-[22px] tracking-[0.25px] text-[var(--color-text)]">Rozwiązanie: Dedykowane kategorie (nocleg, transport, jedzenie) z opcjami dodawanymi przez uczestników.</p>
-        </div>
-      </li>
-      <li class="grid gap-[12px] lg:grid-cols-[27px_1fr] lg:gap-[16px]">
-        <p class="text-[45px] font-bold leading-[52px] text-[var(--color-eyebrow)]">2</p>
-        <div class="flex flex-col gap-[12px]">
-          <p class="text-[14px] lg:text-[16px] leading-[22px] tracking-[0.25px] text-[var(--color-text)]">Jak możemy zebrać wszystkie propozycje w jednym miejscu, aby nie przepadły w historii czatu?</p>
-          <p class="text-[14px] lg:text-[16px] italic leading-[22px] tracking-[0.25px] text-[var(--color-text)]">Rozwiązanie: Stworzyć jedno miejsce, gdzie można gromadzić wszystkie informacje dotyczące wyjazdów.</p>
-        </div>
-      </li>
-      <li class="grid gap-[12px] lg:grid-cols-[27px_1fr] lg:gap-[16px]">
-        <p class="text-[45px] font-bold leading-[52px] text-[var(--color-eyebrow)]">3</p>
-        <div class="flex flex-col gap-[12px]">
-          <p class="text-[14px] lg:text-[16px] leading-[22px] tracking-[0.25px] text-[var(--color-text)]">Jak możemy zamienić gotowy plan w prosty harmonogram dostępny zawsze pod ręką?</p>
-          <p class="text-[14px] lg:text-[16px] italic leading-[22px] tracking-[0.25px] text-[var(--color-text)]">Rozwiązanie: Automatyczny harmonogram generowany na podstawie decyzji grupy z możliwością pobrania.</p>
-        </div>
-      </li>
-    </ol>
-  </div>
-
-  <div class="overflow-hidden sm:h-auto sm:aspect-[288/279] lg:h-[837px]">
-    <img src="/assets/ready-set/storeyboard-readyset.png" alt="Storyboard definiujący rozwiązanie" class="size-full object-contain" loading="lazy" />
-  </div>
-</section>
-
-<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[64px]" aria-labelledby="jtbd-title">
-  <div class="flex flex-col gap-[24px]">
-    <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">JTBD</p>
-      <h2 id="jtbd-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Jobs to be done</h2>
-    </div>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Zamiast zaczynać od listy funkcji, rozpisałam zadania użytkowników. To pomogło odróżnić funkcje potrzebne do decyzji od dodatków, które tylko zwiększałyby złożoność.
-    </p>
-  </div>
-
-  <div class="flex flex-col gap-[24px]">
-    {
-      jobsToBeDone.map((job) => (
-        <article class="rounded-[12px] border border-[var(--color-border)] bg-[var(--color-foreground)] px-[20px] py-[32px]" aria-label={job.title}>
-          <div class="flex flex-col gap-[20px] lg:flex-row lg:items-center lg:gap-[24px]">
-            <TablerIcon name={job.icon} class="size-[56px] text-[var(--color-text)]" />
-            <div class="flex-1">
-              <h3 class="text-[20px] leading-[28px] lg:text-[22px] lg:leading-[28px] text-[var(--color-text)]">{job.title}</h3>
-              <p class="mt-[20px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">{job.description}</p>
-            </div>
-          </div>
-        </article>
-      ))
-    }
-  </div>
-</section>
-
-<section class="grid gap-[48px] lg:grid-cols-[1fr_1fr] lg:items-stretch lg:gap-[64px]" aria-labelledby="user-flow-title">
-  <div class="flex flex-col gap-[24px]">
-    <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Przepływ użytkownika</p>
-      <h2 id="user-flow-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Architektura i kluczowe decyzje projektowe</h2>
-    </div>
-
-    <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Najważniejszą decyzją było rozdzielenie procesu na dwie fazy: Planowanie, gdzie grupa porównuje opcje, i Harmonogram, gdzie trafia gotowy plan.</p>
-
-    <h3 class="text-[14px] lg:text-[16px] font-semibold leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Planowanie</h3>
-    <ul class="list-disc pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      {planningFlow.map((item) => <li>{item}</li>)}
-    </ul>
-
-    <h3 class="text-[14px] lg:text-[16px] font-semibold leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Harmonogram</h3>
-    <ul class="list-disc pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      {scheduleFlow.map((item) => <li>{item}</li>)}
-    </ul>
-  </div>
-
-  <div class="overflow-hidden sm:h-auto sm:aspect-[432/329] lg:aspect-auto lg:h-full">
-    <img src="/assets/ready-set/flow.png" alt="Schemat przepływu użytkownika" class="size-full object-contain" loading="lazy" />
-  </div>
-</section>
-
-<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="design-title">
-  <div class="flex flex-col gap-[14px]">
-    <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Design</p>
-    <h2 id="design-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Decyzje projektowe i ekrany</h2>
-  </div>
-  <div class="h-px w-full bg-[var(--color-border)]"></div>
-  <div class="flex flex-col gap-[48px] lg:gap-[64px]">
-  <section class="flex flex-col gap-[32px]" aria-labelledby="home-screen-title">
-    <div class="flex flex-col gap-[24px]">
-      <h3 id="home-screen-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Ekran domowy</h3>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Ekran domowy rozdziela aktywne i archiwalne wyjazdy, żeby użytkownik od razu widział, co wymaga działania. Dla nowych użytkowników najważniejszy jest jeden prosty start: utworzenie pierwszego wyjazdu.</p>
-    </div>
-    <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/225] lg:h-[449px]">
-      <img src="/assets/ready-set/ekran-domowy-readyset.png" alt="Widok ekranu domowego aplikacji" class="size-full object-cover" loading="lazy" />
-    </div>
-  </section>
-
-  <section class="flex flex-col gap-[32px]" aria-labelledby="dashboard-title">
-    <div class="flex flex-col gap-[24px]">
-      <h3 id="dashboard-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Dashboard wyjazdu</h3>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Dashboard opiera się na kafelkach kategorii zamiast jednej długiej listy. Dzięki temu grupa widzi status noclegu, transportu czy atrakcji bez przekopywania się przez wszystkie propozycje.</p>
-    </div>
-    <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/309] lg:h-[618px]">
-      <img src="/assets/ready-set/dashboard-wyjazdu-readyset.png" alt="Dashboard wyjazdu" class="size-full object-cover" loading="lazy" />
-    </div>
-  </section>
-
-  <section class="flex flex-col gap-[32px]" aria-labelledby="options-title">
-    <div class="flex flex-col gap-[24px]">
-      <h3 id="options-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Dodawanie opcji</h3>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Dodawanie opcji uprościłam do wklejenia linku. Aplikacja pobiera nazwę i zdjęcie automatycznie, bo ręczne przepisywanie danych jest jednym z powodów, przez które planowanie szybko staje się męczące.</p>
-    </div>
-    <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/253] lg:h-[506px]">
-      <img src="/assets/ready-set/dodawanie-opcji-readyset.png" alt="Widok dodawania opcji" class="size-full object-cover" loading="lazy" />
-    </div>
-    <div class="grid gap-[24px] sm:grid-cols-2">
-      <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[149/103] lg:h-[298px]">
-        <video src="/assets/ready-set/add-option.mp4" aria-label="Dodatkowy ekran opcji 1" class="size-full object-cover" autoplay loop muted playsinline></video>
-      </div>
-      <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[149/103] lg:h-[298px]">
-        <video src="/assets/ready-set/new-option.mp4" aria-label="Dodatkowy ekran opcji 2" class="size-full object-cover" autoplay loop muted playsinline></video>
-      </div>
-    </div>
-  </section>
-
-  <section class="flex flex-col gap-[32px]" aria-labelledby="schedule-title">
-    <div class="flex flex-col gap-[24px]">
-      <h3 id="schedule-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Harmonogram</h3>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Po zamknięciu decyzji aplikacja zamienia ustalenia w harmonogram. Dodałam też eksport do PDF, żeby finalny plan był dostępny poza aplikacją.</p>
-    </div>
-    <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/233] lg:h-[465px]">
-      <img src="/assets/ready-set/harmonogram-readyset.png" alt="Widok harmonogramu wyjazdu" class="size-full object-cover" loading="lazy" />
-    </div>
-  </section>
-  </div>
-</section>
-
-<section class="grid gap-[48px] lg:grid-cols-[467px_509px] lg:items-center lg:gap-[64px]" aria-labelledby="style-title">
-  <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[467px]">
-    <img src="/assets/ready-set/UI-readyset.png" alt="Przykład stylu wizualnego aplikacji" class="size-full object-cover" loading="lazy" />
-  </div>
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="style-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Style i UI</h2>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Material Design potraktowałam jako bazę, a nie gotowy styl. Zmieniłam kolory, zaokrąglenia i cienie, żeby szybciej zbudować spójny system dopasowany do aplikacji mobilnej.</p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Wszystkie style i komponenty są widoczne na stronie <a href="https://www.figma.com/design/DMxRfKfATk1JRYhEYXuUxC?node-id=526-13593" target="_blank" rel="noopener noreferrer" class="font-bold underline">COMPONENTS/COLOR</a></p>
-  </div>
-</section>
-
-<section class="grid gap-[48px] lg:grid-cols-[511px_283px] lg:items-start lg:justify-between" aria-labelledby="user-tests-title">
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Testy użytkowników</p>
-      <h2 id="user-tests-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Testy użytkowników</h2>
-    </div>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Testy prototypu sprawdzały, czy użytkownicy rozumieją strukturę kategorii i potrafią dodać własne propozycje bez dodatkowego wyjaśnienia.</p>
-    <ul class="list-disc pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      {testTasks.map((task) => <li>{task}</li>)}
-    </ul>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Wynik: struktura kategorii i głosowania była zrozumiała, a użytkownicy pozytywnie ocenili przejrzystość informacji.</p>
-  </div>
-  <div class="mx-auto w-full max-w-[360px] overflow-hidden rounded-[56px] shadow-[0px_4px_14px_rgba(0,0,0,0.08)] sm:mx-0 sm:max-w-none sm:h-auto sm:aspect-[24/17] lg:w-[283px] lg:h-[612px]">
-    <video src="/assets/ready-set/user-test-readyset.mov" aria-label="Nagranie z testów użytkowników" class="size-full rounded-[56px] object-cover [clip-path:inset(0_1px_1px_0_round_56px)]" autoplay loop muted playsinline></video>
-  </div>
-</section>
-
-<section class="grid gap-[48px] lg:grid-cols-[465px_511px] lg:items-center lg:gap-[64px]" aria-labelledby="reflections-title">
-  <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[465px]">
-    <img src="/assets/ready-set/invite-readyset.png" alt="Ilustracja podsumowania projektu" class="size-full object-contain" loading="lazy" />
-  </div>
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="reflections-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Wnioski i dalsze kroki</h2>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Największym wyzwaniem było zmieszczenie dat, linków, cen, opinii i głosów bez zamiany aplikacji w arkusz. Dlatego informacje grupowałam wokół kategorii i statusów decyzji.</p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Kolejne iteracje:</p>
-    <ul class="list-disc pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      {nextSteps.map((step) => <li>{step}</li>)}
-    </ul>
-  </div>
-</section>
-
-<section class="grid gap-[48px] lg:grid-cols-[488px_488px] lg:items-center lg:gap-[64px]" aria-labelledby="success-title">
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="success-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Miary sukcesu</h2>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Sukces mierzyłabym tym, czy aplikacja realnie skraca drogę od propozycji do decyzji:</p>
-    <ul class="list-disc pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      {successMetrics.map((metric) => <li>{metric}</li>)}
-    </ul>
-  </div>
-  <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[488px]">
-    <img src="/assets/ready-set/two-phones-readyset.png" alt="Wizualizacja metryk sukcesu" class="size-full object-contain" loading="lazy" />
-  </div>
-</section>
+<style>
+  .readyset-findings { display: flex; flex-direction: column; gap: var(--content-gap); }
+</style>
