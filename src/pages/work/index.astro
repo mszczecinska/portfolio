@@ -1,111 +1,207 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getAllProjects } from "../../lib/projects";
+import { getProjectBySlug } from "../../lib/projects";
 
-const projects = getAllProjects();
+// Listing copy stays local so the existing case studies and home cards keep their content.
+const projectCards = [
+  {
+    slug: "akademia-e-commerce-dla-e-bookow-edukacyjnych",
+    title: "Akademia",
+    badges: "UX/UI / E-COMMERCE / EDUTECH",
+    description: "Od marki edukacyjnej do sklepu z e-bookami. Projekt UX/UI obejmujący pełną ścieżkę zakupową na desktopie i mobile.",
+  },
+  {
+    slug: "miropoix-saas-dla-szefow-kuchni",
+    title: "Miropoix",
+    badges: "UI / DEVELOPMENT / SAAS",
+    description: "Nowa strona aplikacji dla zespołów kuchennych. Redesign landing page, motion i wdrożenie przy wsparciu narzędzi AI.",
+  },
+  {
+    slug: "koncepcja-wizji-produktu-b2c",
+    title: "InsightX",
+    badges: "UX / FINTECH / RESEARCH",
+    description: "Od technologii B2B do wizji produktu B2C. Research, potrzeby traderów i koncepcja przestrzeni analitycznej InfoFi.",
+  },
+  {
+    slug: "readyset-aplikacja-do-planowania-wyjazdow",
+    title: "ReadySet",
+    badges: "UX/UI / MOBILE APP / TRAVEL",
+    description: "Od rozproszonych pomysłów do wspólnego planu wyjazdu. Koncepcja aplikacji obejmująca research, UX/UI i prototyp.",
+  },
+  {
+    slug: "mova-aplikacja-do-nauki-jezykow",
+    title: "Mova",
+    badges: "UX/UI / WEB & MOBILE / EDUTECH",
+    description: "Czytelna ścieżka nauki języków. Projekt mobile i web ze strukturą lekcji, informacją o postępie i skalowalnym UI Kitem.",
+  },
+  {
+    slug: "aurapura-design-system",
+    title: "AuraPura",
+    badges: "UI / DESIGN SYSTEM / E-COMMERCE",
+    description: "Od briefu marki do spójnego design systemu. Tokeny, Figma Variables, komponenty i widoki na trzy wielkości ekranu.",
+  },
+];
+const experimentCards = [
+  {
+    slug: "obrys-studio",
+    title: "OBRYS Studio",
+    badges: "UI / WEB DESIGN / EXPLORATION",
+    description: "Eksperyment z kierunkiem wizualnym strony OBRYS Studio: typografia, kompozycja i prezentacja projektów.",
+  },
+];
+const groups = [
+  { id: "projects", label: "Projekty", cards: projectCards },
+  { id: "experiments", label: "Eksperymenty", cards: experimentCards },
+];
+const activeGroup = Astro.url.searchParams.get("category") === "experiments" ? "experiments" : "projects";
 ---
 
-<Layout title="Work" description="Portfolio UX/UI - projekty">
-  <section class="px-[32px] pt-[32px] sm:px-10 sm:pt-[36px] lg:px-16 lg:pt-[40px]" aria-label="Liczba projektów">
-    <div class="mx-auto flex w-full items-center gap-[20px] sm:gap-[32px] lg:gap-[48px]">
-      <div class="h-px flex-1 border-b border-[var(--color-subtle)]"></div>
-      <p class="text-[14px] leading-[20px] tracking-[-0.011em] text-[var(--color-subtle)]">{projects.length} Projektów</p>
-    </div>
-  </section>
+<Layout title="Work" description="Projekty UX/UI, design systemy i eksperymenty Magdaleny Szczecińskiej." workPage>
+  <h1 class="sr-only">Realizacje i eksperymenty</h1>
+  <div class="work-page" data-work-page>
+    <nav class="work-categories page-container" aria-label="Kategorie realizacji">
+      {groups.map((group) => (
+        <a
+          href={group.id === "projects" ? "/work" : "/work?category=experiments"}
+          class="work-category"
+          aria-current={activeGroup === group.id ? "true" : undefined}
+          data-work-category={group.id}
+          aria-controls={`work-${group.id}`}
+        >
+          {group.label} ({String(group.cards.length).padStart(2, "0")})
+        </a>
+      ))}
+    </nav>
 
-  <section class="mx-auto flex w-full max-w-[1040px] flex-col gap-[80px] px-6 pb-[120px] pt-[32px] sm:px-8 sm:pb-[144px] sm:pt-[48px] md:gap-[120px] lg:gap-[200px] lg:px-0 lg:pb-[200px] lg:pt-[80px]" aria-label="Lista projektów">
-    {
-      projects.map((project, index) => {
-        const reverseOnDesktop = index % 2 === 1;
-        const isComingSoon = Boolean(project.comingSoon);
-        const transitionKey = isComingSoon ? undefined : project.slug;
-        const CardTag = isComingSoon ? "span" : "a";
-
-        return (
-          <article class="w-full" aria-labelledby={`work-title-${project.slug}`}>
-            <CardTag
-              {...(!isComingSoon ? { href: `/work/${project.slug}` } : {})}
-              class:list={[
-                "group flex flex-col gap-[28px] md:flex-row md:items-center md:gap-[40px] lg:gap-[52px]",
-                isComingSoon ? "cursor-default" : "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]",
-              ]}
-              transition:name={transitionKey ? `work-${transitionKey}-card` : undefined}
-            >
-              <div
-                class:list={[
-                  "relative h-[320px] w-full overflow-hidden md:h-auto md:aspect-[51/50] md:w-[48%] lg:h-[500px] lg:w-[510px]",
-                  reverseOnDesktop ? "md:order-2" : "",
-                ]}
+    {groups.map((group) => (
+      <section
+        id={`work-${group.id}`}
+        class:list={["work-grid", { "work-grid--experiments": group.id === "experiments" }]}
+        data-work-group={group.id}
+        aria-label={group.label}
+        hidden={activeGroup !== group.id}
+      >
+        {group.cards.map((card, index) => {
+          const project = getProjectBySlug(card.slug);
+          const external = Boolean(project?.comingSoon);
+          const href = external ? project?.links?.live : `/work/${card.slug}`;
+          const CardTag = href ? "a" : "div";
+          return (
+            <article class:list={["work-card", { "work-card--featured": group.id === "projects" && index < 2 }]}>
+              <CardTag
+                href={href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                class="work-card__link"
+                aria-labelledby={`title-${card.slug}`}
               >
-                <img
-                  src={project.image}
-                  alt={`Podgląd projektu ${project.title}`}
-                  class="size-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.01]"
-                  loading="lazy"
-                  transition:name={transitionKey ? `work-${transitionKey}-image` : undefined}
-                />
-              </div>
-
-              <div
-                class:list={[
-                  "w-full md:w-[52%] lg:w-[496px]",
-                  reverseOnDesktop ? "md:order-1" : "",
-                  index === 2 ? "lg:pt-[11px]" : "",
-                  index === 3 ? "lg:pt-[11px]" : "",
-                ]}
-              >
-                <div class="flex flex-col gap-[24px]">
-                  <div class="flex flex-col gap-[12px]">
-                    <h2
-                      id={`work-title-${project.slug}`}
-                      class="text-[28px] leading-[1.2] tracking-[0] text-[var(--color-text)] md:text-[26px] lg:text-[24px] lg:leading-[44px]"
-                      transition:name={transitionKey ? `work-${transitionKey}-title` : undefined}
-                    >
-                      {project.title}
-                    </h2>
-
-                    <ul class="flex flex-wrap items-center gap-[6px] sm:gap-[12px]" aria-label={`Tagi projektu ${project.title}`}>
-                      {
-                        project.tags.map((tag, tagIndex) => (
-                          <li
-                            class="rounded-[5555px] border border-[var(--color-border)] px-[12px] py-[8px] text-[12px] leading-[16px] tracking-[0.25px] text-[var(--color-text)]"
-                            transition:name={transitionKey ? `work-${transitionKey}-tag-${tagIndex}` : undefined}
-                          >
-                            {tag}
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  </div>
-
-                  <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-
-                  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0] text-[var(--color-text)]">
-                    {project.description}
-                  </p>
-
-                  {isComingSoon && project.links?.live && (
-                    <a
-                      href={project.links.live}
-                      target="_blank"
-                      rel="noreferrer"
-                      class="w-fit text-[14px] lg:text-[16px] font-semibold leading-[24px] text-[var(--color-accent)] underline underline-offset-4"
-                    >
-                      Zobacz preview
-                    </a>
-                  )}
-
-                  {!isComingSoon && (
-                    <span class="btn-primary w-fit px-[24px] py-[14px] text-[14px] lg:text-[16px] font-semibold leading-[20px]">
-                      Zobacz więcej
-                    </span>
-                  )}
+                <div class="work-card__heading">
+                  <p class="work-card__badges type-label">{card.badges}</p>
+                  <h2 id={`title-${card.slug}`}>{card.title}</h2>
+                  <span class="work-card__arrow" aria-hidden="true">
+                    <img src="/assets/work/arrow-down-left.svg" width="46" height="46" alt="" />
+                  </span>
                 </div>
-              </div>
-            </CardTag>
-          </article>
-        );
-      })
-    }
-  </section>
+                <div class="work-card__media media-placeholder" aria-hidden="true"></div>
+                <p class="work-card__description">{card.description}</p>
+              </CardTag>
+            </article>
+          );
+        })}
+      </section>
+    ))}
+  </div>
 </Layout>
+
+<style>
+  .work-page { padding-top: 40px; padding-bottom: 40px; }
+  .work-categories { display: flex; align-items: baseline; gap: 20px; margin-bottom: 40px; }
+  .work-category { color: var(--color-text-muted); font-size: 20px; line-height: normal; text-decoration: none; white-space: nowrap; }
+  .work-category[aria-current] { color: var(--color-text); font-size: 24px; font-weight: var(--weight-medium); }
+  .work-grid { border-top: 1px solid var(--color-border); padding-top: 8px; }
+  .work-grid[hidden] { display: none; }
+  .work-card { min-width: 0; padding: 20px; border-bottom: 1px solid var(--color-border); }
+  .work-card + .work-card { margin-top: 8px; }
+  .work-card__link { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 18px; min-height: 385px; color: inherit; text-decoration: none; }
+  .work-card__heading { display: grid; grid-template-columns: minmax(0, 1fr) 70px; grid-template-rows: auto auto; column-gap: 10px; row-gap: 10px; align-content: start; }
+  .work-card__badges { grid-column: 1; font-size: 12px; line-height: 18px; }
+  .work-card h2 { grid-column: 1; font-size: 24px; line-height: 38px; font-weight: var(--weight-regular); overflow-wrap: normal; }
+  .work-card__arrow { grid-column: 2; grid-row: 1 / 3; display: grid; place-items: center; width: 70px; height: 70px; padding: 12px; }
+  .work-card__arrow img { transform: rotate(180deg); transition: transform var(--duration-ui) var(--ease-ui); }
+  .work-card__media { aspect-ratio: auto; min-height: 180px; }
+  .work-card__description { font-size: 14px; line-height: 25px; }
+  @media (hover: hover) {
+    .work-category:hover { color: var(--color-text); }
+    .work-card__link:hover .work-card__arrow img { transform: translate(2px, -2px) rotate(180deg); }
+  }
+  @media (max-width: 22.5rem) {
+    .work-categories { gap: 12px; }
+    .work-category { font-size: 17px; }
+    .work-category[aria-current] { font-size: 20px; }
+  }
+  @media (min-width: 64rem) {
+    .work-categories { gap: 40px; }
+    .work-category { font-size: 24px; }
+    .work-category[aria-current] { font-size: 32px; }
+    .work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); padding-top: 0; padding-inline: max(32px, calc((100vw - 1216px) / 2)); position: relative; }
+    .work-grid::after { content: ""; position: absolute; width: 1px; top: 0; bottom: 0; left: 50%; background: var(--color-border); pointer-events: none; }
+    .work-card { position: relative; padding: 40px; }
+    .work-grid:not(.work-grid--experiments) .work-card:nth-child(odd) { padding-left: 0; }
+    .work-grid:not(.work-grid--experiments) .work-card:nth-child(even) { padding-right: 0; }
+    .work-card + .work-card { margin-top: 0; }
+    .work-card::after { content: ""; position: absolute; bottom: -1px; height: 1px; width: max(32px, calc((100vw - 1216px) / 2)); background: var(--color-border); }
+    .work-card:nth-child(odd)::after { right: 100%; }
+    .work-card:nth-child(even)::after { left: 100%; }
+    .work-card__link { grid-template-columns: minmax(0, 250fr) minmax(0, 258fr); grid-template-rows: auto 1fr; gap: 20px; min-height: 250px; }
+    .work-card__heading { grid-column: 2; grid-row: 1; row-gap: 10px; column-gap: 12px; }
+    .work-card h2 { grid-column: 1; grid-row: 2; font-size: 32px; }
+    .work-card__arrow { grid-row: 2; }
+    .work-card__badges { grid-column: 1 / -1; }
+    .work-card__media { grid-column: 1; grid-row: 1 / 3; min-height: 250px; }
+    .work-card__description { grid-column: 2; align-self: end; font-size: 16px; }
+    .work-card--featured .work-card__link { display: flex; flex-direction: column; }
+    .work-card--featured .work-card__heading { row-gap: 10px; }
+    .work-card--featured .work-card__badges { grid-column: 1; }
+    .work-card--featured .work-card__arrow { grid-row: 1 / 3; }
+    .work-card--featured .work-card__media { height: 388px; min-height: 388px; }
+    .work-grid--experiments { grid-template-columns: minmax(0, 1fr); border-bottom: 1px solid var(--color-border); }
+    .work-grid--experiments::after { display: none; }
+    .work-grid--experiments .work-card { padding-inline: 0; border-bottom: 0; }
+    .work-grid--experiments .work-card::after { display: none; }
+    .work-grid--experiments .work-card__link { grid-template-columns: minmax(0, 486fr) minmax(0, 710fr); }
+  }
+  @media (min-width: 64rem) and (max-width: 74.999rem) {
+    .work-grid:not(.work-grid--experiments) .work-card:not(.work-card--featured) .work-card__heading { grid-template-columns: minmax(0, 1fr) 46px; column-gap: 8px; }
+    .work-grid:not(.work-grid--experiments) .work-card:not(.work-card--featured) h2 { font-size: 28px; }
+    .work-grid:not(.work-grid--experiments) .work-card:not(.work-card--featured) .work-card__arrow { width: 46px; height: 46px; padding: 0; }
+  }
+</style>
+
+<script>
+  function setupWorkCategories() {
+    const root = document.querySelector<HTMLElement>("[data-work-page]");
+    if (!root || root.dataset.initialized) return;
+    root.dataset.initialized = "true";
+    const links = [...root.querySelectorAll<HTMLAnchorElement>("[data-work-category]")];
+    const groups = [...root.querySelectorAll<HTMLElement>("[data-work-group]")];
+    const select = (category: string) => {
+      links.forEach((link) => {
+        if (link.dataset.workCategory === category) link.setAttribute("aria-current", "true");
+        else link.removeAttribute("aria-current");
+      });
+      groups.forEach((group) => { group.hidden = group.dataset.workGroup !== category; });
+    };
+    select(new URLSearchParams(location.search).get("category") === "experiments" ? "experiments" : "projects");
+    links.forEach((link) => link.addEventListener("click", (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+      event.preventDefault();
+      select(link.dataset.workCategory!);
+      history.pushState({}, "", link.href);
+    }));
+    window.addEventListener("popstate", () => {
+      if (root.isConnected) select(new URLSearchParams(location.search).get("category") === "experiments" ? "experiments" : "projects");
+    });
+  }
+  setupWorkCategories();
+  document.addEventListener("astro:page-load", setupWorkCategories);
+</script>

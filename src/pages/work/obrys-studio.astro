@@ -1,0 +1,21 @@
+---
+import CaseStudyShell from "../../components/work/CaseStudyShell.astro";
+import CaseStudyMedia from "../../components/work/CaseStudyMedia.astro";
+---
+
+<CaseStudyShell title="OBRYS Studio — case study" description="OBRYS Studio — eksperyment z kierunkiem wizualnym strony. Case study w przygotowaniu.">
+  <!-- The detailed layout and content will follow the forthcoming Figma design. -->
+  <header class="obrys-intro page-container">
+    <CaseStudyMedia label="OBRYS Studio — okładka projektu" ratio="361 / 186" desktopRatio="1216 / 520" />
+    <div class="obrys-intro__text">
+      <h1 id="case-study-title" class="type-title">OBRYS Studio</h1>
+      <p class="type-label">Case study w przygotowaniu</p>
+      <a class="btn-secondary" href="/work?category=experiments">Wróć do eksperymentów</a>
+    </div>
+  </header>
+</CaseStudyShell>
+
+<style>
+  .obrys-intro, .obrys-intro__text { display: flex; flex-direction: column; gap: var(--content-gap); }
+  .obrys-intro__text { align-items: flex-start; }
+</style>
