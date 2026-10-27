@@ -1,44 +1,35 @@
 ---
-import WorkCaseShell from "../../components/work/WorkCaseShell.astro";
+import CaseStudyShell from "../../components/work/CaseStudyShell.astro";
+import CaseStudyIntro from "../../components/work/CaseStudyIntro.astro";
+import CaseStudyPagination from "../../components/work/CaseStudyPagination.astro";
 import KoncepcjaCaseContent from "../../components/work/cases/KoncepcjaCaseContent.astro";
 import { getProjectBySlug } from "../../lib/projects";
 
 const project = getProjectBySlug("koncepcja-wizji-produktu-b2c");
-
-if (!project) {
-  return Astro.redirect("/work");
-}
-
-const tools = [
-  { src: "/icons/tool-figma.png", alt: "Figma" },
-  { src: "/icons/tool-notion.png", alt: "Notion" },
-  { src: "/icons/tool-openai.png", alt: "OpenAI" },
-] as const;
+if (!project) return Astro.redirect("/work");
 ---
 
-<WorkCaseShell
-  project={project}
-  tools={tools}
-  heroImage="/assets/inx/hero-inx.png"
-  heroHasSurface={false}
-  overviewHeading="Wstęp"
-  overviewText="InsightX miał silny silnik analityczny i rozpoznawalne narzędzia B2B, ale potrzebował kierunku dla samodzielnego produktu B2C. Projekt polegał na przejściu od szerokich hipotez do konkretnej wizji produktu dla zaawansowanych traderów."
-  duration="1 miesiąc"
-  projectType="Komercyjny"
-  impactItems={[
-    {
-      title: "Problem",
-      text: "InsightX miał silny silnik B2B i miliony użytkowników przez integracje, ale brakowało mu rozpoznawalnego, samodzielnego kierunku B2C.",
-    },
-    {
-      title: "Cel",
-      text: "Zrozumieć użytkowników, znaleźć lukę na rynku i zaproponować kierunek produktowy możliwy do dalszego testowania.",
-    },
-    {
-      title: "Efekt",
-      text: "Powstała wizja InfoFi workspace, oparta na personach, JTBD, analizie konkurencji i hipotezach produktowych.",
-    },
-  ]}
->
+<CaseStudyShell title="InsightX — od hipotez do kierunku produktu B2C" description={project.description}>
+  <CaseStudyIntro
+    title="InsightX"
+    subtitle="od hipotez do kierunku produktu B2C"
+    overview="InsightX miał silny silnik analityczny i rozpoznawalne narzędzia B2B, ale potrzebował kierunku dla samodzielnego produktu B2C. Projekt polegał na przejściu od szerokich hipotez do konkretnej wizji produktu dla zaawansowanych traderów."
+    role="UX/UI designer"
+    projectType="Projekt komercyjny"
+    tools={[
+      { src: "/icons/tool-figma.png", alt: "Figma" },
+      { src: "/icons/tool-notion.png", alt: "Notion" },
+      { src: "/icons/tool-openai.png", alt: "OpenAI" },
+    ]}
+    facts={[
+      { title: "Problem", text: "Technologia InsightX docierała do milionów użytkowników przez integracje B2B, ale marka pozostawała w tle. Wyzwaniem było określenie kierunku samodzielnego produktu B2C, z którego użytkownicy korzystaliby bezpośrednio." },
+      { title: "Cel", text: "Określenie grupy docelowej, propozycji wartości i kierunku rozwoju produktu B2C." },
+      { title: "Efekt", text: "Koncepcja przestrzeni analitycznej dla traderów, oparta na rozpoznanych potrzebach i analizie dostępnych rozwiązań." },
+    ]}
+  />
   <KoncepcjaCaseContent />
-</WorkCaseShell>
+  <CaseStudyPagination
+    previous={{ title: "Miropoix", description: "Redesign landing page aplikacji SaaS", href: "/work/miropoix-saas-dla-szefow-kuchni" }}
+    next={{ title: "ReadySet", description: "Wspólny wyjazd. Jeden plan.", href: "/work/readyset-aplikacja-do-planowania-wyjazdow" }}
+  />
+</CaseStudyShell>

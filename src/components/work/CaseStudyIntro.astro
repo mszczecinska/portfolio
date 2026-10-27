@@ -1,4 +1,5 @@
 ---
+import CaseStudyFacts from "./CaseStudyFacts.astro";
 import TablerIcon from "../TablerIcon.astro";
 import CaseStudyMedia from "./CaseStudyMedia.astro";
 
@@ -45,13 +46,7 @@ const { title, subtitle, overview, role, projectType, tools, liveUrl, liveHoverC
     </div>
   </div>
 
-  {facts.length > 0 && (
-    <div class="case-intro__facts" role="group" aria-label="Projekt w skrócie">
-      <dl class="case-intro__facts-grid page-container">
-        {facts.map(fact => <div><dt class="type-label">{fact.title}</dt><dd class="case-body">{fact.text}</dd></div>)}
-      </dl>
-    </div>
-  )}
+  {facts.length > 0 && <CaseStudyFacts items={facts} />}
 </header>
 
 <style>
@@ -82,12 +77,6 @@ const { title, subtitle, overview, role, projectType, tools, liveUrl, liveHoverC
   .case-intro__metadata dd { margin: 0; font-size: var(--text-small); line-height: var(--leading-body); }
   .case-intro__tools { display: flex; flex-wrap: wrap; gap: var(--space-3); }
   .case-intro__tools img { display: block; width: var(--space-5); height: var(--space-5); object-fit: contain; }
-  .case-intro__facts { border-block: var(--border-width) solid var(--color-border); }
-  .case-intro__facts-grid { display: grid; margin-block: 0; padding-inline: 0; }
-  .case-intro__facts-grid > div { display: grid; align-content: start; grid-template-rows: auto 1fr; gap: var(--space-4); padding: var(--space-4) calc(var(--page-gutter) + var(--space-3)); }
-  .case-intro__facts dt { font-size: 1.25rem; }
-  .case-intro__facts-grid > div + div { border-top: var(--border-width) solid var(--color-border); }
-  .case-intro__facts dd { margin: 0; }
   @media (min-width: 64rem) {
     .case-intro { gap: var(--space-10); }
     .case-intro > .page-container:first-child { margin-bottom: 0; }
@@ -98,8 +87,5 @@ const { title, subtitle, overview, role, projectType, tools, liveUrl, liveHoverC
     .case-intro__metadata > div { grid-template-columns: minmax(0, 156fr) minmax(0, 372fr); }
     .case-intro__metadata dd { font-size: var(--text-body); }
     .case-intro__tools img { width: var(--space-6); height: var(--space-6); }
-    .case-intro__facts-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-inline: var(--page-gutter); }
-    .case-intro__facts-grid > div { gap: var(--space-6); padding: var(--space-12) var(--space-6); }
-    .case-intro__facts-grid > div + div { border-top: 0; border-left: var(--border-width) solid var(--color-border); }
   }
 </style>

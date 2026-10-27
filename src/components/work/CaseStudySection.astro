@@ -2,13 +2,14 @@
 interface Props {
   id: string;
   title: string;
+  subtitle?: string;
   layout?: "split" | "editorial" | "centered";
   mediaSide?: "left" | "right";
   align?: "start" | "center";
   mediaWidth?: "equal" | "wide";
 }
 
-const { id, title, layout = "editorial", mediaSide = "right", align = "start", mediaWidth = "equal" } = Astro.props;
+const { id, title, subtitle, layout = "editorial", mediaSide = "right", align = "start", mediaWidth = "equal" } = Astro.props;
 ---
 
 <section
@@ -17,7 +18,10 @@ const { id, title, layout = "editorial", mediaSide = "right", align = "start", m
 >
   <div class="case-section__layout">
     <div class="case-section__copy">
-      <h2 class="case-heading" id={`${id}-title`}>{title}</h2>
+      <div class="case-section__heading">
+        <h2 class="case-heading" id={`${id}-title`}>{title}{subtitle && <span class="case-section__subtitle"> {subtitle}</span>}</h2>
+        <slot name="heading-extra" />
+      </div>
       <div class="case-prose"><slot /></div>
     </div>
     {Astro.slots.has("media") && <div class="case-section__media"><slot name="media" /></div>}
@@ -37,6 +41,8 @@ const { id, title, layout = "editorial", mediaSide = "right", align = "start", m
     gap: var(--content-gap);
   }
   .case-section__copy, .case-section__media, .case-section__visuals { min-width: 0; }
+  .case-section__heading { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-5); min-width: 0; }
+  .case-section__subtitle { display: block; }
   @media (min-width: 64rem) {
     .case-section--split .case-section__layout {
       grid-template-columns: repeat(2, minmax(0, 1fr));

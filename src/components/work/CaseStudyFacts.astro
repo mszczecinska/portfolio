@@ -1,0 +1,33 @@
+---
+interface Props {
+  items: readonly { title: string; text: string }[];
+  label?: string;
+}
+const { items, label = "Projekt w skrócie" } = Astro.props;
+---
+
+<div class="case-intro__facts" role="group" aria-label={label}>
+  <dl class="case-intro__facts-grid page-container">
+    {items.map(item => <div><dt class="type-label">{item.title}</dt><dd class="case-body">{item.text}</dd></div>)}
+  </dl>
+</div>
+
+<style>
+  .case-intro__facts { border-block: var(--border-width) solid var(--color-border); }
+  .case-intro__facts-grid { display: grid; margin-block: 0; padding-inline: 0; }
+  .case-intro__facts-grid > div {
+    display: grid;
+    align-content: start;
+    grid-template-rows: auto 1fr;
+    gap: var(--space-4);
+    padding: var(--space-4) calc(var(--page-gutter) + var(--space-3));
+  }
+  .case-intro__facts dt { font-size: 1.25rem; }
+  .case-intro__facts dd { margin: 0; }
+  .case-intro__facts-grid > div + div { border-top: var(--border-width) solid var(--color-border); }
+  @media (min-width: 64rem) {
+    .case-intro__facts-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); padding-inline: var(--page-gutter); }
+    .case-intro__facts-grid > div { gap: var(--space-6); padding: var(--space-12) var(--space-6); }
+    .case-intro__facts-grid > div + div { border-top: 0; border-left: var(--border-width) solid var(--color-border); }
+  }
+</style>

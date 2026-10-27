@@ -1,203 +1,81 @@
 ---
+import CaseStudySection from "../CaseStudySection.astro";
+import CaseStudyMedia from "../CaseStudyMedia.astro";
+import CaseStudyFacts from "../CaseStudyFacts.astro";
+import TablerIcon from "../../TablerIcon.astro";
 import HypothesisSecurityCards from "./HypothesisSecurityCards.astro";
 import HypothesisNewbiesCards from "./HypothesisNewbiesCards.astro";
+import "./hypothesis-cards.css";
 
-const figmaLinks = {
-  hypothesis1:
-    "https://www.figma.com/board/XwGWCY4td2pjNwI0qB9psG/Security-%E2%80%93-full-map--with-details-?node-id=0-1",
-  hypothesis2:
-    "https://www.figma.com/board/XwGWCY4td2pjNwI0qB9psG/Security-%E2%80%93-full-map--with-details-?node-id=68-428",
-  interviews:
-    "https://www.figma.com/board/XwGWCY4td2pjNwI0qB9psG/Security-%E2%80%93-full-map--with-details-?node-id=46-1259",
-  personas:
-    "https://www.figma.com/board/XwGWCY4td2pjNwI0qB9psG/Security-%E2%80%93-full-map--with-details-?node-id=47-1323",
-  tools:
-    "https://www.figma.com/board/XwGWCY4td2pjNwI0qB9psG/Security-%E2%80%93-full-map--with-details-?node-id=47-2202",
-  finalVision:
-    "https://www.figma.com/board/XwGWCY4td2pjNwI0qB9psG/Security-%E2%80%93-full-map--with-details-?node-id=47-1929",
-} as const;
+const board = "https://www.figma.com/board/XwGWCY4td2pjNwI0qB9psG/Security-%E2%80%93-full-map--with-details-";
 ---
 
-<section class="grid gap-[48px] lg:grid-cols-[504px_467px] lg:items-center lg:gap-[64px]" aria-labelledby="process-title">
-  <div class="flex flex-col gap-[24px]">
-    <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Proces</p>
-      <h2 id="process-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Jak pracowaliśmy</h2>
-    </div>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Pracowaliśmy w krótkich iteracjach z dwoma spotkaniami tygodniowo. To było konieczne, bo rynek krypto zmienia się szybko, a zespół InsightX wnosił wiedzę domenową, której nie da się zastąpić samym researchem.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Od początku przyjęliśmy dwie zasady:
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      <strong>Najpierw zrozumienie, potem projektowanie.</strong> Pierwszy etap poświęciliśmy na Web3, DeFi, portfele, tokeny i scamy, żeby nie projektować na uproszczonych założeniach.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      <strong>Hipotezy zamiast „wielkiego pomysłu”.</strong> Zamiast bronić jednej wizji, testowaliśmy kolejne kierunki i odrzucaliśmy te, które nie miały sensu strategicznego.
-    </p>
-  </div>
+<CaseStudySection id="context" title="Punkt wyjścia" layout="split" mediaSide="left">
+  <p>Punktem wyjścia była technologia analityczna wykorzystywana w modelu B2B. Nowy produkt miał udostępnić jej możliwości indywidualnym odbiorcom, ale grupa docelowa i sposób wykorzystania danych wymagały doprecyzowania.</p>
+  <p>Pracowałam iteracyjnie, omawiając kolejne hipotezy podczas spotkań z zespołem dwa razy w tygodniu. Łączyłam poznawanie domeny z analizą rynku i potrzeb potencjalnych użytkowników. W ramach projektu współpracowałam z Senior Product Designerem.</p>
+  <CaseStudyMedia slot="media" label="InsightX — punkt wyjścia projektu" />
+</CaseStudySection>
 
-  <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[467px]">
-    <img src="/assets/inx/asset-inx.png" alt="Ilustracja procesu w projekcie InsightX" class="w-full h-[320px] object-cover lg:size-full" loading="lazy" />
-  </div>
-</section>
+<CaseStudySection id="process" title="Proces" layout="centered">
+  <p>Rozważaliśmy różne kierunki rozwoju InsightX, rozpisując je na propozycje funkcji, doświadczenia użytkownika i komunikacji. Kolejne hipotezy były konfrontowane z analizą konkurencji, założeniami biznesowymi i rozmowami z użytkownikami.</p>
+</CaseStudySection>
 
-<section class="flex w-full flex-col gap-[24px]" aria-labelledby="hypotheses-title">
-  <div class="flex flex-col gap-[14px]">
-    <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Hipotezy</p>
-    <h2 id="hypotheses-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Pierwsze hipotezy produktowe</h2>
-  </div>
-  <div class="h-px w-full bg-[var(--color-border)]"></div>
-  <div class="flex flex-col gap-[48px] lg:gap-[64px]">
-  <article class="flex flex-col gap-[24px]">
-    <h3 class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Hipoteza #1 - Security crypto platform</h3>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Pierwsza hipoteza zakładała pozycjonowanie InsightX jako <strong>„Becoming #1 in Crypto Trust &amp; Security”</strong>. Pasowało to do komunikacji zespołu, ale wymagało sprawdzenia, czy rynek ma jeszcze miejsce na taki kierunek.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Analiza konkurencji pokazała, że segment bezpieczeństwa jest już mocno obsadzony przez CertiK/Skynet, Honeypot.is i podobne narzędzia. Wejście w ten obszar oznaczałoby gonienie liderów, nie budowanie własnej kategorii.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      <strong>Ta hipoteza nie upadła z powodu UX-u, tylko z powodu strategii rynkowej.</strong>
-    </p>
-    <HypothesisSecurityCards />
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      <a href={figmaLinks.hypothesis1} target="_blank" rel="noopener noreferrer" class="font-semibold underline">Zobacz w Figmie: Hipoteza Security</a>
-    </p>
-  </article>
+<CaseStudySection id="security" title="Hipoteza 01" subtitle="Security crypto platform">
+  <a slot="heading-extra" class="case-reference" href={`${board}?node-id=0-1`} target="_blank" rel="noopener noreferrer">Zobacz w Figmie: Hipoteza Security <TablerIcon name="arrow-up-right" class="size-6" /></a>
+  <p>Pierwsza hipoteza zakładała pozycjonowanie InsightX jako „Becoming #1 in Crypto Trust &amp; Security”. Pasowało to do komunikacji zespołu, ale wymagało sprawdzenia, czy rynek ma jeszcze miejsce na taki kierunek.</p>
+  <p>Analiza konkurencji pokazała, że segment bezpieczeństwa jest już mocno obsadzony przez CertiK/Skynet, Honeypot.is i podobne narzędzia. Wejście w ten obszar oznaczałoby gonienie liderów, nie budowanie własnej kategorii.</p>
+  <p>Wniosek: Silna konkurencja wyspecjalizowanych platform utrudniała znalezienie wyraźnego wyróżnika.</p>
+  <HypothesisSecurityCards slot="visuals" />
+</CaseStudySection>
 
-  <article class="flex flex-col gap-[24px]">
-    <h3 class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Hipoteza #2 - Newbie friendly</h3>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Druga hipoteza wynikała z insightu, że duża część rynku to początkujący użytkownicy podejmujący decyzje emocjonalnie. Kierunek zakładał lekką, edukacyjną platformę bezpieczeństwa, która pomaga rozpoznawać ryzyko scamów bez języka narzędzi dla profesjonalistów.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Kierunek został odrzucony biznesowo: <strong>zespół InsightX nie chciał iść w stronę początkujących</strong>. Celem byli
-      zaawansowani traderzy i analitycy.
-    </p>
-    <HypothesisNewbiesCards />
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      <a href={figmaLinks.hypothesis2} target="_blank" rel="noopener noreferrer" class="font-semibold underline">Zobacz w Figmie: Hipoteza Newbie friendly</a>
-    </p>
-  </article>
-  </div>
-</section>
+<CaseStudySection id="newbies" title="Hipoteza 02" subtitle="Newbie friendly">
+  <a slot="heading-extra" class="case-reference" href={`${board}?node-id=68-428`} target="_blank" rel="noopener noreferrer">Zobacz w Figmie: Hipoteza Newbie friendly <TablerIcon name="arrow-up-right" class="size-6" /></a>
+  <p>Druga hipoteza wynikała z insightu, że duża część rynku to początkujący użytkownicy podejmujący decyzje emocjonalnie. Kierunek zakładał lekką, edukacyjną platformę bezpieczeństwa, która pomaga rozpoznawać ryzyko scamów bez języka narzędzi dla profesjonalistów.</p>
+  <p>Wniosek: Kierunek skupiony na początkujących nie odpowiadał biznesowemu priorytetowi dotarcia do zaawansowanych traderów.</p>
+  <HypothesisNewbiesCards slot="visuals" />
+</CaseStudySection>
 
-<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[28px]" aria-labelledby="smart-trader-title">
-  <h2 id="smart-trader-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Wejście głębiej: kim jest „Smart Trader”?</h2>
-  <div class="h-px w-full bg-[var(--color-border)]"></div>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Odrzucone hipotezy zawęziły kierunek. W researchu coraz częściej wracał <strong>Smart Trader</strong>: użytkownik łączący dane on-chain, giełdowe, social media i własną strategię w jedną decyzję inwestycyjną.
-  </p>
+<CaseStudySection id="personas" title="Od segmentów do odbiorcy produktu" layout="split" mediaSide="left">
+  <p>Przeanalizowałam różne sposoby korzystania z informacji o rynku kryptowalut: od pogłębionego researchu, przez samodzielny trading, po szybkie reagowanie na sygnały. Profile różniły się zakresem analizy, wykorzystywanymi narzędziami i czasem poświęcanym na decyzję.</p>
+  <p>Dalszą koncepcję skupiłam na profilu Smart Tradera, który łączy dane z wielu źródeł, aby samodzielnie oceniać projekty i możliwości inwestycyjne.</p>
+  <a class="case-reference" href={`${board}?node-id=47-1323`} target="_blank" rel="noopener noreferrer">Zobacz w Figmie: pełna mapa person i JTBD <TablerIcon name="arrow-up-right" class="size-6" /></a>
+  <CaseStudyMedia slot="media" label="Mapa person i JTBD — Smart Trader" />
+</CaseStudySection>
 
-  <article class="flex flex-col gap-[16px]">
-    <h3 class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Wywiady z użytkownikami</h3>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Wywiady z traderami pokazały, jak różne są strategie pracy, ale jak podobny jest problem: dane są rozproszone, a decyzja wymaga kontekstu.
-    </p>
-    <ol class="list-decimal pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      <li><strong>Igor</strong> - łowca małych coinów pracujący na dziesiątkach narzędzi jednocześnie.</li>
-      <li><strong>Krystian</strong> - day trader żyjący w TradingView i budujący checklistę w głowie.</li>
-      <li><strong>Ola</strong> - użytkowniczka platformy edukacyjnej ucząca się przez obserwację sygnałów.</li>
-    </ol>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      <strong>Kluczowy insight:</strong> nawet zaawansowany użytkownik potrzebuje narracji i kontekstu, a nie tylko „gołych wykresów”.
-      Wspólnym mianownikiem było też rozproszenie narzędzi i ciągły context switching.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      <a href={figmaLinks.interviews} target="_blank" rel="noopener noreferrer" class="font-semibold underline">Zobacz w Figmie: Wywiady z użytkownikami</a>
-    </p>
-  </article>
+<CaseStudySection id="analysis" title="Analiza narzędzi i doprecyzowanie kierunku">
+  <p>Przyjrzałam się rozwiązaniom takim jak Arkham i Dune, zestawiając ich możliwości z potrzebami Smart Tradera. Analiza dotyczyła sposobu prezentowania danych, elastyczności narzędzi i wiedzy potrzebnej do korzystania z nich. Głównie w analizie skupiłam się na narzędziu Arkham.</p>
+  <p>Wnioski omawialiśmy z CEO, łącząc perspektywę użytkowników z możliwościami technologii i założeniami biznesowymi. Wspólnie doprecyzowaliśmy kierunek konfigurowalnej przestrzeni analitycznej, która pomaga zbierać informacje i pracować z nimi w jednym miejscu.</p>
+  <CaseStudyMedia slot="visuals" label="Arkham — analiza narzędzi i luk produktowych" ratio="1216 / 506.765625" />
+</CaseStudySection>
 
-  <article class="flex flex-col gap-[16px]">
-    <h3 class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Mapa person i JTBD</h3>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Mapę person zbudowaliśmy wokół Smart Tradera i podtypów, takich jak Whale watcher, Event sniper, Social Follower czy Bot operator. Każdy profil miał własny JTBD, co pomogło określić, jakich danych potrzebuje w momencie decyzji.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      <a href={figmaLinks.personas} target="_blank" rel="noopener noreferrer" class="font-semibold underline">Zobacz w Figmie: Mapa person i JTBD</a>
-    </p>
-  </article>
-</section>
+<div class="case-vision">
+  <CaseStudySection id="vision" title="InfoFi — własna przestrzeń do analizy">
+    <p>Finalny kierunek zakładał stworzenie przestrzeni roboczej dla traderów, łączącej dane rynkowe, informacje o projektach i kontekst potrzebny do ich interpretacji. Użytkownik mógłby organizować ją wokół własnej strategii i obserwowanych projektów.</p>
+  </CaseStudySection>
+  <CaseStudyFacts label="Założenia przestrzeni InfoFi" items={[
+    { title: "Konfigurowalne tablice", text: "Dobieranie i układanie informacji zgodnie z własnym sposobem analizy, zamiast korzystania wyłącznie z narzuconego dashboardu." },
+    { title: "Dane i kontekst w jednym miejscu", text: "Zestawianie informacji z różnych źródeł, aby ograniczyć przełączanie się między narzędziami i ułatwić porównywanie projektów." },
+    { title: "Wsparcie AI", text: "Zadawanie pytań w języku naturalnym, które miało ułatwić korzystanie z danych bez konieczności pisania zapytań SQL." },
+  ]} />
+</div>
 
-<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="gap-analysis-title">
-  <h2 id="gap-analysis-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Analiza narzędzi: gdzie są luki?</h2>
-  <div class="h-px w-full bg-[var(--color-border)]"></div>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Analizowaliśmy narzędzia używane przez docelowych użytkowników, głównie Arkham i Dune. Szukaliśmy nie tylko funkcji, ale luk w sposobie, w jaki narzędzia pomagają przejść od danych do decyzji.
-  </p>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    <strong>Dune</strong> - ma ogromne możliwości, ale wymaga znajomości SQL-a, więc próg wejścia jest wysoki.
-  </p>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    <strong>Arkham</strong> - ma dużo danych, ale zakłada, że użytkownik wie, czego szuka i nie łączy danych on-chain z giełdowymi w spójną narrację.
-  </p>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    <strong>To tutaj pojawiło się pojęcie „research-ready workspace”</strong>: środowiska, w którym można opowiadać historię na danych.
-  </p>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    <a href={figmaLinks.tools} target="_blank" rel="noopener noreferrer" class="font-semibold underline">Zobacz w Figmie: Analiza narzędzi</a>
-  </p>
-</section>
+<CaseStudySection id="results" title="Rezultat i wnioski">
+  <p>Projekt zakończył się na etapie koncepcji i fundamentów produktowych. Dostarczyliśmy mapę person i ich JTBD, analizę konkurencji (próg wejścia, zakres danych, brakujące scenariusze) oraz mapy luk produktowych wskazujące miejsce na nowy produkt.</p>
+  <p>Kolejnym krokiem byłoby sprawdzenie z traderami, które elementy przestrzeni roboczej są dla nich najważniejsze i powinny znaleźć się w pierwszej wersji produktu.</p>
+</CaseStudySection>
 
-<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="ceo-title">
-  <h2 id="ceo-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Doprecyzowanie wizji z CEO</h2>
-  <div class="h-px w-full bg-[var(--color-border)]"></div>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Kluczowe pytanie brzmiało: <strong>co produkt B2C ma osiągnąć dla firmy?</strong> Hasła typu „Google of the blockchain” i „Arkham on
-    steroids” przełożyliśmy na trzy konkretne cele:
-  </p>
-  <ol class="list-decimal pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    <li>Połączyć dane, które InsightX już ma (on-chain + giełdowe + inne źródła).</li>
-    <li>Obniżyć próg wejścia w zaawansowaną analizę.</li>
-    <li>Zbudować produkt, który Smart Trader chce otwierać codziennie.</li>
-  </ol>
-</section>
-
-<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="vision-title">
-  <div class="flex flex-col gap-[14px]">
-    <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Finalna koncepcja</p>
-    <h2 id="vision-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Finalna wizja - InfoFi</h2>
-  </div>
-  <div class="h-px w-full bg-[var(--color-border)]"></div>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Z researchu wyłonił się kierunek <strong>InfoFi workspace</strong>: inteligentna warstwa informacyjna dla krypto, łącząca elastyczność Notion, dane z Arkham i wsparcie AI.
-  </p>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Trzy filary koncepcji:</p>
-  <ul class="list-disc pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    <li><strong>Workspace jak w Notion:</strong> personalizowane boardy z widgetami łączącymi dane on-chain, giełdowe, social i bezpieczeństwo.</li>
-    <li><strong>Warstwa AI:</strong> „zadaj pytanie danym” i automatyczne generowanie dashboardu z podsumowaniem.</li>
-    <li><strong>Niższy próg wejścia niż Dune:</strong> bez SQL-a, na gotowych modułach, z możliwością udostępniania boardów.</li>
-  </ul>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Te filary odpowiadały na główne problemy z wywiadów: mniej przełączania między narzędziami, pełniejszy kontekst i łatwiejsze uczenie się od bardziej doświadczonych traderów.
-  </p>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    <a href={figmaLinks.finalVision} target="_blank" rel="noopener noreferrer" class="font-semibold underline">Zobacz w Figmie: Finalna wizja InfoFi</a>
-  </p>
-</section>
-
-<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="result-title">
-  <h2 id="result-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Rezultat projektu</h2>
-  <div class="h-px w-full bg-[var(--color-border)]"></div>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Projekt zakończył się na etapie koncepcji i fundamentów produktowych. Deliverables obejmowały mapę person i JTBD, analizę konkurencji
-    (próg wejścia, zakres danych, brakujące scenariusze) oraz mapy luk produktowych wskazujące miejsce na nowy produkt.
-  </p>
-</section>
-
-<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="learnings-title">
-  <h2 id="learnings-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Czego się nauczyłam?</h2>
-  <div class="h-px w-full bg-[var(--color-border)]"></div>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Ten projekt nauczył mnie, jak szybko wejść w trudną domenę i przekładać research na decyzje produktowe, a nie tylko na dokumentację.
-  </p>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Najważniejsza zmiana w myśleniu: dobry UX musi spotkać się z realną szansą rynkową. Dlatego część hipotez odrzuciliśmy nie dlatego, że były złe projektowo, ale dlatego, że nie budowały wystarczająco mocnej pozycji.
-  </p>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Największym wyzwaniem było tempo wejścia w krypto, ale właśnie to pozwoliło rozmawiać z traderami ich językiem i lepiej rozumieć ich potrzeby.
-  </p>
-</section>
+<style>
+  .case-reference {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--control-height);
+    font-family: var(--font-label);
+    font-size: var(--text-label);
+    line-height: var(--leading-label);
+    text-transform: uppercase;
+  }
+  .case-reference :global(svg) { flex-shrink: 0; }
+  .case-reference:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+  .case-vision { display: flex; flex-direction: column; gap: var(--content-gap); }
+</style>

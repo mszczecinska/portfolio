@@ -1,0 +1,97 @@
+/* Shared presentation for the existing Security and Newbie friendly card sets. */
+.case-study :is(.security-cards, .newbies-cards) {
+  min-width: 0;
+  padding: 0;
+  border-radius: 0;
+}
+.case-study :is(.security-cards, .newbies-cards) nav {
+  display: flex;
+  justify-content: flex-start;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0 0 var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.case-study :is(.security-cards, .newbies-cards) :is(.security-tab-btn, .newbies-tab-btn) {
+  flex-shrink: 0;
+  min-height: var(--control-height);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: 0;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-label);
+  text-transform: uppercase;
+  background: var(--color-background);
+  color: var(--color-text-muted);
+  transition: background-color var(--duration-ui) var(--ease-ui), color var(--duration-ui) var(--ease-ui);
+}
+.case-study :is(.security-cards, .newbies-cards) .is-active {
+  background: var(--color-text);
+  border-color: var(--color-text);
+  color: var(--color-background);
+}
+.case-study :is(.security-cards, .newbies-cards) :is(.security-grid, .newbies-grid) {
+  display: flex;
+  position: relative;
+  gap: var(--space-5);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.case-study :is(.security-cards, .newbies-cards) :is(.security-grid, .newbies-grid)::-webkit-scrollbar { display: none; }
+.case-study :is(.security-cards, .newbies-cards) :is(.security-card, .newbies-card) {
+  flex: 0 0 100%;
+  min-width: 0;
+  grid-column: auto;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--space-4);
+  padding: var(--space-5) var(--space-6);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background: var(--color-background);
+}
+.case-study :is(.security-cards, .newbies-cards) :is(.security-title, .newbies-card-title) {
+  font-size: 1.25rem;
+  font-weight: var(--weight-medium);
+  line-height: var(--leading-heading);
+}
+.case-study :is(.security-cards, .newbies-cards) :is(.security-description, .security-list, .newbies-card-description, .newbies-card-list) {
+  margin-top: var(--space-4);
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+}
+.case-study :is(.security-cards, .newbies-cards) :is(.security-panel-enter, .newbies-panel-enter) {
+  animation-duration: var(--duration-ui);
+}
+.case-study .hypothesis-pages {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-4);
+}
+.case-study .hypothesis-pages button {
+  display: grid;
+  place-items: center;
+  width: var(--control-height);
+  height: var(--control-height);
+  cursor: pointer;
+}
+.case-study .hypothesis-pages span {
+  width: var(--space-3);
+  height: var(--space-3);
+  border: var(--border-width) solid var(--color-text-muted);
+  border-radius: 50%;
+}
+.case-study .hypothesis-pages [aria-pressed="true"] span { background: var(--color-text); border-color: var(--color-text); }
+@media (min-width: 64rem) {
+  .case-study :is(.security-cards, .newbies-cards) :is(.security-grid, .newbies-grid) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-5);
+    overflow: visible;
+  }
+  .case-study .hypothesis-pages { display: none; }
+}

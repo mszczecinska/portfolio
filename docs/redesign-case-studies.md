@@ -10,6 +10,7 @@ Wszystkie komponenty znajdują się w `src/components/work/`.
 | --- | --- |
 | `CaseStudyShell.astro` | Layout nowego case study, kompaktowa nawigacja, odstępy między sekcjami; bez stopki, zgodnie z makietą Akademii |
 | `CaseStudyIntro.astro` | Okładka, tytuł i podtytuł, opcjonalny link live, metadane i pasek problem / cel / efekt |
+| `CaseStudyFacts.astro` | Wspólny pasek trzech informacji: problem / cel / efekt lub filary koncepcji produktu |
 | `CaseStudySection.astro` | Układy `split` (tekst i multimedia), `editorial` (nagłówek obok opisu) i `centered` (węższy, wyśrodkowany opis procesu) |
 | `CaseStudyMedia.astro` | Opisany placeholder z zarezerwowanymi proporcjami; po podaniu `src` — obraz lub film |
 | `CaseStudyGallery.astro` | Dwa materiały jeden pod drugim na mobile i obok siebie na desktopie; wariant `phones` utrzymuje parę telefonów również na mobile |
@@ -84,3 +85,15 @@ Wszystkie zdjęcia i filmy pozostają placeholderami. Proporcje:
 `CaseStudyScreens` utrzymuje opis nad ekranami na mobile. Ekrany można przewijać dotykiem, wybierać czterema przyciskami lub klawiszami ArrowLeft / ArrowRight / Home / End po ustawieniu fokusu na galerii. Aktywny przycisk ma `aria-pressed="true"`. Przy ograniczeniu animacji zmiana ekranu jest natychmiastowa. Na desktopie cztery ekrany są widoczne równocześnie, a przyciski są ukryte.
 
 Przycisk Live prowadzi do `https://miropoix.com/en/` (adres zachowany z poprzedniego case study). `CaseStudyIntro` przyjmuje `liveHoverColor`, `liveHoverTextColor` i `liveHoverBorderColor`. Miropoix używa tła `#B44B23`, tekstu/strzałki i obramowania `#FAFAF9`. Domyślne wartości pozostałych przycisków się nie zmieniają; Akademia zachowuje tło hover `#F5EDE5`.
+
+## InsightX
+
+Źródło: [desktop](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=270-13151) i [mobile](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=291-41567).
+
+Wspólne sekcje obsługują intro, punkt wyjścia, proces, dwie hipotezy, persony, analizę narzędzi, wizję InfoFi oraz rezultat. Sekcja może otrzymać `subtitle` (druga linia nagłówka) i slot `heading-extra` (np. odnośnik do Figmy). Pasek założeń InfoFi używa tego samego `CaseStudyFacts` co intro; etykiety zachowują ustalone 20 px, a odstęp od tekstu wynosi 16 px na mobile / 24 px na desktopie.
+
+Zachowujemy istniejącą zawartość `HypothesisSecurityCards` i `HypothesisNewbiesCards`. Ich wspólny styl jest w `hypothesis-cards.css`, a obsługa w `hypothesis-tabs.ts`. Kategorie mają prostokątne przełączniki z Geist Mono, ciemne aktywne tło i role tab / tabpanel. Strzałki oraz Home / End zmieniają kategorię. Na mobile karty przewijają się poziomo i mają przyciski wyboru, z obsługą klawiatury i ograniczenia animacji. Od 1024 px przechodzą w trzykolumnową siatkę.
+
+Multimedia pozostają placeholderami: okładka 361:186 / 1216:520, ilustracja punktu wyjścia i mapa person 1:1, analiza Arkham 1216:506.765625. Lokalne ikony Figma, Notion i OpenAI pozostają w metadanych. Karty i ich przykłady są renderowane jako HTML, nie obrazy. Zachowane są dotychczasowe odnośniki do odpowiednich map w FigJam.
+
+W mobilnej makiecie druga hipoteza powiela opis Security. Wdrożenie korzysta z właściwej treści Newbie friendly z desktopu i istniejącego kodu. Poprawione są oczywiste literówki: „Technologia” oraz „konfigurowalnej przestrzeni”. Nawigacja na końcu prowadzi do Miropoix i ReadySet.
