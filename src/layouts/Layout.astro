@@ -25,19 +25,7 @@ import SpeedInsights from "@vercel/speed-insights/astro";
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script is:inline>
-      (() => {
-        const root = document.documentElement;
-        const storedTheme = localStorage.getItem("theme");
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        const isDark = storedTheme ? storedTheme === "dark" : prefersDark;
-
-        root.classList.toggle("dark", isDark);
-        root.style.colorScheme = isDark ? "dark" : "light";
-        root.style.backgroundColor = isDark ? "#111111" : "#fefefe";
-      })();
-    </script>
-    <link rel="preload" href="/fonts/Satoshi.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Satoshi-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="shortcut icon" href="/favicon-light.ico"  media="(prefers-color-scheme:light)" />
     <link rel="shortcut icon" href="/favicon-dark.ico"  media="(prefers-color-scheme:dark)" />
@@ -45,28 +33,10 @@ import SpeedInsights from "@vercel/speed-insights/astro";
     <meta name="apple-mobile-web-app-title" content="Portfolio" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="color-scheme" content="light" />
     <title>{title} | Portfolio</title>
     <ClientRouter />
     <script is:inline>
-      function getIsDarkTheme() {
-        const theme = localStorage.getItem("theme");
-        if (theme === "light") return false;
-        if (theme === "dark") return true;
-        return window.matchMedia("(prefers-color-scheme: dark)").matches;
-      }
-
-      function applyThemeToRoot(root) {
-        const isDark = getIsDarkTheme();
-        root.classList.toggle("dark", isDark);
-        root.style.colorScheme = isDark ? "dark" : "light";
-        root.style.backgroundColor = isDark ? "#111111" : "#fefefe";
-      }
-
-      function applyTheme() {
-        applyThemeToRoot(document.documentElement);
-      }
-
       const PROJECT_SCROLL_STATE_KEY = "__portfolioProjectScrollState";
 
       function isProjectDetailPath(pathname) {
@@ -113,8 +83,6 @@ import SpeedInsights from "@vercel/speed-insights/astro";
         }
       }
 
-      // Apply on initial load
-      applyTheme();
       restoreProjectScrollPosition();
 
       document.addEventListener("click", (event) => {
@@ -127,23 +95,14 @@ import SpeedInsights from "@vercel/speed-insights/astro";
         saveProjectScrollPosition(link);
       });
 
-      // Apply to current and incoming document before swap to avoid theme flash
-      document.addEventListener("astro:before-swap", (event) => {
-        applyTheme();
-        const incomingRoot = event?.newDocument?.documentElement;
-        if (incomingRoot) {
-          applyThemeToRoot(incomingRoot);
-        }
-      });
       document.addEventListener("astro:after-swap", () => {
-        applyTheme();
         restoreProjectScrollPosition();
       });
     </script>
     <Analytics />
     <SpeedInsights />
   </head>
-    <body class="min-h-screen flex flex-col bg-[var(--color-background)]">
+    <body class="min-h-dvh flex flex-col bg-[var(--color-background)]">
       <a href="#main-content" class="skip-to-content">
         Przejdź do treści
       </a>
