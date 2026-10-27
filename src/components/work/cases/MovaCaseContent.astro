@@ -1,217 +1,44 @@
 ---
-import TablerIcon from "../../TablerIcon.astro";
-
-const jobsToBeDone = [
-  {
-    icon: "chart-bar",
-    title: "Jasność progresu",
-    description: "Użytkownik zawsze powinien wiedzieć, gdzie jest w strukturze kursu.",
-  },
-  {
-    icon: "notes",
-    title: "Stopniowe wprowadzanie materiału",
-    description: "Materiał podzielony na krótkie, logiczne etapy zamiast przytłaczających bloków.",
-  },
-  {
-    icon: "eye",
-    title: "Skupienie na treści",
-    description: "Design ma wspierać naukę i nie konkurować z materiałem edukacyjnym.",
-  },
-  {
-    icon: "scale",
-    title: "Elastyczność platform",
-    description: "Spójne doświadczenie na mobile i desktop, dopasowane do kontekstu użycia.",
-  },
-] as const;
-
-const planningFlow = [
-  "Lekcje są uporządkowane tematycznie w ramach modułów, co porządkuje cały proces nauki.",
-  "Każda lekcja ma trzy etapy: poznanie materiału, ćwiczenia i podsumowanie.",
-  "Użytkownik może budować własną bazę słówek i wracać do nich przez fiszki na stronie głównej.",
-] as const;
-
-const scheduleFlow = [
-  "Wersja mobilna wspiera krótkie, regularne sesje oraz szybkie powtórki.",
-  "Wersja webowa wspiera dłuższą pracę z materiałem i wygodę nauki przy biurku.",
-  "Spójny design między platformami ułatwia płynne przechodzenie między urządzeniami.",
-] as const;
+import CaseStudySection from "../CaseStudySection.astro";
+import CaseStudyMedia from "../CaseStudyMedia.astro";
+import CaseStudyGallery from "../CaseStudyGallery.astro";
 ---
 
-<section class="order-3 grid gap-[48px] lg:grid-cols-[504px_467px] lg:items-center lg:gap-[64px]" aria-labelledby="research-title">
-  <div class="flex flex-col gap-[24px]">
-    <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Proces projektowy</p>
-      <h2 id="research-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Research i analiza konkurencji</h2>
-    </div>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      W researchu porównałam Duolingo, Babbel i Busuu pod kątem trzech rzeczy: nawyku, progresu i sposobu prowadzenia przez materiał.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Najważniejsze obserwacje z analizy:</p>
-    <ul class="list-disc pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      <li>Gamifikacja skutecznie buduje nawyk, ale często kosztem jakości nauki.</li>
-      <li>Brak jasnej struktury lekcji powoduje dezorientację i frustrację.</li>
-      <li>Użytkownik potrzebuje czytelnego progresu i logicznej ścieżki materiału.</li>
-    </ul>
-  </div>
+<CaseStudySection id="research" title="Badania" layout="split" mediaSide="left">
+  <p>Porównałam Duolingo, Babbel i Busuu, przyglądając się budowaniu nawyku, prezentacji postępów i prowadzeniu użytkownika przez materiał. Analiza pomogła mi określić kierunek Mova — krótkie etapy nauki, wyraźne miejsce w strukturze kursu i ograniczenie elementów odciągających uwagę od treści.</p>
+  <p>Te założenia przełożyłam na architekturę aplikacji. Lekcje pogrupowałam w moduły tematyczne, a każdą oparłam na sekwencji materiał, ćwiczenia i podsumowanie. Słownik i fiszki uzupełniają tę ścieżkę o możliwość samodzielnych powtórek, głównie skupiając się na szybkich powtórkach na urządzeniach mobilnych.</p>
+  <CaseStudyMedia slot="media" label="Mova — mobilny kontekst nauki" />
+</CaseStudySection>
 
-  <div class="overflow-hidden">
-    <img src="/assets/mova/3-phones-mock-mova.png" alt="Ekrany i artefakty procesu projektowego Mova" class="size-full object-cover" loading="lazy" />
-  </div>
-</section>
-
-<section class="order-4 mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="conclusions-title">
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="conclusions-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Definiowanie założeń projektowych</h2>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Z analizy wyciągnęłam zasady projektowe, które miały chronić aplikację przed dwoma skrajnościami: chaosem gamifikacji i zbyt ciężką strukturą kursu.
-    </p>
-
-    <div class="flex flex-col gap-[24px]">
-      {jobsToBeDone.map((job) => (
-        <article class="rounded-[12px] border border-[var(--color-border)] bg-[var(--color-foreground)] px-[20px] py-[28px]">
-          <div class="flex flex-col gap-[20px] lg:flex-row lg:items-center lg:gap-[24px]">
-            <TablerIcon name={job.icon} class="size-[56px] text-[var(--color-text)]" />
-            <div class="flex-1">
-              <h3 class="text-[20px] leading-[28px] lg:text-[22px] lg:leading-[28px] text-[var(--color-text)]">{job.title}</h3>
-              <p class="mt-[20px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">{job.description}</p>
-            </div>
-          </div>
-        </article>
-      ))}
+<CaseStudySection id="solution" title="Rozwiązanie i kluczowe decyzje">
+  <p>Bieżący moduł stanowi centrum widoku, a wskaźniki postępu pełnią rolę pomocniczą. Użytkownik ma widzieć, na jakim etapie kursu jest i co może zrobić dalej, bez dominujących rankingów czy dodatkowych bodźców. Pomarańczowy kolor brandowy wykorzystałam przede wszystkim w akcjach, nawigacji i oznaczeniach postępu.</p>
+  <p>Dużo uwagi poświęciłam informacji zwrotnej w ćwiczeniach i podsumowaniach. Zaprojektowane komunikaty wskazują, co poszło dobrze, gdzie pojawił się błąd i co warto poprawić. Słownik oraz fiszki pozwalają wrócić do wybranego słownictwa poza głównym przebiegiem lekcji.</p>
+  <div slot="visuals" class="mova-solution-visuals">
+    <CaseStudySection id="learning-contexts" label="Mobile i web — dwa konteksty nauki" layout="split" align="center" mediaWidth="wide" mediaFirstMobile contained={false}>
+      <p>Mobile i web potraktowałam jako dwa konteksty nauki. Wersję mobilną zaprojektowałam z myślą o krótkich sesjach i szybkich powtórkach, a webową o dłuższej pracy z materiałem. Zachowałam wspólną logikę i język wizualny, dostosowując układ do dostępnej przestrzeni.</p>
+      <CaseStudyGallery slot="media" layout="phones" items={[
+        { label: "Mova — lekcje i powtórki", ratio: "175.07 / 359.547" },
+        { label: "Mova — postępy w nauce", ratio: "175.07 / 359.547", kind: "video" },
+      ]} />
+    </CaseStudySection>
+    <div class="mova-web-preview">
+      <CaseStudyMedia label="Mova — zadania i powtórki w wersji web" ratio="854 / 563.9766" />
     </div>
   </div>
-</section>
+</CaseStudySection>
 
-<section class="order-5 grid gap-[48px] lg:grid-cols-[467px_507px] lg:items-center lg:gap-[64px]" aria-labelledby="define-title">
-  <div class="flex flex-col gap-[24px] lg:justify-center lg:order-2">
-    <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Architektura informacji</p>
-      <h2 id="define-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Architektura informacji</h2>
-    </div>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <div class="flex flex-col gap-[16px]">
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-        Strukturę oparłam na modułach i trzech etapach lekcji: materiał, ćwiczenia, podsumowanie. Dzięki temu użytkownik wie, gdzie jest w kursie i czego spodziewać się po kolejnym kroku.
-      </p>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-        Słownik i fiszki dają użytkownikowi własną bazę materiału do powtórek. To przesuwa doświadczenie z biernego przechodzenia lekcji w aktywne budowanie wiedzy.
-      </p>
-    </div>
-  </div>
+<CaseStudySection id="design" title="Design" layout="split">
+  <p>Warstwę wizualną Mova oparłam na jasnych powierzchniach, neutralnych odcieniach i pomarańczowym akcencie wyróżniającym główne działania, nawigację oraz postęp nauki. Nunito Sans nadaje aplikacji przyjazny charakter, a różne grubości kroju porządkują hierarchię treści bez nadmiaru dekoracji.</p>
+  <p>Te zasady przełożyłam na UI Kit obejmujący komponenty lekcji, tagi i stany interakcji. Style typograficzne oraz Figma Variables porządkują wspólne wartości, ułatwiając zachowanie spójności między mobile i web oraz rozwijanie kolejnych ekranów.</p>
+  <CaseStudyMedia slot="media" label="Mova — paleta kolorów, typografia i UI Kit" />
+</CaseStudySection>
 
-  <div class="overflow-hidden lg:order-1 sm:h-auto sm:aspect-square lg:h-[467px] bg-transparent lg:bg-[var(--color-surface)]">
-    <img src="/assets/mova/screens-mova.png" alt="Widoki definiujące założenia projektu Mova" class="size-full object-contain" loading="lazy" />
-  </div>
-</section>
+<CaseStudySection id="results" title="Rezultat i wnioski">
+  <p>Powstała koncepcja aplikacji łączącej uporządkowaną ścieżkę kursu z samodzielnymi powtórkami. Projekt pozwolił mi przepracować hierarchię informacji w produkcie edukacyjnym oraz różnice między projektowaniem na telefon i komputer.</p>
+  <p>Kolejnym krokiem byłyby testy prototypu z osobami uczącymi się języków. Sprawdziłabym zrozumiałość struktury lekcji, prezentacji postępu i informacji zwrotnej. Rozwinęłabym również onboarding, który stopniowo przedstawia możliwości aplikacji.</p>
+</CaseStudySection>
 
-<section class="grid gap-[48px] lg:grid-cols-[514px_457px] lg:items-center lg:gap-[64px] order-7" aria-labelledby="user-flow-title">
-  <div class="flex flex-col gap-[24px]">
-    <div class="flex flex-col gap-[14px]">
-      <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Wyzwania</p>
-      <h2 id="user-flow-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Wyzwania i rozwiązania</h2>
-    </div>
-
-    <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Największym wyzwaniem było pokazanie progresu bez presji i hałasu. Dlatego centrum widoku stanowi bieżący moduł, a wskaźniki postępu są pomocne, ale nie dominują ekranu.</p>
-
-    <h3 class="text-[14px] lg:text-[16px] font-semibold leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Progres</h3>
-    <ul class="list-disc pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      {planningFlow.map((item) => <li>{item}</li>)}
-    </ul>
-
-    <h3 class="text-[14px] lg:text-[16px] font-semibold leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Motywacja</h3>
-    <ul class="list-disc pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      {scheduleFlow.map((item) => <li>{item}</li>)}
-    </ul>
-  </div>
-
-  <div class="overflow-hidden sm:h-auto sm:aspect-square lg:h-auto lg:aspect-square">
-    <img src="/assets/mova/2screens-mova.png" alt="Schemat architektury informacji Mova" class="size-full object-contain" loading="lazy" />
-  </div>
-</section>
-
-<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px] order-6" aria-labelledby="design-title">
-  <div class="flex flex-col gap-[14px]">
-    <p class="text-[12px] uppercase leading-[16px] tracking-[0.4px] text-[var(--color-eyebrow)]">Design</p>
-    <h2 id="design-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Decyzje projektowe i ekrany</h2>
-  </div>
-  <div class="h-px w-full bg-[var(--color-border)]"></div>
-  <div class="flex flex-col gap-[48px] lg:gap-[64px]">
-  <section class="flex flex-col gap-[32px]" aria-labelledby="home-screen-title">
-    <div class="flex flex-col gap-[24px]">
-      <h3 id="home-screen-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Kolorystyka i hierarchia wizualna</h3>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Kolor brandowy (#FF6B35) ograniczyłam do akcji, nawigacji i progresu. Dzięki temu ekran prowadzi użytkownika, ale nie konkuruje z materiałem edukacyjnym.</p>
-    </div>
-    <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/225] lg:h-[449px]">
-      <img src="/assets/mova/2mocks-mova.png" alt="Widok stylu wizualnego aplikacji Mova" class="size-full object-cover" loading="lazy" />
-    </div>
-  </section>
-
-  <section class="flex flex-col gap-[32px]" aria-labelledby="dashboard-title">
-    <div class="flex flex-col gap-[24px]">
-      <h3 id="dashboard-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Ekrany lekcji i podsumowań</h3>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Najwięcej uwagi poświęciłam lekcjom i podsumowaniom. Feedback pokazuje, co poszło dobrze, gdzie pojawił się błąd i co poprawić dalej, zamiast kończyć się ogólnym komunikatem.</p>
-    </div>
-    <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/309] lg:h-[618px]">
-      <img src="/assets/mova/screens-2-mova.png" alt="Ekrany lekcji i podsumowań Mova" class="size-full object-cover" loading="lazy" />
-    </div>
-  </section>
-
-  <section class="flex flex-col gap-[32px]" aria-labelledby="options-title">
-    <div class="flex flex-col gap-[24px]">
-      <h3 id="options-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">Podejście do wersji mobilnej i webowej</h3>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Mobile i web potraktowałam jako dwa różne konteksty nauki. Telefon wspiera krótkie sesje i powtórki, a web spokojniejszą pracę z materiałem.</p>
-    </div>
-    <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/253] lg:h-[506px]">
-      <img src="/assets/mova/desk+mobile-mova.png" alt="Widok wersji mobilnej Mova" class="size-full object-cover" loading="lazy" />
-    </div>
-  </section>
-
-  <section class="flex flex-col gap-[32px]" aria-labelledby="schedule-title">
-    <div class="flex flex-col gap-[24px]">
-      <h3 id="schedule-title" class="text-[20px] leading-[28px] lg:text-[28px] lg:leading-[36px] text-[var(--color-text)]">System projektowy</h3>
-      <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">UI Kit zbudowałam wokół komponentów lekcji, stanów interakcji, tagów i Figma Variables. Dzięki temu kolejne widoki można rozwijać bez rozbijania spójności produktu.</p>
-    </div>
-    <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-[432/233] lg:h-[465px]">
-      <img src="/assets/mova/UI-MOVA.png" alt="Widok systemu projektowego Mova" class="size-full object-cover" loading="lazy" />
-    </div>
-  </section>
-  </div>
-</section>
-
-<section class="grid gap-[48px] lg:grid-cols-[465px_511px] lg:items-center lg:gap-[64px] order-8" aria-labelledby="reflections-title">
-  <div class="w-full aspect-square overflow-hidden bg-transparent lg:bg-[var(--color-surface)]">
-    <video
-      src="/assets/mova/splash-screen-1.mp4"
-      aria-label="Materiał wideo dla sekcji wnioski i nauka"
-      class="size-full object-cover"
-      autoplay
-      loop
-      muted
-      playsinline
-    ></video>
-  </div>
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="reflections-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Wnioski i nauka</h2>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <ol class="flex flex-col gap-[20px]">
-      <li class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">1. Uświadomiłam sobie, jak kluczowa jest hierarchia informacji w aplikacjach edukacyjnych.</li>
-      <li class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">2. Przekonałam się, że prostota wymaga dyscypliny i skupienia na tym, co najważniejsze.</li>
-      <li class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">3. Design responsywny to więcej niż skalowanie elementów. Każda platforma ma inny kontekst użycia.</li>
-      <li class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">4. Inwestycja w system projektowy na starcie przyspiesza późniejsze iteracje i utrzymanie spójności.</li>
-    </ol>
-  </div>
-</section>
-
-<section class="grid gap-[48px] lg:grid-cols-[488px_488px] lg:items-center lg:gap-[64px] order-9" aria-labelledby="success-title">
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="success-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Dalsze kroki</h2>
-    <div class="h-px w-full bg-[var(--color-border)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">Kolejnym krokiem byłyby testy prototypu z osobami uczącymi się języków oraz onboarding, który pokazuje możliwości aplikacji bez zalewania użytkownika informacjami.</p>
-  </div>
-  <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[488px]">
-    <img src="/assets/mova/two-phones-mova.png" alt="Ilustracja dalszych kroków dla projektu Mova" class="size-full object-cover" loading="lazy" />
-  </div>
-</section>
+<style>
+  .mova-solution-visuals { display: flex; flex-direction: column; gap: var(--content-gap); }
+  .mova-web-preview { width: 100%; max-width: 53.375rem; }
+</style>

@@ -9,9 +9,10 @@ interface Props {
   mediaSide?: "left" | "right";
   align?: "start" | "center";
   mediaWidth?: "equal" | "wide";
+  mediaFirstMobile?: boolean;
 }
 
-const { id, title, label, contained = true, subtitle, layout = "editorial", mediaSide = "right", align = "start", mediaWidth = "equal" } = Astro.props;
+const { id, title, label, contained = true, subtitle, layout = "editorial", mediaSide = "right", align = "start", mediaWidth = "equal", mediaFirstMobile = false } = Astro.props;
 ---
 
 <section
@@ -20,6 +21,7 @@ const { id, title, label, contained = true, subtitle, layout = "editorial", medi
   aria-label={title ? undefined : label}
 >
   <div class="case-section__layout">
+    {mediaFirstMobile && Astro.slots.has("media") && <div class="case-section__media"><slot name="media" /></div>}
     <div class="case-section__copy">
       {(title || Astro.slots.has("heading-extra")) && <div class="case-section__heading">
         <h2 class="case-heading" id={`${id}-title`}>{title}{subtitle && <span class="case-section__subtitle"> {subtitle}</span>}</h2>
@@ -27,7 +29,7 @@ const { id, title, label, contained = true, subtitle, layout = "editorial", medi
       </div>}
       <div class="case-prose"><slot /></div>
     </div>
-    {Astro.slots.has("media") && <div class="case-section__media"><slot name="media" /></div>}
+    {!mediaFirstMobile && Astro.slots.has("media") && <div class="case-section__media"><slot name="media" /></div>}
   </div>
   {Astro.slots.has("visuals") && <div class="case-section__visuals"><slot name="visuals" /></div>}
 </section>
@@ -47,21 +49,23 @@ const { id, title, label, contained = true, subtitle, layout = "editorial", medi
   .case-section__heading { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-5); min-width: 0; }
   .case-section__subtitle { display: block; }
   @media (min-width: 64rem) {
-    .case-section--split .case-section__layout {
+    .case-section--split > .case-section__layout {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: var(--column-gap);
     }
-    .case-section--wide-media .case-section__layout { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
-    .case-section--wide-media.case-section--media-left .case-section__layout { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
-    .case-section--media-left .case-section__media { grid-column: 1; grid-row: 1; }
-    .case-section--media-left .case-section__copy { grid-column: 2; grid-row: 1; }
-    .case-section--center .case-section__copy { align-self: center; }
-    .case-section--editorial .case-section__copy {
+    .case-section--split > .case-section__layout > .case-section__copy { grid-column: 1; grid-row: 1; }
+    .case-section--split > .case-section__layout > .case-section__media { grid-column: 2; grid-row: 1; }
+    .case-section--wide-media > .case-section__layout { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+    .case-section--wide-media.case-section--media-left > .case-section__layout { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    .case-section--media-left > .case-section__layout > .case-section__media { grid-column: 1; grid-row: 1; }
+    .case-section--media-left > .case-section__layout > .case-section__copy { grid-column: 2; grid-row: 1; }
+    .case-section--center > .case-section__layout > .case-section__copy { align-self: center; }
+    .case-section--editorial > .case-section__layout > .case-section__copy {
       display: grid;
       grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
       gap: var(--space-5);
     }
-    .case-section--centered .case-section__copy {
+    .case-section--centered > .case-section__layout > .case-section__copy {
       display: grid;
       grid-template-columns: max-content minmax(0, 37.375rem);
       gap: var(--space-20);

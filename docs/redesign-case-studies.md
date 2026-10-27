@@ -36,7 +36,7 @@ Nagłówek strony ma wariant `caseStudy`, włączany przez `caseStudyHeader` w `
 </CaseStudySection>
 ```
 
-Treść trafia do głównego slotu, materiał obok tekstu do `media`, a materiały pod całym układem do `visuals`. Opcjonalne `align="center"` wyśrodkowuje tekst w pionie na desktopie. `mediaWidth="wide"` poszerza kolumnę materiału (np. bibliotekę e-booków).
+Treść trafia do głównego slotu, materiał obok tekstu do `media`, a materiały pod całym układem do `visuals`. Opcjonalne `align="center"` wyśrodkowuje tekst w pionie na desktopie. `mediaWidth="wide"` poszerza kolumnę materiału (np. bibliotekę e-booków). `mediaFirstMobile` umieszcza materiał przed opisem na mobile, zachowując układ kolumn na desktopie. Style wariantów dotyczą bezpośrednich dzieci sekcji, dzięki czemu zagnieżdżone sekcje zachowują własny układ.
 
 Sekcja może pominąć widoczny `title`, jeśli otrzyma opisowe `label` dla czytników ekranu. `contained={false}` wyłącza kontener z marginesami przy zagnieżdżaniu sekcji, aby nie powielać bocznych odstępów. Wyśrodkowany wariant rezerwuje naturalną szerokość nagłówka oraz do 598 px na tekst, dzięki czemu dłuższy nagłówek (np. „Testy prototypu”) nie jest sztucznie ściskany.
 
@@ -120,3 +120,23 @@ Multimedia są placeholderami:
 | Nagrania testów prototypu (2) | 598 / 424.206 | 598 / 424.206 |
 
 Nawigacja prowadzi do InsightX i Movy. Poprawiono oczywistą literówkę w opisie badań: „zawiłe o chaotyczne” → „zawiłe i chaotyczne”. Nie przenosimy błędnych przesunięć warstw i sztywnych wysokości tekstu z makiety do kodu.
+
+## Mova
+
+Źródło: [desktop](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=295-43688) i [mobile](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=308-52398).
+
+Wdrożenie wykorzystuje wspólne intro, sekcje, galerię telefonów i nawigację. Treści obejmują badania, rozwiązanie i kluczowe decyzje, design oraz rezultat i wnioski. W metadanych pozostaje lokalna ikona Figmy. Projekt koncepcyjny nie ma przycisku Live.
+
+Na mobile sekcja rozwiązania pokazuje opis, parę telefonów, tekst o kontekstach nauki i podgląd web. Na desktopie opis kontekstów znajduje się po lewej stronie telefonów, a podgląd web poniżej, wyrównany do lewej. Pozostałe sekcje zachowują wspólną typografię i odstępy.
+
+Wszystkie multimedia, w tym animowane ekrany z Figmy, pozostają placeholderami:
+
+| Materiał | Mobile | Desktop |
+| --- | --- | --- |
+| Okładka | 361 / 186 | 1216 / 520 |
+| Kontekst nauki | 1 / 1 | 1 / 1 |
+| Ekrany aplikacji (2) | 175.07 / 359.547 | 175.07 / 359.547 |
+| Widok web | 854 / 563.9766 | 854 / 563.9766 |
+| Paleta, typografia i UI Kit | 1 / 1 | 1 / 1 |
+
+Opis fontu Nunito Sans dotyczy interfejsu Movy; portfolio nadal korzysta z Satoshi. Nawigacja prowadzi do ReadySet i AuraPura.
