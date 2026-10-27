@@ -1,42 +1,31 @@
 ---
-import WorkCaseShell from "../../components/work/WorkCaseShell.astro";
+import CaseStudyShell from "../../components/work/CaseStudyShell.astro";
+import CaseStudyIntro from "../../components/work/CaseStudyIntro.astro";
+import CaseStudyPagination from "../../components/work/CaseStudyPagination.astro";
 import AurapuraCaseContent from "../../components/work/cases/AurapuraCaseContent.astro";
 import { getProjectBySlug } from "../../lib/projects";
 
 const project = getProjectBySlug("aurapura-design-system");
-
-if (!project) {
-  return Astro.redirect("/work");
-}
-
-const tools = [
-  { src: "/icons/tool-figma.png", alt: "Figma" },
-] as const;
+if (!project) return Astro.redirect("/work");
 ---
 
-<WorkCaseShell
-  project={project}
-  tools={tools}
-  heroImage="/assets/aurapura/hero-aurapure.png"
-  heroHasSurface={true}
-  overviewHeading="Wstęp"
-  overviewText={project.description}
-  duration="około 6 tygodni"
-  projectType="Konceptualny (kurs Design system intro)"
-  impactItems={[
-    {
-      title: "Problem",
-      text: "Brief marki i assety wymagały przełożenia na spójny system, który działa na różnych wielkościach ekranu.",
-    },
-    {
-      title: "Cel",
-      text: "Przejść przez pełny proces budowy design systemu: od tokenów i komponentów po finalne layouty.",
-    },
-    {
-      title: "Efekt",
-      text: "Powstał system oparty o core i alias tokeny, Figma variables, komponenty oraz widoki mobile, tablet i desktop.",
-    },
-  ]}
->
+<CaseStudyShell title="AuraPura — od założeń marki do design systemu" description={project.description}>
+  <CaseStudyIntro
+    title="AuraPura"
+    subtitle="Od założeń marki do design systemu"
+    overview="AuraPura to koncepcyjny design system dla e-commerce, przygotowany w ramach kursu Design System Intro. Przełożyłam brief i materiały marki na tokeny, komponenty oraz responsywne widoki mobile, tablet i desktop."
+    role="UX/UI designer"
+    projectType="Projekt koncepcyjny, kurs Design System Intro"
+    tools={[{ src: "/icons/tool-figma.png", alt: "Figma" }]}
+    facts={[
+      { title: "Problem", text: "Przełożenie materiałów marki na spójne zasady projektowania, które sprawdzą się w różnych komponentach i wielkościach ekranu." },
+      { title: "Cel", text: "Zbudowanie podstaw systemu, który pozwala rozwijać interfejs bez definiowania tych samych rozwiązań od początku." },
+      { title: "Efekt", text: "Biblioteka oparta na tokenach core i alias, Figma Variables oraz komponentach wykorzystanych w widokach na trzy wielkości ekranu." },
+    ]}
+  />
   <AurapuraCaseContent />
-</WorkCaseShell>
+  <CaseStudyPagination
+    previous={{ title: "Mova", description: "Czytelna ścieżka nauki języków", href: "/work/mova-aplikacja-do-nauki-jezykow" }}
+    next={{ title: "Akademia", description: "e-commerce dla e-booków edukacyjnych", href: "/work/akademia-e-commerce-dla-e-bookow-edukacyjnych" }}
+  />
+</CaseStudyShell>

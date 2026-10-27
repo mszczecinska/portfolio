@@ -140,3 +140,20 @@ Wszystkie multimedia, w tym animowane ekrany z Figmy, pozostają placeholderami:
 | Paleta, typografia i UI Kit | 1 / 1 | 1 / 1 |
 
 Opis fontu Nunito Sans dotyczy interfejsu Movy; portfolio nadal korzysta z Satoshi. Nawigacja prowadzi do ReadySet i AuraPura.
+
+## AuraPura
+
+Źródło: [desktop](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=321-56156) i [mobile](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=328-58141).
+
+Wspólne komponenty obsługują intro, proces, fundamenty systemu, komponenty i responsywność oraz rezultat i wnioski. Na mobile tekst poprzedza materiały. Od 1024 px proces ma grafikę po lewej, a pozostałe sekcje nagłówek obok opisu. Zachowujemy lokalną ikonę Figmy i nie dodajemy przycisku Live do projektu koncepcyjnego.
+
+Zgodnie z ustaleniem nowe grafiki pozostają placeholderami: okładka (361:186 / 1216:520) i materiał procesu (1:1). Wykorzystane istniejące materiały z `public/assets/aurapura`:
+
+| Sekcja | Plik | Proporcje |
+| --- | --- | --- |
+| Fundamenty systemu | `grid-photos-small.png` | 4156 / 2292 |
+| Komponenty i responsywność | `grid-photo.png` | 4160 / 5340 |
+| Siatki tablet i mobile | `mobile+tablet-grid.png` | 4148 / 3684 |
+| Siatka desktop | `desktop-grid-aurapura.png` | 3612 / 3388 |
+
+Kolejność materiałów odpowiada obu makietom. Proporcje wynikają z lokalnych eksportów; obrazy są wyświetlane w całości, bez przycinania. Nawigacja prowadzi do Movy i Akademii, z placeholderami podglądów jak w pozostałych case studies. Nie pobrano nowych assetów ani nie dodano zależności.

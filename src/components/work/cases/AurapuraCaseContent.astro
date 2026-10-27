@@ -1,113 +1,35 @@
 ---
-import TablerIcon from "../../TablerIcon.astro";
-
-const nextSteps = [
-  {
-    icon: "users-group",
-    title: "Zasady współpracy z systemem",
-    description: "Ustaliłabym, kto dodaje komponenty, kto zatwierdza zmiany i jak zespoły zgłaszają potrzeby. Bez takich zasad system szybko traci spójność.",
-  },
-  {
-    icon: "file-description",
-    title: "Dokumentacja komponentów",
-    description: "Opisałabym zastosowanie, warianty, dostępność i przykłady użycia komponentów, osobno z perspektywy designu i developmentu.",
-  },
-  {
-    icon: "puzzle",
-    title: "Uzupełnienie brakujących komponentów",
-    description: "Zaczęłabym od audytu braków i powtarzających się wzorców, a potem priorytetyzowała komponenty według realnego użycia, nie ambicji zbudowania wszystkiego naraz.",
-  },
-  {
-    icon: "git-branch",
-    title: "Wersjonowanie i informowanie o zmianach",
-    description: "Dodałabym wersjonowanie, changelog i synchronizację zmian między Figmą a kodem, żeby zespoły wiedziały, co zmienia aktualizacja.",
-  },
-  {
-    icon: "chart-bar",
-    title: "Mierzenie czy system działa",
-    description: "Sprawdzałabym pokrycie UI systemem, odłączanie komponentów w Figmie i czas wdrażania nowych osób. To pokazuje, czy system naprawdę pomaga.",
-  },
-  {
-    icon: "arrows-exchange",
-    title: "Spójność między designem a kodem",
-    description: "Nazwy tokenów w Figmie powinny odpowiadać zmiennym w kodzie 1:1. Dzięki temu designer i developer pracują na tym samym języku systemu.",
-  },
-] as const;
+import CaseStudySection from "../CaseStudySection.astro";
+import CaseStudyMedia from "../CaseStudyMedia.astro";
 ---
 
-<section class="mx-auto flex w-full max-w-[1040px] flex-col gap-[24px]" aria-labelledby="process-title">
-  <h2 id="process-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Proces</h2>
-  <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Z briefu i assetów marki wyciągnęłam paletę, typografię i kierunek wizualny, a potem przełożyłam je na strukturę tokenów. System oparłam na podziale na <strong>core tokeny</strong> i <strong>alias tokeny</strong>, żeby zmiany wartości nie psuły logiki komponentów.
-  </p>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    <strong>Figma variables</strong> wykorzystałam w dwóch rolach:
-  </p>
-  <ol class="list-decimal pl-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    <li>Do obsługi <strong>themingu</strong> (np. warianty kolorystyczne),</li>
-    <li>Do <strong>dostosowania komponentów do różnych breakpointów</strong>.</li>
-  </ol>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Dzięki temu komponenty mogły adaptować się do mobile, tablet i desktop bez tworzenia osobnych wersji każdego wariantu.
-  </p>
-</section>
+<CaseStudySection id="process" title="Proces" layout="split" mediaSide="left">
+  <p>Zaczęłam od analizy briefu i assetów marki. Na ich podstawie określiłam paletę, typografię i kierunek wizualny. Następnie uporządkowałam te decyzje w strukturę tokenów, która stała się podstawą komponentów.</p>
+  <p>Pracowałam od fundamentów do ich zastosowania. Najpierw wspólne wartości i ich role, następnie komponenty, a na końcu responsywne layouty. Pozwoliło mi to prześledzić, jak decyzje na poziomie systemu wpływają na gotowy interfejs.</p>
+  <CaseStudyMedia slot="media" label="AuraPura — analiza briefu i materiałów marki" />
+</CaseStudySection>
 
-<section class="grid gap-[48px] lg:grid-cols-[467px_509px] lg:items-center lg:gap-[64px]" aria-labelledby="learnings-title">
-  <div class="overflow-hidden bg-transparent lg:bg-[var(--color-surface)] sm:h-auto sm:aspect-square lg:h-[467px]">
-    <img
-      src="/assets/aurapura/mobile+tablet+mock.png"
-      alt="Makiety mobilne i tabletowe projektu AuraPura"
-      class="size-full object-cover"
-      loading="lazy"
-    />
+<CaseStudySection id="foundations" title="Fundamenty systemu">
+  <p>Paletę i typografię wynikające z materiałów marki przełożyłam na wartości wykorzystywane w całej bibliotece. Rozdzieliłam je na tokeny core, przechowujące wartości bazowe oraz aliasy opisujące ich zastosowanie.</p>
+  <p>Taki podział oddziela konkretną wartość od jej funkcji w interfejsie. Komponent korzysta z przypisanej roli, dzięki czemu zmiany można wprowadzać na poziomie tokenów zamiast poprawiać każdy element osobno.</p>
+  <CaseStudyMedia slot="visuals" label="AuraPura — nawigacja, stany przycisków oraz tokeny core i alias" src="/assets/aurapura/grid-photos-small.png" ratio="4156 / 2292" />
+</CaseStudySection>
+
+<CaseStudySection id="components" title="Komponenty i responsywność">
+  <p>Komponenty budowałam na wspólnych tokenach i zmiennych. Figma Variables wykorzystałam zarówno do wariantów kolorystycznych, jak i wartości dostosowanych do różnych breakpointów. Dzięki temu mogłam adaptować elementy do mobile, tablet i desktop bez mnożenia osobnych wariantów dla każdej szerokości.</p>
+  <p>Bibliotekę zastosowałam następnie w layoutach e-commerce. Widoki pokazują, jak wspólne zasady zachowują spójność wizualną przy zmieniającej się przestrzeni i układzie treści.</p>
+  <div slot="visuals" class="aurapura-components">
+    <CaseStudyMedia label="AuraPura — typografia, warianty komponentów i tokeny wymiarów" src="/assets/aurapura/grid-photo.png" ratio="4160 / 5340" />
+    <CaseStudyMedia label="AuraPura — siatki i layouty na tablet i telefon" src="/assets/aurapura/mobile+tablet-grid.png" ratio="4148 / 3684" />
+    <CaseStudyMedia label="AuraPura — siatka i layout strony na desktop" src="/assets/aurapura/desktop-grid-aurapura.png" ratio="3612 / 3388" />
   </div>
-  <div class="flex flex-col gap-[24px] lg:justify-center">
-    <h2 id="learnings-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Czego się nauczyłam?</h2>
-    <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Najważniejszą lekcją było to, że design system zaczyna się długo przed komponentami. Decyzje o tokenach, nazewnictwie i strukturze wpływają później na każdy widok.
-    </p>
-    <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-      Drugą lekcją było użycie <strong>Figma variables</strong> nie tylko do kolorów, ale też do responsywności. To podejście pozwala skalować system bez mnożenia wariantów.
-    </p>
-  </div>
-</section>
+</CaseStudySection>
 
-<section class="w-full overflow-hidden" aria-label="Przegląd siatki desktopowej AuraPura">
-  <img src="/assets/aurapura/grid-photo.png" alt="Duży widok siatki projektu AuraPura" class="w-full h-auto object-cover" loading="lazy" />
-</section>
+<CaseStudySection id="results" title="Rezultat i wnioski">
+  <p>Powstała podstawa design systemu obejmująca tokeny, zmienne, komponenty i responsywne widoki. Najważniejszą lekcją było dla mnie to, że spójność systemu zaczyna się przed projektowaniem komponentów. Struktura tokenów, nazewnictwo i przypisane role wpływają później na każdy ekran.</p>
+  <p>Rozwijając projekt dalej, skupiłabym się na dokumentacji zastosowań i dostępności komponentów, uzupełnieniu biblioteki według rzeczywistych potrzeb oraz zasadach wprowadzania zmian. Kolejnym etapem byłoby również powiązanie tokenów z kodem i sprawdzenie systemu w pracy zespołowej.</p>
+</CaseStudySection>
 
-<section class="mx-auto w-full max-w-[906px] overflow-hidden" aria-label="Widok desktop grid AuraPura">
-  <img src="/assets/aurapura/desktop-grid-aurapura.png" alt="Desktop grid projektu AuraPura" class="w-full h-auto object-cover" loading="lazy" />
-</section>
-
-<section class="mx-auto w-full max-w-[1016px] overflow-hidden" aria-label="Widok mobile i tablet grid AuraPura">
-  <img src="/assets/aurapura/mobile+tablet-grid.png" alt="Mobile i tablet grid projektu AuraPura" class="w-full h-auto object-cover" loading="lazy" />
-</section>
-
-<section class="mx-auto w-full max-w-[1039px] overflow-hidden" aria-label="Dodatkowe miniatury projektu AuraPura">
-  <img src="/assets/aurapura/grid-photos-small.png" alt="Zestaw mniejszych siatek projektu AuraPura" class="w-full h-auto object-cover" loading="lazy" />
-</section>
-
-<section class="mx-auto flex w-full max-w-[864px] flex-col gap-[24px]" aria-labelledby="next-steps-title">
-  <h2 id="next-steps-title" class="text-[24px] leading-[32px] lg:text-[36px] lg:leading-[44px] text-[var(--color-text)]">Co zrobiłabym dalej?</h2>
-  <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-    Gdybym rozwijała Aurapurę jako realny system, potraktowałabym go jak produkt, nie tylko bibliotekę komponentów. Najważniejsze byłyby procesy, dokumentacja i mierzenie użycia.
-  </p>
-
-  <div class="flex flex-col gap-[24px]">
-    {nextSteps.map((step) => (
-      <article class="rounded-[12px] border border-[var(--color-border)] bg-[var(--color-foreground)] px-[20px] py-[28px]">
-        <div class="flex flex-col gap-[20px] lg:flex-row lg:items-center lg:gap-[24px]">
-          <TablerIcon name={step.icon} class="size-[56px] text-[var(--color-text)]" />
-          <div class="flex-1">
-            <h3 class="text-[20px] leading-[28px] lg:text-[22px] lg:leading-[28px] text-[var(--color-text)]">{step.title}</h3>
-            <p class="mt-[20px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">{step.description}</p>
-          </div>
-        </div>
-      </article>
-    ))}
-  </div>
-</section>
+<style>
+  .aurapura-components { display: flex; flex-direction: column; gap: var(--content-gap); }
+</style>
