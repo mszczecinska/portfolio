@@ -1,6 +1,7 @@
 ---
 import TablerIcon from "./TablerIcon.astro";
 import LogoIcon from "./LogoIcon.astro";
+import { contactMailto } from "../lib/contact";
 
 interface Props { caseStudy?: boolean; workPage?: boolean; homePage?: boolean; aboutPage?: boolean; }
 const { caseStudy = false, workPage = false, homePage = false, aboutPage = false } = Astro.props;
@@ -8,17 +9,21 @@ const { caseStudy = false, workPage = false, homePage = false, aboutPage = false
 const navItems = [
   { key: "work", href: "/work", label: "Realizacje" },
   { key: "about", href: "/about", label: "O mnie" },
-  { key: "contact", href: "/contact", label: "Kontakt" },
+] as const;
+
+const mobileNavItems = [
+  { key: "home", href: "/", label: "Główna" },
+  ...navItems,
 ] as const;
 
 const currentPath = Astro.url.pathname;
-const activeKey = currentPath.startsWith("/about")
+const activeKey = currentPath === "/"
+  ? "home"
+  : currentPath.startsWith("/about")
   ? "about"
   : currentPath.startsWith("/work")
     ? "work"
-    : currentPath.startsWith("/contact")
-      ? "contact"
-      : null;
+    : null;
 ---
 
 <header class:list={["relative z-40", { "case-header": caseStudy || workPage || homePage || aboutPage, "work-header": workPage, "home-header": homePage, "about-header": aboutPage }]} data-scroll-header transition:name="site-header">
@@ -66,8 +71,10 @@ const activeKey = currentPath.startsWith("/about")
           }
         </ul>
 
-        {(workPage || aboutPage) && <span class="work-header__language" aria-label="Język: polski">PL</span>}
-        {homePage && <button type="button" class="home-header__language btn-icon" aria-label="Język: polski">PL</button>}
+        <div class="header-actions">
+          <button type="button" class="home-header__language btn-icon" aria-label="Język: polski">PL</button>
+          <a href={contactMailto} class="header-email btn-secondary">Napisz do mnie</a>
+        </div>
         <div class="lg:hidden" data-mobile-menu>
           <button
             type="button"
@@ -96,7 +103,7 @@ const activeKey = currentPath.startsWith("/about")
 
             <div
               id="mobile-menu-panel"
-              class="absolute right-0 top-0 flex h-full w-[53%] min-w-[200px] max-w-[220px] translate-x-full flex-col items-end bg-[var(--color-background)] px-[32px] pb-[40px] pt-[36px] transition-transform duration-200 sm:w-[40%] sm:min-w-[280px] sm:max-w-[360px] sm:px-[36px] sm:pb-[44px] sm:pt-[40px]"
+              class="absolute right-0 top-0 flex h-full w-[53%] min-w-[200px] max-w-[220px] translate-x-full flex-col items-end bg-[var(--color-background)] pl-[32px] pr-[var(--page-gutter)] pb-[40px] pt-[36px] transition-transform duration-200 sm:w-[40%] sm:min-w-[280px] sm:max-w-[360px] sm:pl-[36px] sm:pb-[44px] sm:pt-[40px]"
               data-mobile-panel
               role="dialog"
               aria-modal="true"
@@ -113,7 +120,7 @@ const activeKey = currentPath.startsWith("/about")
 
               <ul class="mt-[56px] flex flex-col items-end gap-[16px] text-[var(--color-text)] sm:mt-[64px] sm:gap-[20px]">
                 {
-                  navItems.map((item) => {
+                  mobileNavItems.map((item) => {
                     const isActive = item.key === activeKey;
 
                     return (
@@ -131,6 +138,7 @@ const activeKey = currentPath.startsWith("/about")
                   })
                 }
               </ul>
+              <a href={contactMailto} data-mobile-link class="mobile-menu-contact btn-secondary">Napisz do mnie</a>
             </div>
           </div>
         </div>
@@ -171,6 +179,14 @@ const activeKey = currentPath.startsWith("/about")
       const isOpen = (root) => {
         const { openButton } = getElements(root);
         return openButton?.getAttribute("aria-expanded") === "true";
+      };
+
+      const alignCloseButton = (root) => {
+        const { openButton, overlay, panel } = getElements(root);
+        if (!openButton || !overlay || !panel) return;
+
+        const top = openButton.getBoundingClientRect().top - overlay.getBoundingClientRect().top;
+        panel.style.paddingTop = `${top}px`;
       };
 
       const syncBodyScrollLock = () => {
@@ -226,6 +242,7 @@ const activeKey = currentPath.startsWith("/about")
         if (!openButton || !closeButton || !overlay || !panel) return;
 
         closeAllMenus(false);
+        alignCloseButton(root);
 
         const activeElement = document.activeElement;
         previousFocus.set(root, activeElement instanceof HTMLElement ? activeElement : null);
@@ -323,6 +340,8 @@ const activeKey = currentPath.startsWith("/about")
         () => {
           if (window.matchMedia("(min-width: 1024px)").matches) {
             closeAllMenus(false);
+          } else {
+            getRoots().filter(isOpen).forEach(alignCloseButton);
           }
         },
         { signal }
@@ -352,6 +371,13 @@ const activeKey = currentPath.startsWith("/about")
 </script>
 
 <style>
+  .mobile-menu-contact { margin-top: auto; flex-shrink: 0; }
+  .header-actions { display: contents; }
+  .header-email { display: none; white-space: nowrap; }
+  @media (min-width: 64rem) {
+    .header-actions { display: inline-flex; align-items: center; gap: var(--space-2); }
+    .header-email { display: inline-flex; }
+  }
   .about-header nav > div { gap: var(--space-2); }
   @media (min-width: 64rem) {
     .about-header nav > div, .about-header nav ul, .about-header nav li { display: contents; }
@@ -361,6 +387,11 @@ const activeKey = currentPath.startsWith("/about")
   .home-header nav > div { flex: none; }
   .home-header .case-header__current { font-weight: var(--weight-regular); }
   .home-header__language { width: 44px; height: 44px; padding: 10px; font-family: var(--font-label); font-size: 16px; line-height: 1; cursor: pointer; }
+  @media (min-width: 64rem) {
+    .header-actions > .home-header__language,
+    .header-actions > .header-email { height: 56px; min-height: 56px; padding-block: 0; }
+    .header-actions > .home-header__language { width: 56px; min-width: 56px; padding-inline: 0; }
+  }
   .home-header nav > div { gap: var(--space-2); }
   @media (min-width: 64rem) {
     .home-header nav { justify-content: space-between; }
@@ -379,16 +410,20 @@ const activeKey = currentPath.startsWith("/about")
   .case-header[data-scroll-header].is-floating > div { padding-bottom: var(--space-3); }
   .case-header nav { min-height: var(--control-height); align-items: center; }
   .case-header nav > a:first-child { display: none; }
-  .case-header__current { font-size: 1.5rem; font-weight: var(--weight-regular); }
+  .case-header__current { display: none; font-size: 1.5rem; font-weight: var(--weight-regular); }
+  @media (max-width: 1023px) {
+    .case-header nav { justify-content: flex-end; }
+  }
   @media (min-width: 64rem) {
     .case-header > div { padding-block: var(--space-5); }
     .case-header[data-scroll-header].is-floating > div { padding-bottom: var(--space-5); }
-    .case-header nav { min-height: 3.5rem; }
+    .case-header nav { min-height: 3.5rem; justify-content: space-between; gap: clamp(24px, 3vw, 40px); }
     .case-header nav > a:first-child { display: inline-flex; padding-block: 0; }
     .case-header__home { font-size: 1.25rem; color: var(--color-text-muted); }
     .case-header__current { display: none; }
-    .case-header nav > div { flex: 1; }
-    .case-header nav ul { flex: 1; justify-content: space-evenly; align-items: center; padding-top: 0; }
+    .case-header nav > div,
+    .case-header nav > div > ul,
+    .case-header nav > div > ul > li { display: contents; }
   }
 
   [data-scroll-header] {

@@ -71,7 +71,7 @@ function getDarkIconSrc(src: string): string | undefined {
     </div>
   </section>
 
-  <article class="mx-auto w-full max-w-[1040px] px-6 pb-[120px] pt-[32px] sm:px-8 sm:pb-[144px] sm:pt-[48px] lg:px-0 lg:pb-[200px] lg:pt-[80px]" aria-labelledby="work-detail-title">
+  <article class="work-case-article mx-auto w-full max-w-[1040px] px-6 pb-[120px] pt-[32px] sm:px-8 sm:pb-[144px] sm:pt-[48px] lg:px-0 lg:pb-[200px] lg:pt-[80px]" aria-labelledby="work-detail-title">
     <div class="sticky top-[32px] z-30 hidden h-0 w-full lg:block">
       <div class="flex justify-end pr-[24px]">
         <a
@@ -85,7 +85,7 @@ function getDarkIconSrc(src: string): string | undefined {
       </div>
     </div>
 
-    <div class="flex flex-col gap-[80px] sm:gap-[96px] lg:gap-[120px]">
+    <div class="work-case-content flex flex-col gap-[80px] sm:gap-[96px] lg:gap-[120px]">
       <header class="mx-auto flex w-full max-w-[864px] flex-col gap-[40px] sm:gap-[48px]">
         <div class="flex flex-col gap-[24px]">
           <h1
@@ -204,6 +204,13 @@ function getDarkIconSrc(src: string): string | undefined {
     </div>
   </article>
 </Layout>
+
+<style>
+  @media (max-width: 47.999rem) {
+    .work-case-article { padding-bottom: var(--section-gap); }
+    .work-case-content { gap: var(--section-gap); }
+  }
+</style>
 
 <script is:inline>
   (() => {

@@ -134,6 +134,10 @@ const activeGroup = Astro.url.searchParams.get("category") === "experiments" ? "
     .work-category:hover { color: var(--color-text); }
     .work-card__link:hover .work-card__arrow img { transform: translate(2px, -2px) rotate(180deg); }
   }
+  @media (max-width: 47.999rem) {
+    .work-page { padding-bottom: var(--section-gap); }
+    .work-categories { margin-bottom: var(--space-10); }
+  }
   @media (max-width: 22.5rem) {
     .work-categories { gap: 12px; }
     .work-category { font-size: 17px; }

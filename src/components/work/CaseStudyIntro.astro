@@ -11,12 +11,13 @@ interface Props {
   projectType: string;
   tools: readonly { src: string; alt: string }[];
   liveUrl?: string;
+  showLiveInfo?: boolean;
   liveHoverColor?: string;
   liveHoverTextColor?: string;
   liveHoverBorderColor?: string;
   facts?: readonly { title: string; text: string }[];
 }
-const { title, subtitle, overview, role, projectType, tools, liveUrl, liveHoverColor = "var(--color-surface)", liveHoverTextColor = "var(--color-text)", liveHoverBorderColor = "var(--color-text)", facts = [] } = Astro.props;
+const { title, subtitle, overview, role, projectType, tools, liveUrl, showLiveInfo = false, liveHoverColor = "var(--color-surface)", liveHoverTextColor = "var(--color-text)", liveHoverBorderColor = "var(--color-text)", facts = [] } = Astro.props;
 ---
 
 <header class="case-intro">
@@ -30,7 +31,13 @@ const { title, subtitle, overview, role, projectType, tools, liveUrl, liveHoverC
         <h1 id="case-study-title" class="type-title">{title}</h1>
         <p class="case-intro__subtitle">{subtitle}</p>
       </div>
-      {liveUrl && <a class="btn-primary" style={`--case-live-hover: ${liveHoverColor}; --case-live-hover-text: ${liveHoverTextColor}; --case-live-hover-border: ${liveHoverBorderColor};`} href={liveUrl} target="_blank" rel="noopener noreferrer">Zobacz live <TablerIcon name="arrow-up-right" class="size-6" /></a>}
+      {liveUrl && <div class="case-intro__live" data-live-info={showLiveInfo ? true : undefined}>
+        <a class="btn-primary" style={`--case-live-hover: ${liveHoverColor}; --case-live-hover-text: ${liveHoverTextColor}; --case-live-hover-border: ${liveHoverBorderColor};`} href={liveUrl} target="_blank" rel="noopener noreferrer">Zobacz live <TablerIcon name="arrow-up-right" class="size-6" /></a>
+        {showLiveInfo && <><button class="case-intro__info" type="button" aria-label="Informacja o wdrożonej stronie" aria-describedby="live-site-info" data-live-info-trigger>
+          <TablerIcon name="info-circle" class="size-5" />
+        </button>
+        <span class="case-intro__tooltip" id="live-site-info" role="tooltip" hidden>Wdrożona strona może różnić się od prezentowanego projektu.</span></>}
+      </div>}
     </div>
 
     <div class="case-intro__overview">
@@ -50,6 +57,10 @@ const { title, subtitle, overview, role, projectType, tools, liveUrl, liveHoverC
 </header>
 
 <style>
+  .case-intro__live { position: relative; display: flex; align-items: center; gap: var(--space-2); max-width: 100%; }
+  .case-intro__info { display: grid; place-items: center; width: var(--control-height); height: var(--control-height); flex: none; color: var(--color-text-muted); cursor: help; }
+  .case-intro__info:focus-visible { outline: 2px solid var(--color-text); outline-offset: 2px; }
+  .case-intro__tooltip { position: absolute; z-index: 10; left: 0; bottom: calc(100% + var(--space-2)); width: min(20rem, calc(100vw - 2 * var(--page-gutter))); padding: var(--space-3) var(--space-4); border: 1px solid var(--color-border); background: var(--color-background); color: var(--color-text); font-size: var(--text-small); line-height: 1.5; }
   @media (hover: hover) {
     .case-intro__heading .btn-primary:hover {
       background-color: var(--case-live-hover);
@@ -90,3 +101,59 @@ const { title, subtitle, overview, role, projectType, tools, liveUrl, liveHoverC
     .case-intro__tools { gap: var(--space-5); }
   }
 </style>
+
+<script>
+  function setupLiveInfo() {
+    document.querySelectorAll<HTMLElement>("[data-live-info]").forEach(root => {
+      if (root.dataset.initialized) return;
+      root.dataset.initialized = "true";
+      const trigger = root.querySelector<HTMLButtonElement>("[data-live-info-trigger]")!;
+      const tooltip = root.querySelector<HTMLElement>('[role="tooltip"]')!;
+      const show = () => {
+        const buttonRect = trigger.getBoundingClientRect();
+        const rootRect = root.getBoundingClientRect();
+        const headingRect = root.parentElement!.getBoundingClientRect();
+        const availableWidth = headingRect.right - buttonRect.right - 8;
+        const beside = availableWidth >= 160;
+        tooltip.style.left = beside ? `${buttonRect.right - rootRect.left + 8}px` : '0px';
+        tooltip.style.top = beside ? `${buttonRect.top - rootRect.top + buttonRect.height / 2}px` : 'calc(100% + 8px)';
+        tooltip.style.bottom = 'auto';
+        tooltip.style.transform = beside ? 'translateY(-50%)' : 'none';
+        tooltip.style.width = `${Math.min(320, beside ? availableWidth : headingRect.width)}px`;
+        tooltip.hidden = false;
+      };
+      const hide = () => { tooltip.hidden = true; };
+      let wasOpenOnPointerDown = false;
+      trigger.addEventListener("pointerenter", event => {
+        if (event.pointerType !== "touch") show();
+      });
+      trigger.addEventListener("pointerleave", hide);
+      trigger.addEventListener("pointerdown", () => {
+        wasOpenOnPointerDown = !tooltip.hidden;
+      });
+      trigger.addEventListener("focus", () => {
+        if (trigger.matches(":focus-visible")) show();
+      });
+      trigger.addEventListener("blur", hide);
+      trigger.addEventListener("click", event => {
+        const shouldHide = event.detail === 0 ? !tooltip.hidden : wasOpenOnPointerDown;
+        if (shouldHide) hide();
+        else show();
+      });
+      const onPointerDown = (event: PointerEvent) => {
+        if (event.target instanceof Node && !trigger.contains(event.target) && !tooltip.contains(event.target)) hide();
+      };
+      const onKeydown = (event: KeyboardEvent) => {
+        if (event.key === "Escape") hide();
+      };
+      document.addEventListener("keydown", onKeydown);
+      document.addEventListener("pointerdown", onPointerDown);
+      document.addEventListener("astro:before-swap", () => {
+        document.removeEventListener("keydown", onKeydown);
+        document.removeEventListener("pointerdown", onPointerDown);
+      }, { once: true });
+    });
+  }
+  setupLiveInfo();
+  document.addEventListener("astro:page-load", setupLiveInfo);
+</script>

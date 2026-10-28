@@ -6,7 +6,7 @@ interface Props { title: string; description: string; }
 const { title, description } = Astro.props;
 ---
 
-<Layout title={title} description={description} showFooter={false} caseStudyHeader>
+<Layout title={title} description={description} caseStudyHeader>
   <article class="case-study" aria-labelledby="case-study-title">
     <slot />
   </article>

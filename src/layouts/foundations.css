@@ -108,6 +108,10 @@
   --font-mono: var(--font-label);
 }
 
+@media (max-width: 47.999rem) {
+  :root { --section-gap: var(--space-20); }
+}
+
 @media (min-width: 48rem) {
   :root {
     --page-gutter: var(--space-8);

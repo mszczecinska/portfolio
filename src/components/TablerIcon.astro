@@ -2,6 +2,7 @@
 interface Props {
   name:
     | "arrow-up-right"
+    | "info-circle"
     | "arrow-narrow-right"
     | "copy"
     | "copy-check"
@@ -36,6 +37,7 @@ interface Props {
 const { name, class: className, strokeWidth = 1 } = Astro.props as Props;
 
 const iconPaths: Record<Props["name"], string[]> = {
+  "info-circle": ["M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0", "M12 11v5", "M12 8h.01"],
   "arrow-up-right": ["M7 17L17 7", "M8.5 7H17V15.5"],
   "arrow-narrow-right": ["M5 12H19", "M15 8L19 12L15 16"],
   copy: [

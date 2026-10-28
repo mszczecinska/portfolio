@@ -1,5 +1,6 @@
 ---
 import TablerIcon from "./TablerIcon.astro";
+import { contactEmail, contactMailto } from "../lib/contact";
 
 interface Props { workPage?: boolean; homePage?: boolean; aboutPage?: boolean; }
 const { workPage = false, homePage = false, aboutPage = false } = Astro.props;
@@ -10,7 +11,6 @@ const footerNav = [
   { label: "Główna", href: "/" },
   { label: "Realizacje", href: "/work" },
   { label: "O mnie", href: "/about" },
-  { label: "Kontakt", href: "/contact" },
 ] as const;
 
 const socialLinks = [
@@ -85,7 +85,7 @@ const mobileDots = [
 
   <div class="page-container">
     <div class="flex flex-col gap-[24px] sm:gap-[32px] lg:gap-[40px]">
-      <div class="flex items-start justify-between sm:gap-[40px] lg:justify-start lg:gap-[200px]">
+      <div class="footer-columns">
         <div class="relative size-[32px] lg:size-[40px]" aria-hidden="true">
           {
             mobileDots.map(([left, top]) => (
@@ -135,6 +135,17 @@ const mobileDots = [
             }
           </ul>
         </div>
+        <div id="footer-contact" class="footer-contact">
+          <a class="footer-contact__title" href={contactMailto}>Napisz do mnie</a>
+          <div class="footer-contact__email">
+            <span data-footer-email>{contactEmail}</span>
+            <button type="button" class="btn-icon" aria-label="Skopiuj adres e-mail" data-footer-copy-email>
+              <span data-footer-copy-icon><TablerIcon name="copy" class="size-5" /></span>
+              <span data-footer-copy-check hidden><TablerIcon name="copy-check" class="size-5" /></span>
+            </button>
+          </div>
+          <span role="status" class="footer-contact__status" data-footer-copy-status></span>
+        </div>
       </div>
 
       <div class="flex items-center justify-between text-[12px] leading-[16px] text-[var(--color-text)] lg:text-[14px] lg:leading-[19px]">
@@ -156,22 +167,67 @@ const mobileDots = [
 </footer>
 
 <style>
+  .footer-columns { display: grid; grid-template-columns: auto auto auto; align-items: start; justify-content: space-between; gap: var(--space-8) var(--space-4); }
+  .footer-contact { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); min-width: 0; font-size: var(--text-small); }
+  .footer-contact__title { font-size: var(--text-body); line-height: 2rem; }
+  .footer-contact__email { display: flex; align-items: center; gap: var(--space-2); max-width: 100%; }
+  .footer-contact__email > span { min-width: 0; overflow-wrap: anywhere; }
+  .footer-contact a { overflow-wrap: anywhere; }
+  .footer-contact__status { color: var(--color-text-muted); }
+  .footer-contact .btn-icon { cursor: pointer; }
   @media (max-width: 63.999rem) {
     .home-footer li:has(a[href*="behance"]), .home-footer a[href="https://github.com/mszczecinska/portfolio"] { display: none; }
     .home-footer > div > div > div:last-child { justify-content: flex-end; }
     .home-footer :global(svg) { width: 16px; height: 16px; }
   }
   @media (min-width: 64rem) {
+    .footer-columns { grid-template-columns: minmax(40px, .7fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(260px, 1.4fr); column-gap: var(--space-6); }
+    .footer-contact { grid-column: auto; }
     .home-footer > div > div > div:first-child { padding-block: var(--space-6); }
     .home-footer nav ul { line-height: 32px; }
     .home-footer :global(svg) { width: 24px; height: 24px; }
   }
-  .work-footer { border-top: 0; }
-  @media (max-width: 63.999rem) { .work-footer { display: none; } }
   @media (min-width: 64rem) {
-    .work-footer { padding-top: 60px; }
+    .work-footer { border-top: 0; padding-top: 60px; }
     .work-footer > div > div { gap: 60px; }
-    .work-footer > div > div > div:first-child { display: grid; grid-template-columns: 200px 1fr 1fr; gap: 40px; }
     .work-footer :global(svg) { width: 24px; height: 24px; }
   }
 </style>
+
+<script>
+  function setupFooterEmail() {
+    const button = document.querySelector<HTMLButtonElement>('[data-footer-copy-email]');
+    const status = document.querySelector<HTMLElement>('[data-footer-copy-status]');
+    if (!button || !status || button.dataset.initialized) return;
+    button.dataset.initialized = 'true';
+    const copyIcon = button.querySelector<HTMLElement>('[data-footer-copy-icon]')!;
+    const checkIcon = button.querySelector<HTMLElement>('[data-footer-copy-check]')!;
+    let resetTimer: ReturnType<typeof setTimeout>;
+    const reset = () => {
+      copyIcon.hidden = false;
+      checkIcon.hidden = true;
+      status.textContent = '';
+      button.setAttribute('aria-label', 'Skopiuj adres e-mail');
+    };
+    button.addEventListener('click', async () => {
+      const email = button.previousElementSibling;
+      if (!(email instanceof HTMLElement)) return;
+      try {
+        await navigator.clipboard.writeText(email.textContent?.trim() ?? '');
+        clearTimeout(resetTimer);
+        copyIcon.hidden = true;
+        checkIcon.hidden = false;
+        status.textContent = 'Skopiowano adres';
+        button.setAttribute('aria-label', 'Skopiowano adres e-mail');
+        resetTimer = setTimeout(reset, 3000);
+      } catch {
+        clearTimeout(resetTimer);
+        reset();
+        status.textContent = 'Zaznacz i skopiuj adres e-mail.';
+      }
+    });
+    document.addEventListener('astro:before-swap', () => clearTimeout(resetTimer), { once: true });
+  }
+  setupFooterEmail();
+  document.addEventListener('astro:page-load', setupFooterEmail);
+</script>
