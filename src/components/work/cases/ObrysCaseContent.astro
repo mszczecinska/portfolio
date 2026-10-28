@@ -1,0 +1,55 @@
+---
+import CaseStudySection from "../CaseStudySection.astro";
+import CaseStudyMedia from "../CaseStudyMedia.astro";
+---
+
+<CaseStudySection id="obrys-assumptions" title="Założenia projektu" layout="split" mediaSide="left">
+  <p>Chciałam stworzyć spójny wizerunek studia wnętrzarskiego, obejmujący zarówno identyfikację, jak i stronę internetową. Punktem wyjścia był spokojny, architektoniczny kierunek - oszczędna typografia, regularna siatka i duże fotografie wnętrz.</p>
+  <CaseStudyMedia slot="media" label="OBRYS Studio — mockup strony na telefonie" />
+</CaseStudySection>
+
+<CaseStudySection id="obrys-identity" title="Identyfikacja wizualna">
+  <p>Zaprojektowałam logo OBRYS i jego warianty kolorystyczne. Otwarty znak, przygaszona zieleń i typografia Archivo tworzą wspólny język wizualny, który wykorzystałam następnie w projekcie strony.</p>
+  <div slot="visuals" class="obrys-visuals">
+    <CaseStudyMedia label="OBRYS Studio — warianty kolorystyczne znaku" ratio="361 / 78.335" desktopRatio="1218 / 268" />
+    <div class="obrys-foundations">
+      <CaseStudyMedia label="Paleta kolorystyczna OBRYS Studio" ratio="361 / 279" desktopRatio="988 / 465" />
+      <CaseStudyMedia label="Typografia Archivo — regular i medium" ratio="361 / 179.52" desktopRatio="195 / 465" />
+    </div>
+    <CaseStudyMedia label="OBRYS Studio — mockup wizytówek" ratio="361 / 241" desktopRatio="1216 / 778" />
+  </div>
+</CaseStudySection>
+
+<CaseStudySection id="obrys-website" title="Projekt strony">
+  <p>Stronę zaprojektowałam wokół prezentacji realizacji, oferty i sposobu współpracy. Duże fotografie eksponują wnętrza, a uporządkowana hierarchia treści i powtarzalne elementy interfejsu łączą poszczególne podstrony w jedną całość.</p>
+  <div slot="visuals" class="obrys-visuals">
+    <CaseStudyMedia label="OBRYS Studio — motion strony" ratio="1440 / 880" />
+    <div class="obrys-screens" aria-label="Podglądy podstron OBRYS Studio">
+      <div class="obrys-screen">
+        <CaseStudyMedia label="Podstrona Realizacje — fragment widoku" ratio="597 / 900" />
+        <p class="type-label">Realizacje / fragment widoku</p>
+      </div>
+      <div class="obrys-screen">
+        <CaseStudyMedia label="Podstrona Proces — fragment widoku" ratio="597 / 900" />
+        <p class="type-label">Proces / fragment widoku</p>
+      </div>
+    </div>
+    <CaseStudyMedia label="OBRYS Studio — mockup magazynu" ratio="2000 / 1333" />
+  </div>
+</CaseStudySection>
+
+<CaseStudySection id="obrys-summary" title="Podsumowanie">
+  <p>Efektem jest koncepcja identyfikacji wizualnej i strony internetowej, uzupełniona o motion. Projekt pozwolił mi przeprowadzić własny pomysł od znaku po interfejs i sposób jego prezentacji.</p>
+</CaseStudySection>
+
+<style>
+  .obrys-visuals, .obrys-foundations { display: flex; flex-direction: column; gap: var(--content-gap); }
+  .obrys-screens { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+  .obrys-screen { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+  .obrys-screen > p { font-size: clamp(0.5rem, 1.1vw, var(--text-label)); }
+  @media (min-width: 64rem) {
+    .obrys-foundations { display: grid; grid-template-columns: minmax(0, 988fr) minmax(0, 195fr); gap: var(--space-10); }
+    .obrys-screens { gap: var(--space-5); }
+    .obrys-screen { gap: var(--space-4); }
+  }
+</style>

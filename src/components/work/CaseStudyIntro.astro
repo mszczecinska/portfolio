@@ -8,6 +8,7 @@ interface Props {
   subtitle: string;
   overview: string;
   role: string;
+  roleLabel?: string;
   projectType: string;
   tools: readonly { src: string; alt: string }[];
   liveUrl?: string;
@@ -17,7 +18,7 @@ interface Props {
   liveHoverBorderColor?: string;
   facts?: readonly { title: string; text: string }[];
 }
-const { title, subtitle, overview, role, projectType, tools, liveUrl, showLiveInfo = false, liveHoverColor = "var(--color-surface)", liveHoverTextColor = "var(--color-text)", liveHoverBorderColor = "var(--color-text)", facts = [] } = Astro.props;
+const { title, subtitle, overview, role, roleLabel = "Rola", projectType, tools, liveUrl, showLiveInfo = false, liveHoverColor = "var(--color-surface)", liveHoverTextColor = "var(--color-text)", liveHoverBorderColor = "var(--color-text)", facts = [] } = Astro.props;
 ---
 
 <header class="case-intro">
@@ -42,7 +43,7 @@ const { title, subtitle, overview, role, projectType, tools, liveUrl, showLiveIn
 
     <div class="case-intro__overview">
       <dl class="case-intro__metadata">
-        <div><dt class="type-label">Rola</dt><dd>{role}</dd></div>
+        <div><dt class="type-label">{roleLabel}</dt><dd>{role}</dd></div>
         <div><dt class="type-label">Typ</dt><dd>{projectType}</dd></div>
         <div>
           <dt class="type-label">Narzędzia</dt>

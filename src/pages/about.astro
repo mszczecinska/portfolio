@@ -44,7 +44,7 @@ const tools = [
   { label: "ChatGPT", file: "chatgpt.svg", mobile: true },
   { label: "Claude Code", file: "/icons/tool-claude-code.png", lines: ["Claude", "Code"] },
   { label: "Vercel", file: "vercel.svg", mobile: true },
-  { label: "Visual Studio Code", file: "vscode.png", lines: ["Visual Studio", "Code"] },
+  { label: "Visual Studio Code", file: "vscode.png", lines: ["Visual\u00a0Studio", "Code"] },
 ];
 const socialLinks = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/magdalena-szczecinska/" },
@@ -136,12 +136,12 @@ const workingMethods = [
   .about-socials img { transform: rotate(180deg); flex: none; }
   .about-tools { display: flex; flex-direction: column; gap: var(--space-5); }
   .about-tools__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--space-10); }
-  .about-tools__grid li { display: flex; align-items: center; flex-direction: column; gap: var(--space-3); text-align: center; font-size: 16px; font-weight: var(--weight-medium); line-height: 1.35; }
-  .tool-icon { display: block; width: 40px; height: 40px; position: relative; }
-  .tool-icon > img, .tool-icon picture img { display: block; width: 40px; height: auto; }
-  .tool-icon--crop { overflow: hidden; height: 41px; }
+  .about-tools__grid li { display: flex; align-items: center; flex-direction: column; gap: var(--space-3); text-align: center; font-size: 14px; font-weight: var(--weight-medium); line-height: 1.35; }
+  .tool-icon { display: block; width: 36px; height: 36px; position: relative; }
+  .tool-icon > img, .tool-icon picture img { display: block; width: 36px; height: auto; }
+  .tool-icon--crop { overflow: hidden; height: 36.9px; }
   .tool-icon--crop > img { position: absolute; width: 126.73%; height: 123.67%; max-width: none; top: -12.32%; left: -13.37%; }
-  .tool-icon--vercel { height: 34px; }
+  .tool-icon--vercel { height: 30.6px; }
   .about-process { display: grid; gap: var(--space-5); }
   .about-process__content { min-width: 0; }
   .about-process__intro { font-size: 14px; line-height: 1.5; }
@@ -213,12 +213,12 @@ const workingMethods = [
     .about-socials { grid-column: 2; justify-content: flex-start; align-items: start; gap: var(--space-5); }
     .about-tools { gap: var(--space-10); }
     .about-tools__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 61px; }
-    .about-tools__grid li { gap: var(--space-6); font-size: 20px; }
-    .tool-icon { width: 52px; height: 52px; }
-    .tool-icon > img, .tool-icon picture img { width: 52px; }
-    .tool-icon--crop { height: 52.8125px; }
+    .about-tools__grid li { gap: var(--space-5); font-size: 18px; }
+    .tool-icon { width: 44px; height: 44px; }
+    .tool-icon > img, .tool-icon picture img { width: 44px; }
+    .tool-icon--crop { height: 44.6875px; }
     .tool-icon--crop > img { width: 126.73%; }
-    .tool-icon--vercel { height: 44.6875px; }
+    .tool-icon--vercel { height: 37.8125px; }
     .about-process { grid-template-columns: minmax(0, 491fr) minmax(0, 705fr); gap: var(--space-5); }
     .about-process__intro { font-size: 16px; line-height: 30px; margin-bottom: var(--space-10); }
     .process-dots { display: none; }
