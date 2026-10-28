@@ -6,6 +6,7 @@ interface Props {
   caseStudyHeader?: boolean;
   workPage?: boolean;
   homePage?: boolean;
+  aboutPage?: boolean;
 }
 
 const {
@@ -15,6 +16,7 @@ const {
   caseStudyHeader = false,
   workPage = false,
   homePage = false,
+  aboutPage = false,
 } = Astro.props;
 
 import { ClientRouter } from "astro:transitions";
@@ -112,10 +114,10 @@ import SpeedInsights from "@vercel/speed-insights/astro";
       <a href="#main-content" class="skip-to-content">
         Przejdź do treści
       </a>
-      <Header caseStudy={caseStudyHeader} workPage={workPage} homePage={homePage} />
+      <Header caseStudy={caseStudyHeader} workPage={workPage} homePage={homePage} aboutPage={aboutPage} />
       <main id="main-content" class="flex-1">
         <slot />
       </main>
-      {showFooter && <Footer workPage={workPage} homePage={homePage} />}
+      {showFooter && <Footer workPage={workPage} homePage={homePage} aboutPage={aboutPage} />}
     </body>
   </html>
