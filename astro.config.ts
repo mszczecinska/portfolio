@@ -4,7 +4,6 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import robotsTxt from 'astro-robots-txt';
 import sitemap from '@astrojs/sitemap';
-import compress from '@playform/compress';
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,18 +16,5 @@ export default defineConfig({
     sitemap(),
     robotsTxt(),
     react(),
-    compress({
-      CSS: false,
-      JavaScript: false,
-      HTML: {
-        'html-minifier-terser': {
-          minifyJS: {
-            mangle: {
-              toplevel: true,
-            },
-          },
-        },
-      },
-    }),
   ],
 });
