@@ -25,7 +25,7 @@ const { title, cover, subtitle, overview, role, roleLabel = "Rola", projectType,
 
 <header class="case-intro">
   <div class="page-container">
-    <CaseStudyMedia src={cover} priority label={`${title} — okładka projektu`} ratio={cover ? `${cover.width} / ${cover.height}` : "361 / 186"} desktopRatio={cover ? `${cover.width} / ${cover.height}` : "1216 / 520"} />
+    <CaseStudyMedia src={cover} priority fit="cover" label={`${title} — okładka projektu`} ratio="361 / 186" desktopRatio="1216 / 520" />
   </div>
 
   <div class="case-intro__details page-container">

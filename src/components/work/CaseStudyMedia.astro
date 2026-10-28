@@ -10,12 +10,13 @@ export interface Props {
   kind?: "image" | "video";
   sizes?: string;
   priority?: boolean;
+  fit?: "contain" | "cover";
 }
 
-const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes = "(min-width: 1280px) 1216px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)", priority = false } = Astro.props;
+const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes = "(min-width: 1280px) 1216px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)", priority = false, fit = "contain" } = Astro.props;
 ---
 
-<figure class="case-media" style={`--media-ratio: ${ratio}; --media-ratio-desktop: ${desktopRatio};`}>
+<figure class="case-media" style={`--media-ratio: ${ratio}; --media-ratio-desktop: ${desktopRatio}; --media-fit: ${fit};`}>
   {src ? (
     kind === "video" && typeof src === "string" ? (
       <video src={src} controls playsinline preload="metadata" aria-label={label}></video>
@@ -61,7 +62,7 @@ const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes
     display: block;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: var(--media-fit);
   }
   @media (min-width: 64rem) {
     .case-media { aspect-ratio: var(--media-ratio-desktop); }
