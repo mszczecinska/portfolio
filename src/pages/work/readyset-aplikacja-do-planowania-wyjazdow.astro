@@ -3,6 +3,7 @@ import CaseStudyShell from "../../components/work/CaseStudyShell.astro";
 import CaseStudyIntro from "../../components/work/CaseStudyIntro.astro";
 import CaseStudyPagination from "../../components/work/CaseStudyPagination.astro";
 import ReadySetCaseContent from "../../components/work/cases/ReadySetCaseContent.astro";
+import { getProjectCover } from "../../lib/projectCovers";
 import { getProjectBySlug } from "../../lib/projects";
 
 const project = getProjectBySlug("readyset-aplikacja-do-planowania-wyjazdow");
@@ -11,6 +12,7 @@ if (!project) return Astro.redirect("/work");
 
 <CaseStudyShell title="ReadySet — wspólny wyjazd, jeden plan" description={project.description}>
   <CaseStudyIntro
+    cover={getProjectCover("readyset-aplikacja-do-planowania-wyjazdow")}
     title="ReadySet"
     subtitle="Wspólny wyjazd. Jeden plan."
     overview="ReadySet to koncepcja aplikacji mobilnej do grupowego planowania wyjazdów. Łączy propozycje, głosowanie i ustalony harmonogram, pomagając uczestnikom wspólnie podejmować decyzje."

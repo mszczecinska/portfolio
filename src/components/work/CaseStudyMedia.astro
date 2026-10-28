@@ -11,12 +11,13 @@ export interface Props {
   sizes?: string;
   priority?: boolean;
   fit?: "contain" | "cover";
+  phoneFrame?: boolean;
 }
 
-const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes = "(min-width: 1280px) 1216px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)", priority = false, fit = "contain" } = Astro.props;
+const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes = "(min-width: 1280px) 1216px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)", priority = false, fit = "contain", phoneFrame = false } = Astro.props;
 ---
 
-<figure class="case-media" style={`--media-ratio: ${ratio}; --media-ratio-desktop: ${desktopRatio}; --media-fit: ${fit};`}>
+<figure class:list={["case-media", { "case-media--phone": phoneFrame }]} style={`--media-ratio: ${ratio}; --media-ratio-desktop: ${desktopRatio}; --media-fit: ${fit};`}>
   {src ? (
     kind === "video" && typeof src === "string" ? (
       <video src={src} controls playsinline preload="metadata" aria-label={label}></video>
@@ -58,6 +59,14 @@ const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes
     padding: var(--space-5);
     text-align: center;
   }
+  .case-media--phone {
+    box-sizing: border-box;
+    padding: 4.3478% 4.9689%;
+    border: 1px solid var(--color-text);
+    border-radius: 9.3% / 4.5%;
+    background: var(--color-background);
+  }
+  .case-media--phone video { border-radius: 5.5% / 2.5%; }
   .case-media :global(picture), .case-media :global(img), .case-media video {
     display: block;
     width: 100%;

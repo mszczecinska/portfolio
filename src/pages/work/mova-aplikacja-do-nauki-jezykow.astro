@@ -3,6 +3,7 @@ import CaseStudyShell from "../../components/work/CaseStudyShell.astro";
 import CaseStudyIntro from "../../components/work/CaseStudyIntro.astro";
 import CaseStudyPagination from "../../components/work/CaseStudyPagination.astro";
 import MovaCaseContent from "../../components/work/cases/MovaCaseContent.astro";
+import { getProjectCover } from "../../lib/projectCovers";
 import { getProjectBySlug } from "../../lib/projects";
 
 const project = getProjectBySlug("mova-aplikacja-do-nauki-jezykow");
@@ -11,6 +12,7 @@ if (!project) return Astro.redirect("/work");
 
 <CaseStudyShell title="Mova — czytelna ścieżka nauki języków" description={project.description}>
   <CaseStudyIntro
+    cover={getProjectCover("mova-aplikacja-do-nauki-jezykow")}
     title="Mova"
     subtitle="Czytelna ścieżka nauki języków"
     overview="Mova to koncepcja aplikacji do nauki języków, oparta na projekcie komercyjnym. Skupiłam się na strukturze lekcji, prezentacji postępów i spójnym interfejsie mobile i web, który wspiera naukę zamiast konkurować z materiałem."
