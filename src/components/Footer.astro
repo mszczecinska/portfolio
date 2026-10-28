@@ -1,8 +1,8 @@
 ---
 import TablerIcon from "./TablerIcon.astro";
 
-interface Props { workPage?: boolean; }
-const { workPage = false } = Astro.props;
+interface Props { workPage?: boolean; homePage?: boolean; }
+const { workPage = false, homePage = false } = Astro.props;
 
 const currentYear = new Date().getFullYear();
 
@@ -15,7 +15,7 @@ const footerNav = [
 
 const socialLinks = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/magdalena-szczecinska/" },
-  ...(workPage ? [{ label: "Behance", href: "https://www.behance.net/magdaleszczecinska" }] : []),
+  ...(workPage || homePage ? [{ label: "Behance", href: "https://www.behance.net/magdaleszczecinska" }] : []),
   { label: "GitHub", href: "https://github.com/mszczecinska" },
 ] as const;
 
@@ -80,7 +80,7 @@ const mobileDots = [
 ] as const;
 ---
 
-<footer class:list={["w-full border-t border-[var(--color-divider)] pb-[16px] pt-[24px] sm:pb-[18px] sm:pt-[32px] lg:pb-[20px] lg:pt-[40px]", { "work-footer": workPage }]} aria-labelledby="site-footer-title">
+<footer class:list={["w-full border-t border-[var(--color-divider)] pb-[16px] pt-[24px] sm:pb-[18px] sm:pt-[32px] lg:pb-[20px] lg:pt-[40px]", { "work-footer": workPage, "home-footer": homePage }]} aria-labelledby="site-footer-title">
   <h2 id="site-footer-title" class="sr-only">Stopka strony</h2>
 
   <div class="page-container">
@@ -156,6 +156,16 @@ const mobileDots = [
 </footer>
 
 <style>
+  @media (max-width: 63.999rem) {
+    .home-footer li:has(a[href*="behance"]), .home-footer a[href="https://github.com/mszczecinska/portfolio"] { display: none; }
+    .home-footer > div > div > div:last-child { justify-content: flex-end; }
+    .home-footer :global(svg) { width: 16px; height: 16px; }
+  }
+  @media (min-width: 64rem) {
+    .home-footer > div > div > div:first-child { padding-block: var(--space-6); }
+    .home-footer nav ul { line-height: 32px; }
+    .home-footer :global(svg) { width: 24px; height: 24px; }
+  }
   .work-footer { border-top: 0; }
   @media (max-width: 63.999rem) { .work-footer { display: none; } }
   @media (min-width: 64rem) {

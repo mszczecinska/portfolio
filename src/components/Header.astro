@@ -2,8 +2,8 @@
 import TablerIcon from "./TablerIcon.astro";
 import LogoIcon from "./LogoIcon.astro";
 
-interface Props { caseStudy?: boolean; workPage?: boolean; }
-const { caseStudy = false, workPage = false } = Astro.props;
+interface Props { caseStudy?: boolean; workPage?: boolean; homePage?: boolean; }
+const { caseStudy = false, workPage = false, homePage = false } = Astro.props;
 
 const navItems = [
   { key: "work", href: "/work", label: "Realizacje" },
@@ -21,17 +21,18 @@ const activeKey = currentPath.startsWith("/about")
       : null;
 ---
 
-<header class:list={["relative z-40", { "case-header": caseStudy || workPage, "work-header": workPage }]} data-scroll-header transition:name="site-header">
+<header class:list={["relative z-40", { "case-header": caseStudy || workPage || homePage, "work-header": workPage, "home-header": homePage }]} data-scroll-header transition:name="site-header">
   <div class="page-container pt-[var(--space-5)]">
     <nav class="flex items-center justify-between lg:min-h-[140px] lg:items-start" aria-label="Główna nawigacja">
       <a
         href="/"
         class="inline-flex items-center lg:py-[12px]"
         aria-label="Strona główna"
-        transition:name={caseStudy || workPage ? "case-brand" : "site-brand"}
+        aria-current={homePage ? "page" : undefined}
+        transition:name={homePage ? "home-brand" : caseStudy || workPage ? "case-brand" : "site-brand"}
         transition:persist
       >
-        {caseStudy || workPage ? <span class="case-header__home">Główna</span> : (
+        {caseStudy || workPage || homePage ? <span class="case-header__home">Główna</span> : (
         <span class="h-[16px] w-auto lg:h-[18px] text-[var(--color-text)]">
           <LogoIcon class="size-6" />
         </span>
@@ -40,6 +41,7 @@ const activeKey = currentPath.startsWith("/about")
 
       {caseStudy && <a href="/work" class="case-header__current" aria-label="Wróć do realizacji">Realizacje</a>}
       {workPage && <a href="/work" class="case-header__current" aria-current="page">Work</a>}
+      {homePage && <a href="/" class="case-header__current" aria-current="page">Główna</a>}
 
       <div class="flex items-center gap-[24px] sm:gap-[32px] lg:items-start lg:gap-[64px]">
         <ul class="hidden items-start pt-[12px] self-center gap-[64px] text-[var(--color-text)] lg:flex">
@@ -52,12 +54,7 @@ const activeKey = currentPath.startsWith("/about")
                   <a
                     href={item.href}
                     aria-current={isActive ? "page" : undefined}
-                    class:list={[
-                      "type-nav leading-none block whitespace-nowrap transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]",
-                      isActive
-                        ? "font-medium"
-                        : "font-normal",
-                    ]}
+                    class="type-nav font-normal leading-none block whitespace-nowrap transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]"
                     transition:name={`nav-item-${item.key}`}
                   >
                     {item.label}
@@ -69,6 +66,7 @@ const activeKey = currentPath.startsWith("/about")
         </ul>
 
         {workPage && <span class="work-header__language" aria-label="Język: polski">PL</span>}
+        {homePage && <button type="button" class="home-header__language btn-icon" aria-label="Język: polski">PL</button>}
         <div class="lg:hidden" data-mobile-menu>
           <button
             type="button"
@@ -123,12 +121,7 @@ const activeKey = currentPath.startsWith("/about")
                           href={item.href}
                           data-mobile-link
                           aria-current={isActive ? "page" : undefined}
-                          class:list={[
-                            "type-nav block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]",
-                            isActive
-                              ? "font-medium"
-                              : "font-normal",
-                          ]}
+                          class="type-nav font-normal block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]"
                         >
                           {item.label}
                         </a>
@@ -358,6 +351,17 @@ const activeKey = currentPath.startsWith("/about")
 </script>
 
 <style>
+  .home-header nav { gap: var(--space-10); }
+  .home-header nav > div { flex: none; }
+  .home-header .case-header__current { font-weight: var(--weight-regular); }
+  .home-header__language { width: 44px; height: 44px; padding: 10px; font-family: var(--font-label); font-size: 16px; line-height: 1; cursor: pointer; }
+  .home-header nav > div { gap: var(--space-2); }
+  @media (min-width: 64rem) {
+    .home-header nav { justify-content: space-between; }
+    .home-header nav > div, .home-header nav ul, .home-header nav li { display: contents; }
+    .home-header nav :global(.type-nav) { color: var(--color-text-muted); }
+    .home-header .case-header__home { font-size: 32px; line-height: 56px; color: var(--color-text); }
+  }
   .work-header__language { display: grid; place-items: center; width: 44px; height: 44px; font-family: var(--font-label); line-height: 1; }
   .work-header nav > div { gap: var(--space-2); }
   .work-header .case-header__current { font-weight: var(--weight-regular); }
@@ -369,7 +373,7 @@ const activeKey = currentPath.startsWith("/about")
   .case-header[data-scroll-header].is-floating > div { padding-bottom: var(--space-3); }
   .case-header nav { min-height: var(--control-height); align-items: center; }
   .case-header nav > a:first-child { display: none; }
-  .case-header__current { font-size: 1.5rem; font-weight: var(--weight-medium); }
+  .case-header__current { font-size: 1.5rem; font-weight: var(--weight-regular); }
   @media (min-width: 64rem) {
     .case-header > div { padding-block: var(--space-5); }
     .case-header[data-scroll-header].is-floating > div { padding-bottom: var(--space-5); }
