@@ -3,49 +3,54 @@ import CaseStudySection from "../CaseStudySection.astro";
 import CaseStudyMedia from "../CaseStudyMedia.astro";
 import CaseStudyGallery from "../CaseStudyGallery.astro";
 import CaseStudyScreens from "../CaseStudyScreens.astro";
+import comparison from "../../../assets/case-studies/Miropoix/porównanie aplikacji przed i po zmianach.png";
+import branding from "../../../assets/case-studies/Miropoix/branding.png";
+import website from "../../../assets/case-studies/Miropoix/wdrożona strona internetowa.jpg";
+import empty from "../../../assets/case-studies/Miropoix/Pusta lista zamówień.png";
+import requests from "../../../assets/case-studies/Miropoix/Zapotrzebowanie zespołu.png";
+import suppliers from "../../../assets/case-studies/Miropoix/Zamówienia według dostawców.png";
+import notifications from "../../../assets/case-studies/Miropoix/Powiadomienia i akceptacja zgłoszeń.png";
+
+const halfSizes = "(min-width: 1280px) 588px, (min-width: 1024px) calc(50vw - 52px), (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)";
+const screenSizes = "(min-width: 1024px) 322.5px, 207px";
 ---
 
 <CaseStudySection id="context" title="Punkt wyjścia" layout="split" mediaSide="left">
   <p>Projekt opierał się na istniejącym produkcie oraz dostarczonym wireframie i tekstach strony. Moim zadaniem było nadanie im wizualnej formy, przygotowanie materiałów prezentujących aplikację i przełożenie projektu na działającą stronę.</p>
   <p>Dodatkowo odświeżyłam wybrane ekrany aplikacji potrzebne do pokazania produktu na stronie. Zakres tych zmian dotyczył materiałów prezentacyjnych, a nie przebudowy całej aplikacji.</p>
-  <CaseStudyMedia slot="media" label="Miropoix — porównanie aplikacji przed i po zmianach" />
+  <CaseStudyMedia slot="media" src={comparison} sizes={halfSizes} label="Miropoix — porównanie aplikacji przed i po zmianach" />
 </CaseStudySection>
 
 <CaseStudySection id="process" title="Proces" layout="centered">
   <p>Pracę rozpoczęłam od zapoznania się z działaniem produktu i uporządkowania jego prezentacji na podstawie otrzymanych materiałów. Następnie opracowałam kierunek wizualny strony oraz ekrany aplikacji ilustrujące najważniejsze działania.</p>
   <p>Na tej podstawie przygotowałam animacje produktowe i przeszłam do wdrożenia strony. Połączenie projektowania z implementacją pozwoliło mi dopracowywać również zachowanie elementów i sposób prezentowania treści w przeglądarce.</p>
   <CaseStudyGallery slot="visuals" items={[
-    { label: "Zamówienie według dostawcy — animacja", kind: "video", ratio: "598 / 424.206" },
-    { label: "Dodawanie produktów — animacja", kind: "video", ratio: "598 / 424.206" },
+    { src: "/assets/case-studies/miropoix/miropoix-animation-2.mp4", label: "Zamówienie według dostawcy — animacja", kind: "video", ratio: "1920 / 1362" },
+    { src: "/assets/case-studies/miropoix/miropoix-animation-1.mp4", label: "Dodawanie produktów — animacja", kind: "video", ratio: "1920 / 1362" },
   ]} />
 </CaseStudySection>
 
 <CaseStudySection id="design" title="Design i decyzje projektowe" layout="split">
   <p>Wyrazista, wąska typografia nagłówków nadaje Miropoix charakter i odróżnia markę od generycznych narzędzi SaaS. Zestawiłam ją z Interem w tekstach i elementach interfejsu, aby zachować czytelność informacji. Paletę oparłam na złamanej bieli i czerni, a pomarańczowy akcent wykorzystałam do wyróżnienia głównych działań.</p>
-  <CaseStudyMedia slot="media" label="Miropoix — typografia i paleta kolorów" />
+  <CaseStudyMedia slot="media" src={branding} sizes={halfSizes} label="Miropoix — typografia i paleta kolorów" />
   <CaseStudyScreens
     slot="visuals"
     id="miropoix-app-screens"
     label="Widoki aplikacji Miropoix"
     items={[
-      { label: "Pusta lista zamówień", ratio: "207 / 424.94", desktopRatio: "322.48 / 662" },
-      { label: "Zapotrzebowanie zespołu", ratio: "207 / 424.94", desktopRatio: "322.48 / 662" },
-      { label: "Zamówienia według dostawców", ratio: "207 / 424.94", desktopRatio: "322.48 / 662" },
-      { label: "Powiadomienia i akceptacja zgłoszeń", ratio: "207 / 424.94", desktopRatio: "322.48 / 662" },
+      { src: empty, sizes: screenSizes, label: "Pusta lista zamówień", ratio: "207 / 424.94", desktopRatio: "322.48 / 662" },
+      { src: requests, sizes: screenSizes, label: "Zapotrzebowanie zespołu", ratio: "207 / 424.94", desktopRatio: "322.48 / 662" },
+      { src: suppliers, sizes: screenSizes, label: "Zamówienia według dostawców", ratio: "207 / 424.94", desktopRatio: "322.48 / 662" },
+      { src: notifications, sizes: screenSizes, label: "Powiadomienia i akceptacja zgłoszeń", ratio: "207 / 424.94", desktopRatio: "322.48 / 662" },
     ]}
   >
     <p>Odświeżając wybrane ekrany, uwzględniłam warunki pracy kucharzy. Większe przyciski i obszary klikalne miały ułatwiać szybką obsługę, również przy zabrudzonych dłoniach. Hierarchia informacji eksponuje zamówienia, dostawców i działania wymagające reakcji. Przygotowane na potrzeby strony widoki pokazują różne stany aplikacji: pustą listę, zgłoszenia oczekujące na akceptację i zamówienia pogrupowane według dostawców.</p>
   </CaseStudyScreens>
 </CaseStudySection>
 
-<CaseStudySection id="motion" title="Motion" layout="split" mediaSide="left">
-  <p>Przygotowałam animacje pokazujące najważniejsze działania w aplikacji: dodawanie produktów, grupowanie ich według dostawców i zatwierdzanie zapotrzebowania. Ruch pozwolił przedstawić sposób działania Miropoix i powiązania między ekranami.</p>
-  <CaseStudyMedia slot="media" label="Miropoix — animacja produktowa" kind="video" />
-</CaseStudySection>
-
 <CaseStudySection id="implementation" title="Wdrożenie">
   <p>Stronę wdrożyłam przy wsparciu narzędzi AI, wykorzystując React, Vite i Tailwind CSS. Narzędzia pomagały mi w przekładaniu projektu na kod, a po mojej stronie pozostawały decyzje wizualne, weryfikacja efektu i dopracowanie implementacji.</p>
-  <CaseStudyMedia slot="visuals" label="Miropoix — wdrożona strona internetowa" ratio="361 / 186" desktopRatio="1216 / 520" />
+  <CaseStudyMedia slot="visuals" src={website} label="Miropoix — wdrożona strona internetowa" ratio={`${website.width} / ${website.height}`} />
 </CaseStudySection>
 
 <CaseStudySection id="results" title="Rezultat i wnioski">
