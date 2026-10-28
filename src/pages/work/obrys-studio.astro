@@ -2,12 +2,12 @@
 import CaseStudyShell from "../../components/work/CaseStudyShell.astro";
 import CaseStudyIntro from "../../components/work/CaseStudyIntro.astro";
 import ObrysCaseContent from "../../components/work/cases/ObrysCaseContent.astro";
-import cover from "../../assets/case-studies/obrys/okładka projektu.jpg";
+import { getProjectCover } from "../../lib/projectCovers";
 ---
 
 <CaseStudyShell title="OBRYS Studio — identyfikacja i strona studia wnętrzarskiego" description="Autorska koncepcja identyfikacji wizualnej i strony OBRYS Studio: znak, typografia, fotografia i spokojny interfejs.">
   <CaseStudyIntro
-    cover={cover}
+    cover={getProjectCover("obrys-studio")}
     title="OBRYS Studio"
     subtitle="Identyfikacja i strona studia wnętrzarskiego"
     overview="Autorska koncepcja marki i strony studia wnętrzarskiego. Projekt powstał jako przestrzeń do eksplorowania relacji między znakiem, typografią, fotografią i spokojnym interfejsem."

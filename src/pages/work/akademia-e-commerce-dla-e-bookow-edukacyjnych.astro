@@ -3,6 +3,7 @@ import CaseStudyShell from "../../components/work/CaseStudyShell.astro";
 import CaseStudyIntro from "../../components/work/CaseStudyIntro.astro";
 import CaseStudyPagination from "../../components/work/CaseStudyPagination.astro";
 import AkademiaCaseContent from "../../components/work/cases/AkademiaCaseContent.astro";
+import { getProjectCover } from "../../lib/projectCovers";
 import { getProjectBySlug } from "../../lib/projects";
 
 const project = getProjectBySlug("akademia-e-commerce-dla-e-bookow-edukacyjnych");
@@ -11,6 +12,7 @@ if (!project) return Astro.redirect("/work");
 
 <CaseStudyShell title="Akademia — e-commerce dla e-booków edukacyjnych" description={project.description}>
   <CaseStudyIntro
+    cover={getProjectCover("akademia-e-commerce-dla-e-bookow-edukacyjnych")}
     title="Akademia"
     subtitle="e-commerce dla e-booków edukacyjnych"
     tools={[{ src: "/icons/tool-figma.png", alt: "Figma" }]}

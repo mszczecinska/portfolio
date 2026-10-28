@@ -1,6 +1,7 @@
 ---
 import TablerIcon from "../TablerIcon.astro";
 import CaseStudyMedia from "./CaseStudyMedia.astro";
+import { getProjectCover } from "../../lib/projectCovers";
 
 interface RelatedProject {
   title: string;
@@ -23,7 +24,12 @@ const projects = [
         <p class="type-label">{project.label}</p>
         {project.direction === "next" && <TablerIcon name="arrow-narrow-right" class="case-pagination__arrow" />}
       </div>
-      <CaseStudyMedia label={`${project.title} — podgląd projektu`} ratio="8 / 5" />
+      <CaseStudyMedia
+        src={getProjectCover(project.href.split("/").filter(Boolean).pop() ?? "")}
+        label={`${project.title} — podgląd projektu`}
+        ratio="8 / 5"
+        sizes="(min-width: 1280px) 588px, (min-width: 768px) calc(50vw - 52px), calc(100vw - 32px)"
+      />
       <div class="case-pagination__caption">
         <h2>{project.title}</h2>
         <p>{project.description}</p>
@@ -58,6 +64,7 @@ const projects = [
     align-content: start;
     gap: var(--space-2);
   }
+  .case-pagination :global(.case-media img) { object-fit: cover; }
   .case-pagination__previous .case-pagination__direction { justify-content: flex-start; }
   .case-pagination h2 {
     font-size: 1.5rem;

@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { getProjectBySlug } from "../../lib/projects";
 import { Picture } from "astro:assets";
-import obrysCover from "../../assets/case-studies/obrys/okładka projektu.jpg";
+import { getProjectCover } from "../../lib/projectCovers";
 
 // Listing copy stays local so the existing case studies and home cards keep their content.
 const projectCards = [
@@ -85,6 +85,7 @@ const activeGroup = Astro.url.searchParams.get("category") === "experiments" ? "
       >
         {group.cards.map((card, index) => {
           const project = getProjectBySlug(card.slug);
+          const cover = getProjectCover(card.slug);
           const external = Boolean(project?.comingSoon);
           const href = external ? project?.links?.live : `/work/${card.slug}`;
           const CardTag = href ? "a" : "div";
@@ -104,15 +105,15 @@ const activeGroup = Astro.url.searchParams.get("category") === "experiments" ? "
                     <img src="/assets/work/arrow-down-left.svg" width="46" height="46" alt="" />
                   </span>
                 </div>
-                <div class:list={["work-card__media", { "media-placeholder": card.slug !== "obrys-studio" }]} aria-hidden="true">
-                  {card.slug === "obrys-studio" && <Picture
-                    src={obrysCover}
+                <div class:list={["work-card__media", { "media-placeholder": !cover }]} aria-hidden="true">
+                  {cover && <Picture
+                    src={cover}
                     alt=""
                     formats={["avif", "webp"]}
                     widths={[480, 800, 1200, 1600, 2400]}
-                    sizes="(min-width: 1280px) 486px, (min-width: 1024px) calc(40.635vw - 34.134px), calc(100vw - 40px)"
+                    sizes={group.id === "experiments" ? "(min-width: 1280px) 486px, (min-width: 1024px) calc(40.635vw - 34.134px), calc(100vw - 40px)" : "(min-width: 1280px) 568px, (min-width: 1024px) calc(50vw - 72px), calc(100vw - 40px)"}
                     quality={85}
-                    loading={activeGroup === "experiments" ? "eager" : "lazy"}
+                    loading={activeGroup === group.id && index === 0 ? "eager" : "lazy"}
                   />}
                 </div>
                 <p class="work-card__description">{card.description}</p>
