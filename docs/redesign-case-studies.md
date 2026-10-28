@@ -1,5 +1,13 @@
 # Wspólne sekcje case studies
 
+## OBRYS Studio
+
+Źródło: [desktop](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=358-65027) i [mobile](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=361-65117).
+
+Podstrona `/work/obrys-studio` wykorzystuje wspólne intro i sekcje: Założenia projektu, Identyfikacja wizualna, Projekt strony i Podsumowanie. Intro przyjmuje opcjonalną etykietę `roleLabel`; Obrys używa „Zakres”, pozostałe projekty zachowują „Rola”. Projekt pozostaje w kategorii Eksperymenty.
+
+Zgodnie z prośbą wszystkie multimedia pozostają placeholderami. Proporcje mobile / desktop: okładka 361:186 / 1216:520, telefon 1:1, warianty znaku 361:78.335 / 1218:268, paleta 361:279 / 988:465, typografia 361:179.52 / 195:465, wizytówki 361:241 / 1216:778, motion 1440:880, dwa podglądy stron po 597:900, magazyn 2000:1333. Paleta i typografia układają się pionowo na mobile i obok siebie na desktopie. Podglądy realizacji i procesu pozostają w dwóch kolumnach także na telefonie. Tekst założeń poprzedza mockup na mobile, a na desktopie mockup znajduje się po lewej.
+
 Pierwsze wdrożenie: [Akademia — desktop](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=224-649) i [mobile](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=285-37946).
 
 ## Komponenty

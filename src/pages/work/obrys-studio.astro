@@ -1,21 +1,22 @@
 ---
 import CaseStudyShell from "../../components/work/CaseStudyShell.astro";
-import CaseStudyMedia from "../../components/work/CaseStudyMedia.astro";
+import CaseStudyIntro from "../../components/work/CaseStudyIntro.astro";
+import ObrysCaseContent from "../../components/work/cases/ObrysCaseContent.astro";
 ---
 
-<CaseStudyShell title="OBRYS Studio — case study" description="OBRYS Studio — eksperyment z kierunkiem wizualnym strony. Case study w przygotowaniu.">
-  <!-- The detailed layout and content will follow the forthcoming Figma design. -->
-  <header class="obrys-intro page-container">
-    <CaseStudyMedia label="OBRYS Studio — okładka projektu" ratio="361 / 186" desktopRatio="1216 / 520" />
-    <div class="obrys-intro__text">
-      <h1 id="case-study-title" class="type-title">OBRYS Studio</h1>
-      <p class="type-label">Case study w przygotowaniu</p>
-      <a class="btn-secondary" href="/work?category=experiments">Wróć do eksperymentów</a>
-    </div>
-  </header>
+<CaseStudyShell title="OBRYS Studio — identyfikacja i strona studia wnętrzarskiego" description="Autorska koncepcja identyfikacji wizualnej i strony OBRYS Studio: znak, typografia, fotografia i spokojny interfejs.">
+  <CaseStudyIntro
+    title="OBRYS Studio"
+    subtitle="Identyfikacja i strona studia wnętrzarskiego"
+    overview="Autorska koncepcja marki i strony studia wnętrzarskiego. Projekt powstał jako przestrzeń do eksplorowania relacji między znakiem, typografią, fotografią i spokojnym interfejsem."
+    roleLabel="Zakres"
+    role="Visual identity, web design"
+    projectType="Projekt osobisty / koncepcja"
+    tools={[{ src: "/icons/tool-figma.png", alt: "Figma" }]}
+  />
+  <ObrysCaseContent />
 </CaseStudyShell>
 
 <style>
-  .obrys-intro, .obrys-intro__text { display: flex; flex-direction: column; gap: var(--content-gap); }
-  .obrys-intro__text { align-items: flex-start; }
+  :global(.case-study) { padding-bottom: var(--section-gap); }
 </style>
