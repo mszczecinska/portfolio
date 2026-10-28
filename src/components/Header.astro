@@ -11,8 +11,15 @@ const navItems = [
   { key: "contact", href: "/contact", label: "Kontakt" },
 ] as const;
 
+const mobileNavItems = [
+  { key: "home", href: "/", label: "Główna" },
+  ...navItems,
+] as const;
+
 const currentPath = Astro.url.pathname;
-const activeKey = currentPath.startsWith("/about")
+const activeKey = currentPath === "/"
+  ? "home"
+  : currentPath.startsWith("/about")
   ? "about"
   : currentPath.startsWith("/work")
     ? "work"
@@ -96,7 +103,7 @@ const activeKey = currentPath.startsWith("/about")
 
             <div
               id="mobile-menu-panel"
-              class="absolute right-0 top-0 flex h-full w-[53%] min-w-[200px] max-w-[220px] translate-x-full flex-col items-end bg-[var(--color-background)] px-[32px] pb-[40px] pt-[36px] transition-transform duration-200 sm:w-[40%] sm:min-w-[280px] sm:max-w-[360px] sm:px-[36px] sm:pb-[44px] sm:pt-[40px]"
+              class="absolute right-0 top-0 flex h-full w-[53%] min-w-[200px] max-w-[220px] translate-x-full flex-col items-end bg-[var(--color-background)] pl-[32px] pr-[var(--page-gutter)] pb-[40px] pt-[36px] transition-transform duration-200 sm:w-[40%] sm:min-w-[280px] sm:max-w-[360px] sm:pl-[36px] sm:pb-[44px] sm:pt-[40px]"
               data-mobile-panel
               role="dialog"
               aria-modal="true"
@@ -113,7 +120,7 @@ const activeKey = currentPath.startsWith("/about")
 
               <ul class="mt-[56px] flex flex-col items-end gap-[16px] text-[var(--color-text)] sm:mt-[64px] sm:gap-[20px]">
                 {
-                  navItems.map((item) => {
+                  mobileNavItems.map((item) => {
                     const isActive = item.key === activeKey;
 
                     return (
@@ -173,6 +180,14 @@ const activeKey = currentPath.startsWith("/about")
         return openButton?.getAttribute("aria-expanded") === "true";
       };
 
+      const alignCloseButton = (root) => {
+        const { openButton, overlay, panel } = getElements(root);
+        if (!openButton || !overlay || !panel) return;
+
+        const top = openButton.getBoundingClientRect().top - overlay.getBoundingClientRect().top;
+        panel.style.paddingTop = `${top}px`;
+      };
+
       const syncBodyScrollLock = () => {
         const hasOpenMenu = getRoots().some((root) => isOpen(root));
         document.body.classList.toggle("mobile-menu-open", hasOpenMenu);
@@ -226,6 +241,7 @@ const activeKey = currentPath.startsWith("/about")
         if (!openButton || !closeButton || !overlay || !panel) return;
 
         closeAllMenus(false);
+        alignCloseButton(root);
 
         const activeElement = document.activeElement;
         previousFocus.set(root, activeElement instanceof HTMLElement ? activeElement : null);
@@ -323,6 +339,8 @@ const activeKey = currentPath.startsWith("/about")
         () => {
           if (window.matchMedia("(min-width: 1024px)").matches) {
             closeAllMenus(false);
+          } else {
+            getRoots().filter(isOpen).forEach(alignCloseButton);
           }
         },
         { signal }
@@ -379,7 +397,10 @@ const activeKey = currentPath.startsWith("/about")
   .case-header[data-scroll-header].is-floating > div { padding-bottom: var(--space-3); }
   .case-header nav { min-height: var(--control-height); align-items: center; }
   .case-header nav > a:first-child { display: none; }
-  .case-header__current { font-size: 1.5rem; font-weight: var(--weight-regular); }
+  .case-header__current { display: none; font-size: 1.5rem; font-weight: var(--weight-regular); }
+  @media (max-width: 1023px) {
+    .case-header nav { justify-content: flex-end; }
+  }
   @media (min-width: 64rem) {
     .case-header > div { padding-block: var(--space-5); }
     .case-header[data-scroll-header].is-floating > div { padding-bottom: var(--space-5); }
