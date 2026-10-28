@@ -1,8 +1,8 @@
 ---
 import TablerIcon from "./TablerIcon.astro";
 
-interface Props { workPage?: boolean; homePage?: boolean; }
-const { workPage = false, homePage = false } = Astro.props;
+interface Props { workPage?: boolean; homePage?: boolean; aboutPage?: boolean; }
+const { workPage = false, homePage = false, aboutPage = false } = Astro.props;
 
 const currentYear = new Date().getFullYear();
 
@@ -15,7 +15,7 @@ const footerNav = [
 
 const socialLinks = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/magdalena-szczecinska/" },
-  ...(workPage || homePage ? [{ label: "Behance", href: "https://www.behance.net/magdaleszczecinska" }] : []),
+  ...(workPage || homePage || aboutPage ? [{ label: "Behance", href: "https://www.behance.net/magdaleszczecinska" }] : []),
   { label: "GitHub", href: "https://github.com/mszczecinska" },
 ] as const;
 
@@ -80,7 +80,7 @@ const mobileDots = [
 ] as const;
 ---
 
-<footer class:list={["w-full border-t border-[var(--color-divider)] pb-[16px] pt-[24px] sm:pb-[18px] sm:pt-[32px] lg:pb-[20px] lg:pt-[40px]", { "work-footer": workPage, "home-footer": homePage }]} aria-labelledby="site-footer-title">
+<footer class:list={["w-full border-t border-[var(--color-divider)] pb-[16px] pt-[24px] sm:pb-[18px] sm:pt-[32px] lg:pb-[20px] lg:pt-[40px]", { "work-footer": workPage, "home-footer": homePage || aboutPage }]} aria-labelledby="site-footer-title">
   <h2 id="site-footer-title" class="sr-only">Stopka strony</h2>
 
   <div class="page-container">

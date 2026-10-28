@@ -1,89 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import TablerIcon from "../components/TablerIcon.astro";
-
-const introDesktop = [
-  "Jestem projektantką UI/UX, która lubi dowozić rzeczy do końca. Pracuję w Figmie, ale myślę też o tym, jak projekt zachowa się w przeglądarce: w responsywności, animacji, komponentach i realnym użyciu.",
-  "Najmocniej rozwijam się w obszarze design systemów i wdrażania interfejsów z pomocą AI. Lubię porządkować złożone pomysły, budować spójne fundamenty produktu i dopracowywać detale, które sprawiają, że gotowy projekt działa tak dobrze, jak wygląda. Inspiracji szukam też poza designem, m.in. w modzie i kinematografii.",
-];
-
-const introMobile = [
-  "Jestem projektantką UI/UX, która lubi dowozić rzeczy do końca. Pracuję w Figmie, ale myślę też o tym, jak projekt zachowa się w przeglądarce: w responsywności, animacji, komponentach i realnym użyciu.",
-  "Najmocniej rozwijam się w obszarze design systemów i wdrażania interfejsów z pomocą AI. Lubię porządkować złożone pomysły, budować spójne fundamenty produktu i dopracowywać detale, które sprawiają, że gotowy projekt działa tak dobrze, jak wygląda. Inspiracji szukam też poza designem, m.in. w modzie i kinematografii.",
-];
-
-const socialLinks = [
-  { label: "LINKEDIN", href: "https://www.linkedin.com/in/magdalena-szczecinska/" },
-  { label: "GitHub", href: "https://github.com/mszczecinska" },
-  { label: "Behance", href: "https://www.behance.net/magdaleszczecinska" },
-] as const;
-
-const techStackDesktop = [
-  {
-    title: "Design",
-    tools: [
-      { label: "Figma", icon: "/icons/tool-figma.png" },
-      { label: "Jitter", icon: "/icons/tool-jitter.png" },
-      { label: "Affinity", icon: "/icons/tool-affinity.png" },
-    ],
-  },
-  {
-    title: "Productivity",
-    tools: [
-      { label: "Notion", icon: "/icons/tool-notion.png" },
-      { label: "Slack", icon: "/icons/tool-slack.png" } ,
-      { label: "Miro", icon: "/icons/tool-miro.png" }
-    ],
-  },
-  {
-    title: "AI",
-    tools: [
-      { label: "Claude Code", icon: "/icons/tool-claude-code.png" },
-      { label: "Codex", icon: "/icons/tool-codex.png" },
-      { label: "ChatGPT", icon: "/icons/tool-chatgpt.svg" },
-    ],
-  },
-  {
-    title: "Development",
-    tools: [
-      { label: "Cursor", icon: "/icons/tool-cursor.svg" },
-      { label: "Vercel", icon: "/icons/tool-vercel.svg" },
-    ],
-  },
-] as const;
-
-const techStackMobile = [
-  {
-    title: "Design",
-    tools: [
-      { label: "Figma", icon: "/icons/tool-figma.png" },
-      { label: "Jitter", icon: "/icons/tool-jitter.png" },
-      { label: "Affinity", icon: "/icons/tool-affinity.png" },
-    ],
-  },
-  {
-    title: "Productivity",
-    tools: [
-      { label: "Notion", icon: "/icons/tool-notion.png" },
-      { label: "Slack", icon: "/icons/tool-slack.png" },
-    ],
-  },
-  {
-    title: "AI",
-    tools: [
-      { label: "Claude Code", icon: "/icons/tool-claude-code.png" },
-      { label: "Codex", icon: "/icons/tool-codex.png" },
-      { label: "ChatGPT", icon: "/icons/tool-chatgpt.svg" },
-    ],
-  },
-  {
-    title: "Development",
-    tools: [
-      { label: "Cursor", icon: "/icons/tool-cursor.svg" },
-      { label: "Vercel", icon: "/icons/tool-vercel.svg" },
-    ],
-  },
-] as const;
 
 const testimonials = [
   {
@@ -116,829 +32,229 @@ const testimonials = [
   },
 ] as const;
 
-const testimonialsCtaHref = "https://www.linkedin.com/in/magdalena-szczecinska/details/recommendations/";
-
-function getDarkIconSrc(src: string): string | undefined {
-  if (src === "/icons/tool-openai.png" || src === "/icons/tool-chatgpt.svg") {
-    return "/icons/openai-dark-icon.png";
-  }
-
-  if (src === "/icons/tool-vercel.svg") {
-    return "/icons/vercel-dark-icon.png";
-  }
-
-  if (src === "/icons/tool-codex.png") {
-    return "/icons/tool-codex-light.png";
-  }
-
-  return undefined;
-}
+const tools = [
+  { label: "Figma", file: "/icons/tool-figma.png" },
+  { label: "Jitter", file: "/icons/tool-jitter.png" },
+  { label: "Notion", file: "/icons/tool-notion.png" },
+  { label: "Slack", file: "/icons/tool-slack.png" },
+  { label: "Miro", file: "miro.png" },
+  { label: "Google Workspace", file: "google-workspace.png", lines: ["Google", "Workspace"] },
+  { label: "Codex", file: "codex.png", crop: true },
+  { label: "ChatGPT", file: "chatgpt.svg", mobile: true },
+  { label: "Claude Code", file: "/icons/tool-claude-code.png", lines: ["Claude", "Code"] },
+  { label: "Vercel", file: "vercel.svg", mobile: true },
+  { label: "Visual Studio Code", file: "vscode.png", lines: ["Visual Studio", "Code"] },
+];
+const socialLinks = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/magdalena-szczecinska/" },
+  { label: "Behance", href: "https://www.behance.net/magdaleszczecinska" },
+  { label: "GitHub", href: "https://github.com/mszczecinska" },
+];
+const workingMethods = [
+  { title: "W zespole", text: "Lubię wspólnie szukać rozwiązań, omawiać pomysły i korzystać z perspektywy innych osób. Dzielę się swoim podejściem, słucham feedbacku i dopracowuję projekt, uwzględniając potrzeby użytkowników, cele biznesowe oraz możliwości techniczne." },
+  { title: "Z myślą o wdrożeniu", text: "Dbam o spójność komponentów, stany interakcji i zachowanie widoków na różnych ekranach. Zależy mi, żeby osoba przejmująca projekt rozumiała, jak poszczególne elementy mają działać i jak łączą się w całą ścieżkę użytkownika." },
+  { title: "Od projektu do realizacji", text: "Wybrane strony samodzielnie wdrażam przy wsparciu narzędzi AI. Praca bezpośrednio w przeglądarce pozwala mi dopracować responsywność, animacje i szczegóły interfejsu oraz lepiej rozumieć, jak decyzje z Figmy przekładają się na gotową stronę." },
+];
 ---
 
-<Layout title="About" description="Portfolio UX/UI - strona About">
-  <div class="hidden px-[32px] pt-[32px] sm:px-10 sm:pt-[36px] md:block lg:px-16 lg:pt-[40px]">
-    <div class="mx-auto flex min-h-[20px] w-full items-center">
-      <div class="h-px w-full border-b border-[var(--color-subtle)]"></div>
-    </div>
-  </div>
-
-  <div class="px-[32px] pt-[32px] sm:px-10 sm:pt-[36px] md:hidden">
-    <div class="flex min-h-[20px] items-center">
-      <div class="h-px w-full border-b border-[var(--color-subtle)]"></div>
-    </div>
-  </div>
-
-  <section class="about-intro-desktop mx-auto hidden max-w-[1040px] px-[8px] pb-[120px] pt-[32px] md:flex md:flex-col md:items-center md:gap-[56px] md:px-8 md:pb-[144px] md:pt-[48px] lg:flex-row lg:items-start lg:justify-between lg:gap-0 lg:px-8 lg:pb-[200px] lg:pt-[80px]">
-    <img
-      class="about-intro-photo size-[245px] shrink-0 rounded-[20px] object-cover"
-      src="/about-photo.JPG"
-      alt="Zdjęcie profilowe Magdy"
-      loading="eager"
-      decoding="async"
-      transition:name="about-profile-photo"
-    />
-
-    <div class="about-intro-content w-full md:max-w-[560px] lg:max-w-none lg:w-[688px]">
-      <div class="flex flex-col gap-[64px]">
-        <div class="flex flex-col gap-[24px]">
-          <div class="flex items-center gap-[10px] md:justify-center lg:justify-start">
-            <h1 class="text-[36px] font-semibold leading-[44px] tracking-[0] text-[var(--color-text)]" transition:name="about-title">Cześć, jestem Magda</h1>
-            <TablerIcon name="sparkles" class="size-8 text-[var(--color-text)]" />
-          </div>
-
-          <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-
-          <div class="flex items-center gap-[12px]">
-            <span class="availability-dot-wrap" aria-hidden="true">
-              <span class="availability-dot-ping"></span>
-              <span class="availability-dot-core"></span>
-            </span>
-            <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text-muted)]">Wrocław, PL</p>
-          </div>
-
-          <div class="space-y-4 text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-            {introDesktop.map((paragraph) => <p>{paragraph}</p>)}
-          </div>
-
-          <ul class="flex flex-wrap items-center gap-[24px]">
-            {
-              socialLinks.map((item) => (
-                <li>
-                  <a
-                    href={item.href}
-                    target={item.href.startsWith("http") ? "_blank" : undefined}
-                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    class="group inline-flex items-center gap-[12px] text-[14px] lg:text-[16px] uppercase leading-[24px] tracking-[0.5px] text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
-                  >
-                    <span>{item.label}</span>
-                    <TablerIcon name="arrow-up-right" class="size-6 transition-transform duration-200 group-hover:-translate-y-[1px] group-hover:translate-x-[1px]" />
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-
-        <div class="flex flex-col gap-[24px]">
-          <h2 class="text-[36px] font-semibold leading-[44px] text-[var(--color-text)]">Tech stack</h2>
-
-          <div class="grid gap-[16px] md:grid-cols-2 lg:grid-cols-4">
-            {
-              techStackDesktop.map((column) => (
-                <article class="flex w-full flex-col items-center gap-[24px] lg:w-[156px]">
-                  <h3 class="text-center text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">{column.title}</h3>
-                  <ul class="flex w-full flex-col gap-[24px]">
-                    {
-                      column.tools.map((tool) => (
-                        <li>
-                          <div class="flex items-center gap-[12px] rounded-[12px] border border-[var(--color-border)] px-[16px] py-[14px]">
-                            <span class="inline-flex size-[40px] shrink-0 items-center justify-center rounded-[8px] bg-[var(--color-surface)] p-[8px]">
-                              {
-                                getDarkIconSrc(tool.icon) ? (
-                                  <>
-                                    <img src={tool.icon} alt="" class="theme-icon-light size-full object-contain" loading="lazy" decoding="async" />
-                                    <img src={getDarkIconSrc(tool.icon)} alt="" class="theme-icon-dark size-full object-contain" loading="lazy" decoding="async" />
-                                  </>
-                                ) : (
-                                  <img src={tool.icon} alt="" class="size-full object-contain" loading="lazy" decoding="async" />
-                                )
-                              }
-                            </span>
-                            <span class="text-[14px] leading-[20px] tracking-[0.25px] text-[var(--color-text)]">{tool.label}</span>
-                          </div>
-                        </li>
-                      ))
-                    }
-                  </ul>
-                </article>
-              ))
-            }
-          </div>
-        </div>
+<Layout title="O mnie" description="Poznaj Magdę Szczecińską — projektantkę UX/UI. Design systemy, współpraca i wdrażanie stron z pomocą AI." aboutPage>
+  <div class="about-page">
+    <section class="about-intro page-container" aria-labelledby="about-title">
+      <h1 id="about-title">Cześć<br />jestem Magda</h1>
+      <img class="about-portrait" src="/assets/about/portrait.png" width="412" height="472" alt="Magda siedząca na krześle w słonecznej pracowni" fetchpriority="high" decoding="async" />
+      <div class="about-bio">
+        <p>Lubię porządkować pomysły, szukać rozwiązań i dopracowywać szczegóły, które składają się na czytelny interfejs. W designie najbardziej chcę rozwijać się w kierunku design systemów. Interesuje mnie, jak z pojedynczych elementów budować spójną całość i ułatwiać pracę nad kolejnymi widokami.</p>
+        <p>Nie chcę jednak ograniczać się do samego projektowania. Eksperymentuję z motion i wdrażaniem stron przy wsparciu AI. Dzięki temu mogę sprawdzać swoje pomysły w działaniu i lepiej rozumieć, co dzieje się z projektem po wyjściu z Figmy.</p>
       </div>
-    </div>
-  </section>
+      <ul class="about-socials">
+        {socialLinks.map(link => <li><a class="btn-secondary" href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<img src="/assets/about/arrow-down-left.svg" width="24" height="24" alt="" /></a></li>)}
+      </ul>
+    </section>
 
-  <section class="about-intro-mobile mx-auto max-w-[327px] px-[0] pb-[120px] pt-[32px] sm:max-w-[560px] sm:pt-[48px] md:hidden">
-    <img
-      class="mx-auto size-[245px] rounded-[20px] object-cover"
-      src="/about-photo.JPG"
-      alt="Zdjęcie profilowe Magdy"
-      loading="eager"
-      decoding="async"
-      transition:name="about-profile-photo"
-    />
-
-    <div class="mt-[48px] flex flex-col gap-[64px]">
-      <div class="flex flex-col gap-[24px]">
-        <div class="flex items-center justify-center gap-[10px]">
-          <h1 class="text-[24px] font-semibold leading-[44px] text-[var(--color-text)]" transition:name="about-title">Cześć, jestem Magda</h1>
-          <TablerIcon name="sparkles" class="size-6 text-[var(--color-text)]" />
-        </div>
-
-        <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-
-        <div class="flex items-center gap-[12px]">
-          <span class="availability-dot-wrap" aria-hidden="true">
-            <span class="availability-dot-ping"></span>
-            <span class="availability-dot-core"></span>
+    <section class="about-tools page-container page-container--reading" aria-labelledby="tools-title">
+      <h2 id="tools-title">Narzędzia</h2>
+      <ul class="about-tools__grid">
+        {tools.map(tool => <li>
+          <span class:list={["tool-icon", { "tool-icon--crop": tool.crop, "tool-icon--vercel": tool.label === "Vercel" }]}>
+            {tool.mobile ? <picture><source media="(max-width: 1023px)" srcset={`/assets/about/mobile-${tool.file}`} /><img src={tool.file.startsWith("/") ? tool.file : `/assets/about/${tool.file}`} alt="" loading="lazy" /></picture> : <img src={tool.file.startsWith("/") ? tool.file : `/assets/about/${tool.file}`} alt="" loading="lazy" />}
           </span>
-          <p class="text-[14px] leading-[24px] tracking-[0.5px] text-[var(--color-text-muted)]">Wrocław, PL</p>
+          <span>{tool.lines ? tool.lines.map((line, i) => <>{i > 0 && <br />}{line}</>) : tool.label}</span>
+        </li>)}
+      </ul>
+    </section>
+
+    <section class="about-process page-container" aria-labelledby="process-title">
+      <h2 id="process-title">Jak pracuję</h2>
+      <div class="about-process__content">
+        <p class="about-process__intro">Zakres mojej pracy zależy od projektu. Mam doświadczenie we współpracy z projektantami, developerami, analitykami i zespołami marketingowymi. Wybrane realizacje prowadzę też samodzielnie, od pierwszej koncepcji do działającej strony.</p>
+        <div class="process-dots" aria-label="Wybierz obszar współpracy">
+          {workingMethods.map((method, index) => <button type="button" class="process-dot" aria-label={method.title} aria-pressed={index === 0 ? "true" : "false"} aria-controls={`method-${index}`} data-process-dot={index}><span></span></button>)}
         </div>
-
-        <div class="space-y-4 text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-          {introMobile.map((paragraph) => <p>{paragraph}</p>)}
-        </div>
-
-        <ul class="flex flex-wrap items-center gap-[24px]">
-          {
-            socialLinks.map((item) => (
-              <li>
-                <a
-                  href={item.href}
-                  target={item.href.startsWith("http") ? "_blank" : undefined}
-                  rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  class="group inline-flex items-center gap-[12px] text-[14px] uppercase leading-[24px] tracking-[0.5px] text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
-                >
-                  <span>{item.label}</span>
-                  <TablerIcon name="arrow-up-right" class="size-[18px] transition-transform duration-200 group-hover:-translate-y-[1px] group-hover:translate-x-[1px]" />
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-
-      </div>
-
-      <div class="flex flex-col gap-[24px]">
-        <h2 class="text-center text-[24px] font-semibold leading-[44px] text-[var(--color-text)]">Tech stack</h2>
-
-        <div class="grid grid-cols-2 gap-x-[18px] gap-y-[24px]">
-          {
-            techStackMobile.map((column) => (
-              <article class="flex w-full flex-col items-center gap-[16px]">
-                <h3 class="text-center text-[14px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">{column.title}</h3>
-                <ul class="flex w-full flex-col gap-[16px]">
-                  {
-                    column.tools.map((tool) => (
-                      <li>
-                        <div class="flex items-center gap-[12px] rounded-[12px] border border-[var(--color-border)] px-[14px] py-[12px]">
-                          <span class="inline-flex size-8 items-center justify-center rounded-[6px] bg-[var(--color-surface)] p-[6px]">
-                            {
-                              getDarkIconSrc(tool.icon) ? (
-                                <>
-                                  <img src={tool.icon} alt="" class="theme-icon-light size-full object-contain" loading="lazy" decoding="async" />
-                                  <img src={getDarkIconSrc(tool.icon)} alt="" class="theme-icon-dark size-full object-contain" loading="lazy" decoding="async" />
-                                </>
-                              ) : (
-                                <img src={tool.icon} alt="" class="size-full object-contain" loading="lazy" decoding="async" />
-                              )
-                            }
-                          </span>
-                          <span class="text-[12px] leading-[18px] tracking-[0.25px] text-[var(--color-text)]">{tool.label}</span>
-                        </div>
-                      </li>
-                    ))
-                  }
-                </ul>
-              </article>
-            ))
-          }
+        <div class="process-slides" tabindex="0" aria-label="Obszary współpracy">
+          {workingMethods.map((method, index) => <article class="process-slide" id={`method-${index}`}><h3 class="type-label">{method.title}</h3><p>{method.text}</p></article>)}
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="about-testimonials-section mx-auto hidden max-w-[1040px] pb-[120px] md:block md:px-8 md:pb-[144px] lg:px-0 lg:pb-[200px]">
-    <div class="flex items-center justify-between gap-[20px]">
-      <h2 class="text-[30px] font-semibold leading-[38px] text-[var(--color-text)] lg:text-[36px] lg:leading-[44px]">Co mówią o mnie inni?</h2>
-      <a
-        href={testimonialsCtaHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="group inline-flex items-center gap-[10px] text-[14px] leading-[20px] tracking-[0.25px] text-[var(--color-text)] underline underline-offset-4 transition-colors hover:text-[var(--color-text-muted)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
-      >
-        <span>Zobacz wszystkie na LinkedIn</span>
-        <TablerIcon name="arrow-up-right" class="size-[18px] transition-transform duration-200 group-hover:-translate-y-[1px] group-hover:translate-x-[1px]" />
-      </a>
-    </div>
-
-    <div class="mt-[46px] grid grid-cols-2 items-start gap-x-[20px] gap-y-[24px]">
-      {
-        testimonials.map((item) => (
-          <article class="testimonial-card testimonial-card-desktop is-collapsed rounded-[24px] border border-[var(--color-divider)] px-[28px] py-[28px]" data-testimonial-card>
-            <div class="flex items-center gap-[20px]">
-              {
-                item.photo ? (
-                  <img
-                    src={item.photo}
-                    alt={`Zdjęcie ${item.name}`}
-                    class="size-[64px] shrink-0 rounded-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ) : (
-                  <span class="inline-flex size-[64px] shrink-0 rounded-full bg-[#d3d3d3]" aria-hidden="true"></span>
-                )
-              }
-              <div>
-                <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]" data-testimonial-name>{item.name}</p>
-                <p class="text-[12px] lg:text-[14px] leading-[16px] lg:leading-[20px] tracking-[0.5px] text-[var(--color-text-muted)]">{item.role}</p>
-              </div>
-            </div>
-
-            <div class="mt-[28px] flex min-h-0 flex-1 flex-col gap-[12px]">
-              <p class="testimonial-quote text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]" data-testimonial-quote>{item.quote}</p>
-              <button
-                type="button"
-                class="testimonial-toggle hidden w-fit text-[14px] leading-[20px] tracking-[0.25px] text-[var(--color-text-muted)] underline underline-offset-4 transition-colors hover:text-[var(--color-text)] cursor-pointer"
-                data-testimonial-toggle
-                aria-expanded="false"
-              >
-                Pokaż więcej
-              </button>
-            </div>
-          </article>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="about-testimonials-section mx-auto max-w-[327px] px-[0] pb-[120px] sm:max-w-[560px] md:hidden">
-    <div class="flex flex-col items-center gap-[12px]">
-      <h2 class="text-center text-[24px] font-semibold leading-[32px] text-[var(--color-text)]">Co mówią o mnie inni?</h2>
-      <a
-        href={testimonialsCtaHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="group inline-flex items-center gap-[8px] text-[13px] leading-[18px] tracking-[0.25px] text-[var(--color-text)] underline underline-offset-4 transition-colors hover:text-[var(--color-text-muted)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
-      >
-        <span>Zobacz wszystkie na LinkedIn</span>
-        <TablerIcon name="arrow-up-right" class="size-[16px] transition-transform duration-200 group-hover:-translate-y-[1px] group-hover:translate-x-[1px]" />
-      </a>
-    </div>
-
-    <div class="mt-[32px] grid grid-cols-1 gap-y-[20px]">
-      {
-        testimonials.map((item) => (
-          <article class="testimonial-card testimonial-card-mobile is-collapsed rounded-[20px] border border-[var(--color-divider)] px-[16px] py-[18px]" data-testimonial-card>
-            <div class="flex items-center gap-[14px]">
-              {
-                item.photo ? (
-                  <img
-                    src={item.photo}
-                    alt={`Zdjęcie ${item.name}`}
-                    class="size-[48px] shrink-0 rounded-full object-cover"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                ) : (
-                  <span class="inline-flex size-[48px] shrink-0 rounded-full bg-[#d3d3d3]" aria-hidden="true"></span>
-                )
-              }
-              <div>
-                <p class="text-[14px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]" data-testimonial-name>{item.name}</p>
-                <p class="text-[12px] leading-[16px] tracking-[0.5px] text-[var(--color-text-muted)]">{item.role}</p>
-              </div>
-            </div>
-
-            <div class="mt-[18px] flex min-h-0 flex-1 flex-col gap-[10px]">
-              <p class="testimonial-quote text-[14px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]" data-testimonial-quote>{item.quote}</p>
-              <button
-                type="button"
-                class="testimonial-toggle hidden w-fit text-[13px] leading-[18px] tracking-[0.25px] text-[var(--color-text-muted)] underline underline-offset-4 transition-colors hover:text-[var(--color-text)]"
-                data-testimonial-toggle
-                aria-expanded="false"
-              >
-                Pokaż więcej
-              </button>
-            </div>
-          </article>
-        ))
-      }
-    </div>
-  </section>
-
-  <style>
-    .availability-dot-wrap {
-      position: relative;
-      display: inline-flex;
-      width: 16px;
-      height: 16px;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .availability-dot-ping {
-      position: absolute;
-      inset: 0;
-      border-radius: 999px;
-      background: #49b46f;
-      opacity: 0.6;
-      animation: availabilityPing 1.35s cubic-bezier(0, 0, 0.2, 1) infinite;
-    }
-
-    .availability-dot-core {
-      position: relative;
-      z-index: 1;
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: #49b46f;
-    }
-
-    @keyframes availabilityPing {
-      75%,
-      100% {
-        transform: scale(1.75);
-        opacity: 0;
-      }
-    }
-
-    .about-intro-desktop .about-intro-photo,
-    .about-intro-desktop .about-intro-content {
-      transition:
-        opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
-        transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
-      will-change: opacity, transform;
-    }
-
-    :global(html.about-animations-ready) .about-intro-desktop .about-intro-photo,
-    :global(html.about-animations-ready) .about-intro-desktop .about-intro-content {
-      opacity: 0;
-    }
-
-    :global(html.about-animations-ready) .about-intro-desktop .about-intro-photo {
-      transform: translateX(30px);
-    }
-
-    :global(html.about-animations-ready) .about-intro-desktop .about-intro-content {
-      transform: translateX(-30px);
-    }
-
-    :global(html.about-animations-ready) .about-intro-desktop.is-visible .about-intro-photo,
-    :global(html.about-animations-ready) .about-intro-desktop.is-visible .about-intro-content {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    .about-intro-mobile {
-      transition:
-        opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
-        transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
-      will-change: opacity, transform;
-    }
-
-    :global(html.about-animations-ready) .about-intro-mobile {
-      opacity: 0;
-      transform: translateY(14px) scale(0.99);
-    }
-
-    :global(html.about-animations-ready) .about-intro-mobile.is-visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    .about-testimonials-section {
-      transition:
-        opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
-        transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
-      will-change: opacity, transform;
-    }
-
-    :global(html.about-animations-ready) .about-testimonials-section:not(.is-visible) {
-      opacity: 0;
-      transform: translateY(24px);
-    }
-
-    :global(html.about-animations-ready) .about-testimonials-section.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .about-intro-desktop .about-intro-photo,
-      .about-intro-desktop .about-intro-content,
-      .about-intro-mobile,
-      .about-testimonials-section {
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
-      }
-    }
-
-    .testimonial-card {
-      display: flex;
-      flex-direction: column;
-      align-self: start;
-      transition: border-color 220ms ease;
-    }
-
-    .testimonial-card.has-reference-height {
-      min-height: var(--testimonial-reference-card-height);
-    }
-
-    .testimonial-card.has-reference-height.is-collapsed {
-      height: var(--testimonial-reference-card-height);
-      overflow: clip;
-    }
-
-    .testimonial-card.is-collapsed .testimonial-quote.is-dynamic-clamped {
-      display: -webkit-box;
-      overflow: hidden;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: var(--testimonial-line-clamp, 4);
-    }
-  </style>
-
-  <script>
-    function initTestimonials() {
-      const cards = Array.from(document.querySelectorAll("[data-testimonial-card]"));
-      if (!cards.length) return;
-      const cardAnimationState = new WeakMap();
-      const DURATION_MS = 360;
-      const EASING = "cubic-bezier(0.16, 1, 0.3, 1)";
-      const REFERENCE_NAME_PATTERN = /^natalia$/i;
-
-      const referenceQuoteLength = (() => {
-        for (const card of cards) {
-          if (!(card instanceof HTMLElement)) continue;
-          const name = card.querySelector("[data-testimonial-name]");
-          const quote = card.querySelector("[data-testimonial-quote]");
-          if (!(name instanceof HTMLElement) || !(quote instanceof HTMLElement)) continue;
-          if (REFERENCE_NAME_PATTERN.test(name.textContent?.trim() ?? "")) {
-            return (quote.textContent?.trim() ?? "").length;
-          }
-        }
-        return 0;
-      })();
-
-      function isReferenceCard(card) {
-        const name = card.querySelector("[data-testimonial-name]");
-        return name instanceof HTMLElement && REFERENCE_NAME_PATTERN.test(name.textContent?.trim() ?? "");
-      }
-
-      function getVisibleCards() {
-        return cards.filter((card) => card instanceof HTMLElement && card.offsetParent !== null);
-      }
-
-      function measureNaturalCardHeight(card) {
-        const quote = card.querySelector("[data-testimonial-quote]");
-        const wasCollapsed = card.classList.contains("is-collapsed");
-        const hadReferenceHeight = card.classList.contains("has-reference-height");
-        const previousCardHeight = card.style.height;
-        const previousReferenceHeight = card.style.getPropertyValue("--testimonial-reference-card-height");
-        const previousLineClamp = quote instanceof HTMLElement
-          ? quote.style.getPropertyValue("--testimonial-line-clamp")
-          : "";
-        const hadClampClass = quote instanceof HTMLElement && quote.classList.contains("is-dynamic-clamped");
-
-        card.classList.remove("is-collapsed", "has-reference-height");
-        card.style.removeProperty("height");
-        card.style.removeProperty("--testimonial-reference-card-height");
-
-        if (quote instanceof HTMLElement) {
-          quote.classList.remove("is-dynamic-clamped");
-          quote.style.removeProperty("--testimonial-line-clamp");
-        }
-
-        const height = Math.ceil(card.getBoundingClientRect().height);
-
-        card.classList.toggle("is-collapsed", wasCollapsed);
-        card.classList.toggle("has-reference-height", hadReferenceHeight);
-        card.style.height = previousCardHeight;
-
-        if (previousReferenceHeight) {
-          card.style.setProperty("--testimonial-reference-card-height", previousReferenceHeight);
-        }
-
-        if (quote instanceof HTMLElement) {
-          quote.classList.toggle("is-dynamic-clamped", hadClampClass);
-          if (previousLineClamp) {
-            quote.style.setProperty("--testimonial-line-clamp", previousLineClamp);
-          }
-        }
-
-        return height;
-      }
-
-      function getReferenceCardHeight(visibleCards) {
-        const referenceCard = visibleCards.find((card) => card instanceof HTMLElement && isReferenceCard(card));
-        if (!(referenceCard instanceof HTMLElement)) return 0;
-        return measureNaturalCardHeight(referenceCard);
-      }
-
-      function applyReferenceHeight(card, referenceHeight) {
-        if (referenceHeight > 0) {
-          card.style.setProperty("--testimonial-reference-card-height", `${referenceHeight}px`);
-          card.classList.add("has-reference-height");
-          return;
-        }
-
-        card.style.removeProperty("--testimonial-reference-card-height");
-        card.classList.remove("has-reference-height");
-      }
-
-      function syncTestimonialCard(card) {
-        if (!(card instanceof HTMLElement) || card.offsetParent === null) return;
-
-        const quote = card.querySelector("[data-testimonial-quote]");
-        const toggle = card.querySelector("[data-testimonial-toggle]");
-        if (!(quote instanceof HTMLElement) || !(toggle instanceof HTMLButtonElement)) return;
-        const quoteLength = (quote.textContent?.trim() ?? "").length;
-        const canExpand = referenceQuoteLength > 0 ? quoteLength > referenceQuoteLength : false;
-
-        if (!canExpand) {
-          quote.style.removeProperty("--testimonial-line-clamp");
-          quote.classList.remove("is-dynamic-clamped");
-          card.classList.remove("is-collapsed");
-          toggle.classList.add("hidden");
-          toggle.textContent = "Pokaż więcej";
-          toggle.setAttribute("aria-expanded", "false");
-          return;
-        }
-
-        const wasCollapsed = card.classList.contains("is-collapsed");
-        card.classList.add("is-collapsed");
-        quote.classList.add("is-dynamic-clamped");
-        quote.style.removeProperty("--testimonial-line-clamp");
-        const collapsedHeight = quote.getBoundingClientRect().height;
-        card.classList.remove("is-collapsed");
-        const expandedHeight = quote.getBoundingClientRect().height;
-        card.classList.toggle("is-collapsed", wasCollapsed);
-
-        const needsToggle = expandedHeight > collapsedHeight + 1;
-        toggle.classList.toggle("hidden", !needsToggle);
-
-        if (!needsToggle) {
-          quote.style.removeProperty("--testimonial-line-clamp");
-          quote.classList.remove("is-dynamic-clamped");
-          card.classList.remove("is-collapsed");
-          toggle.textContent = "Pokaż więcej";
-          toggle.setAttribute("aria-expanded", "false");
-          return;
-        }
-
-        if (card.classList.contains("is-collapsed")) {
-          const quoteWrap = quote.parentElement;
-          if (quoteWrap instanceof HTMLElement) {
-            const contentStyles = window.getComputedStyle(quoteWrap);
-            const gap = Number.parseFloat(contentStyles.rowGap || contentStyles.gap || "0") || 0;
-            const availableQuoteHeight = Math.max(0, quoteWrap.clientHeight - toggle.offsetHeight - gap);
-            const quoteStyles = window.getComputedStyle(quote);
-            const lineHeight = Number.parseFloat(quoteStyles.lineHeight || "0") || 24;
-            const clampedLines = Math.max(1, Math.floor((availableQuoteHeight + 0.5) / lineHeight));
-            quote.style.setProperty("--testimonial-line-clamp", String(clampedLines));
-          }
-        } else {
-          quote.style.removeProperty("--testimonial-line-clamp");
-        }
-
-        const isCollapsed = card.classList.contains("is-collapsed");
-        toggle.textContent = isCollapsed ? "Pokaż więcej" : "Pokaż mniej";
-        toggle.setAttribute("aria-expanded", String(!isCollapsed));
-      }
-
-      function syncAllTestimonialCards(excludedCard) {
-        const visibleCards = getVisibleCards();
-        const referenceHeight = getReferenceCardHeight(visibleCards);
-
-        visibleCards.forEach((card) => {
-          if (excludedCard && card === excludedCard) return;
-          applyReferenceHeight(card, referenceHeight);
-          syncTestimonialCard(card);
-        });
-      }
-
-      function animateCardHeight(card, updateState, options = {}) {
-        if (!(card instanceof HTMLElement)) return;
-        const quote = card.querySelector("[data-testimonial-quote]");
-        if (!(quote instanceof HTMLElement)) {
-          updateState();
-          return;
-        }
-        const { isCollapsing = false } = options;
-
-        const activeAnimation = cardAnimationState.get(card);
-        if (typeof activeAnimation === "function") {
-          activeAnimation();
-        }
-
-        const startHeight = quote.getBoundingClientRect().height;
-        let endHeight = startHeight;
-
-        if (isCollapsing) {
-          const wasCollapsed = card.classList.contains("is-collapsed");
-          card.classList.add("is-collapsed");
-          endHeight = quote.getBoundingClientRect().height;
-          card.classList.toggle("is-collapsed", wasCollapsed);
-        } else {
-          updateState();
-          endHeight = quote.getBoundingClientRect().height;
-        }
-
-        if (Math.abs(endHeight - startHeight) < 1) {
-          if (isCollapsing) {
-            updateState();
-          }
-          return;
-        }
-
-        quote.style.overflow = "hidden";
-        quote.style.maxHeight = `${startHeight}px`;
-        quote.style.opacity = "1";
-        quote.style.transition = `max-height ${DURATION_MS}ms ${EASING}, opacity ${DURATION_MS}ms ${EASING}`;
-
-        requestAnimationFrame(() => {
-          quote.style.maxHeight = `${endHeight}px`;
-          quote.style.opacity = isCollapsing ? "0.96" : "1";
-        });
-
-        let hasCommittedState = false;
-        const commitStateIfNeeded = () => {
-          if (!isCollapsing || hasCommittedState) return;
-          hasCommittedState = true;
-          updateState();
-        };
-
-        const cleanup = () => {
-          quote.style.removeProperty("transition");
-          quote.style.removeProperty("max-height");
-          quote.style.removeProperty("overflow");
-          quote.style.removeProperty("opacity");
-          commitStateIfNeeded();
-          quote.removeEventListener("transitionend", onTransitionEnd);
-          if (fallbackTimeout) {
-            window.clearTimeout(fallbackTimeout);
-          }
-          cardAnimationState.delete(card);
-        };
-
-        const onTransitionEnd = (event) => {
-          if (event.propertyName !== "max-height") return;
-          cleanup();
-        };
-
-        quote.addEventListener("transitionend", onTransitionEnd);
-        const fallbackTimeout = window.setTimeout(cleanup, DURATION_MS + 120);
-
-        cardAnimationState.set(card, cleanup);
-      }
-
-      cards.forEach((card) => {
-        const toggle = card.querySelector("[data-testimonial-toggle]");
-        if (!(toggle instanceof HTMLButtonElement) || toggle.dataset.bound === "true") return;
-
-        toggle.dataset.bound = "true";
-        toggle.addEventListener("click", () => {
-          const isCurrentlyCollapsed = card.classList.contains("is-collapsed");
-          const isCollapsing = !isCurrentlyCollapsed;
-
-          animateCardHeight(
-            card,
-            () => {
-              if (isCollapsing) {
-                card.classList.add("is-collapsed");
-                toggle.textContent = "Pokaż więcej";
-                toggle.setAttribute("aria-expanded", "false");
-              } else {
-                card.classList.remove("is-collapsed");
-                toggle.textContent = "Pokaż mniej";
-                toggle.setAttribute("aria-expanded", "true");
-              }
-            },
-            { isCollapsing }
-          );
-        });
-      });
-
-      const prevResizeHandler = window.__testimonialResizeHandler;
-      if (typeof prevResizeHandler === "function") {
-        window.removeEventListener("resize", prevResizeHandler);
-      }
-      window.__testimonialResizeHandler = syncAllTestimonialCards;
-
-      syncAllTestimonialCards();
-      window.addEventListener("resize", syncAllTestimonialCards);
-    }
-
-    initTestimonials();
-    document.addEventListener("astro:page-load", initTestimonials);
-  </script>
-
-  <script is:inline>
-    (() => {
-      const STATE_KEY = "__aboutAnimationsState";
-      const state =
-        window[STATE_KEY] ??
-        (window[STATE_KEY] = {
-          observer: null,
-          pageLoadBound: false,
-          mqBound: false,
-        });
-
-      const initAboutAnimations = () => {
-        const introDesktop = document.querySelector(".about-intro-desktop");
-        const introMobile = document.querySelector(".about-intro-mobile");
-        const isMobile = window.matchMedia("(max-width: 767px)").matches;
-        const testimonialSections = Array.from(
-          document.querySelectorAll(".about-testimonials-section")
-        ).filter((section) => section instanceof HTMLElement && section.offsetParent !== null);
-
-        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        document.documentElement.classList.toggle("about-animations-ready", !prefersReducedMotion);
-
-        if (introDesktop instanceof HTMLElement) {
-          introDesktop.classList.remove("is-visible");
-        }
-        if (introMobile instanceof HTMLElement) {
-          introMobile.classList.remove("is-visible");
-        }
-
-        if (prefersReducedMotion) {
-          if (introDesktop instanceof HTMLElement) {
-            introDesktop.classList.add("is-visible");
-          }
-          if (introMobile instanceof HTMLElement) {
-            introMobile.classList.add("is-visible");
-          }
-          testimonialSections.forEach((section) => section.classList.add("is-visible"));
-          if (state.observer instanceof IntersectionObserver) {
-            state.observer.disconnect();
-          }
-          return;
-        }
-
-        if (isMobile) {
-          if (introMobile instanceof HTMLElement) {
-            introMobile.classList.add("is-visible");
-          }
-          testimonialSections.forEach((section) => section.classList.add("is-visible"));
-          if (state.observer instanceof IntersectionObserver) {
-            state.observer.disconnect();
-          }
-          return;
-        }
-
-        requestAnimationFrame(() => {
-          if (introDesktop instanceof HTMLElement && introDesktop.offsetParent !== null) {
-            introDesktop.classList.add("is-visible");
-          }
-          if (introMobile instanceof HTMLElement && introMobile.offsetParent !== null) {
-            introMobile.classList.add("is-visible");
-          }
-        });
-
-        testimonialSections.forEach((section) => section.classList.remove("is-visible"));
-
-        if (state.observer instanceof IntersectionObserver) {
-          state.observer.disconnect();
-        }
-
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (!entry.isIntersecting) return;
-              entry.target.classList.add("is-visible");
-              observer.unobserve(entry.target);
-            });
-          },
-          { threshold: 0.12, rootMargin: "0px 0px 6% 0px" }
-        );
-
-        testimonialSections.forEach((section) => observer.observe(section));
-        state.observer = observer;
-      };
-
-      initAboutAnimations();
-      if (!state.pageLoadBound) {
-        document.addEventListener("astro:page-load", initAboutAnimations);
-        state.pageLoadBound = true;
-      }
-      if (!state.mqBound) {
-        window.matchMedia("(max-width: 767px)").addEventListener("change", initAboutAnimations);
-        state.mqBound = true;
-      }
-    })();
-  </script>
+    </section>
+
+    <section class="about-recommendations page-container page-container--reading" aria-label="Rekomendacje" aria-roledescription="karuzela" data-recommendations>
+      <div class="recommendation-controls">
+        <button class="btn-primary recommendation-prev" type="button" aria-label="Poprzednia rekomendacja" disabled data-recommendation-prev><img src="/assets/about/arrow-down.svg" width="24" height="24" alt="" /></button>
+        <button class="btn-primary" type="button" aria-label="Następna rekomendacja" data-recommendation-next><img src="/assets/about/arrow-right.svg" width="24" height="24" alt="" /></button>
+      </div>
+      <div aria-live="polite" aria-atomic="true">
+        {testimonials.map((item, index) => <figure class="recommendation" hidden={index !== 0} data-recommendation role="group" aria-roledescription="slajd" aria-label={`${index + 1} z ${testimonials.length}`}>
+          <blockquote>{item.quote}</blockquote>
+          <figcaption><img src={item.photo} width="64" height="64" alt="" loading="lazy" /><div><p>{item.name}</p><p class="recommendation-role">{item.role}</p></div></figcaption>
+        </figure>)}
+      </div>
+    </section>
+
+    <section class="about-contact page-container" aria-labelledby="contact-title">
+      <div><h2 id="contact-title">Masz projekt do zaprojektowania albo szukasz projektantki do zespołu?</h2>
+        <a href="/contact" class="btn-primary about-contact__button">Porozmawiajmy <span class="about-contact__arrow" aria-hidden="true"><img src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /><img class="about-contact__hover" src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" /></span></a>
+      </div>
+    </section>
+  </div>
 </Layout>
+
+<style>
+  .about-page { display: flex; flex-direction: column; gap: var(--space-10); padding-block: var(--space-10); }
+  .about-page h1, .about-page h2 { font-weight: var(--weight-regular); }
+  .about-page h2 { font-size: 24px; line-height: 1.3; }
+  .about-intro { display: grid; gap: var(--space-5); }
+  .about-intro h1 { font-size: 40px; line-height: 1; }
+  .about-portrait { width: min(285px, 100%); height: auto; aspect-ratio: 285 / 326; object-fit: cover; }
+  .about-bio { font-size: 14px; line-height: 1.5; }
+  .about-bio p + p { margin-top: 21px; }
+  .about-socials { display: flex; justify-content: space-between; flex-wrap: wrap; }
+  .about-socials img { transform: rotate(180deg); flex: none; }
+  .about-tools { display: flex; flex-direction: column; gap: var(--space-5); }
+  .about-tools__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--space-10); }
+  .about-tools__grid li { display: flex; align-items: center; flex-direction: column; gap: var(--space-3); text-align: center; font-size: 16px; font-weight: var(--weight-medium); line-height: 1.35; }
+  .tool-icon { display: block; width: 40px; height: 40px; position: relative; }
+  .tool-icon > img, .tool-icon picture img { display: block; width: 40px; height: auto; }
+  .tool-icon--crop { overflow: hidden; height: 41px; }
+  .tool-icon--crop > img { position: absolute; width: 126.73%; height: 123.67%; max-width: none; top: -12.32%; left: -13.37%; }
+  .tool-icon--vercel { height: 34px; }
+  .about-process { display: grid; gap: var(--space-5); }
+  .about-process__content { min-width: 0; }
+  .about-process__intro { font-size: 14px; line-height: 1.5; }
+  .process-dots { display: flex; justify-content: center; margin-block: var(--space-5); }
+  .process-dot { width: 44px; height: 44px; display: grid; place-items: center; cursor: pointer; }
+  .process-dot span { width: 16px; height: 16px; border: 1px solid var(--color-border); border-radius: 50%; }
+  .process-dot[aria-pressed="true"] span { background: var(--color-text); border-color: var(--color-text); }
+  .process-slides { display: flex; gap: var(--space-3); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .process-slides::-webkit-scrollbar { display: none; }
+  .process-slide { display: grid; grid-template-columns: minmax(0, 156fr) minmax(0, 181fr); align-items: center; gap: var(--space-6); flex: 0 0 100%; scroll-snap-align: start; }
+  .process-slide p { font-size: 14px; line-height: 25px; }
+  .recommendation-controls { display: flex; gap: var(--space-3); }
+  .recommendation-controls button { padding: var(--space-3); cursor: pointer; }
+  .recommendation-controls button:disabled { border-color: var(--color-border); opacity: .4; cursor: default; }
+  .recommendation-prev img { transform: rotate(90deg); }
+  .recommendation-controls button:last-child img { transform: rotate(-90deg); }
+  .recommendation { margin: 0; padding-block: var(--space-5); }
+  .recommendation[hidden] { display: none; }
+  .recommendation blockquote { font-size: 16px; line-height: 1.5; }
+  .recommendation figcaption { display: flex; gap: var(--space-3); align-items: center; margin-top: var(--space-5); font-size: 14px; line-height: 24px; }
+  .recommendation figcaption > img { width: 52px; height: 52px; object-fit: cover; flex: none; }
+  .recommendation-role { color: var(--color-text-muted); margin-top: var(--space-1); }
+  .about-contact > div { display: flex; flex-direction: column; gap: var(--space-8); }
+  .about-contact__button { align-self: flex-end; }
+  .about-contact__arrow { display: inline-grid; }
+  .about-contact__arrow img { grid-area: 1 / 1; transform: rotate(180deg); }
+  .about-contact__hover { opacity: 0; }
+  .about-contact__button:focus-visible { color: var(--color-surface); background: var(--color-text); }
+  .about-contact__button:focus-visible .about-contact__arrow img:first-child { opacity: 0; }
+  .about-contact__button:focus-visible .about-contact__hover { opacity: 1; }
+  @media (hover: hover) {
+    .about-contact__button:hover { color: var(--color-surface); background: var(--color-text); }
+    .about-contact__button:hover .about-contact__arrow img:first-child { opacity: 0; }
+    .about-contact__button:hover .about-contact__hover { opacity: 1; }
+  }
+  @media (max-width: 374px) {
+    .about-socials .btn-secondary { padding-inline: 6px; gap: 4px; }
+  }
+  @media (min-width: 48rem) and (max-width: 63.999rem) {
+    .about-intro { grid-template-columns: 285px minmax(0, 1fr); gap: 24px; }
+    .about-intro h1 { grid-column: 1 / -1; }
+    .about-portrait { grid-row: 2 / 4; }
+    .about-tools__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .about-socials { justify-content: flex-start; }
+  }
+  @media (min-width: 64rem) {
+    .about-page { gap: var(--space-30); padding-bottom: var(--space-30); }
+    .about-page h2 { font-size: 40px; }
+    .about-intro { grid-template-columns: minmax(0, 412fr) minmax(0, 701fr); grid-template-rows: auto auto 1fr; column-gap: clamp(40px, 8vw, 103px); row-gap: var(--space-10); }
+    .about-intro h1 { grid-column: 2; font-size: 64px; }
+    .about-portrait { grid-column: 1; grid-row: 1 / 4; width: 100%; aspect-ratio: 412 / 472; }
+    .about-bio { grid-column: 2; font-size: 16px; }
+    .about-bio p + p { margin-top: 24px; }
+    .about-socials { grid-column: 2; justify-content: flex-start; align-items: start; gap: var(--space-5); }
+    .about-tools { gap: var(--space-10); }
+    .about-tools__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 61px; }
+    .about-tools__grid li { gap: var(--space-6); font-size: 20px; }
+    .tool-icon { width: 52px; height: 52px; }
+    .tool-icon > img, .tool-icon picture img { width: 52px; }
+    .tool-icon--crop { height: 52.8125px; }
+    .tool-icon--crop > img { width: 126.73%; }
+    .tool-icon--vercel { height: 44.6875px; }
+    .about-process { grid-template-columns: minmax(0, 491fr) minmax(0, 705fr); gap: var(--space-5); }
+    .about-process__intro { font-size: 16px; line-height: 30px; margin-bottom: var(--space-10); }
+    .process-dots { display: none; }
+    .process-slides { display: block; overflow: visible; }
+    .process-slide { grid-template-columns: minmax(0, 262fr) minmax(0, 419fr); padding-block: var(--space-3); }
+    .process-slide:first-child { padding-top: 0; }
+    .process-slide + .process-slide { border-top: 1px solid var(--color-border); }
+    .process-slide p { font-size: 16px; }
+    .recommendation-controls button { padding: var(--space-4); }
+    .recommendation { padding-block: var(--space-6); }
+    .recommendation blockquote { font-size: 20px; }
+    .recommendation figcaption { gap: var(--space-5); margin-top: var(--space-10); font-size: 16px; }
+    .recommendation figcaption > img { width: 64px; height: 64px; }
+    .recommendation-role { margin-top: var(--space-2); }
+    .about-contact > div { width: 700px; max-width: 100%; margin-left: auto; }
+    .about-contact__button { align-self: flex-start; }
+  }
+</style>
+
+<script>
+  function setupAboutPage() {
+    const root = document.querySelector<HTMLElement>(".about-page");
+    if (!root || root.dataset.initialized) return;
+    root.dataset.initialized = "true";
+    const slides = [...root.querySelectorAll<HTMLElement>("[data-recommendation]")];
+    const prev = root.querySelector<HTMLButtonElement>("[data-recommendation-prev]")!;
+    const next = root.querySelector<HTMLButtonElement>("[data-recommendation-next]")!;
+    let current = 0;
+    const selectRecommendation = (index: number) => {
+      current = Math.max(0, Math.min(slides.length - 1, index));
+      slides.forEach((slide, i) => { slide.hidden = i !== current; });
+      prev.disabled = current === 0;
+      next.disabled = current === slides.length - 1;
+    };
+    prev.addEventListener("click", () => selectRecommendation(current - 1));
+    next.addEventListener("click", () => selectRecommendation(current + 1));
+    const track = root.querySelector<HTMLElement>(".process-slides")!;
+    const methods = [...root.querySelectorAll<HTMLElement>(".process-slide")];
+    const dots = [...root.querySelectorAll<HTMLButtonElement>("[data-process-dot]")];
+    const setActiveDot = (index: number) => dots.forEach((dot, i) => dot.setAttribute("aria-pressed", String(i === index)));
+    const selectMethod = (index: number) => {
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      track.scrollTo({ left: methods[index].offsetLeft - methods[0].offsetLeft, behavior: reducedMotion ? "instant" : "smooth" });
+      setActiveDot(index);
+    };
+    dots.forEach((dot, i) => dot.addEventListener("click", () => selectMethod(i)));
+    track.addEventListener("scroll", () => {
+      const step = methods[1].offsetLeft - methods[0].offsetLeft;
+      setActiveDot(Math.round(track.scrollLeft / step));
+    }, { passive: true });
+    track.addEventListener("keydown", event => {
+      if (!window.matchMedia("(max-width: 1023px)").matches || !["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+      event.preventDefault();
+      const index = dots.findIndex(dot => dot.getAttribute("aria-pressed") === "true");
+      selectMethod(Math.max(0, Math.min(methods.length - 1, index + (event.key === "ArrowRight" ? 1 : -1))));
+    });
+  }
+  setupAboutPage();
+  document.addEventListener("astro:page-load", setupAboutPage);
+</script>
