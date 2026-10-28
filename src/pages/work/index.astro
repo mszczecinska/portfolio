@@ -1,6 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { getProjectBySlug } from "../../lib/projects";
+import { Picture } from "astro:assets";
+import obrysCover from "../../assets/case-studies/obrys/okładka projektu.jpg";
 
 // Listing copy stays local so the existing case studies and home cards keep their content.
 const projectCards = [
@@ -102,7 +104,17 @@ const activeGroup = Astro.url.searchParams.get("category") === "experiments" ? "
                     <img src="/assets/work/arrow-down-left.svg" width="46" height="46" alt="" />
                   </span>
                 </div>
-                <div class="work-card__media media-placeholder" aria-hidden="true"></div>
+                <div class:list={["work-card__media", { "media-placeholder": card.slug !== "obrys-studio" }]} aria-hidden="true">
+                  {card.slug === "obrys-studio" && <Picture
+                    src={obrysCover}
+                    alt=""
+                    formats={["avif", "webp"]}
+                    widths={[480, 800, 1200, 1600, 2400]}
+                    sizes="(min-width: 1280px) 486px, (min-width: 1024px) calc(40.635vw - 34.134px), calc(100vw - 40px)"
+                    quality={85}
+                    loading={activeGroup === "experiments" ? "eager" : "lazy"}
+                  />}
+                </div>
                 <p class="work-card__description">{card.description}</p>
               </CardTag>
             </article>
@@ -129,6 +141,8 @@ const activeGroup = Astro.url.searchParams.get("category") === "experiments" ? "
   .work-card__arrow { grid-column: 2; grid-row: 1 / 3; display: grid; place-items: center; width: 70px; height: 70px; padding: 12px; }
   .work-card__arrow img { transform: rotate(180deg); transition: transform var(--duration-ui) var(--ease-ui); }
   .work-card__media { aspect-ratio: auto; min-height: 180px; }
+  .work-card__media :global(picture) { display: block; width: 100%; height: 100%; }
+  .work-card__media :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
   .work-card__description { font-size: 14px; line-height: 25px; }
   @media (hover: hover) {
     .work-category:hover { color: var(--color-text); }
