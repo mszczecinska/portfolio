@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { contactMailto } from "../lib/contact";
 
 const featuredProjects = [
   {
@@ -78,7 +79,7 @@ const services = [
     <section class="home-contact page-container" aria-labelledby="home-contact-title">
       <div class="home-contact__content">
         <h2 id="home-contact-title">Masz projekt do zaprojektowania albo szukasz projektantki do zespołu?</h2>
-        <a href="/contact" class="btn-primary home-primary-button">Porozmawiajmy <span class="home-primary-arrow" aria-hidden="true"><img class="home-button-arrow" src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /><img class="home-button-arrow home-primary-arrow--hover" src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" /></span></a>
+        <a href={contactMailto} class="btn-primary home-primary-button">Porozmawiajmy <span class="home-primary-arrow" aria-hidden="true"><img class="home-button-arrow" src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /><img class="home-button-arrow home-primary-arrow--hover" src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" /></span></a>
       </div>
     </section>
   </div>
@@ -129,8 +130,8 @@ const services = [
     .home-primary-button:hover .home-primary-arrow--hover { opacity: 1; }
     .home-project__link:hover .home-project__arrow img { transform: translate(2px, -2px) rotate(180deg); }
   }
-  @media (max-width: 47.999rem) {
-    .home-page { padding-bottom: var(--section-gap); }
+  @media (max-width: 63.999rem) {
+    .home-page { --section-gap: var(--space-20); padding-bottom: var(--section-gap); }
     .home-hero { margin-bottom: var(--section-gap); }
     .home-services, .home-contact { margin-top: var(--section-gap); }
     .home-services { gap: var(--space-8); }

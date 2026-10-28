@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { contactMailto } from "../lib/contact";
 
 const testimonials = [
   {
@@ -113,7 +114,7 @@ const workingMethods = [
 
     <section class="about-contact page-container" aria-labelledby="contact-title">
       <div><h2 id="contact-title">Masz projekt do zaprojektowania albo szukasz projektantki do zespołu?</h2>
-        <a href="/contact" class="btn-primary about-contact__button">Porozmawiajmy <span class="about-contact__arrow" aria-hidden="true"><img src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /><img class="about-contact__hover" src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" /></span></a>
+        <a href={contactMailto} class="btn-primary about-contact__button">Porozmawiajmy <span class="about-contact__arrow" aria-hidden="true"><img src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /><img class="about-contact__hover" src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" /></span></a>
       </div>
     </section>
   </div>

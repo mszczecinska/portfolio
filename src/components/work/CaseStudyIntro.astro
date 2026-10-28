@@ -109,7 +109,19 @@ const { title, subtitle, overview, role, projectType, tools, liveUrl, showLiveIn
       root.dataset.initialized = "true";
       const trigger = root.querySelector<HTMLButtonElement>("[data-live-info-trigger]")!;
       const tooltip = root.querySelector<HTMLElement>('[role="tooltip"]')!;
-      const show = () => { tooltip.hidden = false; };
+      const show = () => {
+        const buttonRect = trigger.getBoundingClientRect();
+        const rootRect = root.getBoundingClientRect();
+        const headingRect = root.parentElement!.getBoundingClientRect();
+        const availableWidth = headingRect.right - buttonRect.right - 8;
+        const beside = availableWidth >= 160;
+        tooltip.style.left = beside ? `${buttonRect.right - rootRect.left + 8}px` : '0px';
+        tooltip.style.top = beside ? `${buttonRect.top - rootRect.top + buttonRect.height / 2}px` : 'calc(100% + 8px)';
+        tooltip.style.bottom = 'auto';
+        tooltip.style.transform = beside ? 'translateY(-50%)' : 'none';
+        tooltip.style.width = `${Math.min(320, beside ? availableWidth : headingRect.width)}px`;
+        tooltip.hidden = false;
+      };
       const hide = () => { tooltip.hidden = true; };
       let wasOpenOnPointerDown = false;
       trigger.addEventListener("pointerenter", event => {
@@ -124,7 +136,9 @@ const { title, subtitle, overview, role, projectType, tools, liveUrl, showLiveIn
       });
       trigger.addEventListener("blur", hide);
       trigger.addEventListener("click", event => {
-        tooltip.hidden = event.detail === 0 ? !tooltip.hidden : wasOpenOnPointerDown;
+        const shouldHide = event.detail === 0 ? !tooltip.hidden : wasOpenOnPointerDown;
+        if (shouldHide) hide();
+        else show();
       });
       const onPointerDown = (event: PointerEvent) => {
         if (event.target instanceof Node && !trigger.contains(event.target) && !tooltip.contains(event.target)) hide();

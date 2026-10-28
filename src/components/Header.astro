@@ -1,6 +1,7 @@
 ---
 import TablerIcon from "./TablerIcon.astro";
 import LogoIcon from "./LogoIcon.astro";
+import { contactMailto } from "../lib/contact";
 
 interface Props { caseStudy?: boolean; workPage?: boolean; homePage?: boolean; aboutPage?: boolean; }
 const { caseStudy = false, workPage = false, homePage = false, aboutPage = false } = Astro.props;
@@ -8,7 +9,6 @@ const { caseStudy = false, workPage = false, homePage = false, aboutPage = false
 const navItems = [
   { key: "work", href: "/work", label: "Realizacje" },
   { key: "about", href: "/about", label: "O mnie" },
-  { key: "contact", href: "/contact", label: "Kontakt" },
 ] as const;
 
 const mobileNavItems = [
@@ -23,9 +23,7 @@ const activeKey = currentPath === "/"
   ? "about"
   : currentPath.startsWith("/work")
     ? "work"
-    : currentPath.startsWith("/contact")
-      ? "contact"
-      : null;
+    : null;
 ---
 
 <header class:list={["relative z-40", { "case-header": caseStudy || workPage || homePage || aboutPage, "work-header": workPage, "home-header": homePage, "about-header": aboutPage }]} data-scroll-header transition:name="site-header">
@@ -73,8 +71,10 @@ const activeKey = currentPath === "/"
           }
         </ul>
 
-        {(workPage || aboutPage) && <span class="work-header__language" aria-label="Język: polski">PL</span>}
-        {homePage && <button type="button" class="home-header__language btn-icon" aria-label="Język: polski">PL</button>}
+        <div class="header-actions">
+          <button type="button" class="home-header__language btn-icon" aria-label="Język: polski">PL</button>
+          <a href={contactMailto} class="header-email btn-secondary">Napisz do mnie</a>
+        </div>
         <div class="lg:hidden" data-mobile-menu>
           <button
             type="button"
@@ -138,6 +138,7 @@ const activeKey = currentPath === "/"
                   })
                 }
               </ul>
+              <a href={contactMailto} data-mobile-link class="mobile-menu-contact btn-secondary">Napisz do mnie</a>
             </div>
           </div>
         </div>
@@ -370,6 +371,13 @@ const activeKey = currentPath === "/"
 </script>
 
 <style>
+  .mobile-menu-contact { margin-top: auto; flex-shrink: 0; }
+  .header-actions { display: contents; }
+  .header-email { display: none; white-space: nowrap; }
+  @media (min-width: 64rem) {
+    .header-actions { display: inline-flex; align-items: center; gap: var(--space-2); }
+    .header-email { display: inline-flex; }
+  }
   .about-header nav > div { gap: var(--space-2); }
   @media (min-width: 64rem) {
     .about-header nav > div, .about-header nav ul, .about-header nav li { display: contents; }
@@ -379,6 +387,11 @@ const activeKey = currentPath === "/"
   .home-header nav > div { flex: none; }
   .home-header .case-header__current { font-weight: var(--weight-regular); }
   .home-header__language { width: 44px; height: 44px; padding: 10px; font-family: var(--font-label); font-size: 16px; line-height: 1; cursor: pointer; }
+  @media (min-width: 64rem) {
+    .header-actions > .home-header__language,
+    .header-actions > .header-email { height: 56px; min-height: 56px; padding-block: 0; }
+    .header-actions > .home-header__language { width: 56px; min-width: 56px; padding-inline: 0; }
+  }
   .home-header nav > div { gap: var(--space-2); }
   @media (min-width: 64rem) {
     .home-header nav { justify-content: space-between; }
@@ -404,12 +417,13 @@ const activeKey = currentPath === "/"
   @media (min-width: 64rem) {
     .case-header > div { padding-block: var(--space-5); }
     .case-header[data-scroll-header].is-floating > div { padding-bottom: var(--space-5); }
-    .case-header nav { min-height: 3.5rem; }
+    .case-header nav { min-height: 3.5rem; justify-content: space-between; gap: clamp(24px, 3vw, 40px); }
     .case-header nav > a:first-child { display: inline-flex; padding-block: 0; }
     .case-header__home { font-size: 1.25rem; color: var(--color-text-muted); }
     .case-header__current { display: none; }
-    .case-header nav > div { flex: 1; }
-    .case-header nav ul { flex: 1; justify-content: space-evenly; align-items: center; padding-top: 0; }
+    .case-header nav > div,
+    .case-header nav > div > ul,
+    .case-header nav > div > ul > li { display: contents; }
   }
 
   [data-scroll-header] {
