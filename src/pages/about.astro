@@ -62,7 +62,7 @@ const workingMethods = [
     <section class="about-intro page-container" aria-labelledby="about-title">
       <img class="about-portrait" src="/assets/about/portrait.png" width="412" height="472" alt="Magda siedząca na krześle w słonecznej pracowni" fetchpriority="high" decoding="async" />
       <div class="about-intro-copy">
-      <h1 id="about-title">Cześć<br />jestem Magda</h1>
+      <h1 id="about-title">Cześć<span class="about-title-break"><br /></span><span class="about-title-space"> </span>jestem Magda</h1>
       <div class="about-bio">
         <p>Lubię porządkować pomysły, szukać rozwiązań i dopracowywać szczegóły, które składają się na czytelny interfejs. W designie najbardziej chcę rozwijać się w kierunku design systemów. Interesuje mnie, jak z pojedynczych elementów budować spójną całość i ułatwiać pracę nad kolejnymi widokami.</p>
         <p>Nie chcę jednak ograniczać się do samego projektowania. Eksperymentuję z motion i wdrażaniem stron przy wsparciu AI. Dzięki temu mogę sprawdzać swoje pomysły w działaniu i lepiej rozumieć, co dzieje się z projektem po wyjściu z Figmy.</p>
@@ -126,6 +126,7 @@ const workingMethods = [
   .about-intro { display: grid; gap: var(--space-5); }
   .about-intro-copy { display: contents; }
   .about-intro h1 { grid-row: 1; font-size: 40px; line-height: 1; }
+  .about-title-break { display: none; }
   .about-portrait { grid-row: 2; }
   .about-portrait { width: min(285px, 100%); height: auto; aspect-ratio: 285 / 326; object-fit: cover; }
   .about-bio { font-size: 14px; line-height: 1.5; }
@@ -178,7 +179,18 @@ const workingMethods = [
   @media (max-width: 374px) {
     .about-socials .btn-secondary { padding-inline: 6px; gap: 4px; }
   }
+  @media (max-width: 47.999rem) {
+    .about-page { gap: var(--space-20); padding-bottom: var(--space-20); }
+    .about-intro { gap: var(--space-8); }
+    .about-tools { gap: var(--space-8); }
+    .about-process { gap: var(--space-6); }
+    .process-dots { margin-block: var(--space-6); }
+    .recommendation { padding-block: var(--space-6); }
+    .recommendation figcaption { margin-top: var(--space-6); }
+  }
   @media (min-width: 48rem) {
+    .about-title-break { display: inline; }
+    .about-title-space { display: none; }
     .about-intro { align-items: start; }
     .about-intro-copy { display: flex; flex-direction: column; gap: var(--space-6); min-width: 0; }
     .about-portrait { grid-column: 1; grid-row: 1; }
