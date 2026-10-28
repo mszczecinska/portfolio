@@ -1,427 +1,173 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import TablerIcon from "../components/TablerIcon.astro";
-import { getAllProjects } from "../lib/projects";
 
-const featuredProjectSlugs = [
-  "koncepcja-wizji-produktu-b2c",
-  "akademia-e-commerce-dla-e-bookow-edukacyjnych",
-] as const;
-
-const featuredProjects = featuredProjectSlugs
-  .map((slug) => getAllProjects().find((project) => project.slug === slug))
-  .filter((project) => project !== undefined);
+const featuredProjects = [
+  {
+    slug: "akademia-e-commerce-dla-e-bookow-edukacyjnych",
+    title: "Akademia",
+    badges: "UX/UI / E-COMMERCE / EDUTECH",
+    description: "Od marki edukacyjnej do sklepu z e-bookami. Projekt UX/UI obejmujący pełną ścieżkę zakupową na desktopie i mobile.",
+  },
+  {
+    slug: "miropoix-saas-dla-szefow-kuchni",
+    title: "Miropoix",
+    badges: "UI / DEVELOPMENT / SAAS",
+    description: "Nowa strona aplikacji dla zespołów kuchennych. Redesign landing page, motion i wdrożenie przy wsparciu narzędzi AI.",
+  },
+];
+const services = [
+  { title: "UX/UI design", text: "Porządkuję strukturę produktu, ścieżki użytkownika i interfejsy aplikacji." },
+  { title: "Strony internetowe", text: "Przekładam charakter marki i jej ofertę na czytelną stronę." },
+  { title: "E-commerce", text: "Układam ścieżkę od poznania produktu do zakupu i dostępu do zamówienia." },
+  { title: "Motion", text: "Tworzę animacje interfejsów i materiałów prezentujących produkt." },
+  { title: "Wdrożenia z AI", text: "Zamieniam projekty stron w działające rozwiązania przy wsparciu narzędzi AI." },
+];
 ---
 
-<Layout title="Home" description="Portfolio UX/UI - strona główna">
-  <section
-    class="mx-auto w-full max-w-[1040px] px-6 pb-[120px] pt-[80px] sm:px-8 sm:pb-[144px] sm:pt-[88px] lg:px-0 lg:pb-[200px] lg:pt-[80px]"
-    aria-labelledby="home-hero-title"
-  >
-    <div class="flex flex-col items-center gap-[38px] sm:gap-[44px] lg:gap-[52px]">
-      <h1
-        id="home-hero-title"
-        aria-label="Portfolio Magdaleny Szczecińskiej"
-        class="text-center text-[56px] font-semibold leading-[1] tracking-[0] text-[var(--color-text)] sm:text-[68px] md:text-[74px] lg:text-[80px]"
-      >
-        <span
-          data-home-typewriter
-          data-full-text="Projektuję, buduję, wdrażam"
-          data-full-text-mobile="Projektuję,
-buduję,
-wdrażam"
-          class="home-typewriter-text"
-        >
-          Projektuję, buduję, wdrażam
-        </span>
-      </h1>
-
-      <p
-        data-home-subheader
-        class="home-reveal text-center text-[16px] leading-[1.2] tracking-[0] text-[var(--color-text-muted)] sm:text-[18px] md:text-[20px] lg:text-[22px]"
-      >
-        Najlepiej odnajduję się tam, gdzie design spotyka wdrożenie: porządkuję pomysł, projektuję interfejs i dopracowuję detale, które robią różnicę w gotowym produkcie.
-      </p>
-
-      <div data-home-cta class="home-reveal flex flex-wrap items-center justify-center gap-[12px] pt-[10px] sm:pt-[12px] lg:pt-[14px]">
-        <a
-          href="/work"
-          class="btn-primary group gap-[8px] px-[24px] py-[14px] text-[14px] lg:text-[16px] font-semibold leading-[20px] tracking-[0] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
-          transition:name="home-work-cta"
-        >
-          <span>Zobacz moje prace</span>
-          <TablerIcon name="arrow-narrow-right" class="size-6" />
-        </a>
-
-        <a
-          href="/about"
-          class="btn-secondary px-[24px] py-[14px] text-[14px] lg:text-[16px] font-semibold leading-[20px] tracking-[0] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
-          transition:name="home-about-cta"
-        >
-          O mnie
-        </a>
+<Layout title="Główna" description="Magda Szczecińska — projektantka UX/UI. Projektuję strony i aplikacje, od koncepcji po wdrożenie." homePage>
+  <div class="home-page">
+    <section class="home-hero page-container" aria-labelledby="home-title">
+      <div class="home-hero__heading">
+        <h1 id="home-title" class="type-display">Magda<br />Szczecińska</h1>
+        <p class="home-hero__role type-label">UX/UI designer</p>
       </div>
-    </div>
-  </section>
-
-  <section
-    data-home-lower-section
-    class="home-reveal mx-auto w-full max-w-[1040px] px-6 pb-[120px] sm:px-8 sm:pb-[144px] lg:px-0 lg:pb-[200px]"
-    aria-labelledby="featured-work-title"
-  >
-    <h2 id="featured-work-title" class="sr-only">Wybrane projekty</h2>
-
-    <div class="grid gap-[64px] md:grid-cols-2 md:gap-[40px] lg:grid-cols-[488px_488px] lg:gap-[64px]">
-      {
-        featuredProjects.map((project) => {
-          const isComingSoon = Boolean(project.comingSoon);
-          const transitionKey = isComingSoon ? undefined : project.slug;
-          const CardTag = isComingSoon ? "span" : "a";
-
-          return (
-            <article aria-labelledby={`home-work-title-${project.slug}`}>
-              <CardTag
-                {...(!isComingSoon ? { href: `/work/${project.slug}` } : {})}
-                class:list={[
-                  "group flex flex-col gap-[32px]",
-                  isComingSoon ? "cursor-default" : "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]",
-                ]}
-                transition:name={transitionKey ? `work-${transitionKey}-card` : undefined}
-              >
-                <div class="h-[380px] overflow-hidden md:h-auto md:aspect-[488/500] lg:h-[500px]">
-                  <img
-                    src={project.image}
-                    alt={`Podgląd projektu ${project.title}`}
-                    class="size-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.01]"
-                    loading="lazy"
-                    transition:name={transitionKey ? `work-${transitionKey}-image` : undefined}
-                  />
-                </div>
-
-                <div class="flex flex-col gap-[24px]">
-                  <div class="flex flex-col gap-[12px]">
-                    <h3
-                      id={`home-work-title-${project.slug}`}
-                      class="text-[24px] leading-[44px] tracking-[0] text-[var(--color-text)]"
-                      transition:name={transitionKey ? `work-${transitionKey}-title` : undefined}
-                    >
-                      {project.title}
-                    </h3>
-
-                    <ul class="flex flex-wrap items-center gap-[6px] sm:gap-[12px]" aria-label={`Tagi projektu ${project.title}`}>
-                      {
-                        project.tags.map((tag, tagIndex) => (
-                          <li
-                            class="rounded-[5555px] border border-[var(--color-border)] px-[12px] py-[8px] text-[12px] leading-[16px] tracking-[0.25px] text-[var(--color-text)]"
-                            transition:name={transitionKey ? `work-${transitionKey}-tag-${tagIndex}` : undefined}
-                          >
-                            {tag}
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  </div>
-
-                  <div class="h-[2px] w-full bg-[var(--color-divider)]"></div>
-
-                  <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0] text-[var(--color-text)]">{project.description}</p>
-
-                  {isComingSoon && project.links?.live && (
-                    <a
-                      href={project.links.live}
-                      target="_blank"
-                      rel="noreferrer"
-                      class="w-fit text-[14px] lg:text-[16px] font-semibold leading-[24px] text-[var(--color-accent)] underline underline-offset-4"
-                    >
-                      Zobacz preview
-                    </a>
-                  )}
-                </div>
-              </CardTag>
-            </article>
-          );
-        })
-      }
-    </div>
-
-    <div class="mt-[64px] flex justify-center lg:mt-[73px]">
-      <a
-        href="/work"
-        class="btn-primary group gap-[8px] px-[24px] py-[14px] text-[14px] lg:text-[16px] font-semibold leading-[20px] tracking-[0] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
-      >
-        <span>Zobacz moje prace</span>
-        <TablerIcon name="arrow-narrow-right" class="size-6" />
-      </a>
-    </div>
-  </section>
-
-  <section
-    data-home-lower-section
-    class="home-reveal mx-auto grid w-full max-w-[1040px] gap-[48px] px-6 pb-[120px] sm:px-8 sm:pb-[144px] md:grid-cols-[340px_1fr] md:items-center md:gap-[56px] lg:grid-cols-[421px_505px] lg:items-center lg:justify-between lg:gap-[114px] lg:px-0 lg:pb-[200px]"
-    aria-labelledby="home-about-title"
-  >
-    <img
-      class="h-[320px] w-full rounded-[20px] object-cover sm:aspect-square sm:h-auto lg:size-[421px]"
-      src="/about-photo.JPG"
-      alt="Zdjęcie profilowe Magdy"
-      loading="lazy"
-      decoding="async"
-      transition:name="about-profile-photo"
-    />
-
-    <div class="flex flex-col items-start gap-[32px]">
-      <div class="w-full">
-        <div class="flex items-center gap-[10px]">
-          <h2
-            id="home-about-title"
-            class="text-[30px] font-semibold leading-[44px] tracking-[0] text-[var(--color-text)] lg:text-[36px]"
-            transition:name="about-title"
-          >
-            Cześć, jestem Magda
-          </h2>
-
-          <TablerIcon name="sparkles" class="size-8 text-[var(--color-text)]" />
+      <div class="home-hero__intro">
+        <div class="home-hero__portrait media-placeholder" aria-hidden="true"></div>
+        <p>Projektuję strony i aplikacje, łącząc potrzeby użytkowników z dopracowanym UI. Wybrane projekty rozwijam od koncepcji po wdrożenie, korzystając z narzędzi AI.</p>
+        <div class="home-hero__actions">
+          <a href="/work" class="btn-primary home-primary-button">Zobacz moje prace <span class="home-primary-arrow" aria-hidden="true"><img class="home-button-arrow" src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /><img class="home-button-arrow home-primary-arrow--hover" src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" /></span></a>
+          <a href="/about" class="btn-secondary">O mnie <img class="home-button-arrow" src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /></a>
         </div>
-
-        <div class="mt-[24px] h-[2px] w-full bg-[var(--color-divider)]"></div>
-
-        <div class="mt-[24px] flex items-center gap-[12px]">
-          <span class="availability-dot-wrap" aria-hidden="true">
-            <span class="availability-dot-ping"></span>
-            <span class="availability-dot-core"></span>
-          </span>
-          <p class="text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text-muted)]">Wrocław, PL</p>
-        </div>
-
-        <p class="mt-[24px] text-[14px] lg:text-[16px] leading-[24px] tracking-[0.5px] text-[var(--color-text)]">
-          Łączę projektowanie UI/UX z wdrażaniem, żeby pomysły szybciej przechodziły z makiety do działającego produktu.</p>
       </div>
+    </section>
 
-      <a
-        href="/about"
-        class="btn-secondary group self-center lg:self-start gap-[8px] px-[24px] py-[14px] text-[14px] lg:text-[16px] font-semibold leading-[20px] tracking-[0] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
-      >
-        <span>O mnie</span>
-        <TablerIcon name="arrow-narrow-right" class="size-6" />
-      </a>
-    </div>
-  </section>
+    <section class="home-featured" aria-labelledby="home-featured-title">
+      <h2 id="home-featured-title" class="sr-only">Wybrane projekty</h2>
+      <div class="home-featured__list">
+        {featuredProjects.map(project => (
+          <article class="home-project">
+            <a href={`/work/${project.slug}`} class="home-project__link page-container" aria-labelledby={`home-${project.slug}`}>
+              <div class="home-project__heading">
+                <p class="home-project__badges type-label">{project.badges}</p>
+                <h3 id={`home-${project.slug}`}>{project.title}</h3>
+                <span class="home-project__arrow" aria-hidden="true"><img src="/assets/work/arrow-down-left.svg" width="46" height="46" alt="" /></span>
+              </div>
+              <div class="home-project__media media-placeholder" aria-hidden="true"></div>
+              <p class="home-project__description">{project.description}</p>
+            </a>
+          </article>
+        ))}
+      </div>
+      <div class="home-featured__more page-container">
+        <a href="/work" class="btn-primary home-primary-button">Zobacz wszystkie projekty <span class="home-primary-arrow" aria-hidden="true"><img class="home-button-arrow" src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /><img class="home-button-arrow home-primary-arrow--hover" src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" /></span></a>
+      </div>
+    </section>
 
+    <section class="home-services page-container" aria-labelledby="home-services-title">
+      <h2 id="home-services-title">Czym się zajmuję</h2>
+      <dl class="home-services__list">
+        {services.map(service => (
+          <div class="home-services__row">
+            <dt class="type-label">{service.title}</dt>
+            <dd>{service.text}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section class="home-contact page-container" aria-labelledby="home-contact-title">
+      <div class="home-contact__content">
+        <h2 id="home-contact-title">Masz projekt do zaprojektowania albo szukasz projektantki do zespołu?</h2>
+        <a href="/contact" class="btn-primary home-primary-button">Porozmawiajmy <span class="home-primary-arrow" aria-hidden="true"><img class="home-button-arrow" src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /><img class="home-button-arrow home-primary-arrow--hover" src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" /></span></a>
+      </div>
+    </section>
+  </div>
 </Layout>
 
 <style>
-  .availability-dot-wrap {
-    position: relative;
-    display: inline-flex;
-    width: 16px;
-    height: 16px;
-    align-items: center;
-    justify-content: center;
+  .home-page { padding-top: var(--space-10); padding-bottom: var(--space-10); }
+  .home-hero { display: grid; gap: var(--space-10); margin-bottom: var(--space-10); }
+  .home-hero__heading { min-width: 0; }
+  .home-hero h1 { letter-spacing: 0; text-wrap: initial; }
+  .home-hero__role { margin-top: var(--space-5); font-size: var(--text-body); color: var(--color-text-muted); }
+  .home-hero__intro { display: grid; gap: var(--space-5); justify-self: end; width: min(100%, 320px); }
+  .home-hero__portrait { --media-ratio: 229 / 172; }
+  .home-hero__intro > p { font-size: var(--text-small); line-height: 1.5; }
+  .home-hero__actions { display: flex; align-items: flex-start; gap: var(--space-5); }
+  .home-hero__actions a { white-space: nowrap; }
+  .home-button-arrow { flex-shrink: 0; transform: rotate(180deg); }
+  .home-primary-arrow { display: grid; flex-shrink: 0; }
+  .home-primary-arrow img { grid-area: 1 / 1; transition: opacity var(--duration-ui) var(--ease-ui); }
+  .home-primary-arrow--hover { opacity: 0; }
+  .home-primary-button:focus-visible { background: var(--color-text); color: var(--color-surface); }
+  .home-primary-button:focus-visible .home-primary-arrow img:first-child { opacity: 0; }
+  .home-primary-button:focus-visible .home-primary-arrow--hover { opacity: 1; }
+  .home-project { border-top: var(--border-width) solid var(--color-border); }
+  .home-project:last-child { border-bottom: var(--border-width) solid var(--color-border); }
+  .home-project__link { display: grid; grid-template-rows: auto minmax(180px, 1fr) auto; gap: 18px; min-height: 425px; padding: var(--space-5); color: inherit; text-decoration: none; }
+  .home-project__heading { display: grid; grid-template-columns: minmax(0, 1fr) 70px; grid-template-rows: auto auto; gap: 10px; align-content: start; }
+  .home-project__badges { grid-column: 1; line-height: 18px; }
+  .home-project h3 { grid-column: 1; font-size: 24px; line-height: 38px; font-weight: var(--weight-regular); }
+  .home-project__arrow { grid-column: 2; grid-row: 1 / 3; display: grid; place-items: center; width: 70px; height: 70px; padding: var(--space-3); }
+  .home-project__arrow img { transform: rotate(180deg); transition: transform var(--duration-ui) var(--ease-ui); }
+  .home-project__media { aspect-ratio: auto; }
+  .home-project__description { font-size: var(--text-small); line-height: 25px; }
+  .home-featured__more { display: none; }
+  .home-services { display: grid; gap: var(--space-5); margin-top: var(--space-10); }
+  .home-services h2 { font-size: 24px; font-weight: var(--weight-medium); line-height: 1.3; }
+  .home-services__list { margin: 0; }
+  .home-services__row { display: grid; grid-template-columns: minmax(0, 156fr) minmax(0, 181fr); gap: var(--space-6); align-items: center; padding-block: var(--space-3); border-bottom: var(--border-width) solid var(--color-border); }
+  .home-services__row:first-child { padding-top: 0; }
+  .home-services__row:last-child { padding-bottom: 0; border-bottom: 0; }
+  .home-services dd { min-width: 0; margin: 0; font-size: var(--text-small); line-height: 25px; }
+  .home-contact { margin-top: var(--space-10); }
+  .home-contact__content { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-5); }
+  .home-contact h2 { width: 100%; font-size: 24px; line-height: 1.3; font-weight: var(--weight-regular); }
+  @media (hover: hover) {
+    .home-primary-button:hover { background: var(--color-text); color: var(--color-surface); }
+    .home-primary-button:hover .home-primary-arrow img:first-child { opacity: 0; }
+    .home-primary-button:hover .home-primary-arrow--hover { opacity: 1; }
+    .home-project__link:hover .home-project__arrow img { transform: translate(2px, -2px) rotate(180deg); }
   }
-
-  .availability-dot-ping {
-    position: absolute;
-    inset: 0;
-    border-radius: 999px;
-    background: #49b46f;
-    opacity: 0.6;
-    animation: availabilityPing 1.35s cubic-bezier(0, 0, 0.2, 1) infinite;
+  @media (max-width: 22.5rem) {
+    .home-hero__actions { gap: var(--space-2); }
+    .home-hero__actions a { padding-inline: var(--space-3); }
+    .home-project__heading { grid-template-columns: minmax(0, 1fr) 46px; }
+    .home-project__arrow { width: 46px; height: 46px; padding: 0; }
   }
-
-  .availability-dot-core {
-    position: relative;
-    z-index: 1;
-    width: 10px;
-    height: 10px;
-    border-radius: 999px;
-    background: #49b46f;
+  @media (min-width: 48rem) and (max-width: 63.999rem) {
+    .home-hero__intro { width: 55%; }
   }
-
-  @keyframes availabilityPing {
-    75%,
-    100% {
-      transform: scale(1.75);
-      opacity: 0;
-    }
+  @media (min-width: 64rem) {
+    .home-page { padding-top: 43px; padding-bottom: var(--space-30); }
+    .home-hero { grid-template-columns: minmax(0, 764fr) minmax(0, 412fr); align-items: start; gap: var(--space-10); margin-bottom: var(--space-30); }
+    .home-hero__heading { padding-top: 53px; }
+    .home-hero h1 { font-size: clamp(96px, 10vw, 128px); }
+    .home-hero__role { margin-top: var(--space-8); padding-left: var(--space-2); font-size: 20px; line-height: 18px; color: var(--color-text); }
+    .home-hero__intro { width: 100%; gap: var(--space-6); }
+    .home-hero__portrait { --media-ratio: 412 / 309; margin-bottom: var(--space-2); }
+    .home-hero__intro > p { font-size: var(--text-body); }
+    .home-hero__actions { gap: var(--space-5); }
+    .home-project__link { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: var(--space-10); row-gap: var(--space-6); padding: var(--space-10) var(--page-gutter); min-height: 468px; }
+    .home-project__heading { grid-column: 2; grid-row: 1; row-gap: var(--space-10); }
+    .home-project__badges { font-size: var(--text-body); }
+    .home-project h3 { font-size: 64px; line-height: 1.15; }
+    .home-project__arrow { align-self: center; }
+    .home-project__media { grid-column: 1; grid-row: 1 / 3; min-height: 388px; }
+    .home-project__description { grid-column: 2; align-self: end; font-size: var(--text-body); }
+    .home-featured__more { display: flex; justify-content: center; margin-top: var(--space-10); }
+    .home-services { grid-template-columns: minmax(0, 309fr) minmax(0, 821fr); gap: var(--space-20); margin-top: var(--space-16); }
+    .home-services h2 { font-size: 40px; }
+    .home-services__row { grid-template-columns: minmax(0, 262fr) minmax(0, 535fr); }
+    .home-services dd { font-size: var(--text-body); }
+    .home-contact { margin-top: var(--space-30); }
+    .home-contact__content { max-width: 700px; margin-left: auto; align-items: flex-start; gap: var(--space-8); }
+    .home-contact h2 { font-size: 40px; }
   }
-
-  .home-typewriter-text.is-typing {
-    border-right: 2px solid currentColor;
-    padding-right: 2px;
-    white-space: pre-line;
-    animation: homeTypewriterCaret 800ms steps(1, end) infinite;
-  }
-
-  .home-typewriter-text {
-    white-space: pre-line;
-  }
-
-  .home-reveal {
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity 320ms ease-in-out, transform 320ms ease-in-out;
-  }
-
-  .home-reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @keyframes homeTypewriterCaret {
-    0%,
-    49% {
-      border-right-color: currentColor;
-    }
-    50%,
-    100% {
-      border-right-color: transparent;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .home-typewriter-text.is-typing {
-      animation: none;
-      border-right-color: transparent;
-    }
-
-    .home-reveal,
-    .home-reveal.is-visible {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
+  @media (min-width: 64rem) and (max-width: 75rem) {
+    .home-hero { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+    .home-hero__actions { flex-wrap: wrap; gap: var(--space-2); }
+    .home-services { gap: var(--space-10); }
+    .home-services h2 { font-size: 32px; }
   }
 </style>
-
-<script is:inline>
-  (() => {
-    const STORAGE_KEY = "home_typewriter_seen_v1";
-    const STATE_KEY = "__homeTypewriterState";
-    const state =
-      window[STATE_KEY] ??
-      (window[STATE_KEY] = {
-        isTyping: false,
-        timerId: 0,
-        revealTimerIds: [],
-        pageLoadBound: false,
-      });
-
-    const clearTimer = () => {
-      if (state.timerId) {
-        window.clearTimeout(state.timerId);
-        state.timerId = 0;
-      }
-    };
-
-    const clearRevealTimers = () => {
-      if (!Array.isArray(state.revealTimerIds)) return;
-      state.revealTimerIds.forEach((timerId) => window.clearTimeout(timerId));
-      state.revealTimerIds = [];
-    };
-
-    const runTypewriter = () => {
-      const target = document.querySelector("[data-home-typewriter]");
-      const subheader = document.querySelector("[data-home-subheader]");
-      const cta = document.querySelector("[data-home-cta]");
-      const lowerSections = Array.from(document.querySelectorAll("[data-home-lower-section]"));
-      if (!(target instanceof HTMLElement)) return;
-      if (!(subheader instanceof HTMLElement) || !(cta instanceof HTMLElement)) return;
-
-      const fullDesktopText = target.getAttribute("data-full-text")?.trim() || target.textContent?.trim() || "";
-      const fullMobileText = target.getAttribute("data-full-text-mobile")?.trim() || "";
-      const isMobile = window.matchMedia("(max-width: 639px)").matches;
-      const fullText = isMobile && fullMobileText ? fullMobileText : fullDesktopText;
-      if (!fullText) return;
-
-      clearRevealTimers();
-      subheader.classList.add("home-reveal");
-      cta.classList.add("home-reveal");
-      subheader.classList.remove("is-visible");
-      cta.classList.remove("is-visible");
-      lowerSections.forEach((section) => {
-        if (!(section instanceof HTMLElement)) return;
-        section.classList.add("home-reveal");
-        section.classList.remove("is-visible");
-      });
-
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        clearTimer();
-        state.isTyping = false;
-        target.textContent = fullText;
-        target.classList.remove("is-typing");
-        subheader.classList.add("is-visible");
-        cta.classList.add("is-visible");
-        lowerSections.forEach((section) => {
-          if (section instanceof HTMLElement) {
-            section.classList.add("is-visible");
-          }
-        });
-        localStorage.setItem(STORAGE_KEY, "1");
-        return;
-      }
-
-      const hasSeen = localStorage.getItem(STORAGE_KEY) === "1";
-      if (hasSeen) {
-        clearTimer();
-        state.isTyping = false;
-        target.textContent = fullText;
-        target.classList.remove("is-typing");
-        subheader.classList.add("is-visible");
-        cta.classList.add("is-visible");
-        lowerSections.forEach((section) => {
-          if (section instanceof HTMLElement) {
-            section.classList.add("is-visible");
-          }
-        });
-        return;
-      }
-
-      if (state.isTyping && target.classList.contains("is-typing")) {
-        return;
-      }
-
-      clearTimer();
-      state.isTyping = true;
-      target.textContent = "";
-      target.classList.add("is-typing");
-
-      let index = 0;
-      const step = () => {
-        index += 1;
-        target.textContent = fullText.slice(0, index);
-        if (index < fullText.length) {
-          const delay = index < 10 ? 82 : 68;
-          state.timerId = window.setTimeout(step, delay);
-          return;
-        }
-        state.isTyping = false;
-        state.timerId = 0;
-        target.classList.remove("is-typing");
-        state.revealTimerIds.push(
-          window.setTimeout(() => subheader.classList.add("is-visible"), 120)
-        );
-        state.revealTimerIds.push(
-          window.setTimeout(() => cta.classList.add("is-visible"), 260)
-        );
-        state.revealTimerIds.push(
-          window.setTimeout(() => {
-            lowerSections.forEach((section) => {
-              if (section instanceof HTMLElement) {
-                section.classList.add("is-visible");
-              }
-            });
-          }, 260)
-        );
-        localStorage.setItem(STORAGE_KEY, "1");
-      };
-
-      state.timerId = window.setTimeout(step, 260);
-    };
-
-    runTypewriter();
-    if (!state.pageLoadBound) {
-      document.addEventListener("astro:page-load", runTypewriter);
-      state.pageLoadBound = true;
-    }
-  })();
-</script>

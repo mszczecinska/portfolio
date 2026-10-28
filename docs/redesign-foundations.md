@@ -7,7 +7,7 @@ Podgląd lokalny: `/dev/foundations` (dostępny tylko w trybie development, bez 
 ## Ustalenia
 
 - Jeden jasny motyw. Bez ikony motywu, automatycznego dopasowania do systemu i filtrów przyciemniających multimedia.
-- Satoshi Regular w tekście i nawigacji; Satoshi Medium w aktywnej pozycji menu. Funnel Display pomijamy.
+- Satoshi Regular w tekście i nawigacji, także w aktywnej pozycji menu. Aktywna pozycja zachowuje większy rozmiar fontu, bez wagi Medium. Funnel Display pomijamy.
 - Geist Mono Regular w etykietach, metadanych i przyciskach. Fonty są hostowane lokalnie.
 - Polska wersja ma polskie menu. Przełącznik języka oraz angielskie treści i trasy wymagają osobnego zadania — obecny projekt nie ma jeszcze obsługi języków. Nie dodajemy pozornego przełącznika.
 - Rekomendacje oraz ich zdjęcia zachowujemy z obecnego kodu.
