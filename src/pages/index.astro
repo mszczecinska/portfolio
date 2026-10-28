@@ -129,6 +129,13 @@ const services = [
     .home-primary-button:hover .home-primary-arrow--hover { opacity: 1; }
     .home-project__link:hover .home-project__arrow img { transform: translate(2px, -2px) rotate(180deg); }
   }
+  @media (max-width: 47.999rem) {
+    .home-page { padding-bottom: var(--section-gap); }
+    .home-hero { margin-bottom: var(--section-gap); }
+    .home-services, .home-contact { margin-top: var(--section-gap); }
+    .home-services { gap: var(--space-8); }
+    .home-contact__content { gap: var(--space-8); }
+  }
   @media (max-width: 22.5rem) {
     .home-hero__actions { gap: var(--space-2); }
     .home-hero__actions a { padding-inline: var(--space-3); }

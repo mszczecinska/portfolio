@@ -28,6 +28,10 @@
   text-wrap: balance;
 }
 
+@media (max-width: 47.999rem) {
+  .case-study { padding-top: var(--space-10); }
+}
+
 @media (min-width: 64rem) {
   .case-study { padding-top: var(--space-2); }
   .case-study .case-body,

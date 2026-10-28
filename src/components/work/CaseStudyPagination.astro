@@ -85,6 +85,9 @@ const projects = [
     .case-pagination__next:hover :global(.case-pagination__arrow) { transform: translateX(4px); }
     .case-pagination__previous:hover :global(.case-pagination__arrow) { transform: translateX(-4px) rotate(180deg); }
   }
+  @media (max-width: 47.999rem) {
+    .case-pagination { gap: var(--section-gap); padding-bottom: var(--section-gap); }
+  }
   @media (min-width: 48rem) {
     .case-pagination {
       grid-template-columns: repeat(2, minmax(0, 1fr));
