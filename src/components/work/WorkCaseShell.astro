@@ -48,10 +48,6 @@ const {
 const resolvedPrimaryMetaValue = primaryMetaValue ?? duration ?? "";
 
 function getDarkIconSrc(src: string): string | undefined {
-  if (src === "/icons/tool-openai.png" || src === "/icons/tool-chatgpt.svg") {
-    return "/icons/openai-dark-icon.png";
-  }
-
   if (src === "/icons/tool-vercel.svg") {
     return "/icons/vercel-dark-icon.png";
   }

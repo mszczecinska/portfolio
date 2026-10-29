@@ -44,6 +44,11 @@ import SpeedInsights from "@vercel/speed-insights/astro";
     <meta name="color-scheme" content="light" />
     <title>{title} | Portfolio</title>
     <ClientRouter />
+    <script>
+      import { startAutoplayVideos } from "../scripts/video-playback.js";
+
+      document.addEventListener("astro:page-load", () => startAutoplayVideos());
+    </script>
     <script is:inline>
       const PROJECT_SCROLL_STATE_KEY = "__portfolioProjectScrollState";
 

@@ -20,7 +20,7 @@ const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes
 <figure class:list={["case-media", { "case-media--phone": phoneFrame }]} style={`--media-ratio: ${ratio}; --media-ratio-desktop: ${desktopRatio}; --media-fit: ${fit};`}>
   {src ? (
     kind === "video" && typeof src === "string" ? (
-      <video src={src} controls playsinline preload="metadata" aria-label={label}></video>
+      <video src={src} autoplay loop muted controls playsinline preload="metadata" aria-label={label}></video>
     ) : typeof src !== "string" ? (
       <Picture
         src={src}
