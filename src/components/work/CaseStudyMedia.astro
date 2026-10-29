@@ -18,6 +18,7 @@ const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes
 ---
 
 <figure class:list={["case-media", { "case-media--phone": phoneFrame }]} style={`--media-ratio: ${ratio}; --media-ratio-desktop: ${desktopRatio}; --media-fit: ${fit};`}>
+  <div class="case-media__content">
   {src ? (
     kind === "video" && typeof src === "string" ? (
       <div class="case-video" data-video-player>
@@ -56,15 +57,23 @@ const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes
       <span class="type-label">{label}</span>
     </div>
   )}
+  </div>
 </figure>
 
 <style>
   .case-media {
+    position: relative;
     width: 100%;
     min-width: 0;
     margin: 0;
     aspect-ratio: var(--media-ratio);
     overflow: hidden;
+  }
+  .case-media__content {
+    position: absolute;
+    inset: 0;
+    min-width: 0;
+    min-height: 0;
   }
   .case-media__placeholder {
     width: 100%;
@@ -74,10 +83,15 @@ const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes
   }
   .case-media--phone {
     box-sizing: border-box;
-    padding: 4.3478% 4.9689%;
     border: 1px solid var(--color-text);
     border-radius: 9.3% / 4.5%;
     background: var(--color-background);
+  }
+  .case-media--phone .case-media__content {
+    /* Insets resolve against this phone, rather than the gallery's width. */
+    inset: 2.1148% 4.9689%;
+    border-radius: 5.5% / 2.5%;
+    overflow: hidden;
   }
   .case-media--phone video { border-radius: 5.5% / 2.5%; }
   .case-video { position: relative; width: 100%; height: 100%; }
