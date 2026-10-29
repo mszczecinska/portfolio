@@ -49,6 +49,9 @@
 .btn-primary,
 .btn-secondary,
 .btn-icon {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -56,6 +59,7 @@
   border-radius: var(--radius-control);
   color: var(--color-text);
   transition:
+    transform var(--duration-ui) var(--ease-ui),
     background-color var(--duration-ui) var(--ease-ui),
     color var(--duration-ui) var(--ease-ui),
     border-color var(--duration-ui) var(--ease-ui);
@@ -75,34 +79,129 @@
 }
 
 .btn-primary {
+  --button-hover-border: var(--color-text);
   border: var(--border-width) solid var(--color-text);
   background: var(--color-background);
   box-shadow: var(--shadow-control);
 }
 
 .btn-secondary {
+  --button-hover-border: transparent;
   border: var(--border-width) solid transparent;
   background: transparent;
 }
 
 .btn-icon {
+  --button-hover-border: transparent;
   min-width: var(--control-height);
   border: var(--border-width) solid transparent;
   background: transparent;
 }
 
+.btn-primary::before,
+.btn-secondary::before,
+.btn-icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--button-hover-fill, var(--color-surface));
+  transform: scaleY(0);
+  transform-origin: center bottom;
+  transition: transform 360ms var(--ease-editorial);
+}
+.home-primary-button,
+.about-contact__button {
+  --button-hover-fill: var(--color-text);
+  --button-hover-text: var(--color-surface);
+}
 @media (hover: hover) {
-  .btn-primary:hover,
-  .btn-secondary:hover,
-  .btn-icon:hover {
-    background-color: var(--color-surface);
+  :is(.btn-primary, .btn-secondary, .btn-icon):not(:disabled):not([aria-disabled="true"]):hover {
+    color: var(--button-hover-text, var(--color-text));
+    border-color: var(--button-hover-border);
+  }
+  :is(.btn-primary, .btn-secondary, .btn-icon):not(:disabled):not([aria-disabled="true"]):hover::before {
+    transform: scaleY(1);
   }
 }
+:is(.btn-primary, .btn-secondary, .btn-icon):focus-visible {
+  color: var(--button-hover-text, var(--color-text));
+  border-color: var(--button-hover-border);
+}
+:is(.btn-primary, .btn-secondary, .btn-icon):focus-visible::before { transform: scaleY(1); }
 
 .btn-primary:active,
 .btn-secondary:active,
 .btn-icon:active {
   background-color: var(--color-border);
+  transform: translateY(1px);
+}
+
+/* Keep the grid still while imagery and directional cues respond. */
+.work-card__media { overflow: hidden; }
+.home-primary-arrow,
+.btn-secondary > img,
+.about-contact__arrow {
+  transition: translate var(--duration-ui) var(--ease-editorial);
+}
+@media (hover: hover) and (pointer: fine) {
+  .home-primary-button:hover .home-primary-arrow,
+  .btn-secondary:hover > img,
+  .about-contact__button:hover .about-contact__arrow { translate: 3px -3px; }
+}
+
+[data-project-cover] { view-transition-name: none; }
+
+.entry-mask { display: block; overflow: clip; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+[data-entry-reveal] { display: block; }
+
+/* Applied only by the router while its page snapshot is on screen. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-entry-pending] [data-entry-reveal] { transform: translateY(105%); }
+  .home-page[data-entry-pending] .home-hero__role,
+  .home-page[data-entry-pending] .home-hero__portrait,
+  .home-page[data-entry-pending] .home-hero__intro > p,
+  .home-page[data-entry-pending] .home-hero__actions,
+  .work-page[data-entry-pending] .work-card__link,
+  .about-page[data-entry-pending] .about-portrait,
+  .about-page[data-entry-pending] .about-bio,
+  .about-page[data-entry-pending] .about-socials { opacity: 0; }
+}
+
+::view-transition-group(project-cover) {
+  animation-duration: 420ms;
+  animation-timing-function: var(--ease-editorial);
+}
+::view-transition-image-pair(project-cover) { isolation: isolate; overflow: clip; }
+::view-transition-old(project-cover),
+::view-transition-new(project-cover) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  mix-blend-mode: normal;
+  animation-duration: 420ms;
+  animation-timing-function: var(--ease-editorial);
+}
+::view-transition-old(project-cover) { animation-name: project-cover-out; }
+::view-transition-new(project-cover) { animation-name: project-cover-in; }
+@keyframes project-cover-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes project-cover-in { from { opacity: 0; } to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  :is(.btn-primary, .btn-secondary, .btn-icon)::before { transition: none; }
+  .home-project__media img,
+  .work-card__media img { transition: none; transform: none !important; }
+  .home-primary-arrow,
+  .btn-secondary > img,
+  .about-contact__arrow { translate: none !important; }
+  .btn-primary:active,
+  .btn-secondary:active,
+  .btn-icon:active { transform: none; }
+  ::view-transition-group(project-cover),
+  ::view-transition-old(project-cover),
+  ::view-transition-new(project-cover) { animation: none !important; }
 }
 
 @media (min-width: 48rem) {

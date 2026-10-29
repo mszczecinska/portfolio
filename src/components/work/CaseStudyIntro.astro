@@ -25,7 +25,9 @@ const { title, cover, subtitle, overview, role, roleLabel = "Rola", projectType,
 
 <header class="case-intro">
   <div class="page-container">
+    <div data-project-cover={cover ? Astro.url.pathname.split("/").filter(Boolean).at(-1) : undefined}>
     <CaseStudyMedia src={cover} priority fit="cover" label={`${title} — okładka projektu`} ratio="361 / 186" desktopRatio="1216 / 520" />
+    </div>
   </div>
 
   <div class="case-intro__details page-container">
@@ -35,7 +37,7 @@ const { title, cover, subtitle, overview, role, roleLabel = "Rola", projectType,
         <p class="case-intro__subtitle">{subtitle}</p>
       </div>
       {liveUrl && <div class="case-intro__live" data-live-info={showLiveInfo ? true : undefined}>
-        <a class="btn-primary" style={`--case-live-hover: ${liveHoverColor}; --case-live-hover-text: ${liveHoverTextColor}; --case-live-hover-border: ${liveHoverBorderColor};`} href={liveUrl} target="_blank" rel="noopener noreferrer">Zobacz live <TablerIcon name="arrow-up-right" class="size-6" /></a>
+        <a class="btn-primary" style={`--button-hover-fill: ${liveHoverColor}; --button-hover-text: ${liveHoverTextColor}; --button-hover-border: ${liveHoverBorderColor};`} href={liveUrl} target="_blank" rel="noopener noreferrer">Zobacz live <TablerIcon name="arrow-up-right" class="size-6" /></a>
         {showLiveInfo && <><button class="case-intro__info" type="button" aria-label="Informacja o wdrożonej stronie" aria-describedby="live-site-info" data-live-info-trigger>
           <TablerIcon name="info-circle" class="size-5" />
         </button>
@@ -64,13 +66,6 @@ const { title, cover, subtitle, overview, role, roleLabel = "Rola", projectType,
   .case-intro__info { display: grid; place-items: center; width: var(--control-height); height: var(--control-height); flex: none; color: var(--color-text-muted); cursor: help; }
   .case-intro__info:focus-visible { outline: 2px solid var(--color-text); outline-offset: 2px; }
   .case-intro__tooltip { position: absolute; z-index: 10; left: 0; bottom: calc(100% + var(--space-2)); width: min(20rem, calc(100vw - 2 * var(--page-gutter))); padding: var(--space-3) var(--space-4); border: 1px solid var(--color-border); background: var(--color-background); color: var(--color-text); font-size: var(--text-small); line-height: 1.5; }
-  @media (hover: hover) {
-    .case-intro__heading .btn-primary:hover {
-      background-color: var(--case-live-hover);
-      color: var(--case-live-hover-text);
-      border-color: var(--case-live-hover-border);
-    }
-  }
   .case-intro { display: flex; flex-direction: column; gap: var(--space-6); }
   .case-intro > .page-container:first-child { margin-bottom: calc(-1 * var(--space-4)); }
   .case-intro__details { display: grid; gap: var(--space-5); }

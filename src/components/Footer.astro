@@ -99,8 +99,8 @@ const mobileDots = [
             {
               footerNav.map((item) => (
                 <li>
-                  <a href={item.href} class="px-[10px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]">
-                    {item.label}
+                  <a href={item.href} class="footer-link px-[10px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]">
+                    <span class="footer-link__label">{item.label}</span>
                   </a>
                 </li>
               ))
@@ -117,12 +117,12 @@ const mobileDots = [
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="group inline-flex items-center gap-[12px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
+                    class="footer-link inline-flex items-center gap-[12px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
                   >
-                    <span>{item.label}</span>
+                    <span class="footer-link__label">{item.label}</span>
                     <TablerIcon
                       name="arrow-up-right"
-                      class="size-6 transition-transform duration-200 group-hover:-translate-y-[1px] group-hover:translate-x-[1px] lg:size-8"
+                      class="footer-link__arrow size-6 lg:size-8"
                     />
                   </a>
                 </li>
@@ -131,7 +131,7 @@ const mobileDots = [
           </ul>
         </div>
         <div id="footer-contact" class="footer-contact">
-          <a class="footer-contact__title" href={contactMailto}>Napisz do mnie</a>
+          <a class="footer-contact__title footer-link" href={contactMailto}><span class="footer-link__label">Napisz do mnie</span></a>
           <div class="footer-contact__email">
             <span data-footer-email>{contactEmail}</span>
             <button type="button" class="btn-icon" aria-label="Skopiuj adres e-mail" data-footer-copy-email>
@@ -148,10 +148,10 @@ const mobileDots = [
           href="https://github.com/mszczecinska/portfolio"
           target="_blank"
           rel="noopener noreferrer"
-          class="group inline-flex items-center gap-[6px] text-[var(--color-text-muted)] transition-colors duration-200 hover:text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
+          class="footer-link footer-link--credit inline-flex items-center gap-[6px] text-[var(--color-text-muted)] transition-colors duration-200 hover:text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
         >
-          <span>developed by me</span>
-          <TablerIcon name="arrow-narrow-right" class="size-4 transition-transform duration-200 group-hover:translate-x-[2px]" />
+          <span class="footer-link__label">developed by me</span>
+          <TablerIcon name="arrow-narrow-right" class="footer-link__arrow size-4" />
         </a>
         <p>
           &copy; Magdalena Szczecińska {currentYear}
@@ -162,6 +162,33 @@ const mobileDots = [
 </footer>
 
 <style>
+  .footer-link { --footer-arrow-shift: 2px -2px; }
+  .footer-link--credit { --footer-arrow-shift: 3px 0; }
+  .footer-link__label { position: relative; display: inline-block; }
+  .footer-link__label::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 240ms var(--ease-editorial);
+  }
+  .footer-link :global(.footer-link__arrow) { transition: translate 240ms var(--ease-editorial); }
+  .footer-link:focus-visible .footer-link__label::after { transform: scaleX(1); transform-origin: left center; }
+  .footer-link:focus-visible :global(.footer-link__arrow) { translate: var(--footer-arrow-shift); }
+  @media (hover: hover) {
+    .footer-link:hover .footer-link__label::after { transform: scaleX(1); transform-origin: left center; }
+    .footer-link:hover :global(.footer-link__arrow) { translate: var(--footer-arrow-shift); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .footer-link { --footer-arrow-shift: 0 0; }
+    .footer-link__label::after { transition: none; }
+    .footer-link :global(.footer-link__arrow) { transition: none; }
+  }
   .footer-columns { display: grid; grid-template-columns: auto auto auto; align-items: start; justify-content: space-between; gap: var(--space-8) var(--space-4); }
   .footer-contact { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); min-width: 0; font-size: var(--text-small); }
   .footer-contact__title { font-size: var(--text-body); line-height: 2rem; }

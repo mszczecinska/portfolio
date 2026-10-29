@@ -23,7 +23,7 @@ const services = [
   <div class="home-page">
     <section class="home-hero page-container" aria-labelledby="home-title">
       <div class="home-hero__heading">
-        <h1 id="home-title" class="type-display">Magda<br />Szczecińska</h1>
+        <h1 id="home-title" class="type-display" aria-label="Magda Szczecińska"><span class="entry-mask"><span data-entry-reveal>Magda</span></span><span class="entry-mask"><span data-entry-reveal>Szczecińska</span></span></h1>
         <p class="home-hero__role type-label">UX/UI designer</p>
       </div>
       <div class="home-hero__intro">
@@ -59,7 +59,7 @@ const services = [
                 <h3 id={`home-${project.slug}`}>{project.title}</h3>
                 <span class="home-project__arrow" aria-hidden="true"><img src="/assets/work/arrow-down-left.svg" width="46" height="46" alt="" /></span>
               </div>
-              <div class:list={["home-project__media", { "media-placeholder": !project.cover }]} aria-hidden="true">
+              <div class:list={["home-project__media", { "media-placeholder": !project.cover }]} aria-hidden="true" data-project-cover={project.cover ? project.slug : undefined}>
                 {project.cover && <Picture
                   src={project.cover}
                   alt=""
@@ -117,10 +117,17 @@ const services = [
   .home-primary-arrow { display: grid; flex-shrink: 0; }
   .home-primary-arrow img { grid-area: 1 / 1; transition: opacity var(--duration-ui) var(--ease-ui); }
   .home-primary-arrow--hover { opacity: 0; }
-  .home-primary-button:focus-visible { background: var(--color-text); color: var(--color-surface); }
   .home-primary-button:focus-visible .home-primary-arrow img:first-child { opacity: 0; }
   .home-primary-button:focus-visible .home-primary-arrow--hover { opacity: 1; }
-  .home-project { border-top: var(--border-width) solid var(--color-border); }
+  .home-project { position: relative; isolation: isolate; border-top: var(--border-width) solid var(--color-border); }
+  .home-project::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: var(--color-surface); opacity: 0; transition: opacity 240ms var(--ease-editorial); }
+  .home-project:has(.home-project__link:focus-visible)::before { opacity: .55; }
+  @media (hover: hover) and (pointer: fine) {
+    .home-project:has(.home-project__link:hover)::before { opacity: .55; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .home-project::before { transition: none; }
+  }
   .home-project:last-child { border-bottom: var(--border-width) solid var(--color-border); }
   .home-project__link { display: grid; grid-template-rows: auto minmax(180px, 1fr) auto; gap: 18px; min-height: 425px; padding: var(--space-5); color: inherit; text-decoration: none; }
   .home-project__heading { display: grid; grid-template-columns: minmax(0, 1fr) 70px; grid-template-rows: auto auto; gap: 10px; align-content: start; }
@@ -144,10 +151,9 @@ const services = [
   .home-contact__content { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-5); }
   .home-contact h2 { width: 100%; font-size: 24px; line-height: 1.3; font-weight: var(--weight-regular); }
   @media (hover: hover) {
-    .home-primary-button:hover { background: var(--color-text); color: var(--color-surface); }
     .home-primary-button:hover .home-primary-arrow img:first-child { opacity: 0; }
     .home-primary-button:hover .home-primary-arrow--hover { opacity: 1; }
-    .home-project__link:hover .home-project__arrow img { transform: translate(2px, -2px) rotate(180deg); }
+    .home-project__link:hover .home-project__arrow img { transform: translate(4px, -4px) rotate(180deg); }
   }
   @media (max-width: 63.999rem) {
     .home-page { --section-gap: var(--space-20); padding-bottom: var(--section-gap); }

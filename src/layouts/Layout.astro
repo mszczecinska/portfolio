@@ -45,6 +45,9 @@ import SpeedInsights from "@vercel/speed-insights/astro";
     <title>{title} | Portfolio</title>
     <ClientRouter />
     <script>
+      import "../scripts/project-transitions";
+      import "../scripts/page-entry";
+      import "../scripts/menu-motion";
       import { startAutoplayVideos } from "../scripts/video-playback.js";
 
       let cleanupVideos = () => {};
