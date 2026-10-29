@@ -3,16 +3,17 @@ import TablerIcon from "../TablerIcon.astro";
 import CaseStudyMedia from "./CaseStudyMedia.astro";
 import { getProjectCover } from "../../lib/projectCovers";
 
-interface RelatedProject {
-  title: string;
-  description: string;
-  href: string;
-}
-interface Props { previous: RelatedProject; next: RelatedProject; }
-const { previous, next } = Astro.props;
+import { projectCards } from "../../lib/work";
+
+interface Props { slug: string; }
+const { slug } = Astro.props;
+const currentIndex = projectCards.findIndex(project => project.slug === slug);
+if (currentIndex === -1) throw new Error(`Project missing from work listing: ${slug}`);
+const previous = projectCards[(currentIndex - 1 + projectCards.length) % projectCards.length];
+const next = projectCards[(currentIndex + 1) % projectCards.length];
 const projects = [
-  { ...next, direction: "next", label: "Następny projekt" },
-  { ...previous, direction: "previous", label: "Poprzedni projekt" },
+  { ...next, href: `/work/${next.slug}`, direction: "next", label: "Następny projekt" },
+  { ...previous, href: `/work/${previous.slug}`, direction: "previous", label: "Poprzedni projekt" },
 ];
 ---
 
