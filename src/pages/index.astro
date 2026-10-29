@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { contactMailto } from "../lib/contact";
 import { Picture } from "astro:assets";
 import { getProjectCover } from "../lib/projectCovers";
+import homePhoto from "../assets/home/home-photo.jpg";
 
 const featuredProjects = [
   {
@@ -37,7 +38,19 @@ const services = [
         <p class="home-hero__role type-label">UX/UI designer</p>
       </div>
       <div class="home-hero__intro">
-        <div class="home-hero__portrait media-placeholder" aria-hidden="true"></div>
+        <div class="home-hero__portrait">
+          <Picture
+            src={homePhoto}
+            alt="Magda Szczecińska siedząca w fotelu"
+            formats={["avif", "webp"]}
+            widths={[320, 480, 640, 824, 1200]}
+            sizes="(min-width: 1280px) 412px, (min-width: 1201px) calc(35.034vw - 36.435px), (min-width: 1024px) calc(40vw - 41.6px), (min-width: 768px) calc(55vw - 17.6px), (min-width: 352px) 320px, calc(100vw - 32px)"
+            quality={85}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
         <p>Projektuję strony i aplikacje, łącząc potrzeby użytkowników z dopracowanym UI. Wybrane projekty rozwijam od koncepcji po wdrożenie, korzystając z narzędzi AI.</p>
         <div class="home-hero__actions">
           <a href="/work" class="btn-primary home-primary-button">Zobacz moje prace <span class="home-primary-arrow" aria-hidden="true"><img class="home-button-arrow" src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /><img class="home-button-arrow home-primary-arrow--hover" src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" /></span></a>
@@ -106,7 +119,8 @@ const services = [
   .home-hero h1 { letter-spacing: 0; text-wrap: initial; }
   .home-hero__role { margin-top: var(--space-5); font-size: var(--text-body); color: var(--color-text-muted); }
   .home-hero__intro { display: grid; gap: var(--space-5); justify-self: end; width: min(100%, 320px); }
-  .home-hero__portrait { --media-ratio: 229 / 172; }
+  .home-hero__portrait { display: block; width: 100%; height: auto; }
+  .home-hero__portrait :global(img) { display: block; width: 100%; height: auto; }
   .home-hero__intro > p { font-size: var(--text-small); line-height: 1.5; }
   .home-hero__actions { display: flex; align-items: flex-start; gap: var(--space-5); }
   .home-hero__actions a { white-space: nowrap; }
@@ -169,7 +183,7 @@ const services = [
     .home-hero h1 { font-size: clamp(96px, 10vw, 128px); }
     .home-hero__role { margin-top: var(--space-8); padding-left: var(--space-2); font-size: 20px; line-height: 18px; color: var(--color-text); }
     .home-hero__intro { width: 100%; gap: var(--space-6); }
-    .home-hero__portrait { --media-ratio: 412 / 309; margin-bottom: var(--space-2); }
+    .home-hero__portrait { margin-bottom: var(--space-2); }
     .home-hero__intro > p { font-size: var(--text-body); }
     .home-hero__actions { gap: var(--space-5); }
     .home-project__link { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto 1fr; column-gap: var(--space-10); row-gap: var(--space-6); padding: var(--space-10) var(--page-gutter); min-height: 468px; }
