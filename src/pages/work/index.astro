@@ -1,6 +1,5 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getProjectBySlug } from "../../lib/projects";
 import { Picture } from "astro:assets";
 import { getProjectCover } from "../../lib/projectCovers";
 
@@ -39,17 +38,12 @@ const activeGroup = Astro.url.searchParams.get("category") === "experiments" ? "
         hidden={activeGroup !== group.id}
       >
         {group.cards.map((card, index) => {
-          const project = getProjectBySlug(card.slug);
           const cover = getProjectCover(card.slug);
-          const external = Boolean(project?.comingSoon);
-          const href = external ? project?.links?.live : `/work/${card.slug}`;
-          const CardTag = href ? "a" : "div";
+          const href = `/work/${card.slug}`;
           return (
             <article class:list={["work-card", { "work-card--featured": group.id === "projects" && index < 2 }]}>
-              <CardTag
+              <a
                 href={href}
-                target={external ? "_blank" : undefined}
-                rel={external ? "noopener noreferrer" : undefined}
                 class="work-card__link"
                 aria-labelledby={`title-${card.slug}`}
               >
@@ -72,7 +66,7 @@ const activeGroup = Astro.url.searchParams.get("category") === "experiments" ? "
                   />}
                 </div>
                 <p class="work-card__description">{card.description}</p>
-              </CardTag>
+              </a>
             </article>
           );
         })}

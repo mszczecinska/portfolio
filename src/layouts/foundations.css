@@ -38,19 +38,9 @@
   --color-text-muted: #676767;
   --color-border: #c8c8c5;
   --color-divider: var(--color-border);
-  --color-accent: var(--color-text);
   --color-subtle: var(--color-text-muted);
   --color-meta: var(--color-text-muted);
   --color-eyebrow: var(--color-text);
-
-  /* Compatibility aliases while existing sections migrate to the new foundations. */
-  --color-primary-bg: var(--color-background);
-  --color-primary-fg: var(--color-text);
-  --color-primary-bg-hover: var(--color-surface);
-  --color-primary-border: var(--color-text);
-  --color-secondary-bg: transparent;
-  --color-secondary-fg: var(--color-text);
-  --color-secondary-bg-hover: var(--color-surface);
 
   /* Functional colors belong to embedded examples, not the portfolio's neutral palette. */
   --color-success: #216e2a;

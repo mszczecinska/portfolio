@@ -20,7 +20,20 @@ const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes
 <figure class:list={["case-media", { "case-media--phone": phoneFrame }]} style={`--media-ratio: ${ratio}; --media-ratio-desktop: ${desktopRatio}; --media-fit: ${fit};`}>
   {src ? (
     kind === "video" && typeof src === "string" ? (
-      <video src={src} autoplay loop muted controls playsinline preload="metadata" aria-label={label}></video>
+      <div class="case-video" data-video-player>
+        <video poster={src.replace(/\.mp4$/, ".poster.webp")} data-autoplay autoplay loop muted controls playsinline preload="metadata" aria-label={label}>
+          <source src={src.replace(/\.mp4$/, ".webm")} type="video/webm" />
+          <source src={src} type="video/mp4" />
+          <a href={src}>Otwórz film</a>
+        </video>
+        <button class="case-video__play" type="button" data-video-play aria-label={`Odtwórz film: ${label}`}>
+          <span aria-hidden="true">▶</span> Odtwórz film
+        </button>
+        <p class="case-video__error" data-video-error role="status" hidden>
+          <span data-video-error-message>Nie udało się odtworzyć filmu.</span>
+          <a href={src} target="_blank" rel="noopener">Otwórz plik MP4</a>
+        </p>
+      </div>
     ) : typeof src !== "string" ? (
       <Picture
         src={src}
@@ -67,6 +80,38 @@ const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes
     background: var(--color-background);
   }
   .case-media--phone video { border-radius: 5.5% / 2.5%; }
+  .case-video { position: relative; width: 100%; height: 100%; }
+  .case-video__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    width: max-content;
+    max-width: calc(100% - 16px);
+    min-height: var(--control-height);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    background: var(--color-background);
+    color: var(--color-text);
+    font-size: var(--text-small);
+    cursor: pointer;
+  }
+  .case-video__play[hidden] { display: none; }
+  .case-video__error {
+    position: absolute;
+    left: var(--space-4);
+    right: var(--space-4);
+    bottom: 56px;
+    padding: var(--space-3);
+    background: var(--color-background);
+    color: var(--color-text);
+    font-size: var(--text-small);
+  }
+  .case-video__error[hidden] { display: none; }
+  .case-video__error a { text-decoration: underline; }
   .case-media :global(picture), .case-media :global(img), .case-media video {
     display: block;
     width: 100%;

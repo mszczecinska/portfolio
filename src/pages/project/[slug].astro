@@ -3,7 +3,7 @@ import { getAllProjects } from "../../lib/projects";
 
 export function getStaticPaths() {
   return getAllProjects()
-    .filter((project) => !project.comingSoon)
+    .filter((project) => project.category === "projects")
     .map((project) => ({
     params: { slug: project.slug },
     }));

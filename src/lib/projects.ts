@@ -3,7 +3,9 @@ export interface Project {
   title: string;
   description: string;
   tags: string[];
-  comingSoon?: boolean;
+  category: "projects" | "experiments";
+  featured?: boolean;
+  card: { title: string; badges: string; description: string };
   links?: {
     live?: string;
     github?: string;
@@ -12,18 +14,14 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: "multiplatform-design-system",
-    title: "Multiplatform design system",
-    description:
-      "Case study w przygotowaniu, ale już teraz możesz zobaczyć preview projektu.",
-    tags: ["UI Design", "Design system", "Web", "E-commerce"],
-    comingSoon: true,
-    links: {
-      live: "https://www.figma.com/design/Ggr7GFMPPOK58bETbzztxC/multiplatform_preview?node-id=3676-16",
-    },
-  },
-  {
     slug: "akademia-e-commerce-dla-e-bookow-edukacyjnych",
+    category: "projects",
+    featured: true,
+    card: {
+      title: "Akademia",
+      badges: "UX/UI / E-COMMERCE / EDUTECH",
+      description: "Od marki edukacyjnej do sklepu z e-bookami. Projekt UX/UI obejmujący pełną ścieżkę zakupową na desktopie i mobile.",
+    },
     title: "Akademia - e-commerce dla e-booków",
     description:
       "Kompletna makieta e-commerce dla e-booków edukacyjnych: pełny flow zakupowy, desktop, mobile i uporządkowane zmienne w Figmie.",
@@ -31,14 +29,14 @@ export const projects: Project[] = [
     tags: ["UX/UI Design", "E-commerce", "EduTech"],
   },
   {
-    slug: "szczecinska-design-portfolio",
-    title: "szczecinska.design - case study portfolio",
-    description:
-      "Własne portfolio zaprojektowane i wdrożone od zera: visual direction, case studies, motion i wynik Lighthouse 100/100.",
-    tags: ["UX/UI Design", "Development", "Web", "Motion Design"],
-  },
-  {
     slug: "miropoix-saas-dla-szefow-kuchni",
+    category: "projects",
+    featured: true,
+    card: {
+      title: "Miropoix",
+      badges: "UI / DEVELOPMENT / SAAS",
+      description: "Nowa strona aplikacji dla zespołów kuchennych. Redesign landing page, motion i wdrożenie przy wsparciu narzędzi AI.",
+    },
     title: "Miropoix - landing page aplikacji SaaS",
     description:
       "Redesign SaaS dla zespołów kuchennych: nowa warstwa UI, animacje, landing page i wdrożona strona.",
@@ -47,6 +45,12 @@ export const projects: Project[] = [
   },
   {
     slug: "koncepcja-wizji-produktu-b2c",
+    category: "projects",
+    card: {
+      title: "InsightX",
+      badges: "UX / FINTECH / RESEARCH",
+      description: "Od technologii B2B do wizji produktu B2C. Research, potrzeby traderów i koncepcja przestrzeni analitycznej InfoFi.",
+    },
     title: "INX - wizja produktu B2C",
     description:
       "Research i strategia produktu B2C dla crypto analytics: hipotezy, persony, JTBD i finalna wizja InfoFi workspace.",
@@ -54,6 +58,12 @@ export const projects: Project[] = [
   },
   {
     slug: "readyset-aplikacja-do-planowania-wyjazdow",
+    category: "projects",
+    card: {
+      title: "ReadySet",
+      badges: "UX/UI / MOBILE APP / TRAVEL",
+      description: "Od rozproszonych pomysłów do wspólnego planu wyjazdu. Koncepcja aplikacji obejmująca research, UX/UI i prototyp.",
+    },
     title: "ReadySet - aplikacja do planowania wyjazdów",
     description:
       "Koncept aplikacji mobilnej do planowania wyjazdów: research, flow, głosowanie, komentarze i generowany harmonogram.",
@@ -61,6 +71,12 @@ export const projects: Project[] = [
   },
   {
     slug: "mova-aplikacja-do-nauki-jezykow",
+    category: "projects",
+    card: {
+      title: "Mova",
+      badges: "UX/UI / WEB & MOBILE / EDUTECH",
+      description: "Czytelna ścieżka nauki języków. Projekt mobile i web ze strukturą lekcji, informacją o postępie i skalowalnym UI Kitem.",
+    },
     title: "Mova - aplikacja do nauki języków",
     description:
       "Koncept aplikacji mobile i web do nauki języków: struktura lekcji, progres, feedback i skalowalny UI Kit.",
@@ -68,10 +84,28 @@ export const projects: Project[] = [
   },
   {
     slug: "aurapura-design-system",
+    category: "projects",
+    card: {
+      title: "AuraPura",
+      badges: "UI / DESIGN SYSTEM / E-COMMERCE",
+      description: "Od briefu marki do spójnego design systemu. Tokeny, Figma Variables, komponenty i widoki na trzy wielkości ekranu.",
+    },
     title: "AuraPura - projekt design systemu",
     description:
       "Design system e-commerce zbudowany od fundamentów: tokeny, Figma Variables, komponenty i responsywne layouty.",
     tags: ["UI Design", "Design system", "Web", "E-commerce"],
+  },
+  {
+    slug: "obrys-studio",
+    category: "experiments",
+    card: {
+      title: "OBRYS Studio",
+      badges: "VISUAL IDENTITY / WEB DESIGN / EXPLORATION",
+      description: "Autorska koncepcja identyfikacji i strony studia wnętrzarskiego. Od znaku i typografii po spokojny interfejs i motion.",
+    },
+    title: "OBRYS Studio",
+    description: "Autorska koncepcja identyfikacji wizualnej i strony OBRYS Studio: znak, typografia, fotografia i spokojny interfejs.",
+    tags: ["Visual identity", "Web design", "Exploration"],
   },
 ];
 

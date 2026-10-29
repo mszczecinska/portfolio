@@ -1,4 +1,5 @@
 ---
+import { socialLinks } from "../lib/social";
 import Layout from "../layouts/Layout.astro";
 import { contactMailto } from "../lib/contact";
 
@@ -46,11 +47,6 @@ const tools = [
   { label: "Vercel", file: "vercel.svg", mobile: true },
   { label: "Visual Studio Code", file: "vscode.png", lines: ["Visual\u00a0Studio", "Code"] },
 ];
-const socialLinks = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/magdalena-szczecinska/" },
-  { label: "Behance", href: "https://www.behance.net/magdaleszczecinska" },
-  { label: "GitHub", href: "https://github.com/mszczecinska" },
-];
 const workingMethods = [
   { title: "W zespole", text: "Lubię wspólnie szukać rozwiązań, omawiać pomysły i korzystać z perspektywy innych osób. Dzielę się swoim podejściem, słucham feedbacku i dopracowuję projekt, uwzględniając potrzeby użytkowników, cele biznesowe oraz możliwości techniczne." },
   { title: "Z myślą o wdrożeniu", text: "Dbam o spójność komponentów, stany interakcji i zachowanie widoków na różnych ekranach. Zależy mi, żeby osoba przejmująca projekt rozumiała, jak poszczególne elementy mają działać i jak łączą się w całą ścieżkę użytkownika." },
@@ -69,7 +65,7 @@ const workingMethods = [
         <p>Nie chcę jednak ograniczać się do samego projektowania. Eksperymentuję z motion i wdrażaniem stron przy wsparciu AI. Dzięki temu mogę sprawdzać swoje pomysły w działaniu i lepiej rozumieć, co dzieje się z projektem po wyjściu z Figmy.</p>
       </div>
       <ul class="about-socials">
-        {socialLinks.map(link => <li><a class="btn-secondary" href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<img src="/assets/about/arrow-down-left.svg" width="24" height="24" alt="" /></a></li>)}
+        {socialLinks.map(link => <li><a class="btn-secondary" href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<img src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /></a></li>)}
       </ul>
       </div>
     </section>

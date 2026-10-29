@@ -47,7 +47,26 @@ import SpeedInsights from "@vercel/speed-insights/astro";
     <script>
       import { startAutoplayVideos } from "../scripts/video-playback.js";
 
-      document.addEventListener("astro:page-load", () => startAutoplayVideos());
+      let cleanupVideos = () => {};
+      let videoPage: HTMLElement | null = null;
+      const setupVideos = () => {
+        if (videoPage === document.body) return;
+        cleanupVideos();
+        videoPage = document.body;
+        cleanupVideos = startAutoplayVideos();
+      };
+      // Full reloads must initialize even when ClientRouter's first page-load
+      // event fires before this module finishes loading.
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", setupVideos, { once: true });
+      } else {
+        setupVideos();
+      }
+      document.addEventListener("astro:page-load", setupVideos);
+      document.addEventListener("astro:before-swap", () => {
+        cleanupVideos();
+        videoPage = null;
+      });
     </script>
     <script is:inline>
       const PROJECT_SCROLL_STATE_KEY = "__portfolioProjectScrollState";

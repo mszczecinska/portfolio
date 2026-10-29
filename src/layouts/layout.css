@@ -45,10 +45,6 @@
   background-color: var(--color-text-muted);
 }
 
-.theme-icon-dark {
-  display: none;
-}
-
 /* Shared controls. Geometry and typography match the redesign, with legacy class names. */
 .btn-primary,
 .btn-secondary,

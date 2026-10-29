@@ -3,24 +3,13 @@ import Layout from "../layouts/Layout.astro";
 import { contactMailto } from "../lib/contact";
 import { Picture } from "astro:assets";
 import { getProjectCover } from "../lib/projectCovers";
+import { featuredCards } from "../lib/work";
 import homePhoto from "../assets/home/home-photo.jpg";
 
-const featuredProjects = [
-  {
-    slug: "akademia-e-commerce-dla-e-bookow-edukacyjnych",
-    title: "Akademia",
-    cover: getProjectCover("akademia-e-commerce-dla-e-bookow-edukacyjnych"),
-    badges: "UX/UI / E-COMMERCE / EDUTECH",
-    description: "Od marki edukacyjnej do sklepu z e-bookami. Projekt UX/UI obejmujący pełną ścieżkę zakupową na desktopie i mobile.",
-  },
-  {
-    slug: "miropoix-saas-dla-szefow-kuchni",
-    title: "Miropoix",
-    cover: getProjectCover("miropoix-saas-dla-szefow-kuchni"),
-    badges: "UI / DEVELOPMENT / SAAS",
-    description: "Nowa strona aplikacji dla zespołów kuchennych. Redesign landing page, motion i wdrożenie przy wsparciu narzędzi AI.",
-  },
-];
+const featuredProjects = featuredCards.map(project => ({
+  ...project,
+  cover: getProjectCover(project.slug),
+}));
 const services = [
   { title: "UX/UI design", text: "Porządkuję strukturę produktu, ścieżki użytkownika i interfejsy aplikacji." },
   { title: "Strony internetowe", text: "Przekładam charakter marki i jej ofertę na czytelną stronę." },
