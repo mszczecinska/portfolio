@@ -1,40 +1,54 @@
 ---
 import CaseStudySection from "../CaseStudySection.astro";
 import CaseStudyMedia from "../CaseStudyMedia.astro";
+import cards from "../../../assets/case-studies/obrys/obrys-mockup-wizytówki.png";
+import { getImage } from "astro:assets";
+import phone from "../../../assets/case-studies/obrys/mockup strony na telefonie.jpg";
+import brandingDesktop from "../../../assets/case-studies/obrys/branding-desktop.png";
+import brandingMobile from "../../../assets/case-studies/obrys/branding-mobile.png";
+import screens from "../../../assets/case-studies/obrys/fragment widoku.png";
+import magazine from "../../../assets/case-studies/obrys/obrys-mockup-magazyn.png";
+
+const brandingSizes = "(min-width: 1280px) 1216px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)";
+// Art direction: let the browser request only the matching composition and format.
+const brandingSources = await Promise.all(
+  [
+    { image: brandingMobile, media: "(max-width: 63.999rem)", widths: [480, 800, 1200, 1600, 2000] },
+    { image: brandingDesktop, media: "(min-width: 64rem)", widths: [1200, 1600, 2400] },
+  ].flatMap(({ image, media, widths }) =>
+    (["avif", "webp"] as const).map(async format => ({
+      media,
+      type: `image/${format}`,
+      image,
+      result: await getImage({ src: image, format, widths, width: Math.max(...widths), quality: 90 }),
+    })),
+  ),
+);
+const brandingFallback = await getImage({ src: brandingDesktop, format: "png", width: 1200 });
 ---
 
 <CaseStudySection id="obrys-assumptions" title="Założenia projektu" layout="split" mediaSide="left">
   <p>Chciałam stworzyć spójny wizerunek studia wnętrzarskiego, obejmujący zarówno identyfikację, jak i stronę internetową. Punktem wyjścia był spokojny, architektoniczny kierunek - oszczędna typografia, regularna siatka i duże fotografie wnętrz.</p>
-  <CaseStudyMedia slot="media" label="OBRYS Studio — mockup strony na telefonie" />
+  <CaseStudyMedia slot="media" src={phone} sizes="(min-width: 1280px) 588px, (min-width: 1024px) calc((100vw - 104px) / 2), (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)" label="OBRYS Studio — mockup strony na telefonie" />
 </CaseStudySection>
 
 <CaseStudySection id="obrys-identity" title="Identyfikacja wizualna">
   <p>Zaprojektowałam logo OBRYS i jego warianty kolorystyczne. Otwarty znak, przygaszona zieleń i typografia Archivo tworzą wspólny język wizualny, który wykorzystałam następnie w projekcie strony.</p>
   <div slot="visuals" class="obrys-visuals">
-    <CaseStudyMedia label="OBRYS Studio — warianty kolorystyczne znaku" ratio="361 / 78.335" desktopRatio="1218 / 268" />
-    <div class="obrys-foundations">
-      <CaseStudyMedia label="Paleta kolorystyczna OBRYS Studio" ratio="361 / 279" desktopRatio="988 / 465" />
-      <CaseStudyMedia label="Typografia Archivo — regular i medium" ratio="361 / 179.52" desktopRatio="195 / 465" />
-    </div>
-    <CaseStudyMedia label="OBRYS Studio — mockup wizytówek" ratio="361 / 241" desktopRatio="1216 / 778" />
+    <picture class="obrys-branding">
+      {brandingSources.map(({ media, type, image, result }) => <source media={media} type={type} srcset={result.srcSet.attribute} sizes={brandingSizes} width={image.width} height={image.height} />)}
+      <img src={brandingFallback.src} width={brandingFallback.attributes.width} height={brandingFallback.attributes.height} alt="Identyfikacja OBRYS Studio: warianty logo, paleta kolorów i typografia Archivo" loading="lazy" decoding="async" />
+    </picture>
+    <CaseStudyMedia src={cards} label="OBRYS Studio — mockup wizytówek" ratio={`${cards.width} / ${cards.height}`} />
   </div>
 </CaseStudySection>
 
 <CaseStudySection id="obrys-website" title="Projekt strony">
   <p>Stronę zaprojektowałam wokół prezentacji realizacji, oferty i sposobu współpracy. Duże fotografie eksponują wnętrza, a uporządkowana hierarchia treści i powtarzalne elementy interfejsu łączą poszczególne podstrony w jedną całość.</p>
   <div slot="visuals" class="obrys-visuals">
-    <CaseStudyMedia label="OBRYS Studio — motion strony" ratio="1440 / 880" />
-    <div class="obrys-screens" aria-label="Podglądy podstron OBRYS Studio">
-      <div class="obrys-screen">
-        <CaseStudyMedia label="Podstrona Realizacje — fragment widoku" ratio="597 / 900" />
-        <p class="type-label">Realizacje / fragment widoku</p>
-      </div>
-      <div class="obrys-screen">
-        <CaseStudyMedia label="Podstrona Proces — fragment widoku" ratio="597 / 900" />
-        <p class="type-label">Proces / fragment widoku</p>
-      </div>
-    </div>
-    <CaseStudyMedia label="OBRYS Studio — mockup magazynu" ratio="2000 / 1333" />
+    <CaseStudyMedia src="/assets/case-studies/obrys/obrys-motion.mp4" kind="video" label="OBRYS Studio — motion strony" ratio="1440 / 880" />
+    <CaseStudyMedia src={screens} label="Podstrony OBRYS Studio: Realizacje i Proces — fragmenty widoków" ratio={`${screens.width} / ${screens.height}`} />
+    <CaseStudyMedia src={magazine} label="OBRYS Studio — mockup magazynu" ratio="2000 / 1333" />
   </div>
 </CaseStudySection>
 
@@ -43,13 +57,10 @@ import CaseStudyMedia from "../CaseStudyMedia.astro";
 </CaseStudySection>
 
 <style>
-  .obrys-visuals, .obrys-foundations { display: flex; flex-direction: column; gap: var(--content-gap); }
-  .obrys-screens { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
-  .obrys-screen { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
-  .obrys-screen > p { font-size: clamp(0.5rem, 1.1vw, var(--text-label)); }
+  .obrys-visuals { display: flex; flex-direction: column; gap: var(--content-gap); }
+  .obrys-branding, .obrys-branding img { display: block; width: 100%; }
+  .obrys-branding img { height: auto; aspect-ratio: 2400 / 3837; }
   @media (min-width: 64rem) {
-    .obrys-foundations { display: grid; grid-template-columns: minmax(0, 988fr) minmax(0, 195fr); gap: var(--space-10); }
-    .obrys-screens { gap: var(--space-5); }
-    .obrys-screen { gap: var(--space-4); }
+    .obrys-branding img { aspect-ratio: 4800 / 3034; }
   }
 </style>

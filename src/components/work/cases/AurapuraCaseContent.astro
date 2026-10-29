@@ -1,27 +1,32 @@
 ---
 import CaseStudySection from "../CaseStudySection.astro";
 import CaseStudyMedia from "../CaseStudyMedia.astro";
+import brief from "../../../assets/case-studies/Aurapura/analiza briefu i materiałów marki.png";
+import foundations from "../../../assets/case-studies/Aurapura/grid-photos-small.png";
+import components from "../../../assets/case-studies/Aurapura/grid-photo.png";
+import mobileGrid from "../../../assets/case-studies/Aurapura/mobile+tablet-grid.png";
+import desktopGrid from "../../../assets/case-studies/Aurapura/desktop-grid-aurapura.png";
 ---
 
 <CaseStudySection id="process" title="Proces" layout="split" mediaSide="left">
   <p>Zaczęłam od analizy briefu i assetów marki. Na ich podstawie określiłam paletę, typografię i kierunek wizualny. Następnie uporządkowałam te decyzje w strukturę tokenów, która stała się podstawą komponentów.</p>
   <p>Pracowałam od fundamentów do ich zastosowania. Najpierw wspólne wartości i ich role, następnie komponenty, a na końcu responsywne layouty. Pozwoliło mi to prześledzić, jak decyzje na poziomie systemu wpływają na gotowy interfejs.</p>
-  <CaseStudyMedia slot="media" label="AuraPura — analiza briefu i materiałów marki" />
+  <CaseStudyMedia slot="media" src={brief} sizes="(min-width: 1280px) 588px, (min-width: 1024px) calc(50vw - 52px), (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)" label="AuraPura — analiza briefu i materiałów marki" />
 </CaseStudySection>
 
 <CaseStudySection id="foundations" title="Fundamenty systemu">
   <p>Paletę i typografię wynikające z materiałów marki przełożyłam na wartości wykorzystywane w całej bibliotece. Rozdzieliłam je na tokeny core, przechowujące wartości bazowe oraz aliasy opisujące ich zastosowanie.</p>
   <p>Taki podział oddziela konkretną wartość od jej funkcji w interfejsie. Komponent korzysta z przypisanej roli, dzięki czemu zmiany można wprowadzać na poziomie tokenów zamiast poprawiać każdy element osobno.</p>
-  <CaseStudyMedia slot="visuals" label="AuraPura — nawigacja, stany przycisków oraz tokeny core i alias" src="/assets/aurapura/grid-photos-small.png" ratio="4156 / 2292" />
+  <CaseStudyMedia slot="visuals" label="AuraPura — nawigacja, stany przycisków oraz tokeny core i alias" src={foundations} ratio="4156 / 2292" />
 </CaseStudySection>
 
 <CaseStudySection id="components" title="Komponenty i responsywność">
   <p>Komponenty budowałam na wspólnych tokenach i zmiennych. Figma Variables wykorzystałam zarówno do wariantów kolorystycznych, jak i wartości dostosowanych do różnych breakpointów. Dzięki temu mogłam adaptować elementy do mobile, tablet i desktop bez mnożenia osobnych wariantów dla każdej szerokości.</p>
   <p>Bibliotekę zastosowałam następnie w layoutach e-commerce. Widoki pokazują, jak wspólne zasady zachowują spójność wizualną przy zmieniającej się przestrzeni i układzie treści.</p>
   <div slot="visuals" class="aurapura-components">
-    <CaseStudyMedia label="AuraPura — typografia, warianty komponentów i tokeny wymiarów" src="/assets/aurapura/grid-photo.png" ratio="4160 / 5340" />
-    <CaseStudyMedia label="AuraPura — siatki i layouty na tablet i telefon" src="/assets/aurapura/mobile+tablet-grid.png" ratio="4148 / 3684" />
-    <CaseStudyMedia label="AuraPura — siatka i layout strony na desktop" src="/assets/aurapura/desktop-grid-aurapura.png" ratio="3612 / 3388" />
+    <CaseStudyMedia label="AuraPura — typografia, warianty komponentów i tokeny wymiarów" src={components} ratio="4160 / 5340" />
+    <CaseStudyMedia label="AuraPura — siatki i layouty na tablet i telefon" src={mobileGrid} ratio="4148 / 3684" />
+    <CaseStudyMedia label="AuraPura — siatka i layout strony na desktop" src={desktopGrid} ratio="3612 / 3388" />
   </div>
 </CaseStudySection>
 

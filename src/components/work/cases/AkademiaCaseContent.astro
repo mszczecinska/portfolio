@@ -2,41 +2,52 @@
 import CaseStudySection from "../CaseStudySection.astro";
 import CaseStudyMedia from "../CaseStudyMedia.astro";
 import CaseStudyGallery from "../CaseStudyGallery.astro";
+import comparison from "../../../assets/case-studies/Akademia/porównanie stron.png";
+import branding from "../../../assets/case-studies/Akademia/branding.png";
+import sitemap from "../../../assets/case-studies/Akademia/sidemap-akademia.png";
+import views from "../../../assets/case-studies/Akademia/widoki desktop i mobile.jpg";
+import library from "../../../assets/case-studies/Akademia/Biblioteka zakupionych e-booków — desktop.png";
+import account from "../../../assets/case-studies/Akademia/Konto użytkownika — mobile.png";
+import history from "../../../assets/case-studies/Akademia/Historia zamówień — mobile.png";
+
+const halfSizes = "(min-width: 1280px) 588px, (min-width: 1024px) calc(50vw - 52px), (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)";
+const wideSizes = "(min-width: 1280px) 686px, (min-width: 1024px) calc(58.333vw - 60.667px), (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)";
+const phoneSizes = "(min-width: 1024px) 322.5px, (min-width: 768px) calc(50vw - 42px), calc(50vw - 26px)";
 ---
 
 <CaseStudySection id="context" title="Punkt wyjścia" layout="split" mediaSide="left">
   <p>Studio Nauczania Justyna Magiera opiera komunikację na wsparciu i przygotowaniu uczniów z różnych grup wiekowych do egzaminów. Sklep miał być naturalnym przedłużeniem marki nastawionym na szybkie zrozumienie produktu i jego wartości.</p>
   <p>Mimo że e-booki to produkty cyfrowe, użytkownik powinien wiedzieć, czego dotyczy materiał, co otrzyma po zakupie i gdzie później znajdzie swoje pliki. Dlatego projekt obejmuje nie tylko proces sprzedaży, ale też moment po zakupie.</p>
-  <CaseStudyMedia slot="media" label="Punkt wyjścia — porównanie stron" />
+  <CaseStudyMedia slot="media" src={comparison} sizes={halfSizes} label="Punkt wyjścia — porównanie stron" />
 </CaseStudySection>
 
 <CaseStudySection id="process" title="Proces" layout="centered">
   <p>Pracę zaczęłam od ułożenia pełnej ścieżki użytkownika. W ramach projektu powstały kluczowe dla e-commerce strony takie jak główna, listing produktów, karta produktu, koszyk, logowanie i rejestracja, dane do płatności, potwierdzenie zakupu oraz widok konta użytkownika.</p>
   <p>Widoki powstały równolegle w wersji desktop i mobile, żeby cały serwis był responsywny, a makieta mogła być realną podstawą do wdrożenia.</p>
-  <CaseStudyMedia slot="visuals" label="Mapa serwisu i ścieżka zakupowa" ratio="1216 / 791.47" />
+  <CaseStudyMedia slot="visuals" src={sitemap} label="Mapa serwisu i ścieżka zakupowa" ratio={`${sitemap.width} / ${sitemap.height}`} />
 </CaseStudySection>
 
 <CaseStudySection id="design" title="Design i decyzje projektowe" layout="split">
   <p>Typografię zachowałam spójną z główną stroną Studio Nauczania, aby sklep był rozpoznawalnym przedłużeniem marki. Open Sans pozostał krojem nagłówków, a Montserrat wykorzystałam w tekstach i elementach interfejsu.</p>
   <p>Paletę uzupełniłam o brakujące odcienie, dopasowując je do różnych zastosowań w interfejsie: teł, tekstów i głównych akcji. Pozwoliło to zachować kolorystykę marki i dobrać zestawienia z uwzględnieniem wymagań kontrastu WCAG.</p>
-  <CaseStudyMedia slot="media" label="Paleta kolorów i typografia Akademii" />
-  <CaseStudyMedia slot="visuals" label="Akademia — widoki desktop i mobile" ratio="361 / 186" desktopRatio="1216 / 520" />
+  <CaseStudyMedia slot="media" src={branding} sizes={halfSizes} label="Paleta kolorów i typografia Akademii" />
+  <CaseStudyMedia slot="visuals" src={views} label="Akademia — widoki desktop i mobile" ratio={`${views.width} / ${views.height}`} />
 </CaseStudySection>
 
 <CaseStudySection id="purchase" title="Od wyboru do zakupu">
   <p>Karta produktu miała pomóc użytkownikowi ocenić, czy materiał odpowiada jego potrzebom. Uporządkowałam informacje o zawartości i przeznaczeniu, zachowując wyraźną cenę oraz akcję dodania do koszyka. Dalszą część zakupu oparłam na znanych wzorcach e-commerce, z czytelnym podsumowaniem zamówienia i kolejnymi krokami.</p>
   <CaseStudyGallery slot="visuals" items={[
-    { label: "Karta e-booka — animacja", kind: "video" },
-    { label: "Dane do płatności — animacja", kind: "video" },
+    { label: "Karta e-booka — animacja", kind: "video", src: "/assets/case-studies/akademia/animation-1-akademia%20.mp4" },
+    { label: "Dane do płatności — animacja", kind: "video", src: "/assets/case-studies/akademia/animation-2-akademia%20.mp4" },
   ]} />
 </CaseStudySection>
 
 <CaseStudySection id="access" title="Dostęp po zakupie" layout="split" mediaSide="left" align="center" mediaWidth="wide">
   <p>Ścieżka użytkownika nie kończy się na płatności. Zaprojektowałam bibliotekę zakupionych e-booków i historię zamówień, aby materiały miały stałe, łatwe do odnalezienia miejsce. Widoki desktopowe i mobilne powstawały równolegle, z zachowaniem tych samych możliwości i hierarchii dopasowanej do wielkości ekranu.</p>
-  <CaseStudyMedia slot="media" label="Biblioteka zakupionych e-booków — desktop" ratio="683 / 454.14" />
+  <CaseStudyMedia slot="media" src={library} sizes={wideSizes} label="Biblioteka zakupionych e-booków — desktop" ratio={`${library.width} / ${library.height}`} />
   <CaseStudyGallery slot="visuals" layout="phones" items={[
-    { label: "Konto użytkownika — mobile", ratio: "175.07 / 359.39", desktopRatio: "322.48 / 656" },
-    { label: "Historia zamówień — mobile", ratio: "175.07 / 359.39", desktopRatio: "322.48 / 656" },
+    { src: account, sizes: phoneSizes, label: "Konto użytkownika — mobile", ratio: "175.07 / 359.39", desktopRatio: "322.48 / 656" },
+    { src: history, sizes: phoneSizes, label: "Historia zamówień — mobile", ratio: "175.07 / 359.39", desktopRatio: "322.48 / 656" },
   ]} />
 </CaseStudySection>
 

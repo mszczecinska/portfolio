@@ -2,12 +2,19 @@
 import CaseStudySection from "../CaseStudySection.astro";
 import CaseStudyMedia from "../CaseStudyMedia.astro";
 import CaseStudyGallery from "../CaseStudyGallery.astro";
+import branding from "../../../assets/case-studies/mova/branding.png";
+import context from "../../../assets/case-studies/mova/mobilny kontekst nauki.jpg";
+import lessons from "../../../assets/case-studies/mova/lekcje i powtórki.png";
+import web from "../../../assets/case-studies/mova/zadania i powtórki w wersji web.png";
+
+const halfSizes = "(min-width: 1280px) 588px, (min-width: 1024px) calc(50vw - 52px), (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)";
+const phoneSizes = "(min-width: 1280px) 322.5px, (min-width: 1024px) calc(29.167vw - 50.333px), (min-width: 768px) calc(50vw - 42px), calc(50vw - 26px)";
 ---
 
 <CaseStudySection id="research" title="Badania" layout="split" mediaSide="left">
   <p>Porównałam Duolingo, Babbel i Busuu, przyglądając się budowaniu nawyku, prezentacji postępów i prowadzeniu użytkownika przez materiał. Analiza pomogła mi określić kierunek Mova — krótkie etapy nauki, wyraźne miejsce w strukturze kursu i ograniczenie elementów odciągających uwagę od treści.</p>
   <p>Te założenia przełożyłam na architekturę aplikacji. Lekcje pogrupowałam w moduły tematyczne, a każdą oparłam na sekwencji materiał, ćwiczenia i podsumowanie. Słownik i fiszki uzupełniają tę ścieżkę o możliwość samodzielnych powtórek, głównie skupiając się na szybkich powtórkach na urządzeniach mobilnych.</p>
-  <CaseStudyMedia slot="media" label="Mova — mobilny kontekst nauki" />
+  <CaseStudyMedia slot="media" src={context} sizes={halfSizes} label="Mova — mobilny kontekst nauki" />
 </CaseStudySection>
 
 <CaseStudySection id="solution" title="Rozwiązanie i kluczowe decyzje">
@@ -17,12 +24,12 @@ import CaseStudyGallery from "../CaseStudyGallery.astro";
     <CaseStudySection id="learning-contexts" label="Mobile i web — dwa konteksty nauki" layout="split" align="center" mediaWidth="wide" mediaFirstMobile contained={false}>
       <p>Mobile i web potraktowałam jako dwa konteksty nauki. Wersję mobilną zaprojektowałam z myślą o krótkich sesjach i szybkich powtórkach, a webową o dłuższej pracy z materiałem. Zachowałam wspólną logikę i język wizualny, dostosowując układ do dostępnej przestrzeni.</p>
       <CaseStudyGallery slot="media" layout="phones" items={[
-        { label: "Mova — lekcje i powtórki", ratio: "175.07 / 359.547" },
-        { label: "Mova — postępy w nauce", ratio: "175.07 / 359.547", kind: "video" },
+        { src: lessons, sizes: phoneSizes, label: "Mova — lekcje i powtórki", ratio: `${lessons.width} / ${lessons.height}` },
+        { src: "/assets/case-studies/mova/mova-progress-screen.mp4", label: "Mova — postępy w nauce", ratio: "644 / 1324", kind: "video", phoneFrame: true },
       ]} />
     </CaseStudySection>
     <div class="mova-web-preview">
-      <CaseStudyMedia label="Mova — zadania i powtórki w wersji web" ratio="854 / 563.9766" />
+      <CaseStudyMedia src={web} sizes="(min-width: 918px) 854px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)" label="Mova — zadania i powtórki w wersji web" ratio={`${web.width} / ${web.height}`} />
     </div>
   </div>
 </CaseStudySection>
@@ -30,7 +37,7 @@ import CaseStudyGallery from "../CaseStudyGallery.astro";
 <CaseStudySection id="design" title="Design" layout="split">
   <p>Warstwę wizualną Mova oparłam na jasnych powierzchniach, neutralnych odcieniach i pomarańczowym akcencie wyróżniającym główne działania, nawigację oraz postęp nauki. Nunito Sans nadaje aplikacji przyjazny charakter, a różne grubości kroju porządkują hierarchię treści bez nadmiaru dekoracji.</p>
   <p>Te zasady przełożyłam na UI Kit obejmujący komponenty lekcji, tagi i stany interakcji. Style typograficzne oraz Figma Variables porządkują wspólne wartości, ułatwiając zachowanie spójności między mobile i web oraz rozwijanie kolejnych ekranów.</p>
-  <CaseStudyMedia slot="media" label="Mova — paleta kolorów, typografia i UI Kit" />
+  <CaseStudyMedia slot="media" src={branding} sizes={halfSizes} label="Mova — paleta kolorów, typografia i UI Kit" ratio={`${branding.width} / ${branding.height}`} />
 </CaseStudySection>
 
 <CaseStudySection id="results" title="Rezultat i wnioski">

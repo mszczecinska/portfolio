@@ -4,6 +4,7 @@ import CaseStudyIntro from "../../components/work/CaseStudyIntro.astro";
 import CaseStudyPagination from "../../components/work/CaseStudyPagination.astro";
 import KoncepcjaCaseContent from "../../components/work/cases/KoncepcjaCaseContent.astro";
 import { getProjectBySlug } from "../../lib/projects";
+import { getProjectCover } from "../../lib/projectCovers";
 
 const project = getProjectBySlug("koncepcja-wizji-produktu-b2c");
 if (!project) return Astro.redirect("/work");
@@ -11,6 +12,7 @@ if (!project) return Astro.redirect("/work");
 
 <CaseStudyShell title="InsightX — od hipotez do kierunku produktu B2C" description={project.description}>
   <CaseStudyIntro
+    cover={getProjectCover("koncepcja-wizji-produktu-b2c")}
     title="InsightX"
     subtitle="od hipotez do kierunku produktu B2C"
     overview="InsightX miał silny silnik analityczny i rozpoznawalne narzędzia B2B, ale potrzebował kierunku dla samodzielnego produktu B2C. Projekt polegał na przejściu od szerokich hipotez do konkretnej wizji produktu dla zaawansowanych traderów."
@@ -28,8 +30,5 @@ if (!project) return Astro.redirect("/work");
     ]}
   />
   <KoncepcjaCaseContent />
-  <CaseStudyPagination
-    previous={{ title: "Miropoix", description: "Redesign landing page aplikacji SaaS", href: "/work/miropoix-saas-dla-szefow-kuchni" }}
-    next={{ title: "ReadySet", description: "Wspólny wyjazd. Jeden plan.", href: "/work/readyset-aplikacja-do-planowania-wyjazdow" }}
-  />
+  <CaseStudyPagination slug="koncepcja-wizji-produktu-b2c" />
 </CaseStudyShell>
