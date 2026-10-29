@@ -1,5 +1,5 @@
 ---
-import { socialLinks as allSocialLinks } from "../lib/social";
+import { socialLinks } from "../lib/social";
 import TablerIcon from "./TablerIcon.astro";
 import { contactEmail, contactMailto } from "../lib/contact";
 
@@ -13,10 +13,6 @@ const footerNav = [
   { label: "Realizacje", href: "/work" },
   { label: "O mnie", href: "/about" },
 ] as const;
-
-const socialLinks = allSocialLinks.filter(link =>
-  link.label !== "Behance" || workPage || homePage || aboutPage
-);
 
 const desktopDots = [
   [30, 2.5],
@@ -175,7 +171,7 @@ const mobileDots = [
   .footer-contact__status { color: var(--color-text-muted); }
   .footer-contact .btn-icon { cursor: pointer; }
   @media (max-width: 63.999rem) {
-    .home-footer li:has(a[href*="behance"]), .home-footer a[href="https://github.com/mszczecinska/portfolio"] { display: none; }
+    .home-footer a[href="https://github.com/mszczecinska/portfolio"] { display: none; }
     .home-footer > div > div > div:last-child { justify-content: flex-end; }
     .home-footer :global(svg) { width: 16px; height: 16px; }
   }
