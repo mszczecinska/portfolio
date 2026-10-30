@@ -11,6 +11,15 @@ const entrance = {
 };
 const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 let animations: Animation[] = [];
+let scrollContentObserver: IntersectionObserver | null = null;
+const pendingScrollContent = new Set<HTMLElement>();
+
+function clearScrollContent() {
+  scrollContentObserver?.disconnect();
+  scrollContentObserver = null;
+  pendingScrollContent.forEach(card => card.removeAttribute("data-content-entry-pending"));
+  pendingScrollContent.clear();
+}
 
 function visible(element: HTMLElement) {
   const rect = element.getBoundingClientRect();
@@ -34,6 +43,35 @@ function enterContent(element: HTMLElement, delay: number) {
     easing: entrance.easing,
     fill: "backwards",
   }));
+}
+
+function enterScrollContent(root: HTMLElement, selector: string) {
+  clearScrollContent();
+  const reveal = (card: HTMLElement, delay = 0) => {
+    card.removeAttribute("data-content-entry-pending");
+    pendingScrollContent.delete(card);
+    scrollContentObserver?.unobserve(card);
+    enterContent(card, delay);
+  };
+  scrollContentObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio >= .08 && pendingScrollContent.has(entry.target as HTMLElement)) {
+        reveal(entry.target as HTMLElement);
+      }
+    });
+  }, { threshold: .08 });
+  root.querySelectorAll<HTMLElement>(selector).forEach(card => {
+    if (visible(card)) reveal(card, 100);
+    else if (card.getBoundingClientRect().top >= innerHeight) {
+      card.setAttribute("data-content-entry-pending", "");
+      pendingScrollContent.add(card);
+      scrollContentObserver!.observe(card);
+      // Keyboard navigation should reveal a focused card immediately too.
+      card.addEventListener("focus", () => {
+        if (pendingScrollContent.has(card)) reveal(card);
+      }, { once: true });
+    }
+  });
 }
 
 export function enterRecommendation(slide: HTMLElement) {
@@ -64,6 +102,9 @@ function enterPage(root: HTMLElement) {
   root.removeAttribute("data-entry-pending");
   root.dataset.entryPlayed = "true";
   if (reducedMotion.matches) return;
+
+  if (root.matches(".home-page")) enterScrollContent(root, ".home-project__link");
+  if (root.matches(".about-page")) enterScrollContent(root, ".about-tools__grid li");
 
   // The original home entrance is the shared language: masked title lines,
   // followed by a lighter fade and short upward movement for supporting content.
@@ -106,6 +147,7 @@ function enterInitialPage() {
 
 // Finish any ongoing entrances before capturing a project cover on navigation.
 document.addEventListener("astro:before-preparation", () => {
+  clearScrollContent();
   animations.forEach(animation => animation.cancel());
   animations = [];
 });
@@ -135,6 +177,7 @@ if (document.readyState === "loading") {
 document.addEventListener("astro:page-load", enterInitialPage);
 reducedMotion.addEventListener("change", () => {
   if (reducedMotion.matches) {
+    clearScrollContent();
     animations.forEach(animation => animation.cancel());
     animations = [];
     document.querySelectorAll("[data-entry-pending]").forEach(root => root.removeAttribute("data-entry-pending"));
