@@ -142,8 +142,8 @@ const workingMethods = [
   .about-process__content { min-width: 0; }
   .about-process__intro { font-size: 14px; line-height: 1.5; }
   .process-dots { display: flex; justify-content: center; margin-block: var(--space-5); }
-  .process-dot { width: 44px; height: 44px; display: grid; place-items: center; cursor: pointer; }
-  .process-dot span { width: 16px; height: 16px; border: 1px solid var(--color-border); border-radius: 50%; }
+  .process-dot { width: 44px; height: 44px; display: grid; place-items: center; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .process-dot span { width: 16px; height: 16px; border: 1px solid var(--color-border); border-radius: 50%; transition: background-color var(--duration-ui) var(--ease-ui), border-color var(--duration-ui) var(--ease-ui); }
   .process-dot[aria-pressed="true"] span { background: var(--color-text); border-color: var(--color-text); }
   .process-slides { display: flex; gap: var(--space-3); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .process-slides::-webkit-scrollbar { display: none; }
@@ -261,16 +261,48 @@ const workingMethods = [
     const methods = [...root.querySelectorAll<HTMLElement>(".process-slide")];
     const dots = [...root.querySelectorAll<HTMLButtonElement>("[data-process-dot]")];
     const setActiveDot = (index: number) => dots.forEach((dot, i) => dot.setAttribute("aria-pressed", String(i === index)));
+    let targetIndex: number | null = null;
+    let scrollIdle: ReturnType<typeof setTimeout> | undefined;
+    const positionOf = (index: number) => methods[index].offsetLeft - methods[0].offsetLeft;
+    const syncDots = () => {
+      const step = positionOf(1);
+      if (step <= 0) return;
+      setActiveDot(Math.max(0, Math.min(methods.length - 1, Math.round(track.scrollLeft / step))));
+    };
+    const settleScroll = () => {
+      clearTimeout(scrollIdle);
+      targetIndex = null;
+      syncDots();
+    };
     const selectMethod = (index: number) => {
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      track.scrollTo({ left: methods[index].offsetLeft - methods[0].offsetLeft, behavior: reducedMotion ? "instant" : "smooth" });
+      clearTimeout(scrollIdle);
+      targetIndex = index;
       setActiveDot(index);
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const alreadyThere = Math.abs(track.scrollLeft - positionOf(index)) <= 1;
+      track.scrollTo({ left: positionOf(index), behavior: reducedMotion || alreadyThere ? "instant" : "smooth" });
+      if (reducedMotion || alreadyThere) settleScroll();
     };
     dots.forEach((dot, i) => dot.addEventListener("click", () => selectMethod(i)));
     track.addEventListener("scroll", () => {
-      const step = methods[1].offsetLeft - methods[0].offsetLeft;
-      setActiveDot(Math.round(track.scrollLeft / step));
+      // A click selects the destination immediately. Intermediate scroll
+      // positions must not switch the indicator back to an earlier slide.
+      if (targetIndex === null) syncDots();
+      else if (Math.abs(track.scrollLeft - positionOf(targetIndex)) <= 1) settleScroll();
+      clearTimeout(scrollIdle);
+      scrollIdle = setTimeout(settleScroll, 150);
     }, { passive: true });
+    track.addEventListener("scrollend", () => {
+      if (targetIndex === null || Math.abs(track.scrollLeft - positionOf(targetIndex)) <= 1) settleScroll();
+    });
+    // Swiping or scrolling manually takes over from a pending dot click.
+    track.addEventListener("pointerdown", settleScroll, { passive: true });
+    track.addEventListener("wheel", settleScroll, { passive: true });
+    window.addEventListener("resize", settleScroll);
+    document.addEventListener("astro:before-swap", () => {
+      clearTimeout(scrollIdle);
+      window.removeEventListener("resize", settleScroll);
+    }, { once: true });
     track.addEventListener("keydown", event => {
       if (!window.matchMedia("(max-width: 1023px)").matches || !["ArrowLeft", "ArrowRight"].includes(event.key)) return;
       event.preventDefault();

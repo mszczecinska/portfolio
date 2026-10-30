@@ -18,7 +18,7 @@ const phoneSizes = "(min-width: 1280px) 322.5px, (min-width: 1024px) calc(29.167
 <CaseStudySection id="research" title="Badania" layout="split" mediaSide="left">
   <p>Chciałam zrozumieć, jak grupy organizują wyjazdy i w których momentach planowanie staje się zawiłe i chaotyczne. W tym celu przeprowadziłam trzy wywiady pogłębione z osobami organizującymi wyjazdy grupowe.</p>
   <p>Pytałam o doświadczenia z ostatnich podróży m.in. największe trudności, sposób wymiany informacji i podejmowania decyzji oraz czynności, które uczestnicy chcieliby uprościć. Rozmowy miały charakter eksploracyjny i pomogły mi określić problemy warte dalszego sprawdzenia.</p>
-  <CaseStudyMedia slot="media" src={research} sizes={halfSizes} label="ReadySet — wypowiedzi z wywiadów" />
+  <CaseStudyMedia slot="media" src={research} zoomable sizes={halfSizes} label="ReadySet — wypowiedzi z wywiadów" />
 </CaseStudySection>
 
 <div class="readyset-findings">
@@ -31,14 +31,14 @@ const phoneSizes = "(min-width: 1280px) 322.5px, (min-width: 1024px) calc(29.167
     { title: "Trudno rozpoznać ostateczną decyzję", text: "Ankiety i ustalenia pozostają w historii rozmowy. Nie zawsze wiadomo, co zostało zaakceptowane, a co nadal wymaga dyskusji." },
   ]} />
   <div class="page-container">
-    <CaseStudyMedia src={findings} label="ReadySet — obszary problemowe i synteza badań" ratio={`${findings.width} / ${findings.height}`} />
+    <CaseStudyMedia src={findings} zoomable label="ReadySet — obszary problemowe i synteza badań" ratio={`${findings.width} / ${findings.height}`} />
   </div>
 </div>
 
 <CaseStudySection id="architecture" label="Planowanie i harmonogram — architektura informacji" layout="split" mediaSide="left" align="center">
   <p>Wnioski przełożyłam na pytania How Might We, Jobs to Be Done i storyboard. Wyznaczyły one trzy zadania dla aplikacji — porządkowanie propozycji, pokazywanie postępu ustaleń i zapewnienie łatwego dostępu do gotowego planu.</p>
   <p>Na tej podstawie rozdzieliłam aplikację na „Planowanie” i „Harmonogram”. Pierwszy obszar pozostaje przestrzenią do zgłaszania pomysłów i podejmowania decyzji, drugi pokazuje już ustalony plan. Ten podział stał się podstawą architektury informacji i dalszego projektowania ekranów.</p>
-  <CaseStudyMedia slot="media" src={flow} sizes={halfSizes} label="ReadySet — przepływ planowania i harmonogramu" ratio={`${flow.width} / ${flow.height}`} />
+  <CaseStudyMedia slot="media" src={flow} zoomable sizes={halfSizes} label="ReadySet — przepływ planowania i harmonogramu" ratio={`${flow.width} / ${flow.height}`} />
 </CaseStudySection>
 
 <CaseStudySection id="solution" title="Rozwiązanie i kluczowe decyzje" layout="split" mediaWidth="wide">
