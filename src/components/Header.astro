@@ -1,4 +1,5 @@
 ---
+import { languageFromPath, languagePath, withoutLanguage } from "../i18n/routes";
 import TablerIcon from "./TablerIcon.astro";
 import LogoIcon from "./LogoIcon.astro";
 import { contactMailto } from "../lib/contact";
@@ -16,7 +17,9 @@ const mobileNavItems = [
   ...navItems,
 ] as const;
 
-const currentPath = Astro.url.pathname;
+const language = languageFromPath(Astro.url.pathname);
+const currentPath = withoutLanguage(Astro.url.pathname);
+const switchPath = languagePath(Astro.url.pathname, language === "pl" ? "en" : "pl");
 const activeKey = currentPath === "/"
   ? "home"
   : currentPath.startsWith("/about")
@@ -35,7 +38,7 @@ const activeKey = currentPath === "/"
         data-nav-key="home"
         aria-label="Strona główna"
         aria-current={homePage ? "page" : undefined}
-        transition:name={homePage ? "home-brand" : caseStudy || workPage ? "case-brand" : "site-brand"}
+        transition:name={`${language}-${homePage ? "home-brand" : caseStudy || workPage ? "case-brand" : "site-brand"}`}
         transition:persist
       >
         {caseStudy || workPage || homePage || aboutPage ? <span class="case-header__home">Główna</span> : (
@@ -74,7 +77,7 @@ const activeKey = currentPath === "/"
         </ul>
 
         <div class="header-actions">
-          <button type="button" class="home-header__language btn-icon" aria-label="Język: polski">PL</button>
+          <a href={switchPath} class="home-header__language btn-icon" data-language-switch aria-label="Zmień język na angielski" hreflang={language === "pl" ? "en" : "pl"} lang={language}>PL</a>
           <a href={contactMailto} class="header-email btn-secondary">Napisz do mnie</a>
         </div>
         <div class="lg:hidden" data-mobile-menu>
