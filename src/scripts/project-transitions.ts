@@ -35,9 +35,10 @@ document.addEventListener("astro:before-preparation", event => {
     cover.style.removeProperty("view-transition-name");
   });
   // History uses the router's scroll restoration and a normal page swap.
-  // Only an explicit home/listing → project navigation gets a shared cover.
+  // Explicit links from home, the listing and adjacent-project cards share a cover.
   const fromPath = event.from.pathname.replace(/\/$/, "") || "/";
-  if (event.navigationType === "traverse" || !["/", "/work"].includes(fromPath)) return;
+  const fromProject = /^\/work\/[^/]+$/.test(fromPath);
+  if (event.navigationType === "traverse" || (!fromProject && !["/", "/work"].includes(fromPath))) return;
   const match = event.to.pathname.match(/^\/work\/([^/]+)\/?$/);
   if (!match || !document.startViewTransition || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 

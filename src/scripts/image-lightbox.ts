@@ -29,6 +29,22 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
   let startedOnBackground = false;
   let zoomAnimation: Animation | null = null;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  let closeTimer: ReturnType<typeof setTimeout> | undefined;
+  const finishClose = () => {
+    clearTimeout(closeTimer);
+    dialog.removeAttribute("data-closing");
+    if (dialog.open) dialog.close();
+  };
+  const requestClose = () => {
+    if (!dialog.open || dialog.hasAttribute("data-closing")) return;
+    if (reducedMotion.matches) { finishClose(); return; }
+    dialog.setAttribute("data-closing", "");
+    // Keep the dialog modal until both it and its backdrop finish fading.
+    closeTimer = setTimeout(finishClose, 220);
+  };
+  dialog.addEventListener("animationend", event => {
+    if (event.target === dialog && event.animationName === "lightbox-exit") finishClose();
+  }, { signal });
 
   const render = (duration = 0) => {
     const from = duration && ready && !image.hidden && !reducedMotion.matches
@@ -77,6 +93,8 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
   };
   const resetView = (duration = 0) => { zoom = 1; x = y = 0; fit(duration); };
   const restorePage = () => {
+    clearTimeout(closeTimer);
+    dialog.removeAttribute("data-closing");
     zoomAnimation?.cancel();
     zoomAnimation = null;
     document.documentElement.style.overflow = pageOverflow;
@@ -133,10 +151,11 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     original.hidden = false;
     render();
   }, { signal });
-  dialog.querySelector("[data-lightbox-close]")!.addEventListener("click", () => dialog.close(), { signal });
+  dialog.querySelector("[data-lightbox-close]")!.addEventListener("click", requestClose, { signal });
   dialog.addEventListener("close", restorePage, { signal });
-  // Native dialog handles Escape, focus containment and background inertness.
-  dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); }, { signal });
+  // Retain native focus containment and Escape behavior through the exit.
+  dialog.addEventListener("cancel", event => { event.preventDefault(); requestClose(); }, { signal });
+  dialog.addEventListener("click", event => { if (event.target === dialog) requestClose(); }, { signal });
   zoomIn.addEventListener("click", () => setZoom(zoom * 1.5), { signal });
   zoomOut.addEventListener("click", () => setZoom(zoom / 1.5), { signal });
   reset.addEventListener("click", () => resetView(180), { signal });
@@ -195,7 +214,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     if (pointers.size) return;
     stage.removeAttribute("data-dragging");
     if (!moved && event.type === "pointerup") {
-      if (startedOnBackground) dialog.close();
+      if (startedOnBackground) requestClose();
       else setZoom(zoom > 1.001 ? 1 : 2, { x: event.clientX, y: event.clientY });
     }
   };
@@ -218,6 +237,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
   }, { signal });
   reducedMotion.addEventListener("change", () => {
     if (reducedMotion.matches) {
+      if (dialog.hasAttribute("data-closing")) finishClose();
       zoomAnimation?.cancel();
       zoomAnimation = null;
     }
@@ -226,6 +246,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
   observer.observe(stage);
 
   return () => {
+    clearTimeout(closeTimer);
     if (dialog.open) { dialog.close(); restorePage(); }
     observer.disconnect();
     controller.abort();

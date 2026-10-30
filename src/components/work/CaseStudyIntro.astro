@@ -33,10 +33,10 @@ const { title, cover, subtitle, overview, role, roleLabel = "Rola", projectType,
   <div class="case-intro__details page-container">
     <div class="case-intro__heading">
       <div class="case-intro__titles">
-        <h1 id="case-study-title" class="type-title">{title}</h1>
-        <p class="case-intro__subtitle">{subtitle}</p>
+        <h1 id="case-study-title" class="type-title entry-mask" data-case-entry><span data-entry-reveal>{title}</span></h1>
+        <p class="case-intro__subtitle" data-case-entry>{subtitle}</p>
       </div>
-      {liveUrl && <div class="case-intro__live" data-live-info={showLiveInfo ? true : undefined}>
+      {liveUrl && <div class="case-intro__live" data-case-entry data-live-info={showLiveInfo ? true : undefined}>
         <a class="btn-primary" style={`--button-hover-fill: ${liveHoverColor}; --button-hover-text: ${liveHoverTextColor}; --button-hover-border: ${liveHoverBorderColor};`} href={liveUrl} target="_blank" rel="noopener noreferrer">Zobacz live <TablerIcon name="arrow-up-right" class="size-6" /></a>
         {showLiveInfo && <><button class="case-intro__info" type="button" aria-label="Informacja o wdrożonej stronie" aria-describedby="live-site-info" data-live-info-trigger>
           <TablerIcon name="info-circle" class="size-5" />
@@ -46,7 +46,7 @@ const { title, cover, subtitle, overview, role, roleLabel = "Rola", projectType,
     </div>
 
     <div class="case-intro__overview">
-      <dl class="case-intro__metadata">
+      <dl class="case-intro__metadata" data-case-entry>
         <div><dt class="type-label">{roleLabel}</dt><dd>{role}</dd></div>
         <div><dt class="type-label">Typ</dt><dd>{projectType}</dd></div>
         <div>
@@ -54,7 +54,7 @@ const { title, cover, subtitle, overview, role, roleLabel = "Rola", projectType,
           <dd><ul class="case-intro__tools" aria-label="Narzędzia projektu">{tools.map(tool => <li><img src={tool.src} alt={tool.alt} width="24" height="24" /></li>)}</ul></dd>
         </div>
       </dl>
-      <p class="case-body">{overview}</p>
+      <p class="case-body" data-case-entry>{overview}</p>
     </div>
   </div>
 

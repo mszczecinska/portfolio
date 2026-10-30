@@ -8,7 +8,7 @@ const { items, label = "Projekt w skrócie" } = Astro.props;
 
 <div class="case-intro__facts" role="group" aria-label={label}>
   <dl class="case-intro__facts-grid page-container">
-    {items.map(item => <div><dt class="type-label">{item.title}</dt><dd class="case-body">{item.text}</dd></div>)}
+    {items.map(item => <div data-case-entry><dt class="type-label">{item.title}</dt><dd class="case-body">{item.text}</dd></div>)}
   </dl>
 </div>
 

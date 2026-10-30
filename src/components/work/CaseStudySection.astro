@@ -24,10 +24,10 @@ const { id, title, label, contained = true, subtitle, layout = "editorial", medi
     {mediaFirstMobile && Astro.slots.has("media") && <div class="case-section__media"><slot name="media" /></div>}
     <div class="case-section__copy">
       {(title || Astro.slots.has("heading-extra")) && <div class="case-section__heading">
-        <h2 class="case-heading" id={`${id}-title`}>{title}{subtitle && <span class="case-section__subtitle"> {subtitle}</span>}</h2>
+        <h2 class="case-heading entry-mask" id={`${id}-title`} data-case-entry><span data-entry-reveal>{title}{subtitle && <span class="case-section__subtitle"> {subtitle}</span>}</span></h2>
         <slot name="heading-extra" />
       </div>}
-      <div class="case-prose"><slot /></div>
+      <div class="case-prose" data-case-entry><slot /></div>
     </div>
     {!mediaFirstMobile && Astro.slots.has("media") && <div class="case-section__media"><slot name="media" /></div>}
   </div>

@@ -159,6 +159,7 @@
 /* Applied only by the router while its page snapshot is on screen. */
 @media (prefers-reduced-motion: no-preference) {
   [data-entry-pending] [data-entry-reveal] { transform: translateY(105%); }
+  .case-study[data-entry-pending] [data-case-entry] { opacity: 0; }
   .home-page[data-entry-pending] .home-hero__role,
   .home-page[data-entry-pending] .home-hero__portrait,
   .home-page[data-entry-pending] .home-hero__intro > p,

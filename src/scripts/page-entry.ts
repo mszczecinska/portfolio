@@ -1,6 +1,6 @@
 import { isTransitionBeforeSwapEvent } from "astro:transitions/client";
 
-const pageSelector = ".home-page, .work-page, .about-page";
+const pageSelector = ".home-page, .work-page, .about-page, .case-study";
 const entrance = {
   duration: 440,
   revealDuration: 580,
@@ -45,33 +45,52 @@ function enterContent(element: HTMLElement, delay: number) {
   }));
 }
 
-function enterScrollContent(root: HTMLElement, selector: string) {
+function enterScrollContent(root: HTMLElement, selector: string, enter = enterContent, threshold = .08, stagger = 0) {
   clearScrollContent();
   const reveal = (card: HTMLElement, delay = 0) => {
     card.removeAttribute("data-content-entry-pending");
     pendingScrollContent.delete(card);
     scrollContentObserver?.unobserve(card);
-    enterContent(card, delay);
+    enter(card, delay);
   };
   scrollContentObserver = new IntersectionObserver(entries => {
+    let index = 0;
     entries.forEach(entry => {
-      if (entry.isIntersecting && entry.intersectionRatio >= .08 && pendingScrollContent.has(entry.target as HTMLElement)) {
-        reveal(entry.target as HTMLElement);
+      if (entry.isIntersecting && entry.intersectionRatio >= threshold && pendingScrollContent.has(entry.target as HTMLElement)) {
+        reveal(entry.target as HTMLElement, Math.min(index++ * stagger, entrance.maxDelay));
       }
     });
-  }, { threshold: .08 });
+  }, { threshold });
+  let index = 0;
   root.querySelectorAll<HTMLElement>(selector).forEach(card => {
-    if (visible(card)) reveal(card, 100);
+    if (visible(card)) reveal(card, stagger ? Math.min(index++ * stagger, entrance.maxDelay) : 100);
     else if (card.getBoundingClientRect().top >= innerHeight) {
       card.setAttribute("data-content-entry-pending", "");
       pendingScrollContent.add(card);
       scrollContentObserver!.observe(card);
       // Keyboard navigation should reveal a focused card immediately too.
-      card.addEventListener("focus", () => {
+      card.addEventListener("focusin", () => {
         if (pendingScrollContent.has(card)) reveal(card);
       }, { once: true });
     }
   });
+}
+
+function enterCaseText(element: HTMLElement, delay: number) {
+  const title = element.querySelector<HTMLElement>("[data-entry-reveal]");
+  if (!title) {
+    enterContent(element, delay);
+    return;
+  }
+  track(title.animate([
+    { transform: "translateY(105%)" },
+    { transform: "translateY(0)" },
+  ], {
+    duration: entrance.revealDuration,
+    delay,
+    easing: entrance.easing,
+    fill: "backwards",
+  }));
 }
 
 export function enterRecommendation(slide: HTMLElement) {
@@ -102,6 +121,12 @@ function enterPage(root: HTMLElement) {
   root.removeAttribute("data-entry-pending");
   root.dataset.entryPlayed = "true";
   if (reducedMotion.matches) return;
+
+  if (root.matches(".case-study")) {
+    // Only text enters on scroll. The cover retains its shared view transition.
+    enterScrollContent(root, "[data-case-entry]", enterCaseText, 0, entrance.stagger);
+    return;
+  }
 
   if (root.matches(".home-page")) enterScrollContent(root, ".home-project__link");
   if (root.matches(".about-page")) enterScrollContent(root, ".about-tools__grid li");
@@ -165,7 +190,7 @@ document.addEventListener("astro:before-swap", event => {
   // snapshot immediately instead of waiting for unrelated header transitions.
   // Project-detail navigations keep their shared-cover transition.
   void event.viewTransition.ready.catch(() => {});
-  event.viewTransition.skipTransition();
+  if (!root.matches(".case-study")) event.viewTransition.skipTransition();
   void event.viewTransition.finished.then(() => enterPage(root), () => enterPage(root));
 });
 
