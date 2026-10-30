@@ -34,9 +34,19 @@ import SpeedInsights from "@vercel/speed-insights/astro";
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preload" href="/fonts/Satoshi-Regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="shortcut icon" href="/favicon-light.ico"  media="(prefers-color-scheme:light)" />
-    <link rel="shortcut icon" href="/favicon-dark.ico"  media="(prefers-color-scheme:dark)" />
+    <link id="site-favicon" rel="icon" type="image/x-icon" href="/favicon-light.ico?v=2" sizes="16x16 32x32 48x48" />
+    <script is:inline>
+      (() => {
+        const darkTheme = window.matchMedia("(prefers-color-scheme: dark)");
+        const updateFavicon = () => {
+          const icon = document.getElementById("site-favicon");
+          if (icon) icon.setAttribute("href", darkTheme.matches ? "/favicon-dark.ico?v=2" : "/favicon-light.ico?v=2");
+        };
+        updateFavicon();
+        darkTheme.addEventListener("change", updateFavicon);
+        document.addEventListener("astro:after-swap", updateFavicon);
+      })();
+    </script>
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Portfolio" />
     <link rel="manifest" href="/site.webmanifest" />
