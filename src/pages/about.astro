@@ -59,7 +59,7 @@ const workingMethods = [
     <section class="about-intro page-container" aria-labelledby="about-title">
       <img class="about-portrait" src="/assets/about/portrait.png" width="412" height="472" alt="Magda siedząca na krześle w słonecznej pracowni" fetchpriority="high" decoding="async" />
       <div class="about-intro-copy">
-      <h1 id="about-title">Cześć<span class="about-title-break"><br /></span><span class="about-title-space"> </span>jestem Magda</h1>
+      <h1 id="about-title" aria-label="Cześć jestem Magda"><span class="entry-mask about-title-line"><span data-entry-reveal>Cześć</span></span><span class="about-title-space"> </span><span class="entry-mask about-title-line"><span data-entry-reveal>jestem Magda</span></span></h1>
       <div class="about-bio">
         <p>Lubię porządkować pomysły, szukać rozwiązań i dopracowywać szczegóły, które składają się na czytelny interfejs. W designie najbardziej chcę rozwijać się w kierunku design systemów. Interesuje mnie, jak z pojedynczych elementów budować spójną całość i ułatwiać pracę nad kolejnymi widokami.</p>
         <p>Nie chcę jednak ograniczać się do samego projektowania. Eksperymentuję z motion i wdrażaniem stron przy wsparciu AI. Dzięki temu mogę sprawdzać swoje pomysły w działaniu i lepiej rozumieć, co dzieje się z projektem po wyjściu z Figmy.</p>
@@ -123,7 +123,7 @@ const workingMethods = [
   .about-intro { display: grid; gap: var(--space-5); }
   .about-intro-copy { display: contents; }
   .about-intro h1 { grid-row: 1; font-size: 40px; line-height: 1; }
-  .about-title-break { display: none; }
+  .about-title-line { display: inline-block; vertical-align: bottom; }
   .about-portrait { grid-row: 2; }
   .about-portrait { width: min(285px, 100%); height: auto; aspect-ratio: 285 / 326; object-fit: cover; }
   .about-bio { font-size: 14px; line-height: 1.5; }
@@ -132,7 +132,7 @@ const workingMethods = [
   .about-socials img { transform: rotate(180deg); flex: none; }
   .about-tools { display: flex; flex-direction: column; gap: var(--space-5); }
   .about-tools__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--space-10); }
-  .about-tools__grid li { display: flex; align-items: center; flex-direction: column; gap: var(--space-3); text-align: center; font-size: 14px; font-weight: var(--weight-medium); line-height: 1.35; }
+  .about-tools__grid li { display: flex; align-items: center; flex-direction: column; gap: var(--space-3); text-align: center; font-size: 14px; font-weight: var(--weight-regular); line-height: 1.35; }
   .tool-icon { display: block; width: 36px; height: 36px; position: relative; }
   .tool-icon > img, .tool-icon picture img { display: block; width: 36px; height: auto; }
   .tool-icon--crop { overflow: hidden; height: 36.9px; }
@@ -142,15 +142,17 @@ const workingMethods = [
   .about-process__content { min-width: 0; }
   .about-process__intro { font-size: 14px; line-height: 1.5; }
   .process-dots { display: flex; justify-content: center; margin-block: var(--space-5); }
-  .process-dot { width: 44px; height: 44px; display: grid; place-items: center; cursor: pointer; }
-  .process-dot span { width: 16px; height: 16px; border: 1px solid var(--color-border); border-radius: 50%; }
+  .process-dot { width: 44px; height: 44px; display: grid; place-items: center; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .process-dot span { width: 16px; height: 16px; border: 1px solid var(--color-border); border-radius: 50%; transition: background-color var(--duration-ui) var(--ease-ui), border-color var(--duration-ui) var(--ease-ui); }
   .process-dot[aria-pressed="true"] span { background: var(--color-text); border-color: var(--color-text); }
   .process-slides { display: flex; gap: var(--space-3); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .process-slides::-webkit-scrollbar { display: none; }
   .process-slide { display: grid; grid-template-columns: minmax(0, 156fr) minmax(0, 181fr); align-items: center; gap: var(--space-6); flex: 0 0 100%; scroll-snap-align: start; }
   .process-slide p { font-size: 14px; line-height: 25px; }
   .recommendation-controls { display: flex; gap: var(--space-3); }
-  .recommendation-controls button { padding: var(--space-3); cursor: pointer; }
+  .recommendation-controls button { --button-hover-fill: var(--color-text); --button-hover-text: #fff; padding: var(--space-3); cursor: pointer; }
+  .recommendation-controls button img { transition: filter var(--duration-ui) var(--ease-ui); }
+  .recommendation-controls button:not(:disabled):focus-visible img { filter: brightness(0) invert(1); }
   .recommendation-controls button:disabled { border-color: var(--color-border); opacity: .4; cursor: default; }
   .recommendation-prev img { transform: rotate(90deg); }
   .recommendation-controls button:last-child img { transform: rotate(-90deg); }
@@ -165,11 +167,10 @@ const workingMethods = [
   .about-contact__arrow { display: inline-grid; }
   .about-contact__arrow img { grid-area: 1 / 1; transform: rotate(180deg); }
   .about-contact__hover { opacity: 0; }
-  .about-contact__button:focus-visible { color: var(--color-surface); background: var(--color-text); }
   .about-contact__button:focus-visible .about-contact__arrow img:first-child { opacity: 0; }
   .about-contact__button:focus-visible .about-contact__hover { opacity: 1; }
   @media (hover: hover) {
-    .about-contact__button:hover { color: var(--color-surface); background: var(--color-text); }
+    .recommendation-controls button:not(:disabled):hover img { filter: brightness(0) invert(1); }
     .about-contact__button:hover .about-contact__arrow img:first-child { opacity: 0; }
     .about-contact__button:hover .about-contact__hover { opacity: 1; }
   }
@@ -186,7 +187,7 @@ const workingMethods = [
     .recommendation figcaption { margin-top: var(--space-6); }
   }
   @media (min-width: 48rem) {
-    .about-title-break { display: inline; }
+    .about-title-line { display: block; }
     .about-title-space { display: none; }
     .about-intro { align-items: start; }
     .about-intro-copy { display: flex; flex-direction: column; gap: var(--space-6); min-width: 0; }
@@ -235,6 +236,8 @@ const workingMethods = [
 </style>
 
 <script>
+  import { enterRecommendation } from "../scripts/page-entry";
+
   function setupAboutPage() {
     const root = document.querySelector<HTMLElement>(".about-page");
     if (!root || root.dataset.initialized) return;
@@ -244,10 +247,13 @@ const workingMethods = [
     const next = root.querySelector<HTMLButtonElement>("[data-recommendation-next]")!;
     let current = 0;
     const selectRecommendation = (index: number) => {
-      current = Math.max(0, Math.min(slides.length - 1, index));
+      const selected = Math.max(0, Math.min(slides.length - 1, index));
+      if (selected === current) return;
+      current = selected;
       slides.forEach((slide, i) => { slide.hidden = i !== current; });
       prev.disabled = current === 0;
       next.disabled = current === slides.length - 1;
+      enterRecommendation(slides[current]);
     };
     prev.addEventListener("click", () => selectRecommendation(current - 1));
     next.addEventListener("click", () => selectRecommendation(current + 1));
@@ -255,16 +261,48 @@ const workingMethods = [
     const methods = [...root.querySelectorAll<HTMLElement>(".process-slide")];
     const dots = [...root.querySelectorAll<HTMLButtonElement>("[data-process-dot]")];
     const setActiveDot = (index: number) => dots.forEach((dot, i) => dot.setAttribute("aria-pressed", String(i === index)));
+    let targetIndex: number | null = null;
+    let scrollIdle: ReturnType<typeof setTimeout> | undefined;
+    const positionOf = (index: number) => methods[index].offsetLeft - methods[0].offsetLeft;
+    const syncDots = () => {
+      const step = positionOf(1);
+      if (step <= 0) return;
+      setActiveDot(Math.max(0, Math.min(methods.length - 1, Math.round(track.scrollLeft / step))));
+    };
+    const settleScroll = () => {
+      clearTimeout(scrollIdle);
+      targetIndex = null;
+      syncDots();
+    };
     const selectMethod = (index: number) => {
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      track.scrollTo({ left: methods[index].offsetLeft - methods[0].offsetLeft, behavior: reducedMotion ? "instant" : "smooth" });
+      clearTimeout(scrollIdle);
+      targetIndex = index;
       setActiveDot(index);
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const alreadyThere = Math.abs(track.scrollLeft - positionOf(index)) <= 1;
+      track.scrollTo({ left: positionOf(index), behavior: reducedMotion || alreadyThere ? "instant" : "smooth" });
+      if (reducedMotion || alreadyThere) settleScroll();
     };
     dots.forEach((dot, i) => dot.addEventListener("click", () => selectMethod(i)));
     track.addEventListener("scroll", () => {
-      const step = methods[1].offsetLeft - methods[0].offsetLeft;
-      setActiveDot(Math.round(track.scrollLeft / step));
+      // A click selects the destination immediately. Intermediate scroll
+      // positions must not switch the indicator back to an earlier slide.
+      if (targetIndex === null) syncDots();
+      else if (Math.abs(track.scrollLeft - positionOf(targetIndex)) <= 1) settleScroll();
+      clearTimeout(scrollIdle);
+      scrollIdle = setTimeout(settleScroll, 150);
     }, { passive: true });
+    track.addEventListener("scrollend", () => {
+      if (targetIndex === null || Math.abs(track.scrollLeft - positionOf(targetIndex)) <= 1) settleScroll();
+    });
+    // Swiping or scrolling manually takes over from a pending dot click.
+    track.addEventListener("pointerdown", settleScroll, { passive: true });
+    track.addEventListener("wheel", settleScroll, { passive: true });
+    window.addEventListener("resize", settleScroll);
+    document.addEventListener("astro:before-swap", () => {
+      clearTimeout(scrollIdle);
+      window.removeEventListener("resize", settleScroll);
+    }, { once: true });
     track.addEventListener("keydown", event => {
       if (!window.matchMedia("(max-width: 1023px)").matches || !["ArrowLeft", "ArrowRight"].includes(event.key)) return;
       event.preventDefault();

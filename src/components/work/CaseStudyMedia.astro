@@ -12,9 +12,14 @@ export interface Props {
   priority?: boolean;
   fit?: "contain" | "cover";
   phoneFrame?: boolean;
+  zoomable?: boolean;
+  zoomSrc?: string;
 }
 
 const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes = "(min-width: 1280px) 1216px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)", priority = false, fit = "contain", phoneFrame = false } = Astro.props;
+const zoomSource = Astro.props.zoomable && src && kind === "image"
+  ? Astro.props.zoomSrc ?? (typeof src === "string" ? src : src.src)
+  : undefined;
 ---
 
 <figure class:list={["case-media", { "case-media--phone": phoneFrame }]} style={`--media-ratio: ${ratio}; --media-ratio-desktop: ${desktopRatio}; --media-fit: ${fit};`}>
@@ -58,9 +63,22 @@ const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes
     </div>
   )}
   </div>
+  {zoomSource && <a class="case-media__zoom" href={zoomSource} data-astro-reload data-image-zoom data-image-label={label} aria-label={`Powiększ obraz: ${label}`} aria-haspopup="dialog">
+    <span class="case-media__zoom-hint">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10" cy="10" r="6" /><path d="m15 15 6 6M7 10h6M10 7v6" /></svg>
+      Powiększ
+    </span>
+  </a>}
 </figure>
 
 <style>
+  .case-media__zoom { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: flex-end; padding: var(--space-3); color: var(--color-text); cursor: zoom-in; }
+  .case-media__zoom:focus-visible { outline-offset: -3px; }
+  .case-media__zoom-hint { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); background: var(--color-background); font-family: var(--font-label); font-size: 12px; text-transform: uppercase; transition: background-color var(--duration-ui) var(--ease-ui), color var(--duration-ui) var(--ease-ui); }
+  .case-media__zoom:focus-visible .case-media__zoom-hint { background: var(--color-text); color: var(--color-background); }
+  @media (hover: hover) {
+    .case-media__zoom:hover .case-media__zoom-hint { background: var(--color-text); color: var(--color-background); }
+  }
   .case-media {
     position: relative;
     width: 100%;

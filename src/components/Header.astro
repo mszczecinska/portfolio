@@ -31,7 +31,8 @@ const activeKey = currentPath === "/"
     <nav class="flex items-center justify-between lg:min-h-[140px] lg:items-start" aria-label="Główna nawigacja">
       <a
         href="/"
-        class="inline-flex items-center lg:py-[12px]"
+        class="header-menu-link inline-flex items-center lg:py-[12px]"
+        data-nav-key="home"
         aria-label="Strona główna"
         aria-current={homePage ? "page" : undefined}
         transition:name={homePage ? "home-brand" : caseStudy || workPage ? "case-brand" : "site-brand"}
@@ -60,7 +61,8 @@ const activeKey = currentPath === "/"
                   <a
                     href={item.href}
                     aria-current={isActive ? "page" : undefined}
-                    class="type-nav font-normal leading-none block whitespace-nowrap transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]"
+                    class="header-menu-link type-nav font-normal leading-none block whitespace-nowrap transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]"
+                    data-nav-key={item.key}
                     transition:name={`nav-item-${item.key}`}
                   >
                     {item.label}
@@ -129,7 +131,7 @@ const activeKey = currentPath === "/"
                           href={item.href}
                           data-mobile-link
                           aria-current={isActive ? "page" : undefined}
-                          class="type-nav font-normal block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]"
+                          class="header-menu-link type-nav font-normal block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]"
                         >
                           {item.label}
                         </a>

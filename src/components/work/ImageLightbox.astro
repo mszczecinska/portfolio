@@ -1,0 +1,75 @@
+<dialog class="image-lightbox" data-image-lightbox aria-labelledby="image-lightbox-title" aria-describedby="image-lightbox-help">
+  <header class="image-lightbox__toolbar">
+    <p id="image-lightbox-title" data-lightbox-title>Podgląd obrazu</p>
+    <div class="image-lightbox__controls" aria-label="Powiększenie obrazu">
+      <button class="btn-icon" type="button" data-zoom-out aria-label="Pomniejsz obraz" disabled>−</button>
+      <output data-zoom-level aria-label="Poziom powiększenia">100%</output>
+      <button class="btn-icon" type="button" data-zoom-in aria-label="Powiększ obraz" disabled>+</button>
+      <button class="btn-secondary" type="button" data-zoom-reset disabled>Resetuj widok</button>
+      <button class="btn-icon image-lightbox__close" type="button" data-lightbox-close aria-label="Zamknij podgląd obrazu" autofocus>
+        <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6" /></svg>
+      </button>
+    </div>
+  </header>
+  <div class="image-lightbox__stage" data-lightbox-stage aria-busy="true">
+    <img class="image-lightbox__image" data-lightbox-image alt="" draggable="false" hidden />
+    <div class="image-lightbox__message" data-lightbox-message role="status">
+      <p data-lightbox-status>Wczytywanie obrazu…</p>
+      <a data-lightbox-original target="_blank" rel="noopener noreferrer" hidden>Otwórz plik obrazu</a>
+    </div>
+  </div>
+  <p class="image-lightbox__help" id="image-lightbox-help">Powiększ przyciskami, kółkiem myszy lub dwoma palcami. Przesuń obraz, aby zobaczyć szczegóły. Kliknij obraz, aby przybliżyć lub wrócić do widoku początkowego.</p>
+</dialog>
+
+<style>
+  .image-lightbox { width: min(94vw, 1440px); height: 90dvh; max-width: none; max-height: 94dvh; margin: auto; padding: 0; border: 1px solid var(--color-border); background: var(--color-background); color: var(--color-text); overflow: hidden; }
+  .image-lightbox[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
+  .image-lightbox::backdrop { background: rgb(23 23 23 / 55%); transition: background-color 200ms var(--ease-editorial); }
+  .image-lightbox[data-closing]::backdrop { background: rgb(23 23 23 / 0%); }
+  @starting-style { .image-lightbox[open]::backdrop { background: rgb(23 23 23 / 0%); } }
+  .image-lightbox__toolbar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--color-border); }
+  .image-lightbox__toolbar > p { min-width: 0; font-size: var(--text-small); line-height: 1.4; }
+  .image-lightbox__controls { display: flex; flex: none; align-items: center; gap: var(--space-1); }
+  .image-lightbox__controls button { cursor: pointer; }
+  .image-lightbox__controls button:disabled { opacity: .35; cursor: default; }
+  .image-lightbox__controls .btn-icon { font-size: 24px; }
+  .image-lightbox__controls .btn-secondary { padding: var(--space-2) var(--space-3); font-size: 12px; }
+  .image-lightbox__controls output { min-width: 5ch; font-family: var(--font-label); font-size: 12px; text-align: center; }
+  .image-lightbox__close { margin-left: var(--space-2); }
+  .image-lightbox__stage { position: relative; min-width: 0; min-height: 0; overflow: hidden; background: var(--color-surface); touch-action: none; overscroll-behavior: contain; }
+  .image-lightbox__stage[data-zoomed] { cursor: grab; }
+  .image-lightbox__stage[data-dragging] { cursor: grabbing; }
+  .image-lightbox__image { position: absolute; left: 50%; top: 50%; display: block; max-width: none; max-height: none; user-select: none; -webkit-user-drag: none; cursor: zoom-in; transform-origin: center; }
+  .image-lightbox__image[hidden], .image-lightbox__message[hidden], [data-lightbox-original][hidden] { display: none; }
+  [data-zoomed] .image-lightbox__image { cursor: inherit; }
+  .image-lightbox__message { position: absolute; inset: 0; display: grid; place-content: center; gap: var(--space-3); padding: var(--space-5); text-align: center; font-size: var(--text-small); }
+  .image-lightbox__message a { text-decoration: underline; }
+  .image-lightbox__help { padding: var(--space-3) var(--space-4); border-top: 1px solid var(--color-border); color: var(--color-text-muted); font-size: 12px; line-height: 1.5; }
+  @media (max-width: 47.999rem) {
+    .image-lightbox { width: calc(100vw - 16px); height: calc(100dvh - 32px); max-height: none; }
+    .image-lightbox__toolbar { flex-wrap: wrap; gap: var(--space-2); padding: var(--space-3); }
+    .image-lightbox__toolbar > p { flex: 1 0 100%; padding-right: 0; }
+    .image-lightbox__controls { width: 100%; }
+    .image-lightbox__close { margin-left: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) { .image-lightbox::backdrop { transition: none; } }
+</style>
+
+<script>
+  import { setupImageLightbox } from "../../scripts/image-lightbox";
+  let cleanup = () => {};
+  let activeDialog: HTMLDialogElement | null = null;
+  function setup() {
+    const dialog = document.querySelector<HTMLDialogElement>("[data-image-lightbox]");
+    if (dialog === activeDialog) return;
+    cleanup();
+    activeDialog = dialog;
+    cleanup = dialog ? setupImageLightbox(dialog) : () => {};
+  }
+  setup();
+  document.addEventListener("astro:page-load", setup);
+  document.addEventListener("astro:before-swap", () => {
+    cleanup();
+    activeDialog = null;
+  });
+</script>

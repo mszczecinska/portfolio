@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import "./case-study.css";
+import ImageLightbox from "./ImageLightbox.astro";
 
 interface Props { title: string; description: string; }
 const { title, description } = Astro.props;
@@ -10,4 +11,5 @@ const { title, description } = Astro.props;
   <article class="case-study" aria-labelledby="case-study-title">
     <slot />
   </article>
+  <ImageLightbox />
 </Layout>
