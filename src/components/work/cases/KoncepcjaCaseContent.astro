@@ -9,6 +9,7 @@ import "./hypothesis-cards.css";
 import contextImage from "../../../assets/case-studies/INX/asset-inx.png";
 import personas from "../../../assets/case-studies/INX/Mapa person i JTBD — Smart Trader.png";
 import arkham from "../../../assets/case-studies/INX/arkham-web.png";
+import arkhamZoom from "../../../assets/case-studies/INX/arkham-zoom.svg?url";
 
 const board = "https://www.figma.com/board/XwGWCY4td2pjNwI0qB9psG/Security-%E2%80%93-full-map--with-details-";
 const halfSizes = "(min-width: 1280px) 588px, (min-width: 1024px) calc(50vw - 52px), (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)";
@@ -49,7 +50,7 @@ const halfSizes = "(min-width: 1280px) 588px, (min-width: 1024px) calc(50vw - 52
 <CaseStudySection id="analysis" title="Analiza narzędzi i doprecyzowanie kierunku">
   <p>Przyjrzałam się rozwiązaniom takim jak Arkham i Dune, zestawiając ich możliwości z potrzebami Smart Tradera. Analiza dotyczyła sposobu prezentowania danych, elastyczności narzędzi i wiedzy potrzebnej do korzystania z nich. Głównie w analizie skupiłam się na narzędziu Arkham.</p>
   <p>Wnioski omawialiśmy z CEO, łącząc perspektywę użytkowników z możliwościami technologii i założeniami biznesowymi. Wspólnie doprecyzowaliśmy kierunek konfigurowalnej przestrzeni analitycznej, która pomaga zbierać informacje i pracować z nimi w jednym miejscu.</p>
-  <CaseStudyMedia slot="visuals" src={arkham} zoomable label="Arkham — analiza narzędzi i luk produktowych" ratio={`${arkham.width} / ${arkham.height}`} />
+  <CaseStudyMedia slot="visuals" src={arkham} zoomable zoomSrc={arkhamZoom} label="Arkham — analiza narzędzi i luk produktowych" ratio={`${arkham.width} / ${arkham.height}`} />
 </CaseStudySection>
 
 <div class="case-vision">
