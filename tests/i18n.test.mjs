@@ -14,7 +14,7 @@ function inspect(html) {
     if (node.tagName) nodes.push(node);
     if (node.nodeName === '#text' && normalise(node.value)) texts.push(normalise(node.value));
     for (const attr of node.attrs ?? []) {
-      if (['alt', 'aria-label', 'aria-roledescription', 'title', 'data-image-label'].includes(attr.name)) texts.push(normalise(attr.value));
+      if (['alt', 'aria-label', 'aria-description', 'aria-roledescription', 'title', 'placeholder', 'data-image-label'].includes(attr.name)) texts.push(normalise(attr.value));
       if (node.tagName === 'meta' && attr.name === 'content' && node.attrs.some(a => a.name === 'name' && a.value === 'description')) texts.push(normalise(attr.value));
     }
     node.childNodes?.forEach(visit);
@@ -38,6 +38,7 @@ test('All ten public pages have a complete English equivalent', async () => {
   for (const path of englishPages) {
     const pl = inspect(await readFile(new URL(path, dist), 'utf8'));
     const en = inspect(await readFile(new URL(`en/${path}`, dist), 'utf8'));
+    assert.deepEqual(en.texts, pl.texts.map(source => dictionary[source] ?? source), `${path}: Every text and accessible label must match its counterpart`);
     const translated = new Set(en.texts);
     for (const source of pl.texts) {
       if (dictionary[source]) assert.ok(translated.has(dictionary[source]), `${path}: Missing translation of ${source}`);
@@ -82,4 +83,54 @@ test('Canonical and alternate language URLs identify the corresponding pages', a
       }
     }
   }
+});
+
+test('Both language switches point to the exact same page in the other language', async () => {
+  for (const path of englishPages) {
+    const suffix = path === 'index.html' ? '' : path.replace('/index.html', '');
+    for (const language of ['pl', 'en']) {
+      const { nodes } = inspect(await readFile(new URL(`${language === 'en' ? 'en/' : ''}${path}`, dist), 'utf8'));
+      const switches = nodes.filter(n => n.attrs.some(a => a.name === 'data-language-switch'));
+      assert.equal(switches.length, 1);
+      assert.equal(attr(switches[0], 'href'), language === 'en' ? `/${suffix}` : `/en/${suffix}`);
+      assert.equal(attr(switches[0], 'hreflang'), language === 'en' ? 'pl' : 'en');
+    }
+  }
+});
+
+test('Translation preserves images, videos, scripts, IDs and external links', async () => {
+  const resources = nodes => nodes.flatMap(node => node.attrs
+    .filter(a => ['src', 'srcset', 'poster', 'id', 'aria-controls', 'aria-labelledby', 'aria-describedby'].includes(a.name)
+      || (node.tagName === 'a' && a.name === 'href' && /^(?:https?:\/\/|\/\/)/.test(a.value)))
+    .map(a => `${node.tagName}:${a.name}:${a.value}`));
+  for (const path of englishPages) {
+    const pl = inspect(await readFile(new URL(path, dist), 'utf8'));
+    const en = inspect(await readFile(new URL(`en/${path}`, dist), 'utf8'));
+    assert.deepEqual(resources(en.nodes), resources(pl.nodes), path);
+    const scripts = html => [...html.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/g)].map(match => match[0]);
+    assert.deepEqual(scripts(await readFile(new URL(`en/${path}`, dist), 'utf8')), scripts(await readFile(new URL(path, dist), 'utf8')), path);
+  }
+});
+
+test('Email links have an English subject and keep the same recipient', async () => {
+  for (const path of englishPages) {
+    const { nodes } = inspect(await readFile(new URL(`en/${path}`, dist), 'utf8'));
+    const mailLinks = nodes.filter(n => attr(n, 'href')?.startsWith('mailto:'));
+    assert.ok(mailLinks.length > 0);
+    for (const link of mailLinks) {
+      const url = new URL(attr(link, 'href'));
+      assert.equal(url.pathname, 'mszczecinska01@gmail.com');
+      assert.equal(url.searchParams.get('subject'), 'Project enquiry');
+    }
+  }
+});
+
+test('Sitemap contains every English page and no redirect pages', async () => {
+  const sitemap = await readFile(new URL('sitemap-0.xml', dist), 'utf8');
+  const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
+  for (const path of englishPages) {
+    const suffix = path === 'index.html' ? '' : path.replace('/index.html', '');
+    assert.ok(locations.includes(`https://szczecinska.design/en/${suffix}${suffix ? '/' : ''}`), suffix);
+  }
+  assert.ok(!locations.some(url => /\/(?:contact|project)(?:\/|$)/.test(url) || url.includes('szczecinska-design-portfolio')));
 });

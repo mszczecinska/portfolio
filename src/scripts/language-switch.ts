@@ -8,12 +8,15 @@ function updateSwitches() {
     link.href = languagePath(location.pathname, target) + location.search + location.hash;
   });
 }
-document.addEventListener('click', event => {
+const refreshSwitch = (event: Event) => {
   if (!(event.target instanceof Element)) return;
   const link = event.target.closest<HTMLAnchorElement>('[data-language-switch]');
   if (!link) return;
   updateSwitches();
-}, { capture: true });
+};
+for (const event of ['click', 'auxclick', 'contextmenu']) {
+  document.addEventListener(event, refreshSwitch, { capture: true });
+}
 updateSwitches();
 document.addEventListener('astro:page-load', updateSwitches);
 window.addEventListener('popstate', updateSwitches);

@@ -30,3 +30,5 @@ Wybrany język jest zapisany w adresie, więc pozostaje po odświeżeniu i przej
 - Treść osadzona w obrazach i filmach pozostaje częścią oryginalnych materiałów projektowych; jej zmiana wymaga przygotowania nowych assetów.
 
 Po buildzie testy `node --test tests/*.test.mjs` sprawdzają tłumaczenia, język linków i metadane SEO wszystkich podstron.
+
+Pełny zestaw testów wraz ze świeżym buildem: `npm test` (Node.js 22.18+). Testy obejmują także komunikaty interaktywne, przełączanie języka po zmianie filtra, historię oraz otwieranie przełącznika w nowej karcie.
