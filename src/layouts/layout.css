@@ -225,7 +225,7 @@
   background-color: var(--color-text);
   color: var(--color-background);
   font-size: var(--text-small);
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-regular);
   text-decoration: none;
   transform: translateY(-100%);
   transition: transform var(--duration-ui) var(--ease-ui);

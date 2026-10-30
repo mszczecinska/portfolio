@@ -56,7 +56,7 @@
 }
 .case-study :is(.security-cards, .newbies-cards) :is(.security-title, .newbies-card-title) {
   font-size: 1.25rem;
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-regular);
   line-height: var(--leading-heading);
 }
 .case-study :is(.security-cards, .newbies-cards) :is(.security-description, .security-list, .newbies-card-description, .newbies-card-list) {

@@ -23,7 +23,7 @@
 
 .case-study .case-heading {
   font-size: 1.5rem;
-  font-weight: var(--weight-medium);
+  font-weight: var(--weight-regular);
   line-height: var(--leading-heading);
   text-wrap: balance;
 }

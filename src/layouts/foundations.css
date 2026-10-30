@@ -8,14 +8,6 @@
 }
 
 @font-face {
-  font-family: "Satoshi";
-  src: url("/fonts/Satoshi-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Geist Mono";
   src: url("/fonts/GeistMono-Regular.ttf") format("truetype");
   font-weight: 400;
@@ -29,7 +21,6 @@
   --font-body: "Satoshi", "Avenir Next", "Segoe UI", sans-serif;
   --font-label: "Geist Mono", "SFMono-Regular", Consolas, monospace;
   --weight-regular: 400;
-  --weight-medium: 500;
 
   --color-background: #ffffff;
   --color-foreground: var(--color-background);
