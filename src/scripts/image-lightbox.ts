@@ -1,3 +1,4 @@
+import { uiText } from "../i18n/ui";
 type Point = { x: number; y: number };
 
 export function setupImageLightbox(dialog: HTMLDialogElement) {
@@ -131,10 +132,10 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     if (!link || dialog.open) return;
     event.preventDefault();
     trigger = link;
-    title.textContent = link.dataset.imageLabel || "Podgląd obrazu";
+    title.textContent = link.dataset.imageLabel || uiText("Podgląd obrazu");
     image.alt = title.textContent;
     message.hidden = false;
-    status.textContent = "Wczytywanie obrazu…";
+    status.textContent = uiText("Wczytywanie obrazu…");
     original.href = link.href;
     original.hidden = true;
     stage.setAttribute("aria-busy", "true");
@@ -173,7 +174,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     if (!dialog.open) return;
     ready = false;
     stage.setAttribute("aria-busy", "false");
-    status.textContent = "Nie udało się wczytać obrazu.";
+    status.textContent = uiText("Nie udało się wczytać obrazu.");
     original.hidden = false;
     render();
   }, { signal });

@@ -19,6 +19,10 @@ const {
   aboutPage = false,
 } = Astro.props;
 
+import { languageFromPath, languagePath } from "../i18n/routes";
+const language = languageFromPath(Astro.url.pathname);
+const canonical = new URL(languagePath(Astro.url.pathname, language), Astro.site);
+
 import { ClientRouter } from "astro:transitions";
 import "./layout.css";
 import Header from "../components/Header.astro";
@@ -28,10 +32,14 @@ import SpeedInsights from "@vercel/speed-insights/astro";
 ---
 
 <!doctype html>
-<html lang="pl">
+<html lang={language}>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="pl" href={new URL(languagePath(Astro.url.pathname, "pl"), Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(languagePath(Astro.url.pathname, "en"), Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(languagePath(Astro.url.pathname, "pl"), Astro.site)} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preload" href="/fonts/Satoshi-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link id="site-favicon" rel="icon" type="image/x-icon" href="/favicon-light.ico?v=2" sizes="16x16 32x32 48x48" />
@@ -58,6 +66,7 @@ import SpeedInsights from "@vercel/speed-insights/astro";
       import "../scripts/project-transitions";
       import "../scripts/page-entry";
       import "../scripts/menu-motion";
+      import "../scripts/language-switch";
       import { startAutoplayVideos } from "../scripts/video-playback.js";
 
       let cleanupVideos = () => {};
@@ -85,11 +94,11 @@ import SpeedInsights from "@vercel/speed-insights/astro";
       const PROJECT_SCROLL_STATE_KEY = "__portfolioProjectScrollState";
 
       function isProjectDetailPath(pathname) {
-        return /^\/(?:work|project)\/[^/]+\/?$/.test(pathname);
+        return /^\/(?:en\/)?(?:work|project)\/[^/]+\/?$/.test(pathname);
       }
 
       function canRestoreProjectScroll(pathname) {
-        return pathname === "/" || pathname === "/work";
+        return ["/", "/work", "/en", "/en/work"].includes(pathname.replace(/\/$/, "") || "/");
       }
 
       function saveProjectScrollPosition(link) {

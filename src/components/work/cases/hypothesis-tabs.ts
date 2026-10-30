@@ -1,3 +1,4 @@
+import { uiText } from "../../../i18n/ui";
 export function setupHypothesisCards() {
   document.querySelectorAll<HTMLElement>(".security-cards, .newbies-cards").forEach(root => {
     if (root.dataset.tabsInitialized) return;
@@ -27,12 +28,12 @@ export function setupHypothesisCards() {
       grid.id = `${prefix}-cards-${key}`;
       grid.tabIndex = 0;
       grid.setAttribute("role", "group");
-      grid.setAttribute("aria-label", "Karty koncepcji — przewijaj strzałkami");
+      grid.setAttribute("aria-label", uiText("Karty koncepcji — przewijaj strzałkami"));
       const cards = [...grid.querySelectorAll<HTMLElement>("article")];
       const controls = document.createElement("div");
       controls.className = "hypothesis-pages";
       controls.setAttribute("role", "group");
-      controls.setAttribute("aria-label", "Wybierz kartę");
+      controls.setAttribute("aria-label", uiText("Wybierz kartę"));
       const step = () => (cards[0]?.getBoundingClientRect().width || 1) + (parseFloat(getComputedStyle(grid).columnGap) || 0);
       const current = () => Math.round(grid.scrollLeft / step());
       const goTo = (index: number) => {
@@ -42,7 +43,7 @@ export function setupHypothesisCards() {
       cards.forEach((card, index) => {
         const button = document.createElement("button");
         button.type = "button";
-        button.setAttribute("aria-label", `Karta ${index + 1}: ${card.querySelector("h3")?.textContent ?? ""}`);
+        button.setAttribute("aria-label", `${uiText("Karta")} ${index + 1}: ${card.querySelector("h3")?.textContent ?? ""}`);
         button.setAttribute("aria-controls", grid.id);
         button.setAttribute("aria-pressed", String(index === 0));
         const dot = document.createElement("span");

@@ -207,6 +207,7 @@ const mobileDots = [
 </style>
 
 <script>
+  import { uiText } from "../i18n/ui";
   function setupFooterEmail() {
     const button = document.querySelector<HTMLButtonElement>('[data-footer-copy-email]');
     const status = document.querySelector<HTMLElement>('[data-footer-copy-status]');
@@ -219,7 +220,7 @@ const mobileDots = [
       copyIcon.hidden = false;
       checkIcon.hidden = true;
       status.textContent = '';
-      button.setAttribute('aria-label', 'Skopiuj adres e-mail');
+      button.setAttribute('aria-label', uiText('Skopiuj adres e-mail'));
     };
     button.addEventListener('click', async () => {
       const email = button.previousElementSibling;
@@ -229,13 +230,13 @@ const mobileDots = [
         clearTimeout(resetTimer);
         copyIcon.hidden = true;
         checkIcon.hidden = false;
-        status.textContent = 'Skopiowano adres';
-        button.setAttribute('aria-label', 'Skopiowano adres e-mail');
+        status.textContent = uiText('Skopiowano adres');
+        button.setAttribute('aria-label', uiText('Skopiowano adres e-mail'));
         resetTimer = setTimeout(reset, 3000);
       } catch {
         clearTimeout(resetTimer);
         reset();
-        status.textContent = 'Zaznacz i skopiuj adres e-mail.';
+        status.textContent = uiText('Zaznacz i skopiuj adres e-mail.');
       }
     });
     document.addEventListener('astro:before-swap', () => clearTimeout(resetTimer), { once: true });
