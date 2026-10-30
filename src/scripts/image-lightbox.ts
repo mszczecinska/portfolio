@@ -29,22 +29,38 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
   let startedOnBackground = false;
   let zoomAnimation: Animation | null = null;
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const easing = "cubic-bezier(0.22, 1, 0.36, 1)";
+  let dialogAnimation: Animation | null = null;
+  let imageEntrance: Animation | null = null;
+  const clearMotion = () => {
+    dialogAnimation?.cancel();
+    dialogAnimation = null;
+    imageEntrance?.cancel();
+    imageEntrance = null;
+  };
   let closeTimer: ReturnType<typeof setTimeout> | undefined;
   const finishClose = () => {
     clearTimeout(closeTimer);
-    dialog.removeAttribute("data-closing");
     if (dialog.open) dialog.close();
+    clearMotion();
+    dialog.removeAttribute("data-closing");
   };
   const requestClose = () => {
     if (!dialog.open || dialog.hasAttribute("data-closing")) return;
     if (reducedMotion.matches) { finishClose(); return; }
+    // Continue from the visible frame when closing interrupts the entrance.
+    const current = getComputedStyle(dialog);
+    const from = { opacity: current.opacity, transform: current.transform };
+    dialogAnimation?.cancel();
     dialog.setAttribute("data-closing", "");
     // Keep the dialog modal until both it and its backdrop finish fading.
-    closeTimer = setTimeout(finishClose, 220);
+    dialogAnimation = dialog.animate([
+      from,
+      { opacity: 0, transform: "scale(.98)" },
+    ], { duration: 200, easing, fill: "forwards" });
+    dialogAnimation.onfinish = finishClose;
+    closeTimer = setTimeout(finishClose, 260);
   };
-  dialog.addEventListener("animationend", event => {
-    if (event.target === dialog && event.animationName === "lightbox-exit") finishClose();
-  }, { signal });
 
   const render = (duration = 0) => {
     const from = duration && ready && !image.hidden && !reducedMotion.matches
@@ -80,7 +96,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     render(duration);
   };
   const setZoom = (value: number, point?: Point, duration = 180) => {
-    if (!ready) return;
+    if (!ready || dialog.hasAttribute("data-closing")) return;
     const next = Math.max(1, Math.min(maxZoom, value));
     const rect = stage.getBoundingClientRect();
     const px = point ? point.x - rect.left - rect.width / 2 : 0;
@@ -94,6 +110,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
   const resetView = (duration = 0) => { zoom = 1; x = y = 0; fit(duration); };
   const restorePage = () => {
     clearTimeout(closeTimer);
+    clearMotion();
     dialog.removeAttribute("data-closing");
     zoomAnimation?.cancel();
     zoomAnimation = null;
@@ -132,16 +149,25 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     if (scrollbar) document.body.style.paddingRight = `${parseFloat(getComputedStyle(document.body).paddingRight) + scrollbar}px`;
     document.documentElement.style.overflow = "hidden";
     dialog.showModal();
+    if (!reducedMotion.matches) {
+      dialogAnimation = dialog.animate([
+        { opacity: 0, transform: "scale(.98)" },
+        { opacity: 1, transform: "scale(1)" },
+      ], { duration: 260, easing });
+    }
     image.src = link.href;
   }, { signal });
 
   image.addEventListener("load", () => {
-    if (!dialog.open) return;
+    if (!dialog.open || dialog.hasAttribute("data-closing")) return;
     ready = true;
     message.hidden = true;
     stage.setAttribute("aria-busy", "false");
     resetView();
     image.hidden = false;
+    if (!reducedMotion.matches) {
+      imageEntrance = image.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 160, easing });
+    }
   }, { signal });
   image.addEventListener("error", () => {
     if (!dialog.open) return;
@@ -168,7 +194,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
   const center = (points: Point[]): Point => ({ x: (points[0].x + points[1].x) / 2, y: (points[0].y + points[1].y) / 2 });
   const distance = (points: Point[]) => Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
   stage.addEventListener("pointerdown", event => {
-    if (!ready || event.button !== 0) return;
+    if (!ready || event.button !== 0 || dialog.hasAttribute("data-closing")) return;
     event.preventDefault();
     // Continue from the displayed position when a drag interrupts a zoom.
     // Touch gestures should follow the fingers immediately, without easing.
@@ -225,6 +251,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     if (!pointers.size) stage.removeAttribute("data-dragging");
   }, { signal });
   dialog.addEventListener("keydown", event => {
+    if (dialog.hasAttribute("data-closing")) return;
     if (event.metaKey || event.ctrlKey || event.altKey) return;
     if (["+", "=", "-", "0", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) event.preventDefault();
     if (event.key === "+" || event.key === "=") setZoom(zoom * 1.5);
@@ -238,15 +265,21 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
   reducedMotion.addEventListener("change", () => {
     if (reducedMotion.matches) {
       if (dialog.hasAttribute("data-closing")) finishClose();
+      clearMotion();
       zoomAnimation?.cancel();
       zoomAnimation = null;
     }
   }, { signal });
-  const observer = new ResizeObserver(() => { if (dialog.open && ready) fit(); });
+  const observer = new ResizeObserver(() => {
+    if (dialog.open && ready && !dialog.hasAttribute("data-closing")) {
+      fit();
+    }
+  });
   observer.observe(stage);
 
   return () => {
     clearTimeout(closeTimer);
+    clearMotion();
     if (dialog.open) { dialog.close(); restorePage(); }
     observer.disconnect();
     controller.abort();
