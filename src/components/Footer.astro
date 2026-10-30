@@ -3,9 +3,6 @@ import { socialLinks } from "../lib/social";
 import TablerIcon from "./TablerIcon.astro";
 import { contactEmail, contactMailto } from "../lib/contact";
 
-interface Props { workPage?: boolean; homePage?: boolean; aboutPage?: boolean; }
-const { workPage = false, homePage = false, aboutPage = false } = Astro.props;
-
 const currentYear = new Date().getFullYear();
 
 const footerNav = [
@@ -75,7 +72,7 @@ const mobileDots = [
 ] as const;
 ---
 
-<footer class:list={["w-full border-t border-[var(--color-divider)] pb-[16px] pt-[24px] sm:pb-[18px] sm:pt-[32px] lg:pb-[20px] lg:pt-[40px]", { "work-footer": workPage, "home-footer": homePage || aboutPage }]} aria-labelledby="site-footer-title">
+<footer class="site-footer w-full border-t border-[var(--color-divider)] pb-[16px] pt-[24px] sm:pb-[18px] sm:pt-[32px] lg:pb-[20px] lg:pt-[40px]" aria-labelledby="site-footer-title">
   <h2 id="site-footer-title" class="sr-only">Stopka strony</h2>
 
   <div class="page-container">
@@ -122,7 +119,7 @@ const mobileDots = [
                     <span class="footer-link__label">{item.label}</span>
                     <TablerIcon
                       name="arrow-up-right"
-                      class="footer-link__arrow size-6 lg:size-8"
+                      class="footer-link__arrow size-4 lg:size-6"
                     />
                   </a>
                 </li>
@@ -198,21 +195,14 @@ const mobileDots = [
   .footer-contact__status { color: var(--color-text-muted); }
   .footer-contact .btn-icon { cursor: pointer; }
   @media (max-width: 63.999rem) {
-    .home-footer a[href="https://github.com/mszczecinska/portfolio"] { display: none; }
-    .home-footer > div > div > div:last-child { justify-content: flex-end; }
-    .home-footer :global(svg) { width: 16px; height: 16px; }
+    .site-footer a[href="https://github.com/mszczecinska/portfolio"] { display: none; }
+    .site-footer > div > div > div:last-child { justify-content: flex-end; }
   }
   @media (min-width: 64rem) {
     .footer-columns { grid-template-columns: minmax(40px, .7fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(260px, 1.4fr); column-gap: var(--space-6); }
     .footer-contact { grid-column: auto; }
-    .home-footer > div > div > div:first-child { padding-block: var(--space-6); }
-    .home-footer nav ul { line-height: 32px; }
-    .home-footer :global(svg) { width: 24px; height: 24px; }
-  }
-  @media (min-width: 64rem) {
-    .work-footer { border-top: 0; padding-top: 60px; }
-    .work-footer > div > div { gap: 60px; }
-    .work-footer :global(svg) { width: 24px; height: 24px; }
+    .site-footer > div > div > div:first-child { padding-block: var(--space-6); }
+    .site-footer nav ul { line-height: 32px; }
   }
 </style>
 
