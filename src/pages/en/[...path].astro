@@ -1,0 +1,19 @@
+---
+import Home from '../index.astro';
+import About from '../about.astro';
+import Work from '../work/index.astro';
+
+export function getStaticPaths() {
+  const cases = import.meta.glob('../work/*.astro', { eager: true, import: 'default' });
+  return [
+    { params: { path: undefined }, props: { Page: Home } },
+    { params: { path: 'about' }, props: { Page: About } },
+    { params: { path: 'work' }, props: { Page: Work } },
+    ...Object.entries(cases)
+      .filter(([path]) => !path.endsWith('/index.astro'))
+      .map(([path, Page]) => ({ params: { path: `work/${path.split('/').pop()!.replace('.astro', '')}` }, props: { Page } })),
+  ];
+}
+const { Page } = Astro.props;
+---
+<Page />

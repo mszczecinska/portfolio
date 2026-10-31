@@ -12,6 +12,8 @@ export default defineConfig({
   },
   compressHTML: true,
   redirects: {
+    "/en/contact": "/en/#footer-contact",
+    "/en/work/szczecinska-design-portfolio": "/en/work",
     "/work/szczecinska-design-portfolio": "/work",
     "/project/szczecinska-design-portfolio": "/work",
   },
@@ -20,7 +22,8 @@ export default defineConfig({
     sitemap({
       filter: (page) => {
         const path = new URL(page).pathname;
-        return !path.startsWith("/project/")
+        return !/^\/en\/(?:contact|work\/szczecinska-design-portfolio)\/?$/.test(path)
+          && !path.startsWith("/project/")
           && !/^\/contact\/?$/.test(path)
           && !/^\/work\/szczecinska-design-portfolio\/?$/.test(path);
       },

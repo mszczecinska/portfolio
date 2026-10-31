@@ -16,3 +16,19 @@ Podgląd lokalny: `bun dev`. Build: `bun run build`.
 - Stare adresy case study portfolio prowadzą do `/work`. Przekierowania nie trafiają do sitemap.
 
 Weryfikacja: `bun run build`, `bun x tsc --noEmit`, `node --test tests/*.test.mjs`.
+
+## Języki PL / EN
+
+Polski jest domyślny (`/`, `/about`, `/work`), a angielski ma prefiks `/en`.
+Przełącznik w menu otwiera odpowiednik bieżącej podstrony i zachowuje filtr realizacji oraz kotwicę.
+Wybrany język jest zapisany w adresie, więc pozostaje po odświeżeniu i przejściu na kolejną podstronę.
+
+- `src/i18n/en.json` — tłumaczenia pełnych tekstów i etykiet; klucze to polskie treści z normalizacją białych znaków. Po zmianie polskiej treści trzeba zaktualizować także jej klucz i tłumaczenie.
+- `src/i18n/ui.ts` — krótkie komunikaty tworzone przez skrypty (kopiowanie adresu, multimedia, karty).
+- `src/pages/en/[...path].astro` — angielskie adresy korzystające ze wspólnych widoków; nowe case studies w `src/pages/work` są dodawane automatycznie.
+- `src/middleware.ts` i `src/i18n/html.ts` — tłumaczenie tekstów, opisów i linków przy generowaniu statycznego HTML. Słownik case studies i parser HTML nie są wysyłane do przeglądarki.
+- Treść osadzona w obrazach i filmach pozostaje częścią oryginalnych materiałów projektowych; jej zmiana wymaga przygotowania nowych assetów.
+
+Po buildzie testy `node --test tests/*.test.mjs` sprawdzają tłumaczenia, język linków i metadane SEO wszystkich podstron.
+
+Pełny zestaw testów wraz ze świeżym buildem: `npm test` (Node.js 22.18+). Testy obejmują także komunikaty interaktywne, przełączanie języka po zmianie filtra, historię oraz otwieranie przełącznika w nowej karcie.

@@ -1,3 +1,4 @@
+import { withoutLanguage } from "../i18n/routes";
 import { isTransitionBeforePreparationEvent } from "astro:transitions/client";
 
 // Decode the same responsive picture the destination will display before capture.
@@ -36,10 +37,10 @@ document.addEventListener("astro:before-preparation", event => {
   });
   // History uses the router's scroll restoration and a normal page swap.
   // Explicit links from home, the listing and adjacent-project cards share a cover.
-  const fromPath = event.from.pathname.replace(/\/$/, "") || "/";
+  const fromPath = withoutLanguage(event.from.pathname);
   const fromProject = /^\/work\/[^/]+$/.test(fromPath);
   if (event.navigationType === "traverse" || (!fromProject && !["/", "/work"].includes(fromPath))) return;
-  const match = event.to.pathname.match(/^\/work\/([^/]+)\/?$/);
+  const match = withoutLanguage(event.to.pathname).match(/^\/work\/([^/]+)\/?$/);
   if (!match || !document.startViewTransition || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   const load = event.loader;

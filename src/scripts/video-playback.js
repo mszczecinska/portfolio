@@ -1,3 +1,4 @@
+import { uiText } from "../i18n/ui";
 // Native autoplay and controls handle the initial HTML. This controller restores
 // playback after ClientRouter swaps, pauses distant videos, and offers a visible
 // manual fallback when a browser blocks automatic playback.
@@ -40,11 +41,11 @@ export function startAutoplayVideos(root = document) {
       if (!errorMessage) return;
       const text = errorMessage.querySelector("[data-video-error-message]");
       const messages = {
-        2: "Nie udało się pobrać filmu.",
-        3: "Przeglądarka nie mogła odczytać filmu.",
-        4: "Przeglądarka nie obsługuje dostępnych formatów filmu.",
+        2: uiText("Nie udało się pobrać filmu."),
+        3: uiText("Przeglądarka nie mogła odczytać filmu."),
+        4: uiText("Przeglądarka nie obsługuje dostępnych formatów filmu."),
       };
-      if (text) text.textContent = messages[video.error?.code] ?? "Nie udało się odtworzyć filmu.";
+      if (text) text.textContent = messages[video.error?.code] ?? uiText("Nie udało się odtworzyć filmu.");
       errorMessage.hidden = false;
     };
     const updateButton = () => {
