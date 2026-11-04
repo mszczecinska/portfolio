@@ -164,6 +164,6 @@ import SpeedInsights from "@vercel/speed-insights/astro";
       <main id="main-content" class="flex-1">
         <slot />
       </main>
-      {showFooter && <Footer />}
+      {showFooter && <Footer showDivider={!workPage} />}
     </body>
   </html>

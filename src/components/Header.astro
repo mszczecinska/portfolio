@@ -381,7 +381,12 @@ const activeKey = currentPath === "/"
   .header-email { display: none; white-space: nowrap; }
   @media (min-width: 64rem) {
     .header-actions { display: inline-flex; align-items: center; gap: var(--space-2); }
-    .header-email { display: inline-flex; }
+    .header-email {
+      display: inline-flex;
+      flex-shrink: 0;
+      /* Reserve room for the longer Polish label in both languages. */
+      inline-size: calc(14ch + 2 * (var(--space-6) + var(--border-width)));
+    }
   }
   .about-header nav > div { gap: var(--space-2); }
   @media (min-width: 64rem) {

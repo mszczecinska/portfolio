@@ -3,6 +3,9 @@ import { socialLinks } from "../lib/social";
 import TablerIcon from "./TablerIcon.astro";
 import { contactEmail, contactMailto } from "../lib/contact";
 
+interface Props { showDivider?: boolean; }
+const { showDivider = true } = Astro.props;
+
 const currentYear = new Date().getFullYear();
 
 const footerNav = [
@@ -72,7 +75,7 @@ const mobileDots = [
 ] as const;
 ---
 
-<footer class="site-footer w-full border-t border-[var(--color-divider)] pb-[16px] pt-[24px] sm:pb-[18px] sm:pt-[32px] lg:pb-[20px] lg:pt-[40px]" aria-labelledby="site-footer-title">
+<footer class:list={["site-footer w-full pb-[16px] pt-[24px] sm:pb-[18px] sm:pt-[32px] lg:pb-[20px] lg:pt-[40px]", showDivider && "border-t border-[var(--color-divider)]"]} aria-labelledby="site-footer-title">
   <h2 id="site-footer-title" class="sr-only">Stopka strony</h2>
 
   <div class="page-container">
