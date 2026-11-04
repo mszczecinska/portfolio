@@ -169,7 +169,7 @@ const workingMethods = [
   .about-contact__hover { opacity: 0; }
   .about-contact__button:focus-visible .about-contact__arrow img:first-child { opacity: 0; }
   .about-contact__button:focus-visible .about-contact__hover { opacity: 1; }
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     .recommendation-controls button:not(:disabled):hover img { filter: brightness(0) invert(1); }
     .about-contact__button:hover .about-contact__arrow img:first-child { opacity: 0; }
     .about-contact__button:hover .about-contact__hover { opacity: 1; }
@@ -237,6 +237,7 @@ const workingMethods = [
 
 <script>
   import { enterRecommendation } from "../scripts/page-entry";
+  import { shouldAnimate } from "../scripts/motion";
 
   function setupAboutPage() {
     const root = document.querySelector<HTMLElement>(".about-page");
@@ -278,10 +279,10 @@ const workingMethods = [
       clearTimeout(scrollIdle);
       targetIndex = index;
       setActiveDot(index);
-      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const instant = !shouldAnimate();
       const alreadyThere = Math.abs(track.scrollLeft - positionOf(index)) <= 1;
-      track.scrollTo({ left: positionOf(index), behavior: reducedMotion || alreadyThere ? "instant" : "smooth" });
-      if (reducedMotion || alreadyThere) settleScroll();
+      track.scrollTo({ left: positionOf(index), behavior: instant || alreadyThere ? "instant" : "smooth" });
+      if (instant || alreadyThere) settleScroll();
     };
     dots.forEach((dot, i) => dot.addEventListener("click", () => selectMethod(i)));
     track.addEventListener("scroll", () => {

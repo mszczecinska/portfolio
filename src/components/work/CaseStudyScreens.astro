@@ -84,6 +84,8 @@ const { id, label, items } = Astro.props;
 </style>
 
 <script>
+  import { shouldAnimate } from "../../scripts/motion";
+
   function setupScreenGalleries() {
     document.querySelectorAll<HTMLElement>("[data-case-screens]").forEach(root => {
       if (root.dataset.initialized) return;
@@ -95,7 +97,7 @@ const { id, label, items } = Astro.props;
       const currentIndex = () => Math.round(track.scrollLeft / Math.max(track.clientWidth, 1));
       const goTo = (index: number) => {
         const target = Math.max(0, Math.min(buttons.length - 1, index));
-        track.scrollTo({ left: target * track.clientWidth, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+        track.scrollTo({ left: target * track.clientWidth, behavior: shouldAnimate() ? "smooth" : "instant" });
       };
       buttons.forEach((button, index) => button.addEventListener("click", () => goTo(index)));
       track.addEventListener("scroll", () => {

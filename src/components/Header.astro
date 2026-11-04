@@ -311,7 +311,7 @@ const activeKey = currentPath === "/"
 
           if (event.key === "Escape") {
             event.preventDefault();
-            closeMenu(root, true);
+            closeMenu(root, true, true);
             return;
           }
 
@@ -446,44 +446,47 @@ const activeKey = currentPath === "/"
     z-index: 70;
     background: var(--color-background);
     box-shadow: none;
+    transition: transform 240ms var(--ease-editorial), opacity 180ms var(--ease-ui);
   }
 
   [data-scroll-header].is-floating.is-hidden {
     opacity: 0.01;
+    transform: translateY(-100%);
+    pointer-events: none;
   }
 
   @media (max-width: 1023px) {
-    [data-scroll-header].is-floating {
-      transition:
-        top 260ms ease,
-        opacity 260ms ease;
-    }
-
     [data-scroll-header].is-floating > div {
       padding-bottom: 36px;
-    }
-
-    [data-scroll-header].is-floating.is-hidden {
-      top: calc(-1 * var(--header-height, 120px));
     }
   }
 
   @media (min-width: 1024px) {
-    [data-scroll-header].is-floating {
-      transform: translateY(0);
-      transition:
-        transform 260ms ease,
-        opacity 260ms ease;
-      will-change: transform, opacity;
-    }
-
     [data-scroll-header].is-floating:not(.is-at-top) {
       box-shadow: var(--header-float-shadow);
     }
+  }
 
-    [data-scroll-header].is-floating.is-hidden {
-      transform: translateY(-100%);
-    }
+  /* Release the fixed drawer from the header's transform containing block. */
+  :global(body.mobile-menu-open) [data-scroll-header] {
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+    transition: none;
+  }
+
+  [data-mobile-overlay] { transition: opacity 180ms var(--ease-ui); }
+  [data-mobile-panel] { transition: transform 180ms var(--ease-ui); }
+  [data-mobile-menu].is-open [data-mobile-overlay] { transition-duration: 220ms; }
+  [data-mobile-menu].is-open [data-mobile-panel] {
+    transition-duration: 260ms;
+    transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-scroll-header].is-floating,
+    [data-mobile-overlay],
+    [data-mobile-menu] [data-mobile-panel] { transition: none; }
   }
 
   [data-scroll-header].is-no-transition {
@@ -517,11 +520,6 @@ const activeKey = currentPath === "/"
       const header = document.querySelector("[data-scroll-header]");
       if (!(header instanceof HTMLElement)) return;
       const desktopMq = window.matchMedia("(min-width: 1024px)");
-      const setHeaderHeightVar = () => {
-        header.style.setProperty("--header-height", `${header.offsetHeight}px`);
-      };
-      setHeaderHeightVar();
-
       let lastY = window.scrollY;
       let direction = "down";
       let directionDistance = 0;
@@ -569,7 +567,7 @@ const activeKey = currentPath === "/"
         const rawDelta = currentY - lastY;
         const absDelta = Math.abs(rawDelta);
 
-        if (document.body.classList.contains("mobile-menu-open")) {
+        if (document.body.classList.contains("mobile-menu-open") || header.querySelector(":focus-visible")) {
           applyFloatingState();
           header.classList.remove("is-hidden");
           state.isHidden = false;
@@ -649,12 +647,16 @@ const activeKey = currentPath === "/"
       };
 
       window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", setHeaderHeightVar, { passive: true });
+      const revealOnFocus = () => {
+        state.isHidden = false;
+        header.classList.remove("is-hidden");
+      };
+      header.addEventListener("focusin", revealOnFocus);
       processScroll();
 
       state.cleanup = () => {
         window.removeEventListener("scroll", onScroll);
-        window.removeEventListener("resize", setHeaderHeightVar);
+        header.removeEventListener("focusin", revealOnFocus);
         if (transitionResetRaf) {
           cancelAnimationFrame(transitionResetRaf);
           transitionResetRaf = 0;

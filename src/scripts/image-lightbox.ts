@@ -1,4 +1,5 @@
 import { uiText } from "../i18n/ui";
+import { shouldAnimate } from "./motion";
 type Point = { x: number; y: number };
 
 export function setupImageLightbox(dialog: HTMLDialogElement) {
@@ -48,7 +49,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
   };
   const requestClose = () => {
     if (!dialog.open || dialog.hasAttribute("data-closing")) return;
-    if (reducedMotion.matches) { finishClose(); return; }
+    if (!shouldAnimate()) { finishClose(); return; }
     // Continue from the visible frame when closing interrupts the entrance.
     const current = getComputedStyle(dialog);
     const from = { opacity: current.opacity, transform: current.transform };
@@ -64,7 +65,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
   };
 
   const render = (duration = 0) => {
-    const from = duration && ready && !image.hidden && !reducedMotion.matches
+    const from = duration && ready && !image.hidden && shouldAnimate()
       ? getComputedStyle(image).transform : null;
     zoomAnimation?.cancel();
     zoomAnimation = null;
@@ -150,7 +151,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     if (scrollbar) document.body.style.paddingRight = `${parseFloat(getComputedStyle(document.body).paddingRight) + scrollbar}px`;
     document.documentElement.style.overflow = "hidden";
     dialog.showModal();
-    if (!reducedMotion.matches) {
+    if (shouldAnimate()) {
       dialogAnimation = dialog.animate([
         { opacity: 0, transform: "scale(.98)" },
         { opacity: 1, transform: "scale(1)" },
@@ -166,7 +167,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     stage.setAttribute("aria-busy", "false");
     resetView();
     image.hidden = false;
-    if (!reducedMotion.matches) {
+    if (shouldAnimate()) {
       imageEntrance = image.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 160, easing });
     }
   }, { signal });
@@ -195,7 +196,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
   const center = (points: Point[]): Point => ({ x: (points[0].x + points[1].x) / 2, y: (points[0].y + points[1].y) / 2 });
   const distance = (points: Point[]) => Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
   stage.addEventListener("pointerdown", event => {
-    if (!ready || event.button !== 0 || dialog.hasAttribute("data-closing")) return;
+    if (!ready || event.button !== 0 || pointers.size >= 2 || dialog.hasAttribute("data-closing")) return;
     event.preventDefault();
     // Continue from the displayed position when a drag interrupts a zoom.
     // Touch gestures should follow the fingers immediately, without easing.
@@ -255,13 +256,13 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     if (dialog.hasAttribute("data-closing")) return;
     if (event.metaKey || event.ctrlKey || event.altKey) return;
     if (["+", "=", "-", "0", "ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) event.preventDefault();
-    if (event.key === "+" || event.key === "=") setZoom(zoom * 1.5);
-    else if (event.key === "-") setZoom(zoom / 1.5);
-    else if (event.key === "0") resetView(180);
-    else if (event.key === "ArrowLeft") { x += 60; render(140); }
-    else if (event.key === "ArrowRight") { x -= 60; render(140); }
-    else if (event.key === "ArrowUp") { y += 60; render(140); }
-    else if (event.key === "ArrowDown") { y -= 60; render(140); }
+    if (event.key === "+" || event.key === "=") setZoom(zoom * 1.5, undefined, 0);
+    else if (event.key === "-") setZoom(zoom / 1.5, undefined, 0);
+    else if (event.key === "0") resetView();
+    else if (event.key === "ArrowLeft") { x += 60; render(); }
+    else if (event.key === "ArrowRight") { x -= 60; render(); }
+    else if (event.key === "ArrowUp") { y += 60; render(); }
+    else if (event.key === "ArrowDown") { y -= 60; render(); }
   }, { signal });
   reducedMotion.addEventListener("change", () => {
     if (reducedMotion.matches) {

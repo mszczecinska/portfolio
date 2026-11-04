@@ -1,4 +1,5 @@
 import { uiText } from "../../../i18n/ui";
+import { shouldAnimate } from "../../../scripts/motion";
 export function setupHypothesisCards() {
   document.querySelectorAll<HTMLElement>(".security-cards, .newbies-cards").forEach(root => {
     if (root.dataset.tabsInitialized) return;
@@ -38,7 +39,7 @@ export function setupHypothesisCards() {
       const current = () => Math.round(grid.scrollLeft / step());
       const goTo = (index: number) => {
         const target = Math.max(0, Math.min(cards.length - 1, index));
-        grid.scrollTo({ left: target * step(), behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
+        grid.scrollTo({ left: target * step(), behavior: shouldAnimate() ? "smooth" : "instant" });
       };
       cards.forEach((card, index) => {
         const button = document.createElement("button");

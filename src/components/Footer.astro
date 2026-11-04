@@ -177,7 +177,7 @@ const mobileDots = [
   .footer-link :global(.footer-link__arrow) { transition: translate 240ms var(--ease-editorial); }
   .footer-link:focus-visible .footer-link__label::after { transform: scaleX(1); transform-origin: left center; }
   .footer-link:focus-visible :global(.footer-link__arrow) { translate: var(--footer-arrow-shift); }
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     .footer-link:hover .footer-link__label::after { transform: scaleX(1); transform-origin: left center; }
     .footer-link:hover :global(.footer-link__arrow) { translate: var(--footer-arrow-shift); }
   }
