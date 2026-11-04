@@ -83,7 +83,6 @@ const activeGroup = Astro.url.searchParams.get("category") === "experiments" ? "
   .work-grid { border-top: 1px solid var(--color-border); padding-top: 8px; }
   .work-grid[hidden] { display: none; }
   .work-card { position: relative; isolation: isolate; min-width: 0; padding: 20px; border-bottom: 1px solid var(--color-border); }
-  .work-card:last-child { border-bottom: 0; }
   .work-card::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: var(--color-surface); opacity: 0; transition: opacity 240ms var(--ease-editorial); }
   .work-card + .work-card { margin-top: 8px; }
   .work-card__link { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 18px; min-height: 385px; color: inherit; text-decoration: none; }
@@ -135,8 +134,6 @@ const activeGroup = Astro.url.searchParams.get("category") === "experiments" ? "
     .work-card::after { content: ""; position: absolute; bottom: -1px; height: 1px; width: max(32px, calc((100vw - 1216px) / 2)); background: var(--color-border); }
     .work-card:nth-child(odd)::after { right: 100%; }
     .work-card:nth-child(even)::after { left: 100%; }
-    .work-card:nth-last-child(2):nth-child(odd) { border-bottom: 0; }
-    .work-card:is(:last-child, :nth-last-child(2):nth-child(odd))::after { display: none; }
     .work-card__link { grid-template-columns: minmax(0, 250fr) minmax(0, 258fr); grid-template-rows: auto 1fr; gap: 20px; min-height: 250px; }
     .work-card__heading { grid-column: 2; grid-row: 1; row-gap: 10px; column-gap: 12px; }
     .work-card h2 { grid-column: 1; grid-row: 2; font-size: 32px; }
@@ -151,7 +148,7 @@ const activeGroup = Astro.url.searchParams.get("category") === "experiments" ? "
     .work-card--featured .work-card__media { height: 388px; min-height: 388px; }
     #work-projects .work-card:not(.work-card--featured) .work-card__heading { grid-template-columns: minmax(0, 1fr); }
     #work-projects .work-card:not(.work-card--featured) .work-card__arrow { display: none; }
-    .work-grid--experiments { grid-template-columns: minmax(0, 1fr); }
+    .work-grid--experiments { grid-template-columns: minmax(0, 1fr); border-bottom: 1px solid var(--color-border); }
     .work-grid--experiments::after { display: none; }
     .work-grid--experiments .work-card { padding-inline: 0; border-bottom: 0; }
     .work-grid--experiments .work-card::after { display: none; }
