@@ -54,10 +54,10 @@
 }
 
 /* Shared controls. Geometry and typography match the redesign, with legacy class names. */
-button:not(:is(.btn-primary, .btn-secondary, .btn-icon, [data-mobile-backdrop])) {
+button:not(:is(.btn-primary, .btn-secondary, .btn-icon)) {
   transition: scale var(--duration-press) var(--ease-ui);
 }
-button:not(:is(.btn-primary, .btn-secondary, .btn-icon, [data-mobile-backdrop])):not(:disabled):not([aria-disabled="true"]):active {
+button:not(:is(.btn-primary, .btn-secondary, .btn-icon)):not(:disabled):not([aria-disabled="true"]):active {
   scale: 0.97;
 }
 

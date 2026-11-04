@@ -93,37 +93,25 @@ const activeKey = currentPath === "/"
           </button>
 
           <div
-            class="fixed inset-0 z-[90] opacity-0 pointer-events-none transition-opacity duration-200"
+            class="fixed inset-0 z-[90] overflow-clip pointer-events-none"
             data-mobile-overlay
             aria-hidden="true"
             inert
           >
-            <button
-              type="button"
-              class="absolute inset-0 bg-black/10"
-              data-mobile-backdrop
-              tabindex="-1"
-              aria-label="Zamknij menu"
-            ></button>
-
             <div
               id="mobile-menu-panel"
-              class="absolute right-0 top-0 flex h-full w-[53%] min-w-[200px] max-w-[220px] translate-x-full flex-col items-end bg-[var(--color-background)] pl-[32px] pr-[var(--page-gutter)] pb-[40px] pt-[36px] transition-transform duration-200 sm:w-[40%] sm:min-w-[280px] sm:max-w-[360px] sm:pl-[36px] sm:pb-[44px] sm:pt-[40px]"
               data-mobile-panel
               role="dialog"
               aria-modal="true"
               aria-label="Menu nawigacji"
             >
-              <button
-                type="button"
-                data-mobile-close
-                class="inline-flex size-[44px] appearance-none items-center justify-center rounded-full border-0 bg-transparent text-[var(--color-text)]"
-                aria-label="Zamknij menu"
-              >
-                <TablerIcon name="x" class="size-6" />
-              </button>
+              <div class="mobile-menu-top">
+                <button type="button" data-mobile-close class="btn-icon" aria-label="Zamknij menu">
+                  <TablerIcon name="x" class="size-6" />
+                </button>
+              </div>
 
-              <ul class="mt-[56px] flex flex-col items-end gap-[16px] text-[var(--color-text)] sm:mt-[64px] sm:gap-[20px]">
+              <ul class="mobile-menu-links">
                 {
                   mobileNavItems.map((item) => {
                     const isActive = item.key === activeKey;
@@ -134,7 +122,7 @@ const activeKey = currentPath === "/"
                           href={item.href}
                           data-mobile-link
                           aria-current={isActive ? "page" : undefined}
-                          class="header-menu-link type-nav font-normal block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]"
+                          class="type-heading mobile-menu-link"
                         >
                           {item.label}
                         </a>
@@ -143,7 +131,10 @@ const activeKey = currentPath === "/"
                   })
                 }
               </ul>
-              <a href={contactMailto} data-mobile-link class="mobile-menu-contact btn-secondary">Napisz do mnie</a>
+              <a href={contactMailto} data-mobile-link class="btn-primary mobile-menu-contact">
+                <span>Napisz do mnie</span>
+                <TablerIcon name="arrow-up-right" class="size-6 shrink-0" />
+              </a>
             </div>
           </div>
         </div>
@@ -166,6 +157,7 @@ const activeKey = currentPath === "/"
       }
 
       const previousFocus = new WeakMap();
+      const closingTransitions = new WeakMap();
       const controller = new AbortController();
       const { signal } = controller;
 
@@ -186,16 +178,8 @@ const activeKey = currentPath === "/"
         return openButton?.getAttribute("aria-expanded") === "true";
       };
 
-      const alignCloseButton = (root) => {
-        const { openButton, overlay, panel } = getElements(root);
-        if (!openButton || !overlay || !panel) return;
-
-        const top = openButton.getBoundingClientRect().top - overlay.getBoundingClientRect().top;
-        panel.style.paddingTop = `${top}px`;
-      };
-
       const syncBodyScrollLock = () => {
-        const hasOpenMenu = getRoots().some((root) => isOpen(root));
+        const hasOpenMenu = getRoots().some((root) => isOpen(root) || closingTransitions.has(root));
         document.body.classList.toggle("mobile-menu-open", hasOpenMenu);
       };
 
@@ -204,31 +188,37 @@ const activeKey = currentPath === "/"
         if (!openButton || !overlay || !panel) return;
 
         if (immediate) {
-          overlay.style.transitionDuration = "0ms";
+          closingTransitions.get(root)?.cancel();
           panel.style.transitionDuration = "0ms";
         }
+        closingTransitions.delete(root);
 
         openButton.setAttribute("aria-expanded", "false");
-        overlay.setAttribute("aria-hidden", "true");
-        overlay.setAttribute("inert", "");
         root.classList.remove("is-open");
 
-        overlay.classList.remove("opacity-100", "pointer-events-auto");
-        overlay.classList.add("opacity-0", "pointer-events-none");
-        panel.classList.remove("translate-x-0");
-        panel.classList.add("translate-x-full");
-
-        syncBodyScrollLock();
-
         const savedFocus = previousFocus.get(root);
-        if (restoreFocus && savedFocus instanceof HTMLElement) {
-          savedFocus.focus();
-        }
+        if (restoreFocus) (savedFocus ?? openButton).focus({ preventScroll: true });
         previousFocus.delete(root);
+        overlay.setAttribute("inert", "");
+        overlay.setAttribute("aria-hidden", "true");
+
+        const exitTransition = immediate ? undefined : panel.getAnimations().find(
+          (animation) => animation.transitionProperty === "transform"
+        );
+        if (exitTransition) {
+          // Keep the page still and the panel anchored to the viewport until it leaves.
+          closingTransitions.set(root, exitTransition);
+          const finishClose = () => {
+            if (closingTransitions.get(root) !== exitTransition) return;
+            closingTransitions.delete(root);
+            syncBodyScrollLock();
+          };
+          exitTransition.finished.then(finishClose, finishClose);
+        }
+        syncBodyScrollLock();
 
         if (immediate) {
           requestAnimationFrame(() => {
-            overlay.style.removeProperty("transition-duration");
             panel.style.removeProperty("transition-duration");
           });
         }
@@ -236,7 +226,7 @@ const activeKey = currentPath === "/"
 
       const closeAllMenus = (restoreFocus = false, immediate = false) => {
         getRoots().forEach((root) => {
-          if (isOpen(root)) {
+          if (isOpen(root) || (immediate && closingTransitions.has(root))) {
             closeMenu(root, restoreFocus, immediate);
           }
         });
@@ -247,7 +237,8 @@ const activeKey = currentPath === "/"
         if (!openButton || !closeButton || !overlay || !panel) return;
 
         closeAllMenus(false);
-        alignCloseButton(root);
+        closingTransitions.delete(root);
+        panel.scrollTop = 0;
 
         const activeElement = document.activeElement;
         previousFocus.set(root, activeElement instanceof HTMLElement ? activeElement : null);
@@ -257,13 +248,8 @@ const activeKey = currentPath === "/"
         overlay.removeAttribute("inert");
         root.classList.add("is-open");
 
-        overlay.classList.remove("opacity-0", "pointer-events-none");
-        overlay.classList.add("opacity-100", "pointer-events-auto");
-        panel.classList.remove("translate-x-full");
-        panel.classList.add("translate-x-0");
-
         syncBodyScrollLock();
-        requestAnimationFrame(() => closeButton.focus());
+        closeButton.focus({ preventScroll: true });
       };
 
       document.addEventListener(
@@ -281,7 +267,7 @@ const activeKey = currentPath === "/"
             return;
           }
 
-          const closeTrigger = target.closest("[data-mobile-close], [data-mobile-backdrop]");
+          const closeTrigger = target.closest("[data-mobile-close]");
           if (closeTrigger) {
             const root = getRoot(closeTrigger);
             if (!root) return;
@@ -344,9 +330,7 @@ const activeKey = currentPath === "/"
         "resize",
         () => {
           if (window.matchMedia("(min-width: 1024px)").matches) {
-            closeAllMenus(false);
-          } else {
-            getRoots().filter(isOpen).forEach(alignCloseButton);
+            closeAllMenus(false, true);
           }
         },
         { signal }
@@ -361,7 +345,7 @@ const activeKey = currentPath === "/"
       );
 
       state.cleanup = () => {
-        closeAllMenus(false);
+        closeAllMenus(false, true);
         controller.abort();
       };
     };
@@ -376,7 +360,6 @@ const activeKey = currentPath === "/"
 </script>
 
 <style>
-  .mobile-menu-contact { margin-top: auto; flex-shrink: 0; }
   .header-actions { display: contents; }
   .header-email { display: none; white-space: nowrap; }
   @media (min-width: 64rem) {
@@ -480,17 +463,63 @@ const activeKey = currentPath === "/"
     transition: none;
   }
 
-  [data-mobile-overlay] { transition: opacity 180ms var(--ease-ui); }
-  [data-mobile-panel] { transition: transform 180ms var(--ease-ui); }
-  [data-mobile-menu].is-open [data-mobile-overlay] { transition-duration: 220ms; }
+  [data-mobile-menu].is-open [data-mobile-overlay] { pointer-events: auto; }
+
+  [data-mobile-panel] {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    padding-block: max(var(--space-4), env(safe-area-inset-top)) max(var(--space-6), env(safe-area-inset-bottom));
+    padding-inline: max(var(--page-gutter), env(safe-area-inset-left)) max(var(--page-gutter), env(safe-area-inset-right));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--color-background);
+    color: var(--color-text);
+    transform: translateY(-100%);
+    transition: transform 230ms cubic-bezier(0.4, 0, 0.6, 1);
+  }
+
+  .mobile-menu-top {
+    display: flex;
+    flex: none;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: var(--space-2);
+    border-bottom: var(--border-width) solid var(--color-divider);
+  }
+
+  .mobile-menu-links {
+    flex: none;
+    margin-block: auto;
+    padding-block: var(--space-6);
+  }
+
+  .mobile-menu-link {
+    display: flex;
+    align-items: center;
+    min-block-size: var(--space-16);
+    padding-block: clamp(var(--space-3), 3dvh, var(--space-6));
+    font-size: var(--text-subheading);
+    line-height: var(--leading-title);
+  }
+
+  .mobile-menu-link:not([aria-current="page"]) { color: var(--color-text-muted); }
+  .mobile-menu-link[aria-current="page"] { font-size: var(--text-title); }
+
+  .mobile-menu-contact {
+    align-self: flex-start;
+    flex: none;
+  }
+
   [data-mobile-menu].is-open [data-mobile-panel] {
+    transform: translateY(0);
     transition-duration: 260ms;
     transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
   }
 
   @media (prefers-reduced-motion: reduce) {
     [data-scroll-header].is-floating,
-    [data-mobile-overlay],
     [data-mobile-menu] [data-mobile-panel] { transition: none; }
   }
 
@@ -503,6 +532,8 @@ const activeKey = currentPath === "/"
   }
 
   [data-mobile-close] {
+    block-size: var(--control-height);
+    cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
 </style>
