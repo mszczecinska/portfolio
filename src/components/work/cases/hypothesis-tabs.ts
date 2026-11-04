@@ -29,7 +29,7 @@ export function setupHypothesisCards() {
       grid.id = `${prefix}-cards-${key}`;
       grid.tabIndex = 0;
       grid.setAttribute("role", "group");
-      grid.setAttribute("aria-label", uiText("Karty koncepcji — przewijaj strzałkami"));
+      grid.setAttribute("aria-label", uiText("Karty koncepcji - przewijaj strzałkami"));
       const cards = [...grid.querySelectorAll<HTMLElement>("article")];
       const controls = document.createElement("div");
       controls.className = "hypothesis-pages";

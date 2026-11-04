@@ -20,6 +20,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
   let pagePadding = "";
   let ready = false;
   let zoom = 1;
+  let fillsStage = false;
   let maxZoom = 6;
   let width = 0;
   let height = 0;
@@ -86,20 +87,23 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     zoomOut.disabled = !ready || zoom <= 1.001;
     reset.disabled = !ready;
   };
+  const fillZoom = () => Math.max(1, stage.clientWidth / width, stage.clientHeight / height);
   const fit = (duration = 0) => {
     if (!ready) return;
-    const ratio = Math.min((stage.clientWidth - 32) / image.naturalWidth, (stage.clientHeight - 32) / image.naturalHeight, 1);
+    const ratio = Math.min(Math.max(1, stage.clientWidth - 32) / image.naturalWidth, Math.max(1, stage.clientHeight - 32) / image.naturalHeight, 1);
     width = image.naturalWidth * ratio;
     height = image.naturalHeight * ratio;
     maxZoom = Math.max(4, Math.min(12, 2 / ratio));
     image.style.width = `${width}px`;
     image.style.height = `${height}px`;
-    zoom = Math.min(zoom, maxZoom);
+    zoom = fillsStage ? fillZoom() : Math.min(zoom, maxZoom);
     render(duration);
   };
-  const setZoom = (value: number, point?: Point, duration = 180) => {
+  const setZoom = (value: number | "fill", point?: Point, duration = 180) => {
     if (!ready || dialog.hasAttribute("data-closing")) return;
-    const next = Math.max(1, Math.min(maxZoom, value));
+    fillsStage = value === "fill";
+    // A very wide or tall image can need more zoom to fill than the manual limit allows.
+    const next = value === "fill" ? fillZoom() : Math.max(1, Math.min(Math.max(maxZoom, zoom), value));
     const rect = stage.getBoundingClientRect();
     const px = point ? point.x - rect.left - rect.width / 2 : 0;
     const py = point ? point.y - rect.top - rect.height / 2 : 0;
@@ -109,7 +113,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     zoom = next;
     render(duration);
   };
-  const resetView = (duration = 0) => { zoom = 1; x = y = 0; fit(duration); };
+  const resetView = (duration = 0) => { fillsStage = false; zoom = 1; x = y = 0; fit(duration); };
   const restorePage = () => {
     clearTimeout(closeTimer);
     clearMotion();
@@ -243,7 +247,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     stage.removeAttribute("data-dragging");
     if (!moved && event.type === "pointerup") {
       if (startedOnBackground) requestClose();
-      else setZoom(zoom > 1.001 ? 1 : 2, { x: event.clientX, y: event.clientY });
+      else setZoom(fillsStage || zoom > 1.001 ? 1 : event.pointerType === "touch" ? "fill" : 2, { x: event.clientX, y: event.clientY });
     }
   };
   stage.addEventListener("pointerup", releasePointer, { signal });

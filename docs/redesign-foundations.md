@@ -1,6 +1,6 @@
 # Foundations redesignu
 
-Źródło: [Figma — strona - redesign](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=428-8615).
+Źródło: [Figma - strona - redesign](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=428-8615).
 Implementacja: `src/layouts/foundations.css`, wspólne kontrolki: `src/layouts/layout.css`.
 Podgląd lokalny: `/dev/foundations` (dostępny tylko w trybie development, bez eksportu do produkcji).
 
@@ -9,7 +9,7 @@ Podgląd lokalny: `/dev/foundations` (dostępny tylko w trybie development, bez 
 - Jeden jasny motyw. Bez ikony motywu, automatycznego dopasowania do systemu i filtrów przyciemniających multimedia.
 - Satoshi Regular w tekście i nawigacji, także w aktywnej pozycji menu. Aktywna pozycja zachowuje większy rozmiar fontu, bez wagi Medium. Funnel Display pomijamy.
 - Geist Mono Regular w etykietach, metadanych i przyciskach. Fonty są hostowane lokalnie.
-- Polska wersja ma polskie menu. Przełącznik języka oraz angielskie treści i trasy wymagają osobnego zadania — obecny projekt nie ma jeszcze obsługi języków. Nie dodajemy pozornego przełącznika.
+- Polska wersja ma polskie menu. Przełącznik języka oraz angielskie treści i trasy wymagają osobnego zadania - obecny projekt nie ma jeszcze obsługi języków. Nie dodajemy pozornego przełącznika.
 - Rekomendacje oraz ich zdjęcia zachowujemy z obecnego kodu.
 - Docelowe mockupy dostarczy Magda jako PNG. Do tego czasu można stosować `.media-placeholder` z proporcjami zgodnymi z makietą. Nie zastępujemy automatycznie obecnych materiałów.
 

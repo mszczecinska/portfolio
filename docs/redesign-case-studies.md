@@ -8,7 +8,7 @@ Podstrona `/work/obrys-studio` wykorzystuje wspólne intro i sekcje: Założenia
 
 Zgodnie z prośbą wszystkie multimedia pozostają placeholderami. Proporcje mobile / desktop: okładka 361:186 / 1216:520, telefon 1:1, warianty znaku 361:78.335 / 1218:268, paleta 361:279 / 988:465, typografia 361:179.52 / 195:465, wizytówki 361:241 / 1216:778, motion 1440:880, dwa podglądy stron po 597:900, magazyn 2000:1333. Paleta i typografia układają się pionowo na mobile i obok siebie na desktopie. Podglądy realizacji i procesu pozostają w dwóch kolumnach także na telefonie. Tekst założeń poprzedza mockup na mobile, a na desktopie mockup znajduje się po lewej.
 
-Pierwsze wdrożenie: [Akademia — desktop](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=224-649) i [mobile](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=285-37946).
+Pierwsze wdrożenie: [Akademia - desktop](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=224-649) i [mobile](https://www.figma.com/design/W7f7HK7jCeRUHyU5BzJYi8/portfolio-magda?node-id=285-37946).
 
 ## Komponenty
 
@@ -20,7 +20,7 @@ Wszystkie komponenty znajdują się w `src/components/work/`.
 | `CaseStudyIntro.astro` | Okładka, tytuł i podtytuł, opcjonalny link live, metadane i pasek problem / cel / efekt |
 | `CaseStudyFacts.astro` | Wspólny pasek trzech informacji: problem / cel / efekt lub filary koncepcji produktu |
 | `CaseStudySection.astro` | Układy `split` (tekst i multimedia), `editorial` (nagłówek obok opisu) i `centered` (węższy, wyśrodkowany opis procesu) |
-| `CaseStudyMedia.astro` | Opisany placeholder z zarezerwowanymi proporcjami; po podaniu `src` — obraz lub film |
+| `CaseStudyMedia.astro` | Opisany placeholder z zarezerwowanymi proporcjami; po podaniu `src` - obraz lub film |
 | `CaseStudyGallery.astro` | Dwa materiały jeden pod drugim na mobile i obok siebie na desktopie; wariant `phones` utrzymuje parę telefonów również na mobile |
 | `CaseStudyPagination.astro` | Linki do poprzedniego i następnego projektu; kolejność mobile: następny, poprzedni |
 | `CaseStudyScreens.astro` | Cztery ekrany: przewijana galeria z przyciskami wyboru na mobile, kompozycja ekranów i opisu od 1024 px |

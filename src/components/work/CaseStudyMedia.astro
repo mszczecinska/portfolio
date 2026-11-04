@@ -58,7 +58,7 @@ const zoomSource = Astro.props.zoomable && src && kind === "image"
       <img src={src} alt={label} loading="lazy" decoding="async" />
     )
   ) : (
-    <div class="media-placeholder case-media__placeholder" role="img" aria-label={`${label} — materiał w przygotowaniu`}>
+    <div class="media-placeholder case-media__placeholder" role="img" aria-label={`${label} - materiał w przygotowaniu`}>
       <span class="type-label">{label}</span>
     </div>
   )}

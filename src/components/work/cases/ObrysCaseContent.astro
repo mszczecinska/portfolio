@@ -29,7 +29,7 @@ const brandingFallback = await getImage({ src: brandingDesktop, format: "png", w
 
 <CaseStudySection id="obrys-assumptions" title="Założenia projektu" layout="split" mediaSide="left">
   <p>Chciałam stworzyć spójny wizerunek studia wnętrzarskiego, obejmujący zarówno identyfikację, jak i stronę internetową. Punktem wyjścia był spokojny, architektoniczny kierunek - oszczędna typografia, regularna siatka i duże fotografie wnętrz.</p>
-  <CaseStudyMedia slot="media" src={phone} sizes="(min-width: 1280px) 588px, (min-width: 1024px) calc((100vw - 104px) / 2), (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)" label="OBRYS Studio — mockup strony na telefonie" />
+  <CaseStudyMedia slot="media" src={phone} sizes="(min-width: 1280px) 588px, (min-width: 1024px) calc((100vw - 104px) / 2), (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)" label="OBRYS Studio - mockup strony na telefonie" />
 </CaseStudySection>
 
 <CaseStudySection id="obrys-identity" title="Identyfikacja wizualna">
@@ -39,16 +39,16 @@ const brandingFallback = await getImage({ src: brandingDesktop, format: "png", w
       {brandingSources.map(({ media, type, image, result }) => <source media={media} type={type} srcset={result.srcSet.attribute} sizes={brandingSizes} width={image.width} height={image.height} />)}
       <img src={brandingFallback.src} width={brandingFallback.attributes.width} height={brandingFallback.attributes.height} alt="Identyfikacja OBRYS Studio: warianty logo, paleta kolorów i typografia Archivo" loading="lazy" decoding="async" />
     </picture>
-    <CaseStudyMedia src={cards} label="OBRYS Studio — mockup wizytówek" ratio={`${cards.width} / ${cards.height}`} />
+    <CaseStudyMedia src={cards} label="OBRYS Studio - mockup wizytówek" ratio={`${cards.width} / ${cards.height}`} />
   </div>
 </CaseStudySection>
 
 <CaseStudySection id="obrys-website" title="Projekt strony">
   <p>Stronę zaprojektowałam wokół prezentacji realizacji, oferty i sposobu współpracy. Duże fotografie eksponują wnętrza, a uporządkowana hierarchia treści i powtarzalne elementy interfejsu łączą poszczególne podstrony w jedną całość.</p>
   <div slot="visuals" class="obrys-visuals">
-    <CaseStudyMedia src="/assets/case-studies/obrys/obrys-motion.mp4" kind="video" label="OBRYS Studio — motion strony" ratio="1440 / 880" />
-    <CaseStudyMedia src={screens} label="Podstrony OBRYS Studio: Realizacje i Proces — fragmenty widoków" ratio={`${screens.width} / ${screens.height}`} />
-    <CaseStudyMedia src={magazine} label="OBRYS Studio — mockup magazynu" ratio="2000 / 1333" />
+    <CaseStudyMedia src="/assets/case-studies/obrys/obrys-motion.mp4" kind="video" label="OBRYS Studio - motion strony" ratio="1440 / 880" />
+    <CaseStudyMedia src={screens} label="Podstrony OBRYS Studio: Realizacje i Proces - fragmenty widoków" ratio={`${screens.width} / ${screens.height}`} />
+    <CaseStudyMedia src={magazine} label="OBRYS Studio - mockup magazynu" ratio="2000 / 1333" />
   </div>
 </CaseStudySection>
 
