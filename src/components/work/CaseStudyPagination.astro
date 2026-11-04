@@ -91,9 +91,13 @@ const projects = [
     text-decoration: underline;
     text-underline-offset: 0.2em;
   }
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     .case-pagination__next:hover :global(.case-pagination__arrow) { transform: translateX(4px); }
     .case-pagination__previous:hover :global(.case-pagination__arrow) { transform: translateX(-4px) rotate(180deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .case-pagination :global(.case-pagination__arrow) { transform: none !important; transition: none; }
+    .case-pagination :global(.case-pagination__arrow--previous) { transform: rotate(180deg) !important; }
   }
   @media (max-width: 47.999rem) {
     .case-pagination { gap: var(--section-gap); padding-bottom: var(--section-gap); }

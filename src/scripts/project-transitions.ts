@@ -1,5 +1,6 @@
 import { withoutLanguage } from "../i18n/routes";
 import { isTransitionBeforePreparationEvent } from "astro:transitions/client";
+import { shouldAnimate } from "./motion";
 
 // Decode the same responsive picture the destination will display before capture.
 // A detached document does not load its images, so use a hidden, inert clone.
@@ -41,7 +42,7 @@ document.addEventListener("astro:before-preparation", event => {
   const fromProject = /^\/work\/[^/]+$/.test(fromPath);
   if (event.navigationType === "traverse" || (!fromProject && !["/", "/work"].includes(fromPath))) return;
   const match = withoutLanguage(event.to.pathname).match(/^\/work\/([^/]+)\/?$/);
-  if (!match || !document.startViewTransition || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!match || !document.startViewTransition || !shouldAnimate()) return;
 
   const load = event.loader;
   event.loader = async () => {
@@ -55,7 +56,7 @@ document.addEventListener("astro:before-preparation", event => {
     if (rect.bottom <= 0 || rect.top >= innerHeight || !rect.width) return;
     if (!await preparePicture(target, event.signal)) return;
     const image = source.querySelector("img");
-    if (!image?.complete || !image.naturalWidth || event.signal.aborted) return;
+    if (!image?.complete || !image.naturalWidth || event.signal.aborted || !shouldAnimate()) return;
     source.style.viewTransitionName = "project-cover";
     target.style.viewTransitionName = "project-cover";
   };

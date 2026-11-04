@@ -1,4 +1,5 @@
 import { isTransitionBeforeSwapEvent } from "astro:transitions/client";
+import { shouldAnimate } from "./motion";
 
 type LinkPosition = { x: number; centerY: number; width: number; height: number };
 let previous = new Map<string, LinkPosition>();
@@ -11,7 +12,7 @@ document.addEventListener("astro:before-swap", event => {
   previous.clear();
   if (!isTransitionBeforeSwapEvent(event) || event.from.pathname === event.to.pathname
     || !event.newDocument.querySelector(".home-page, .work-page, .about-page")
-    || reducedMotion.matches || !matchMedia("(min-width: 1024px)").matches) return;
+    || event.navigationType === "traverse" || !shouldAnimate() || !matchMedia("(min-width: 1024px)").matches) return;
 
   document.querySelectorAll<HTMLElement>("[data-nav-key]").forEach(link => {
     const rect = link.getBoundingClientRect();
@@ -23,7 +24,7 @@ document.addEventListener("astro:before-swap", event => {
 });
 
 document.addEventListener("astro:after-swap", () => {
-  if (reducedMotion.matches) { previous.clear(); return; }
+  if (!shouldAnimate()) { previous.clear(); return; }
   document.querySelectorAll<HTMLElement>("[data-nav-key]").forEach(link => {
     const old = previous.get(link.dataset.navKey!);
     const rect = link.getBoundingClientRect();

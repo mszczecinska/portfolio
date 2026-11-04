@@ -1,4 +1,5 @@
 import { isTransitionBeforeSwapEvent } from "astro:transitions/client";
+import { shouldAnimate } from "./motion";
 
 const pageSelector = ".home-page, .work-page, .about-page, .case-study";
 const entrance = {
@@ -32,13 +33,14 @@ function track(animation: Animation) {
   void animation.finished.then(remove, remove);
 }
 
-function enterContent(element: HTMLElement, delay: number) {
+function enterContent(element: HTMLElement, delay: number, duration = entrance.duration) {
+  if (!shouldAnimate()) return;
   const distance = matchMedia("(max-width: 767px)").matches ? 10 : 14;
   track(element.animate([
     { opacity: 0, transform: `translateY(${distance}px)` },
     { opacity: 1, transform: "translateY(0)" },
   ], {
-    duration: entrance.duration,
+    duration,
     delay,
     easing: entrance.easing,
     fill: "backwards",
@@ -70,13 +72,17 @@ function enterScrollContent(root: HTMLElement, selector: string, enter = enterCo
       scrollContentObserver!.observe(card);
       // Keyboard navigation should reveal a focused card immediately too.
       card.addEventListener("focusin", () => {
-        if (pendingScrollContent.has(card)) reveal(card);
+        if (!pendingScrollContent.has(card)) return;
+        card.removeAttribute("data-content-entry-pending");
+        pendingScrollContent.delete(card);
+        scrollContentObserver?.unobserve(card);
       }, { once: true });
     }
   });
 }
 
 function enterCaseText(element: HTMLElement, delay: number) {
+  if (!shouldAnimate()) return;
   const title = element.querySelector<HTMLElement>("[data-entry-reveal]");
   if (!title) {
     enterContent(element, delay);
@@ -98,9 +104,9 @@ export function enterRecommendation(slide: HTMLElement) {
     const target = (animation.effect as KeyframeEffect | null)?.target;
     if (target instanceof HTMLElement && target.closest("[data-recommendation]")) animation.cancel();
   });
-  if (reducedMotion.matches) return;
+  if (!shouldAnimate()) return;
   slide.querySelectorAll<HTMLElement>("blockquote, figcaption").forEach((element, index) => {
-    enterContent(element, index * entrance.stagger);
+    enterContent(element, index * 35, 220);
   });
 }
 
@@ -110,9 +116,9 @@ export function enterWorkCategory(group: HTMLElement) {
     const target = (animation.effect as KeyframeEffect | null)?.target;
     if (target instanceof HTMLElement && target.matches(".work-card__link")) animation.cancel();
   });
-  if (reducedMotion.matches) return;
+  if (!shouldAnimate()) return;
   group.querySelectorAll<HTMLElement>(".work-card__link").forEach(card => {
-    if (visible(card)) enterContent(card, 0);
+    if (visible(card)) enterContent(card, 0, 220);
   });
 }
 
@@ -120,7 +126,7 @@ function enterPage(root: HTMLElement) {
   if (!root.isConnected || root.dataset.entryPlayed) return;
   root.removeAttribute("data-entry-pending");
   root.dataset.entryPlayed = "true";
-  if (reducedMotion.matches) return;
+  if (!shouldAnimate()) return;
 
   if (root.matches(".case-study")) {
     // Only text enters on scroll. The cover retains its shared view transition.
@@ -181,8 +187,9 @@ document.addEventListener("astro:before-swap", event => {
   if (!isTransitionBeforeSwapEvent(event)) return;
   const root = event.newDocument.querySelector<HTMLElement>(pageSelector);
   // Back/forward should restore the reading position without replaying entrances.
-  if (!root || event.navigationType === "traverse" || reducedMotion.matches) {
+  if (!root || event.navigationType === "traverse" || !shouldAnimate()) {
     if (root) root.dataset.entryPlayed = "true";
+    if (!shouldAnimate()) event.viewTransition.skipTransition();
     return;
   }
   root.setAttribute("data-entry-pending", "");
@@ -200,6 +207,14 @@ if (document.readyState === "loading") {
   enterInitialPage();
 }
 document.addEventListener("astro:page-load", enterInitialPage);
+document.addEventListener("focusin", event => {
+  if (!(event.target instanceof Node)) return;
+  const focused = event.target;
+  animations.forEach(animation => {
+    const target = (animation.effect as KeyframeEffect | null)?.target;
+    if (target instanceof HTMLElement && target.contains(focused)) animation.cancel();
+  });
+});
 reducedMotion.addEventListener("change", () => {
   if (reducedMotion.matches) {
     clearScrollContent();

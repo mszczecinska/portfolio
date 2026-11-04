@@ -150,7 +150,7 @@ const services = [
   .home-contact { margin-top: var(--space-10); }
   .home-contact__content { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-5); }
   .home-contact h2 { width: 100%; font-size: 24px; line-height: 1.3; font-weight: var(--weight-regular); }
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     .home-primary-button:hover .home-primary-arrow img:first-child { opacity: 0; }
     .home-primary-button:hover .home-primary-arrow--hover { opacity: 1; }
     .home-project__link:hover .home-project__arrow img { transform: translate(4px, -4px) rotate(180deg); }

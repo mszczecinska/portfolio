@@ -81,7 +81,8 @@
   --control-height: 2.75rem;
   --shadow-control: 0 1px 2px rgb(0 0 0 / 10%);
   --duration-ui: 200ms;
-  --ease-ui: ease-out;
+  --duration-press: 140ms;
+  --ease-ui: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -188,5 +189,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :root { --duration-ui: 0ms; }
+  :root { --duration-ui: 160ms; --duration-press: 0ms; }
 }

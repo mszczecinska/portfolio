@@ -76,7 +76,7 @@ const zoomSource = Astro.props.zoomable && src && kind === "image"
   .case-media__zoom:focus-visible { outline-offset: -3px; }
   .case-media__zoom-hint { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); background: var(--color-background); font-family: var(--font-label); font-size: 12px; text-transform: uppercase; transition: background-color var(--duration-ui) var(--ease-ui), color var(--duration-ui) var(--ease-ui); }
   .case-media__zoom:focus-visible .case-media__zoom-hint { background: var(--color-text); color: var(--color-background); }
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     .case-media__zoom:hover .case-media__zoom-hint { background: var(--color-text); color: var(--color-background); }
   }
   .case-media {
