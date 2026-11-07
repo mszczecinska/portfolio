@@ -97,7 +97,8 @@ import SpeedInsights from "@vercel/speed-insights/astro";
       }
 
       function canRestoreProjectScroll(pathname) {
-        return ["/", "/work", "/en", "/en/work"].includes(pathname.replace(/\/$/, "") || "/");
+        // ClientRouter restores the homepage per history entry.
+        return ["/work", "/en/work"].includes(pathname.replace(/\/$/, ""));
       }
 
       function saveProjectScrollPosition(link) {
@@ -118,6 +119,8 @@ import SpeedInsights from "@vercel/speed-insights/astro";
       }
 
       function restoreProjectScrollPosition() {
+        if (!canRestoreProjectScroll(window.location.pathname)) return;
+
         const rawState = sessionStorage.getItem(PROJECT_SCROLL_STATE_KEY);
         if (!rawState) return;
 

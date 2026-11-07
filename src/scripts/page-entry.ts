@@ -187,7 +187,17 @@ document.addEventListener("astro:before-swap", event => {
   const root = event.newDocument.querySelector<HTMLElement>(pageSelector);
   // Capture the complete incoming page so the hero can crossfade with the rest.
   if (root) root.dataset.entryPlayed = "true";
-  void event.viewTransition.ready.catch(() => {});
+  const enteringHomeFromProject = root?.matches(".home-page")
+    && event.navigationType !== "traverse" && !event.to.hash && document.querySelector(".case-study");
+  void event.viewTransition.ready.catch(() => {
+    if (!root || !enteringHomeFromProject) return;
+    // The native transition can be skipped when the viewport changes during the swap.
+    return event.viewTransition.updateCallbackDone.then(() => {
+      if (event.signal.aborted || !root.isConnected || !shouldAnimate()) return;
+      delete root.dataset.entryPlayed;
+      enterPage(root);
+    }, () => {});
+  });
   if (!shouldAnimate()) event.viewTransition.skipTransition();
 });
 
