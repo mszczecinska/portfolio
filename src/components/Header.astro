@@ -19,7 +19,8 @@ const mobileNavItems = [
 
 const language = languageFromPath(Astro.url.pathname);
 const currentPath = withoutLanguage(Astro.url.pathname);
-const switchPath = languagePath(Astro.url.pathname, language === "pl" ? "en" : "pl");
+const targetLanguage = language === "pl" ? "en" : "pl";
+const switchPath = languagePath(Astro.url.pathname, targetLanguage);
 const activeKey = currentPath === "/"
   ? "home"
   : currentPath.startsWith("/about")
@@ -88,7 +89,7 @@ const mobileSectionLabel = mobileNavItems.find((item) => item.key === activeKey)
         </div>
 
         <div class="header-actions">
-          <a href={switchPath} class="home-header__language btn-icon" data-language-switch aria-label="Zmień język na angielski" hreflang={language === "pl" ? "en" : "pl"} lang={language}>PL</a>
+          <a href={switchPath} class="home-header__language btn-icon" data-language-switch aria-label="Zmień język na angielski" hreflang={targetLanguage} lang={language}>{targetLanguage.toUpperCase()}</a>
           <a href={contactMailto} class="header-email btn-secondary">Napisz do mnie</a>
         </div>
         <div class="contents lg:hidden">

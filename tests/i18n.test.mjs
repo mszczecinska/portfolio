@@ -12,7 +12,7 @@ function inspect(html) {
   function visit(node) {
     if (['script', 'style'].includes(node.tagName)) return;
     if (node.tagName) nodes.push(node);
-    if (node.nodeName === '#text' && normalise(node.value)) texts.push(normalise(node.value));
+    if (node.nodeName === '#text' && normalise(node.value) && !node.parentNode?.attrs?.some(a => a.name === 'data-language-switch')) texts.push(normalise(node.value));
     for (const attr of node.attrs ?? []) {
       if (['alt', 'aria-label', 'aria-description', 'aria-roledescription', 'title', 'placeholder', 'data-image-label'].includes(attr.name)) texts.push(normalise(attr.value));
       if (node.tagName === 'meta' && attr.name === 'content' && node.attrs.some(a => a.name === 'name' && a.value === 'description')) texts.push(normalise(attr.value));
