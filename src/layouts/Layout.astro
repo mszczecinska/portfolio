@@ -155,8 +155,6 @@ import SpeedInsights from "@vercel/speed-insights/astro";
         restoreProjectScrollPosition();
       });
     </script>
-    <Analytics />
-    <SpeedInsights />
   </head>
     <body class="min-h-dvh flex flex-col bg-[var(--color-background)]">
       <a href="#main-content" class="skip-to-content">
@@ -167,5 +165,7 @@ import SpeedInsights from "@vercel/speed-insights/astro";
         <slot />
       </main>
       {showFooter && <Footer showDivider={!workPage} />}
+      <Analytics />
+      <SpeedInsights />
     </body>
   </html>

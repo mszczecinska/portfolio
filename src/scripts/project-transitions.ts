@@ -1,12 +1,14 @@
 import { withoutLanguage } from "../i18n/routes";
-import { isTransitionBeforePreparationEvent } from "astro:transitions/client";
+import { isTransitionBeforePreparationEvent, isTransitionBeforeSwapEvent } from "astro:transitions/client";
 import { shouldAnimate } from "./motion";
+
+const coverImageProperty = "--project-cover-image";
 
 // Decode the same responsive picture the destination will display before capture.
 // A detached document does not load its images, so use a hidden, inert clone.
 async function preparePicture(cover: HTMLElement, signal: AbortSignal) {
   const picture = cover.querySelector("picture");
-  if (!picture) return false;
+  if (!picture) return null;
   const preload = picture.cloneNode(true) as HTMLPictureElement;
   const image = preload.querySelector("img")!;
   image.loading = "eager";
@@ -17,10 +19,11 @@ async function preparePicture(cover: HTMLElement, signal: AbortSignal) {
   let abort = () => {};
   try {
     return await Promise.race([
-      image.decode().then(() => !signal.aborted).catch(() => false),
-      new Promise<boolean>(resolve => {
-        timeout = setTimeout(() => resolve(false), 1500);
-        abort = () => resolve(false);
+      image.decode().then(() => image.currentSrc, () => null),
+      new Promise<null>(resolve => {
+        // Keep navigation responsive if the larger cover is slow to load.
+        timeout = setTimeout(() => resolve(null), 300);
+        abort = () => resolve(null);
         signal.addEventListener("abort", abort, { once: true });
       }),
     ]);
@@ -43,32 +46,35 @@ document.addEventListener("astro:before-preparation", event => {
   if (event.navigationType === "traverse" || (!fromProject && !["/", "/work"].includes(fromPath))) return;
   const match = withoutLanguage(event.to.pathname).match(/^\/work\/([^/]+)\/?$/);
   if (!match || !document.startViewTransition || !shouldAnimate()) return;
+  const selector = `[data-project-cover="${CSS.escape(match[1])}"]`;
+  const source = event.sourceElement?.querySelector<HTMLElement>(selector);
+  const image = source?.querySelector("img");
+  if (!source || !image) return;
 
   const load = event.loader;
   event.loader = async () => {
     await load();
     if (event.signal.aborted || event.defaultPrevented) return;
-    const selector = `[data-project-cover="${CSS.escape(match[1])}"]`;
-    const source = document.querySelector<HTMLElement>(selector);
     const target = event.newDocument.querySelector<HTMLElement>(selector);
-    if (!source || !target) return;
+    if (!target || !image.complete || !image.naturalWidth) return;
     const rect = source.getBoundingClientRect();
     if (rect.bottom <= 0 || rect.top >= innerHeight || !rect.width) return;
-    if (!await preparePicture(target, event.signal)) return;
-    const image = source.querySelector("img");
-    if (!image?.complete || !image.naturalWidth || event.signal.aborted || !shouldAnimate()) return;
+    const coverUrl = await preparePicture(target, event.signal);
+    if (!coverUrl || event.signal.aborted || !shouldAnimate()) return;
+    event.newDocument.documentElement.style.setProperty(coverImageProperty, `url(${JSON.stringify(coverUrl)})`);
     source.style.viewTransitionName = "project-cover";
     target.style.viewTransitionName = "project-cover";
   };
 });
 
 document.addEventListener("astro:before-swap", event => {
-  // Keep the name for the new snapshot, then clear it after the animation so
-  // unrelated navigation never gets a lone cover fade.
-  const transition = (event as import("astro:transitions/client").TransitionBeforeSwapEvent).viewTransition;
-  void transition.finished.then(() => {
-    document.querySelectorAll<HTMLElement>("[data-project-cover]").forEach(cover => {
-      cover.style.removeProperty("view-transition-name");
-    });
-  });
+  if (!isTransitionBeforeSwapEvent(event)) return;
+  const cover = [...event.newDocument.querySelectorAll<HTMLElement>("[data-project-cover]")]
+    .find(cover => cover.style.viewTransitionName === "project-cover");
+  if (!cover) return;
+  const clearCover = () => {
+    cover.style.removeProperty("view-transition-name");
+    if (cover.isConnected) document.documentElement.style.removeProperty(coverImageProperty);
+  };
+  void event.viewTransition.finished.then(clearCover, clearCover);
 });

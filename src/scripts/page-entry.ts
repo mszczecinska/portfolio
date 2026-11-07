@@ -172,7 +172,7 @@ function enterPage(root: HTMLElement) {
 
 function enterInitialPage() {
   const root = document.querySelector<HTMLElement>(pageSelector);
-  if (root) enterPage(root);
+  if (root && !root.hasAttribute("data-entry-pending")) enterPage(root);
 }
 
 // Finish any ongoing entrances before capturing a project cover on navigation.
@@ -185,17 +185,32 @@ document.addEventListener("astro:before-preparation", () => {
 document.addEventListener("astro:before-swap", event => {
   if (!isTransitionBeforeSwapEvent(event)) return;
   const root = event.newDocument.querySelector<HTMLElement>(pageSelector);
-  // Capture the complete incoming page so the hero can crossfade with the rest.
+  if (root && event.navigationType !== "traverse" && !event.to.hash && shouldAnimate()) {
+    root.setAttribute("data-entry-pending", "");
+    const playEntry = () => {
+      root.removeAttribute("data-entry-pending");
+      if (event.signal.aborted) root.dataset.entryPlayed = "true";
+      else enterPage(root);
+    };
+    void event.viewTransition.ready.catch(() => {});
+    void event.viewTransition.finished.then(playEntry, playEntry);
+    // Play text on the live page. Keep the native snapshot for a shared project cover.
+    const sharedCover = root.querySelector<HTMLElement>(".case-intro [data-project-cover]");
+    if (sharedCover?.style.viewTransitionName !== "project-cover") event.viewTransition.skipTransition();
+    return;
+  }
+
+  // History and anchor navigation should show the restored content immediately.
   if (root) root.dataset.entryPlayed = "true";
-  const enteringHomeFromProject = root?.matches(".home-page")
-    && event.navigationType !== "traverse" && !event.to.hash && document.querySelector(".case-study");
+  const incomingBody = event.newDocument.body;
   void event.viewTransition.ready.catch(() => {
-    if (!root || !enteringHomeFromProject) return;
-    // The native transition can be skipped when the viewport changes during the swap.
+    // A viewport change can abort a native transition after the swap starts.
     return event.viewTransition.updateCallbackDone.then(() => {
-      if (event.signal.aborted || !root.isConnected || !shouldAnimate()) return;
-      delete root.dataset.entryPlayed;
-      enterPage(root);
+      if (event.signal.aborted || !incomingBody.isConnected || !shouldAnimate()) return;
+      track(incomingBody.animate([{ opacity: 0.55 }, { opacity: 1 }], {
+        duration: 240,
+        easing: entrance.easing,
+      }));
     }, () => {});
   });
   if (!shouldAnimate()) event.viewTransition.skipTransition();

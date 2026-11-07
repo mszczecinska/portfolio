@@ -40,18 +40,13 @@
     animation: page-fade-in 240ms var(--ease-editorial) both;
   }
 
-  html[data-astro-transition-fallback="old"] body {
-    animation: page-fallback-out 100ms ease both;
-  }
-
   html[data-astro-transition-fallback="new"] body {
-    animation: page-fallback-in 140ms var(--ease-ui) both;
+    animation: page-fallback-in 240ms var(--ease-editorial) both;
   }
 }
 
-@keyframes page-fade-in { from { opacity: 0; } to { opacity: 1; } }
-@keyframes page-fallback-out { to { opacity: 0.3; } }
-@keyframes page-fallback-in { from { opacity: 0.3; } }
+@keyframes page-fade-in { from { opacity: 0.2; } }
+@keyframes page-fallback-in { from { opacity: 0.55; } }
 
 * {
   scrollbar-width: thin;
@@ -189,6 +184,18 @@ button:not(:is(.btn-primary, .btn-secondary, .btn-icon)):not(:disabled):not([ari
 [data-entry-reveal] { display: block; }
 
 @media (prefers-reduced-motion: no-preference) {
+  [data-entry-pending] [data-entry-reveal] { transform: translateY(105%); }
+  [data-entry-pending] [data-case-entry],
+  .home-page[data-entry-pending] .home-hero__role,
+  .home-page[data-entry-pending] .home-hero__portrait,
+  .home-page[data-entry-pending] .home-hero__intro > p,
+  .home-page[data-entry-pending] .home-hero__actions,
+  .home-page[data-entry-pending] .home-project__link,
+  .work-page[data-entry-pending] .work-card__link,
+  .about-page[data-entry-pending] .about-portrait,
+  .about-page[data-entry-pending] .about-bio,
+  .about-page[data-entry-pending] .about-socials,
+  .about-page[data-entry-pending] .about-tools__grid li,
   [data-content-entry-pending] { opacity: 0; }
 }
 
@@ -196,21 +203,15 @@ button:not(:is(.btn-primary, .btn-secondary, .btn-icon)):not(:disabled):not([ari
   animation-duration: 420ms;
   animation-timing-function: var(--ease-editorial);
 }
-::view-transition-image-pair(project-cover) { isolation: isolate; overflow: clip; }
+/* Reframe one image as the box grows. Crossfading two crops doubles the subject. */
+::view-transition-image-pair(project-cover) {
+  background: var(--project-cover-image) center / cover no-repeat;
+}
 ::view-transition-old(project-cover),
 ::view-transition-new(project-cover) {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  mix-blend-mode: normal;
-  animation-duration: 420ms;
-  animation-timing-function: var(--ease-editorial);
+  animation: none;
+  opacity: 0;
 }
-::view-transition-old(project-cover) { animation-name: project-cover-out; }
-::view-transition-new(project-cover) { animation-name: project-cover-in; }
-@keyframes project-cover-out { from { opacity: 1; } to { opacity: 0; } }
-@keyframes project-cover-in { from { opacity: 0; } to { opacity: 1; } }
 
 @media (prefers-reduced-motion: reduce) {
   :is(.btn-primary, .btn-secondary, .btn-icon)::before { transition: none; }
