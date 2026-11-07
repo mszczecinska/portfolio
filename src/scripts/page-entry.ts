@@ -2,6 +2,7 @@ import { isTransitionBeforeSwapEvent } from "astro:transitions/client";
 import { shouldAnimate } from "./motion";
 
 const pageSelector = ".home-page, .work-page, .about-page, .case-study";
+const desktopMenuLink = "[data-scroll-header] .header-menu-link";
 const entrance = {
   duration: 440,
   revealDuration: 580,
@@ -31,6 +32,32 @@ function track(animation: Animation) {
   animations.push(animation);
   const remove = () => { animations = animations.filter(item => item !== animation); };
   void animation.finished.then(remove, remove);
+}
+
+function enterDesktopMenu(signal: AbortSignal) {
+  const measure = (link: HTMLAnchorElement) => ({
+    rect: link.getBoundingClientRect(),
+    fontSize: parseFloat(getComputedStyle(link.firstElementChild ?? link).fontSize),
+  });
+  const links = () => document.querySelectorAll<HTMLAnchorElement>(desktopMenuLink);
+  const previous = new Map(Array.from(links(), link => [link.href, measure(link)]));
+
+  document.addEventListener("astro:after-swap", () => {
+    if (!shouldAnimate()) return;
+    for (const link of links()) {
+      const from = previous.get(link.href);
+      const to = measure(link);
+      if (!from?.rect.width || !to.rect.width) continue;
+      const x = from.rect.left - to.rect.left;
+      const y = from.rect.top + from.rect.height / 2 - (to.rect.top + to.rect.height / 2);
+      const scale = from.fontSize / to.fontSize;
+      if (Math.abs(x) < 0.5 && Math.abs(y) < 0.5 && scale === 1) continue;
+      track(link.animate([
+        { transform: `translate(${x}px, ${y}px) scale(${scale})` },
+        { transform: "none" },
+      ], { duration: 240, easing: entrance.easing }));
+    }
+  }, { once: true, signal });
 }
 
 function enterContent(element: HTMLElement, delay: number, duration = entrance.duration) {
@@ -186,6 +213,9 @@ document.addEventListener("astro:before-swap", event => {
   if (!isTransitionBeforeSwapEvent(event)) return;
   const root = event.newDocument.querySelector<HTMLElement>(pageSelector);
   if (root && event.navigationType !== "traverse" && !event.to.hash && shouldAnimate()) {
+    if (event.sourceElement?.matches(desktopMenuLink) && matchMedia("(min-width: 64rem)").matches) {
+      enterDesktopMenu(event.signal);
+    }
     root.setAttribute("data-entry-pending", "");
     const playEntry = () => {
       root.removeAttribute("data-entry-pending");
