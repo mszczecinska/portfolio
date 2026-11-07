@@ -3,6 +3,9 @@ import { socialLinks } from "../lib/social";
 import TablerIcon from "./TablerIcon.astro";
 import { contactEmail, contactMailto } from "../lib/contact";
 
+interface Props { showDivider?: boolean; }
+const { showDivider = true } = Astro.props;
+
 const currentYear = new Date().getFullYear();
 
 const footerNav = [
@@ -72,7 +75,7 @@ const mobileDots = [
 ] as const;
 ---
 
-<footer class="site-footer w-full border-t border-[var(--color-divider)] pb-[16px] pt-[24px] sm:pb-[18px] sm:pt-[32px] lg:pb-[20px] lg:pt-[40px]" aria-labelledby="site-footer-title">
+<footer class:list={["site-footer w-full pb-[16px] pt-[24px] sm:pb-[18px] sm:pt-[32px] lg:pb-[20px] lg:pt-[40px]", showDivider && "border-t border-[var(--color-divider)]"]} aria-labelledby="site-footer-title">
   <h2 id="site-footer-title" class="sr-only">Stopka strony</h2>
 
   <div class="page-container">
@@ -92,7 +95,7 @@ const mobileDots = [
         </div>
 
         <nav aria-label="Nawigacja stopki">
-          <ul class="flex w-max flex-col items-start gap-[12px] text-[14px] leading-[24px] text-[var(--color-text)] lg:text-[16px] lg:leading-[32px]">
+          <ul class="footer-links flex w-max flex-col items-start gap-[12px] text-[14px] leading-[24px] text-[var(--color-text)]">
             {
               footerNav.map((item) => (
                 <li>
@@ -106,7 +109,7 @@ const mobileDots = [
         </nav>
 
         <div>
-          <ul class="flex flex-col items-start gap-[12px] text-[14px] leading-[24px] text-[var(--color-text)] lg:text-[16px] lg:leading-[32px]">
+          <ul class="footer-links flex flex-col items-start gap-[12px] text-[14px] leading-[24px] text-[var(--color-text)]">
             {
               socialLinks.map((item) => (
                 <li>
@@ -140,7 +143,7 @@ const mobileDots = [
         </div>
       </div>
 
-      <div class="flex items-center justify-between text-[12px] leading-[16px] text-[var(--color-text)] lg:text-[14px] lg:leading-[19px]">
+      <div class="footer-credits flex items-center justify-between text-[12px] leading-[16px] text-[var(--color-text)]">
         <a
           href="https://github.com/mszczecinska/portfolio"
           target="_blank"
@@ -202,7 +205,8 @@ const mobileDots = [
     .footer-columns { grid-template-columns: minmax(40px, .7fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(260px, 1.4fr); column-gap: var(--space-6); }
     .footer-contact { grid-column: auto; }
     .site-footer > div > div > div:first-child { padding-block: var(--space-6); }
-    .site-footer nav ul { line-height: 32px; }
+    .footer-links { font-size: var(--text-body); line-height: 2; }
+    .footer-credits { font-size: var(--text-small); line-height: 1.1875rem; }
   }
 </style>
 

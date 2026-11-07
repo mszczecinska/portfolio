@@ -65,7 +65,6 @@ import SpeedInsights from "@vercel/speed-insights/astro";
     <script>
       import "../scripts/project-transitions";
       import "../scripts/page-entry";
-      import "../scripts/menu-motion";
       import "../scripts/language-switch";
       import { startAutoplayVideos } from "../scripts/video-playback.js";
 
@@ -164,6 +163,6 @@ import SpeedInsights from "@vercel/speed-insights/astro";
       <main id="main-content" class="flex-1">
         <slot />
       </main>
-      {showFooter && <Footer />}
+      {showFooter && <Footer showDivider={!workPage} />}
     </body>
   </html>

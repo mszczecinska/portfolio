@@ -39,7 +39,7 @@ test('Interactive messages read the current language after each page swap', () =
       ['Przeglądarka nie mogła odczytać filmu.', 'The browser could not decode the video.'],
       ['Przeglądarka nie obsługuje dostępnych formatów filmu.', 'The browser does not support the available video formats.'],
       ['Nie udało się odtworzyć filmu.', 'The video could not be played.'],
-      ['Karty koncepcji — przewijaj strzałkami', 'Concept cards — use the arrow keys to scroll'],
+      ['Karty koncepcji - przewijaj strzałkami', 'Concept cards - use the arrow keys to scroll'],
       ['Wybierz kartę', 'Choose a card'],
       ['Karta', 'Card'],
     ]) {

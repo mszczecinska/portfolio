@@ -124,7 +124,6 @@ export function enterWorkCategory(group: HTMLElement) {
 
 function enterPage(root: HTMLElement) {
   if (!root.isConnected || root.dataset.entryPlayed) return;
-  root.removeAttribute("data-entry-pending");
   root.dataset.entryPlayed = "true";
   if (!shouldAnimate()) return;
 
@@ -147,7 +146,7 @@ function enterPage(root: HTMLElement) {
       : [".about-portrait", ".about-bio", ".about-socials"];
   const elements = selectors.flatMap(selector => [...root.querySelectorAll<HTMLElement>(selector)]);
   revealLines.forEach((element, index) => {
-    // Measure the mask, as pending text starts below its visible frame.
+    // Measure the mask, which stays in place while its text moves.
     if (!visible(element.parentElement!)) return;
     track(element.animate([
       { transform: "translateY(105%)" },
@@ -173,7 +172,7 @@ function enterPage(root: HTMLElement) {
 
 function enterInitialPage() {
   const root = document.querySelector<HTMLElement>(pageSelector);
-  if (root && !root.hasAttribute("data-entry-pending")) enterPage(root);
+  if (root) enterPage(root);
 }
 
 // Finish any ongoing entrances before capturing a project cover on navigation.
@@ -186,19 +185,10 @@ document.addEventListener("astro:before-preparation", () => {
 document.addEventListener("astro:before-swap", event => {
   if (!isTransitionBeforeSwapEvent(event)) return;
   const root = event.newDocument.querySelector<HTMLElement>(pageSelector);
-  // Back/forward should restore the reading position without replaying entrances.
-  if (!root || event.navigationType === "traverse" || !shouldAnimate()) {
-    if (root) root.dataset.entryPlayed = "true";
-    if (!shouldAnimate()) event.viewTransition.skipTransition();
-    return;
-  }
-  root.setAttribute("data-entry-pending", "");
-  // These pages animate their live content. Release the router's frozen
-  // snapshot immediately instead of waiting for unrelated header transitions.
-  // Project-detail navigations keep their shared-cover transition.
+  // Capture the complete incoming page so the hero can crossfade with the rest.
+  if (root) root.dataset.entryPlayed = "true";
   void event.viewTransition.ready.catch(() => {});
-  if (!root.matches(".case-study")) event.viewTransition.skipTransition();
-  void event.viewTransition.finished.then(() => enterPage(root), () => enterPage(root));
+  if (!shouldAnimate()) event.viewTransition.skipTransition();
 });
 
 if (document.readyState === "loading") {
@@ -220,6 +210,5 @@ reducedMotion.addEventListener("change", () => {
     clearScrollContent();
     animations.forEach(animation => animation.cancel());
     animations = [];
-    document.querySelectorAll("[data-entry-pending]").forEach(root => root.removeAttribute("data-entry-pending"));
   }
 });

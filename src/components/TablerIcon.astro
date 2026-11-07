@@ -10,6 +10,7 @@ interface Props {
     | "quote"
     | "x"
     | "menu-2"
+    | "chevron-down"
     | "notes"
     | "scale"
     | "chart-bar"
@@ -60,6 +61,7 @@ const iconPaths: Record<Props["name"], string[]> = {
   ],
   x: ["M18 6L6 18", "M6 6L18 18"],
   "menu-2": ["M4 7H20", "M4 12H20", "M4 17H20"],
+  "chevron-down": ["M6 9l6 6l6 -6"],
   notes: [
     "M5 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2",
     "M7 8h10",

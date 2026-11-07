@@ -22,7 +22,7 @@
 </dialog>
 
 <style>
-  .image-lightbox { width: min(94vw, 1440px); height: 90dvh; max-width: none; max-height: 94dvh; margin: auto; padding: 0; border: 1px solid var(--color-border); background: var(--color-background); color: var(--color-text); overflow: hidden; }
+  .image-lightbox { width: min(94vw, 90rem); height: 90dvh; max-width: none; max-height: 94dvh; margin: auto; padding: 0; border: 1px solid var(--color-border); background: var(--color-background); color: var(--color-text); overflow: hidden; }
   .image-lightbox[open] { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; }
   .image-lightbox::backdrop { background: rgb(23 23 23 / 55%); transition: background-color 200ms var(--ease-editorial); }
   .image-lightbox[data-closing]::backdrop { background: rgb(23 23 23 / 0%); }
@@ -32,9 +32,9 @@
   .image-lightbox__controls { display: flex; flex: none; align-items: center; gap: var(--space-1); }
   .image-lightbox__controls button { cursor: pointer; }
   .image-lightbox__controls button:disabled { opacity: .35; cursor: default; }
-  .image-lightbox__controls .btn-icon { font-size: 24px; }
-  .image-lightbox__controls .btn-secondary { padding: var(--space-2) var(--space-3); font-size: 12px; }
-  .image-lightbox__controls output { min-width: 5ch; font-family: var(--font-label); font-size: 12px; text-align: center; }
+  .image-lightbox__controls .btn-icon { font-size: 1.5rem; }
+  .image-lightbox__controls .btn-secondary { padding: var(--space-2) var(--space-3); font-size: var(--text-label); }
+  .image-lightbox__controls output { min-width: 5ch; font-family: var(--font-label); font-size: var(--text-label); text-align: center; }
   .image-lightbox__close { margin-left: var(--space-2); }
   .image-lightbox__stage { position: relative; min-width: 0; min-height: 0; overflow: hidden; background: var(--color-surface); touch-action: none; overscroll-behavior: contain; }
   .image-lightbox__stage[data-zoomed] { cursor: grab; }
@@ -44,7 +44,7 @@
   [data-zoomed] .image-lightbox__image { cursor: inherit; }
   .image-lightbox__message { position: absolute; inset: 0; display: grid; place-content: center; gap: var(--space-3); padding: var(--space-5); text-align: center; font-size: var(--text-small); }
   .image-lightbox__message a { text-decoration: underline; }
-  .image-lightbox__help { padding: var(--space-3) var(--space-4); border-top: 1px solid var(--color-border); color: var(--color-text-muted); font-size: 12px; line-height: 1.5; }
+  .image-lightbox__help { padding: var(--space-3) var(--space-4); border-top: 1px solid var(--color-border); color: var(--color-text-muted); font-size: var(--text-label); line-height: 1.5; }
   @media (max-width: 47.999rem) {
     .image-lightbox { width: calc(100vw - 16px); height: calc(100dvh - 32px); max-height: none; }
     .image-lightbox__toolbar { flex-wrap: wrap; gap: var(--space-2); padding: var(--space-3); }

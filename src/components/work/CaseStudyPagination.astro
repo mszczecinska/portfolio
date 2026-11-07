@@ -2,6 +2,7 @@
 import TablerIcon from "../TablerIcon.astro";
 import CaseStudyMedia from "./CaseStudyMedia.astro";
 import { getProjectCover } from "../../lib/projectCovers";
+import { wideImageSize } from "../../lib/responsiveImages";
 
 import { projectCards } from "../../lib/work";
 
@@ -28,9 +29,9 @@ const projects = [
       <div data-project-cover={project.slug}>
       <CaseStudyMedia
         src={getProjectCover(project.slug)}
-        label={`${project.title} — podgląd projektu`}
+        label={`${project.title} - podgląd projektu`}
         ratio="8 / 5"
-        sizes="(min-width: 1280px) 588px, (min-width: 768px) calc(50vw - 52px), calc(100vw - 32px)"
+        sizes={`${wideImageSize(36.75)}, (min-width: 1280px) 588px, (min-width: 768px) calc(50vw - 52px), calc(100vw - 32px)`}
       />
       </div>
       <div class="case-pagination__caption">

@@ -15,6 +15,7 @@
 }
 
 ::view-transition-group(root) {
+  animation: none;
   background-color: var(--color-background);
 }
 
@@ -33,6 +34,24 @@
   opacity: 1;
   background-color: var(--color-background);
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-new(root) {
+    animation: page-fade-in 240ms var(--ease-editorial) both;
+  }
+
+  html[data-astro-transition-fallback="old"] body {
+    animation: page-fallback-out 100ms ease both;
+  }
+
+  html[data-astro-transition-fallback="new"] body {
+    animation: page-fallback-in 140ms var(--ease-ui) both;
+  }
+}
+
+@keyframes page-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes page-fallback-out { to { opacity: 0.3; } }
+@keyframes page-fallback-in { from { opacity: 0.3; } }
 
 * {
   scrollbar-width: thin;
@@ -54,10 +73,10 @@
 }
 
 /* Shared controls. Geometry and typography match the redesign, with legacy class names. */
-button:not(:is(.btn-primary, .btn-secondary, .btn-icon, [data-mobile-backdrop])) {
+button:not(:is(.btn-primary, .btn-secondary, .btn-icon)) {
   transition: scale var(--duration-press) var(--ease-ui);
 }
-button:not(:is(.btn-primary, .btn-secondary, .btn-icon, [data-mobile-backdrop])):not(:disabled):not([aria-disabled="true"]):active {
+button:not(:is(.btn-primary, .btn-secondary, .btn-icon)):not(:disabled):not([aria-disabled="true"]):active {
   scale: 0.97;
 }
 
@@ -169,21 +188,8 @@ button:not(:is(.btn-primary, .btn-secondary, .btn-icon, [data-mobile-backdrop]))
 .entry-mask { display: block; overflow: clip; padding-bottom: 0.12em; margin-bottom: -0.12em; }
 [data-entry-reveal] { display: block; }
 
-/* Applied only by the router while its page snapshot is on screen. */
 @media (prefers-reduced-motion: no-preference) {
-  [data-entry-pending] [data-entry-reveal] { transform: translateY(105%); }
-  .case-study[data-entry-pending] [data-case-entry] { opacity: 0; }
-  .home-page[data-entry-pending] .home-hero__role,
-  .home-page[data-entry-pending] .home-hero__portrait,
-  .home-page[data-entry-pending] .home-hero__intro > p,
-  .home-page[data-entry-pending] .home-hero__actions,
-  .home-page[data-entry-pending] .home-project__link,
-  [data-content-entry-pending],
-  .about-page[data-entry-pending] .about-tools__grid li,
-  .work-page[data-entry-pending] .work-card__link,
-  .about-page[data-entry-pending] .about-portrait,
-  .about-page[data-entry-pending] .about-bio,
-  .about-page[data-entry-pending] .about-socials { opacity: 0; }
+  [data-content-entry-pending] { opacity: 0; }
 }
 
 ::view-transition-group(project-cover) {

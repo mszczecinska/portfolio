@@ -27,19 +27,18 @@ const activeKey = currentPath === "/"
   : currentPath.startsWith("/work")
     ? "work"
     : null;
+const mobileSectionLabel = mobileNavItems.find((item) => item.key === activeKey)?.label ?? "Menu";
 ---
 
-<header class:list={["relative z-40", { "case-header": caseStudy || workPage || homePage || aboutPage, "work-header": workPage, "home-header": homePage, "about-header": aboutPage }]} data-scroll-header transition:name="site-header">
+<header class:list={["relative z-40", { "case-header": caseStudy || workPage || homePage || aboutPage, "work-header": workPage, "home-header": homePage, "about-header": aboutPage }]} data-scroll-header>
   <div class="page-container pt-[var(--space-5)]">
     <nav class="flex items-center justify-between lg:min-h-[140px] lg:items-start" aria-label="Główna nawigacja">
       <a
         href="/"
-        class="header-menu-link inline-flex items-center lg:py-[12px]"
-        data-nav-key="home"
+        class="header-menu-link hidden items-center lg:inline-flex lg:py-[12px]"
         aria-label="Strona główna"
         aria-current={homePage ? "page" : undefined}
-        transition:name={`${language}-${homePage ? "home-brand" : caseStudy || workPage ? "case-brand" : "site-brand"}`}
-        transition:persist
+        transition:persist={`${language}-${homePage ? "home-brand" : caseStudy || workPage ? "case-brand" : "site-brand"}`}
       >
         {caseStudy || workPage || homePage || aboutPage ? <span class="case-header__home">Główna</span> : (
         <span class="h-[16px] w-auto lg:h-[18px] text-[var(--color-text)]">
@@ -53,7 +52,7 @@ const activeKey = currentPath === "/"
       {aboutPage && <a href="/about" class="case-header__current" aria-current="page">O mnie</a>}
       {homePage && <a href="/" class="case-header__current" aria-current="page">Główna</a>}
 
-      <div class="flex items-center gap-[24px] sm:gap-[32px] lg:items-start lg:gap-[64px]">
+      <div class="flex w-full items-center justify-between lg:w-auto lg:items-start lg:gap-[64px]" data-mobile-menu>
         <ul class="hidden items-start pt-[12px] self-center gap-[64px] text-[var(--color-text)] lg:flex">
           {
             navItems.map((item) => {
@@ -65,8 +64,6 @@ const activeKey = currentPath === "/"
                     href={item.href}
                     aria-current={isActive ? "page" : undefined}
                     class="header-menu-link type-nav font-normal leading-none block whitespace-nowrap transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]"
-                    data-nav-key={item.key}
-                    transition:name={`nav-item-${item.key}`}
                   >
                     {item.label}
                   </a>
@@ -76,74 +73,68 @@ const activeKey = currentPath === "/"
           }
         </ul>
 
+        <div class="lg:hidden">
+          <button
+            type="button"
+            data-mobile-toggle
+            class="mobile-menu-trigger type-nav focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
+            aria-haspopup="dialog"
+            aria-expanded="false"
+            aria-controls="mobile-menu-panel"
+          >
+            <span>{mobileSectionLabel}</span>
+            <TablerIcon name="chevron-down" class="size-4 shrink-0" strokeWidth={1.5} />
+          </button>
+        </div>
+
         <div class="header-actions">
           <a href={switchPath} class="home-header__language btn-icon" data-language-switch aria-label="Zmień język na angielski" hreflang={language === "pl" ? "en" : "pl"} lang={language}>PL</a>
           <a href={contactMailto} class="header-email btn-secondary">Napisz do mnie</a>
         </div>
-        <div class="lg:hidden" data-mobile-menu>
-          <button
-            type="button"
-            data-mobile-open
-            class="inline-flex size-[44px] items-center justify-center rounded-full text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
-            aria-label="Otwórz menu"
-            aria-expanded="false"
-            aria-controls="mobile-menu-panel"
-          >
-            <TablerIcon name="menu-2" class="size-6" />
-          </button>
-
+        <div class="contents lg:hidden">
           <div
-            class="fixed inset-0 z-[90] opacity-0 pointer-events-none transition-opacity duration-200"
+            class="fixed inset-0 z-[90] overflow-clip pointer-events-none"
             data-mobile-overlay
+            style={{ "--mobile-menu-last-order": mobileNavItems.length }}
             aria-hidden="true"
             inert
           >
-            <button
-              type="button"
-              class="absolute inset-0 bg-black/10"
-              data-mobile-backdrop
-              tabindex="-1"
-              aria-label="Zamknij menu"
-            ></button>
-
+            <div data-mobile-backdrop></div>
             <div
               id="mobile-menu-panel"
-              class="absolute right-0 top-0 flex h-full w-[53%] min-w-[200px] max-w-[220px] translate-x-full flex-col items-end bg-[var(--color-background)] pl-[32px] pr-[var(--page-gutter)] pb-[40px] pt-[36px] transition-transform duration-200 sm:w-[40%] sm:min-w-[280px] sm:max-w-[360px] sm:pl-[36px] sm:pb-[44px] sm:pt-[40px]"
               data-mobile-panel
-              role="dialog"
-              aria-modal="true"
-              aria-label="Menu nawigacji"
             >
-              <button
-                type="button"
-                data-mobile-close
-                class="inline-flex size-[44px] appearance-none items-center justify-center rounded-full border-0 bg-transparent text-[var(--color-text)]"
-                aria-label="Zamknij menu"
-              >
-                <TablerIcon name="x" class="size-6" />
-              </button>
+              <span id="mobile-menu-title" class="sr-only">Menu nawigacji</span>
 
-              <ul class="mt-[56px] flex flex-col items-end gap-[16px] text-[var(--color-text)] sm:mt-[64px] sm:gap-[20px]">
+              <ul class="mobile-menu-links">
                 {
-                  mobileNavItems.map((item) => {
+                  mobileNavItems.map((item, index) => {
                     const isActive = item.key === activeKey;
 
                     return (
-                      <li>
+                      <li style={{ "--mobile-menu-order": index }}>
                         <a
                           href={item.href}
                           data-mobile-link
+                          data-mobile-page-link
                           aria-current={isActive ? "page" : undefined}
-                          class="header-menu-link type-nav font-normal block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-text)]"
+                          class="type-heading mobile-menu-link"
                         >
-                          {item.label}
+                          <span class="entry-mask"><span class="mobile-menu-reveal">{item.label}</span></span>
                         </a>
                       </li>
                     );
                   })
                 }
               </ul>
-              <a href={contactMailto} data-mobile-link class="mobile-menu-contact btn-secondary">Napisz do mnie</a>
+              <div class="mobile-menu-contact" style={{ "--mobile-menu-order": mobileNavItems.length }}>
+                <div class="mobile-menu-reveal">
+                  <a href={contactMailto} data-mobile-link class="btn-primary">
+                    <span>Napisz do mnie</span>
+                    <TablerIcon name="arrow-up-right" class="size-6 shrink-0" />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -165,7 +156,7 @@ const activeKey = currentPath === "/"
         state.cleanup();
       }
 
-      const previousFocus = new WeakMap();
+      const closingTransitions = new WeakMap();
       const controller = new AbortController();
       const { signal } = controller;
 
@@ -175,95 +166,82 @@ const activeKey = currentPath === "/"
       const getRoots = () => Array.from(document.querySelectorAll("[data-mobile-menu]"));
 
       const getElements = (root) => ({
-        openButton: root.querySelector("[data-mobile-open]"),
-        closeButton: root.querySelector("[data-mobile-close]"),
+        toggleButton: root.querySelector("[data-mobile-toggle]"),
         overlay: root.querySelector("[data-mobile-overlay]"),
         panel: root.querySelector("[data-mobile-panel]"),
       });
 
       const isOpen = (root) => {
-        const { openButton } = getElements(root);
-        return openButton?.getAttribute("aria-expanded") === "true";
-      };
-
-      const alignCloseButton = (root) => {
-        const { openButton, overlay, panel } = getElements(root);
-        if (!openButton || !overlay || !panel) return;
-
-        const top = openButton.getBoundingClientRect().top - overlay.getBoundingClientRect().top;
-        panel.style.paddingTop = `${top}px`;
+        const { toggleButton } = getElements(root);
+        return toggleButton?.getAttribute("aria-expanded") === "true";
       };
 
       const syncBodyScrollLock = () => {
-        const hasOpenMenu = getRoots().some((root) => isOpen(root));
+        const hasOpenMenu = getRoots().some((root) => isOpen(root) || closingTransitions.has(root));
         document.body.classList.toggle("mobile-menu-open", hasOpenMenu);
       };
 
       const closeMenu = (root, restoreFocus = true, immediate = false) => {
-        const { openButton, overlay, panel } = getElements(root);
-        if (!openButton || !overlay || !panel) return;
+        const { toggleButton, overlay } = getElements(root);
+        if (!toggleButton || !overlay) return;
 
-        if (immediate) {
-          overlay.style.transitionDuration = "0ms";
-          panel.style.transitionDuration = "0ms";
-        }
+        root.classList.toggle("is-instant", immediate);
+        if (immediate) closingTransitions.get(root)?.cancel();
+        closingTransitions.delete(root);
 
-        openButton.setAttribute("aria-expanded", "false");
-        overlay.setAttribute("aria-hidden", "true");
-        overlay.setAttribute("inert", "");
+        toggleButton.setAttribute("aria-expanded", "false");
         root.classList.remove("is-open");
+        root.removeAttribute("role");
+        root.removeAttribute("aria-modal");
+        root.removeAttribute("aria-labelledby");
 
-        overlay.classList.remove("opacity-100", "pointer-events-auto");
-        overlay.classList.add("opacity-0", "pointer-events-none");
-        panel.classList.remove("translate-x-0");
-        panel.classList.add("translate-x-full");
+        if (restoreFocus) toggleButton.focus({ preventScroll: true });
+        overlay.setAttribute("inert", "");
+        overlay.setAttribute("aria-hidden", "true");
 
+        const exitTransition = immediate ? undefined : overlay.getAnimations().find(
+          (animation) => animation.transitionProperty === "clip-path"
+        );
+        if (exitTransition) {
+          // Keep the page still while the overlay retracts.
+          closingTransitions.set(root, exitTransition);
+          const finishClose = () => {
+            if (closingTransitions.get(root) !== exitTransition) return;
+            closingTransitions.delete(root);
+            syncBodyScrollLock();
+          };
+          exitTransition.finished.then(finishClose, finishClose);
+        }
         syncBodyScrollLock();
-
-        const savedFocus = previousFocus.get(root);
-        if (restoreFocus && savedFocus instanceof HTMLElement) {
-          savedFocus.focus();
-        }
-        previousFocus.delete(root);
-
-        if (immediate) {
-          requestAnimationFrame(() => {
-            overlay.style.removeProperty("transition-duration");
-            panel.style.removeProperty("transition-duration");
-          });
-        }
       };
 
       const closeAllMenus = (restoreFocus = false, immediate = false) => {
         getRoots().forEach((root) => {
-          if (isOpen(root)) {
+          if (isOpen(root) || (immediate && closingTransitions.has(root))) {
             closeMenu(root, restoreFocus, immediate);
           }
         });
       };
 
-      const openMenu = (root) => {
-        const { openButton, closeButton, overlay, panel } = getElements(root);
-        if (!openButton || !closeButton || !overlay || !panel) return;
+      const openMenu = (root, immediate) => {
+        const { toggleButton, overlay, panel } = getElements(root);
+        if (!toggleButton || !overlay || !panel) return;
 
         closeAllMenus(false);
-        alignCloseButton(root);
+        closingTransitions.delete(root);
+        panel.scrollTop = 0;
 
-        const activeElement = document.activeElement;
-        previousFocus.set(root, activeElement instanceof HTMLElement ? activeElement : null);
-
-        openButton.setAttribute("aria-expanded", "true");
-        overlay.setAttribute("aria-hidden", "false");
+        root.classList.toggle("is-instant", immediate);
+        toggleButton.setAttribute("aria-expanded", "true");
+        overlay.removeAttribute("aria-hidden");
         overlay.removeAttribute("inert");
+        root.setAttribute("role", "dialog");
+        root.setAttribute("aria-modal", "true");
+        root.setAttribute("aria-labelledby", "mobile-menu-title");
         root.classList.add("is-open");
 
-        overlay.classList.remove("opacity-0", "pointer-events-none");
-        overlay.classList.add("opacity-100", "pointer-events-auto");
-        panel.classList.remove("translate-x-full");
-        panel.classList.add("translate-x-0");
-
         syncBodyScrollLock();
-        requestAnimationFrame(() => closeButton.focus());
+        toggleButton.focus({ preventScroll: true });
       };
 
       document.addEventListener(
@@ -272,32 +250,32 @@ const activeKey = currentPath === "/"
           const target = event.target;
           if (!(target instanceof Element)) return;
 
-          const openTrigger = target.closest("[data-mobile-open]");
-          if (openTrigger) {
-            const root = getRoot(openTrigger);
+          const toggle = target.closest("[data-mobile-toggle]");
+          if (toggle) {
+            const root = getRoot(toggle);
             if (!root) return;
-            event.preventDefault();
-            openMenu(root);
-            return;
-          }
 
-          const closeTrigger = target.closest("[data-mobile-close], [data-mobile-backdrop]");
-          if (closeTrigger) {
-            const root = getRoot(closeTrigger);
-            if (!root) return;
-            event.preventDefault();
-            closeMenu(root, true);
+            const immediate = event.detail === 0;
+            if (isOpen(root)) closeMenu(root, true, immediate);
+            else openMenu(root, immediate);
             return;
           }
 
           const navLink = target.closest("[data-mobile-link]");
-          if (navLink) {
+          if (navLink instanceof HTMLAnchorElement && !event.defaultPrevented && event.button === 0
+            && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
             const root = getRoot(navLink);
             if (!root) return;
-            closeMenu(root, false, true);
+
+            if (!navLink.hasAttribute("data-mobile-page-link")) {
+              closeMenu(root, true, true);
+            } else if (navLink.href === location.href) {
+              event.preventDefault();
+              closeMenu(root, true, event.detail === 0);
+            }
           }
         },
-        { signal }
+        { capture: true, signal }
       );
 
       document.addEventListener(
@@ -305,9 +283,6 @@ const activeKey = currentPath === "/"
         (event) => {
           const root = getRoots().find((menuRoot) => isOpen(menuRoot));
           if (!root) return;
-
-          const { panel } = getElements(root);
-          if (!panel) return;
 
           if (event.key === "Escape") {
             event.preventDefault();
@@ -317,17 +292,18 @@ const activeKey = currentPath === "/"
 
           if (event.key !== "Tab") return;
 
-          const panelFocusable = Array.from(panel.querySelectorAll(focusablesSelector)).filter(
+          const menuFocusable = Array.from(root.querySelectorAll(focusablesSelector)).filter(
             (element) =>
               element instanceof HTMLElement &&
               !element.hasAttribute("disabled") &&
-              element.tabIndex !== -1
+              element.tabIndex !== -1 &&
+              element.getClientRects().length > 0
           );
 
-          if (panelFocusable.length === 0) return;
+          if (menuFocusable.length === 0) return;
 
-          const first = panelFocusable[0];
-          const last = panelFocusable[panelFocusable.length - 1];
+          const first = menuFocusable[0];
+          const last = menuFocusable[menuFocusable.length - 1];
 
           if (event.shiftKey && document.activeElement === first) {
             event.preventDefault();
@@ -344,9 +320,7 @@ const activeKey = currentPath === "/"
         "resize",
         () => {
           if (window.matchMedia("(min-width: 1024px)").matches) {
-            closeAllMenus(false);
-          } else {
-            getRoots().filter(isOpen).forEach(alignCloseButton);
+            closeAllMenus(false, true);
           }
         },
         { signal }
@@ -354,14 +328,19 @@ const activeKey = currentPath === "/"
 
       document.addEventListener(
         "astro:before-swap",
-        () => {
-          closeAllMenus(false, true);
+        (event) => {
+          // Keep the panel in the outgoing frame instead of revealing the old page.
+          const swap = event.swap;
+          event.swap = () => {
+            closeAllMenus(false, true);
+            swap();
+          };
         },
         { signal }
       );
 
       state.cleanup = () => {
-        closeAllMenus(false);
+        closeAllMenus(false, true);
         controller.abort();
       };
     };
@@ -376,12 +355,16 @@ const activeKey = currentPath === "/"
 </script>
 
 <style>
-  .mobile-menu-contact { margin-top: auto; flex-shrink: 0; }
   .header-actions { display: contents; }
   .header-email { display: none; white-space: nowrap; }
   @media (min-width: 64rem) {
     .header-actions { display: inline-flex; align-items: center; gap: var(--space-2); }
-    .header-email { display: inline-flex; }
+    .header-email {
+      display: inline-flex;
+      flex-shrink: 0;
+      /* Reserve room for the longer Polish label in both languages. */
+      inline-size: calc(14ch + 2 * (var(--space-6) + var(--border-width)));
+    }
   }
   .about-header nav > div { gap: var(--space-2); }
   @media (min-width: 64rem) {
@@ -392,17 +375,20 @@ const activeKey = currentPath === "/"
   .home-header nav > div { flex: none; }
   .home-header .case-header__current { font-weight: var(--weight-regular); }
   .home-header__language { width: 44px; height: 44px; padding: 10px; font-family: var(--font-label); font-size: 16px; line-height: 1; cursor: pointer; }
+  @media (max-width: 1023px) {
+    .home-header__language { z-index: 91; }
+  }
   @media (min-width: 64rem) {
     .header-actions > .home-header__language,
-    .header-actions > .header-email { height: 56px; min-height: 56px; padding-block: 0; }
-    .header-actions > .home-header__language { width: 56px; min-width: 56px; padding-inline: 0; }
+    .header-actions > .header-email { height: 3.5rem; min-height: 3.5rem; padding-block: 0; }
+    .header-actions > .home-header__language { width: 3.5rem; min-width: 3.5rem; padding-inline: 0; font-size: var(--text-body); }
   }
   .home-header nav > div { gap: var(--space-2); }
   @media (min-width: 64rem) {
     .home-header nav { justify-content: space-between; }
     .home-header nav > div, .home-header nav ul, .home-header nav li { display: contents; }
     .home-header nav :global(.type-nav) { color: var(--color-text-muted); }
-    .home-header .case-header__home { font-size: 32px; line-height: 56px; color: var(--color-text); }
+    .home-header .case-header__home { font-size: 2rem; line-height: 3.5rem; color: var(--color-text); }
   }
   .work-header__language { display: grid; place-items: center; width: 44px; height: 44px; font-family: var(--font-label); line-height: 1; }
   .work-header nav > div { gap: var(--space-2); }
@@ -416,13 +402,10 @@ const activeKey = currentPath === "/"
   .case-header nav { min-height: var(--control-height); align-items: center; }
   .case-header nav > a:first-child { display: none; }
   .case-header__current { display: none; font-size: 1.5rem; font-weight: var(--weight-regular); }
-  @media (max-width: 1023px) {
-    .case-header nav { justify-content: flex-end; }
-  }
   @media (min-width: 64rem) {
     .case-header > div { padding-block: var(--space-5); }
     .case-header[data-scroll-header].is-floating > div { padding-bottom: var(--space-5); }
-    .case-header nav { min-height: 3.5rem; justify-content: space-between; gap: clamp(24px, 3vw, 40px); }
+    .case-header nav { min-height: 3.5rem; justify-content: space-between; gap: clamp(var(--space-6), 3vw, var(--space-10)); }
     .case-header nav > a:first-child { display: inline-flex; padding-block: 0; }
     .case-header__home { font-size: 1.25rem; color: var(--color-text-muted); }
     .case-header__current { display: none; }
@@ -467,26 +450,153 @@ const activeKey = currentPath === "/"
     }
   }
 
-  /* Release the fixed drawer from the header's transform containing block. */
+  /* Release the fixed overlay from the header's transform containing block. */
   :global(body.mobile-menu-open) [data-scroll-header] {
+    position: sticky;
+    inset-block-start: 0;
     transform: none;
     opacity: 1;
     pointer-events: auto;
     transition: none;
   }
 
-  [data-mobile-overlay] { transition: opacity 180ms var(--ease-ui); }
-  [data-mobile-panel] { transition: transform 180ms var(--ease-ui); }
-  [data-mobile-menu].is-open [data-mobile-overlay] { transition-duration: 220ms; }
-  [data-mobile-menu].is-open [data-mobile-panel] {
-    transition-duration: 260ms;
-    transition-timing-function: cubic-bezier(0.32, 0.72, 0, 1);
+  [data-mobile-menu] {
+    --mobile-menu-duration: 190ms;
+    --mobile-menu-wipe-duration: 195ms;
+    --mobile-menu-wipe-delay: 20ms;
+  }
+  [data-mobile-menu].is-open {
+    --mobile-menu-duration: 200ms;
+    --mobile-menu-wipe-duration: 220ms;
+    --mobile-menu-wipe-delay: 0ms;
+  }
+  [data-mobile-menu].is-instant {
+    --mobile-menu-duration: 0ms;
+    --mobile-menu-wipe-duration: 0ms;
+    --mobile-menu-wipe-delay: 0ms;
+  }
+  [data-mobile-overlay] {
+    --mobile-menu-bar-height: max(calc(var(--control-height) + 2 * var(--space-3)), env(safe-area-inset-top));
+    --mobile-menu-gutter-start: max(var(--page-gutter), env(safe-area-inset-left));
+    --mobile-menu-gutter-end: max(var(--page-gutter), env(safe-area-inset-right));
+    visibility: hidden;
+    clip-path: inset(0 0 100% 0);
+    transition:
+      clip-path var(--mobile-menu-wipe-duration) cubic-bezier(0.215, 0.61, 0.355, 1) var(--mobile-menu-wipe-delay),
+      visibility 0s linear calc(var(--mobile-menu-wipe-duration) + var(--mobile-menu-wipe-delay));
+  }
+
+  [data-mobile-menu].is-open [data-mobile-overlay] {
+    pointer-events: auto;
+    visibility: visible;
+    clip-path: inset(0);
+    transition-delay: 0s;
+  }
+
+  .mobile-menu-trigger {
+    position: relative;
+    z-index: 91;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-block-size: var(--control-height);
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .mobile-menu-trigger > :global(svg) {
+    transition: rotate var(--mobile-menu-duration) var(--ease-ui);
+  }
+
+  .mobile-menu-trigger[aria-expanded="true"] > :global(svg) {
+    rotate: 180deg;
+  }
+
+  [data-mobile-backdrop] {
+    position: absolute;
+    inset: 0;
+    background: var(--color-background);
+  }
+
+  [data-mobile-backdrop]::after {
+    content: "";
+    position: absolute;
+    inset-block-start: var(--mobile-menu-bar-height);
+    inset-inline: var(--mobile-menu-gutter-start) var(--mobile-menu-gutter-end);
+    border-block-start: var(--border-width) solid var(--color-divider);
+  }
+
+  [data-mobile-panel] {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    border-block-start: calc(var(--mobile-menu-bar-height) + var(--border-width)) solid transparent;
+    padding-block-end: max(var(--space-6), env(safe-area-inset-bottom));
+    padding-inline: var(--mobile-menu-gutter-start) var(--mobile-menu-gutter-end);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    color: var(--color-text);
+  }
+
+  .mobile-menu-links {
+    flex: none;
+    margin-block: auto;
+    padding-block: var(--space-6);
+  }
+
+  .mobile-menu-link {
+    display: flex;
+    align-items: center;
+    min-block-size: var(--space-16);
+    padding-block: clamp(var(--space-3), 3dvh, var(--space-6));
+    font-size: var(--text-subheading);
+    line-height: var(--leading-title);
+  }
+
+  .mobile-menu-link:not([aria-current="page"]) { color: var(--color-text-muted); }
+  .mobile-menu-link[aria-current="page"] { font-size: var(--text-title); }
+
+  .mobile-menu-contact {
+    align-self: flex-start;
+    flex: none;
+  }
+
+  .mobile-menu-reveal { display: block; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mobile-menu-contact {
+      overflow: clip;
+      overflow-clip-margin: 6px;
+    }
+
+    [data-mobile-menu].is-open .mobile-menu-contact:focus-within {
+      overflow: visible;
+    }
+
+    .mobile-menu-reveal {
+      transform: translateY(calc(100% + 8px));
+      transition: transform 155ms var(--ease-editorial)
+        calc((var(--mobile-menu-last-order) - var(--mobile-menu-order)) * 18ms);
+    }
+
+    [data-mobile-menu].is-open .mobile-menu-reveal {
+      transform: none;
+      transition-duration: 310ms;
+      transition-delay: calc(72ms + var(--mobile-menu-order) * 49ms);
+    }
+
+    [data-mobile-menu].is-instant .mobile-menu-reveal,
+    [data-mobile-menu].is-open .mobile-menu-link:focus-visible .mobile-menu-reveal,
+    [data-mobile-menu].is-open .mobile-menu-contact:focus-within .mobile-menu-reveal {
+      transition: none;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    [data-scroll-header].is-floating,
+    [data-scroll-header].is-floating { transition: none; }
     [data-mobile-overlay],
-    [data-mobile-menu] [data-mobile-panel] { transition: none; }
+    .mobile-menu-trigger > :global(svg) { transition: none; }
   }
 
   [data-scroll-header].is-no-transition {
@@ -495,10 +605,6 @@ const activeKey = currentPath === "/"
 
   :global(body.mobile-menu-open) {
     overflow: hidden;
-  }
-
-  [data-mobile-close] {
-    -webkit-tap-highlight-color: transparent;
   }
 </style>
 

@@ -18,7 +18,7 @@ const phoneSizes = "(min-width: 1280px) 322.5px, (min-width: 1024px) calc(29.167
 <CaseStudySection id="research" title="Badania" layout="split" mediaSide="left">
   <p>Chciałam zrozumieć, jak grupy organizują wyjazdy i w których momentach planowanie staje się zawiłe i chaotyczne. W tym celu przeprowadziłam trzy wywiady pogłębione z osobami organizującymi wyjazdy grupowe.</p>
   <p>Pytałam o doświadczenia z ostatnich podróży m.in. największe trudności, sposób wymiany informacji i podejmowania decyzji oraz czynności, które uczestnicy chcieliby uprościć. Rozmowy miały charakter eksploracyjny i pomogły mi określić problemy warte dalszego sprawdzenia.</p>
-  <CaseStudyMedia slot="media" src={research} zoomable sizes={halfSizes} label="ReadySet — wypowiedzi z wywiadów" />
+  <CaseStudyMedia slot="media" src={research} zoomable sizes={halfSizes} label="ReadySet - wypowiedzi z wywiadów" />
 </CaseStudySection>
 
 <div class="readyset-findings">
@@ -31,28 +31,28 @@ const phoneSizes = "(min-width: 1280px) 322.5px, (min-width: 1024px) calc(29.167
     { title: "Trudno rozpoznać ostateczną decyzję", text: "Ankiety i ustalenia pozostają w historii rozmowy. Nie zawsze wiadomo, co zostało zaakceptowane, a co nadal wymaga dyskusji." },
   ]} />
   <div class="page-container">
-    <CaseStudyMedia src={findings} zoomable label="ReadySet — obszary problemowe i synteza badań" ratio={`${findings.width} / ${findings.height}`} />
+    <CaseStudyMedia src={findings} zoomable label="ReadySet - obszary problemowe i synteza badań" ratio={`${findings.width} / ${findings.height}`} />
   </div>
 </div>
 
-<CaseStudySection id="architecture" label="Planowanie i harmonogram — architektura informacji" layout="split" mediaSide="left" align="center">
-  <p>Wnioski przełożyłam na pytania How Might We, Jobs to Be Done i storyboard. Wyznaczyły one trzy zadania dla aplikacji — porządkowanie propozycji, pokazywanie postępu ustaleń i zapewnienie łatwego dostępu do gotowego planu.</p>
+<CaseStudySection id="architecture" label="Planowanie i harmonogram - architektura informacji" layout="split" mediaSide="left" align="center">
+  <p>Wnioski przełożyłam na pytania How Might We, Jobs to Be Done i storyboard. Wyznaczyły one trzy zadania dla aplikacji - porządkowanie propozycji, pokazywanie postępu ustaleń i zapewnienie łatwego dostępu do gotowego planu.</p>
   <p>Na tej podstawie rozdzieliłam aplikację na „Planowanie” i „Harmonogram”. Pierwszy obszar pozostaje przestrzenią do zgłaszania pomysłów i podejmowania decyzji, drugi pokazuje już ustalony plan. Ten podział stał się podstawą architektury informacji i dalszego projektowania ekranów.</p>
-  <CaseStudyMedia slot="media" src={flow} zoomable sizes={halfSizes} label="ReadySet — przepływ planowania i harmonogramu" ratio={`${flow.width} / ${flow.height}`} />
+  <CaseStudyMedia slot="media" src={flow} zoomable sizes={halfSizes} label="ReadySet - przepływ planowania i harmonogramu" ratio={`${flow.width} / ${flow.height}`} />
 </CaseStudySection>
 
 <CaseStudySection id="solution" title="Rozwiązanie i kluczowe decyzje" layout="split" mediaWidth="wide">
   <p>Propozycje uporządkowałam w kategoriach, takich jak nocleg czy transport. Każda ma własny status, głosowanie i komentarze, dzięki czemu dyskusja pozostaje przy konkretnym temacie. Uczestnicy mogą sprawdzić, co wymaga decyzji, bez przeszukiwania historii rozmowy.</p>
   <p>W koncepcji uwzględniłam dodawanie propozycji przez link z automatycznym pobieraniem nazwy i zdjęcia. Miało to ograniczyć ręczne uzupełnianie informacji. Wybrane opcje trafiają do harmonogramu, który można wyeksportować do PDF i zachować na czas podróży.</p>
   <CaseStudyGallery slot="media" layout="phones" items={[
-    { src: planning, sizes: phoneSizes, label: "ReadySet — planowanie wyjazdu", ratio: `${planning.width} / ${planning.height}` },
-    { src: comments, sizes: phoneSizes, label: "ReadySet — komentarze do propozycji", ratio: `${comments.width} / ${comments.height}` },
+    { src: planning, sizes: phoneSizes, label: "ReadySet - planowanie wyjazdu", ratio: `${planning.width} / ${planning.height}` },
+    { src: comments, sizes: phoneSizes, label: "ReadySet - komentarze do propozycji", ratio: `${comments.width} / ${comments.height}` },
   ]} />
   <CaseStudySection slot="visuals" id="interface" label="Interfejs oparty na Material Design" layout="split" mediaSide="left" mediaWidth="wide" align="center" contained={false}>
     <p>Interfejs oparłam na komponentach Material Design, dostosowując ich wygląd do ReadySet. Pozwoliło mi to skupić się na strukturze aplikacji i zachować znane wzorce interakcji.</p>
     <CaseStudyGallery slot="media" layout="phones" items={[
-      { src: adding, sizes: phoneSizes, label: "ReadySet — dodawanie propozycji", ratio: `${adding.width} / ${adding.height}` },
-      { src: schedule, sizes: phoneSizes, label: "ReadySet — ustalony harmonogram", ratio: `${schedule.width} / ${schedule.height}` },
+      { src: adding, sizes: phoneSizes, label: "ReadySet - dodawanie propozycji", ratio: `${adding.width} / ${adding.height}` },
+      { src: schedule, sizes: phoneSizes, label: "ReadySet - ustalony harmonogram", ratio: `${schedule.width} / ${schedule.height}` },
     ]} />
   </CaseStudySection>
 </CaseStudySection>
@@ -61,8 +61,8 @@ const phoneSizes = "(min-width: 1280px) 322.5px, (min-width: 1024px) calc(29.167
   <p>Klikalny prototyp sprawdziłam z kilkoma znajomymi. Poprosiłam ich o dodanie kategorii i propozycji oraz poruszanie się po aplikacji. Chciałam ocenić, czy struktura i podstawowe działania są zrozumiałe.</p>
   <p>Uczestnicy pozytywnie oceniali przejrzystość informacji i łatwość nawigacji. Była to jednak wstępna ocena z osobami z mojego otoczenia, a nie weryfikacja rzeczywistego planowania wyjazdu przez całą grupę.</p>
   <CaseStudyGallery slot="visuals" items={[
-    { src: "/assets/case-studies/ready-set/add-option.mp4", label: "ReadySet — dodawanie opcji", kind: "video", ratio: "1920 / 1362" },
-    { src: "/assets/case-studies/ready-set/new-option.mp4", label: "ReadySet — dodanie propozycji do planu", kind: "video", ratio: "1920 / 1362" },
+    { src: "/assets/case-studies/ready-set/add-option.mp4", label: "ReadySet - dodawanie opcji", kind: "video", ratio: "1920 / 1362" },
+    { src: "/assets/case-studies/ready-set/new-option.mp4", label: "ReadySet - dodanie propozycji do planu", kind: "video", ratio: "1920 / 1362" },
   ]} />
 </CaseStudySection>
 
