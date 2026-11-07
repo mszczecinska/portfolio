@@ -1,6 +1,7 @@
 ---
 import { Picture } from "astro:assets";
 import type { ImageMetadata } from "astro";
+import { wideImageSize } from "../../lib/responsiveImages";
 
 export interface Props {
   label: string;
@@ -16,7 +17,7 @@ export interface Props {
   zoomSrc?: string;
 }
 
-const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes = "(min-width: 1280px) 1216px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)", priority = false, fit = "contain", phoneFrame = false } = Astro.props;
+const { label, ratio = "1 / 1", desktopRatio = ratio, src, kind = "image", sizes = `${wideImageSize(76)}, (min-width: 1280px) 1216px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)`, priority = false, fit = "contain", phoneFrame = false } = Astro.props;
 const zoomSource = Astro.props.zoomable && src && kind === "image"
   ? Astro.props.zoomSrc ?? (typeof src === "string" ? src : src.src)
   : undefined;
@@ -48,7 +49,7 @@ const zoomSource = Astro.props.zoomable && src && kind === "image"
         fallbackFormat={src.format === "png" ? "png" : "jpg"}
         widths={[480, 800, 1200, 1600, 2400].filter(width => width < Math.min(src.width, 2400)).concat(Math.min(src.width, 2400))}
         width={Math.min(src.width, 2400)}
-        sizes={sizes}
+        sizes={priority ? sizes : `auto, ${sizes}`}
         quality={85}
         loading={priority ? "eager" : "lazy"}
         fetchpriority={priority ? "high" : "auto"}
@@ -74,7 +75,8 @@ const zoomSource = Astro.props.zoomable && src && kind === "image"
 <style>
   .case-media__zoom { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: flex-end; padding: var(--space-3); color: var(--color-text); cursor: zoom-in; }
   .case-media__zoom:focus-visible { outline-offset: -3px; }
-  .case-media__zoom-hint { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); background: var(--color-background); font-family: var(--font-label); font-size: 12px; text-transform: uppercase; transition: background-color var(--duration-ui) var(--ease-ui), color var(--duration-ui) var(--ease-ui); }
+  .case-media__zoom-hint { display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--control-height); padding: var(--space-2) var(--space-3); border: 1px solid var(--color-border); background: var(--color-background); font-family: var(--font-label); font-size: var(--text-label); text-transform: uppercase; transition: background-color var(--duration-ui) var(--ease-ui), color var(--duration-ui) var(--ease-ui); }
+  .case-media__zoom-hint svg { width: var(--space-5); height: var(--space-5); }
   .case-media__zoom:focus-visible .case-media__zoom-hint { background: var(--color-text); color: var(--color-background); }
   @media (hover: hover) and (pointer: fine) {
     .case-media__zoom:hover .case-media__zoom-hint { background: var(--color-text); color: var(--color-background); }

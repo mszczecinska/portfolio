@@ -380,15 +380,15 @@ const mobileSectionLabel = mobileNavItems.find((item) => item.key === activeKey)
   }
   @media (min-width: 64rem) {
     .header-actions > .home-header__language,
-    .header-actions > .header-email { height: 56px; min-height: 56px; padding-block: 0; }
-    .header-actions > .home-header__language { width: 56px; min-width: 56px; padding-inline: 0; }
+    .header-actions > .header-email { height: 3.5rem; min-height: 3.5rem; padding-block: 0; }
+    .header-actions > .home-header__language { width: 3.5rem; min-width: 3.5rem; padding-inline: 0; font-size: var(--text-body); }
   }
   .home-header nav > div { gap: var(--space-2); }
   @media (min-width: 64rem) {
     .home-header nav { justify-content: space-between; }
     .home-header nav > div, .home-header nav ul, .home-header nav li { display: contents; }
     .home-header nav :global(.type-nav) { color: var(--color-text-muted); }
-    .home-header .case-header__home { font-size: 32px; line-height: 56px; color: var(--color-text); }
+    .home-header .case-header__home { font-size: 2rem; line-height: 3.5rem; color: var(--color-text); }
   }
   .work-header__language { display: grid; place-items: center; width: 44px; height: 44px; font-family: var(--font-label); line-height: 1; }
   .work-header nav > div { gap: var(--space-2); }
@@ -405,7 +405,7 @@ const mobileSectionLabel = mobileNavItems.find((item) => item.key === activeKey)
   @media (min-width: 64rem) {
     .case-header > div { padding-block: var(--space-5); }
     .case-header[data-scroll-header].is-floating > div { padding-bottom: var(--space-5); }
-    .case-header nav { min-height: 3.5rem; justify-content: space-between; gap: clamp(24px, 3vw, 40px); }
+    .case-header nav { min-height: 3.5rem; justify-content: space-between; gap: clamp(var(--space-6), 3vw, var(--space-10)); }
     .case-header nav > a:first-child { display: inline-flex; padding-block: 0; }
     .case-header__home { font-size: 1.25rem; color: var(--color-text-muted); }
     .case-header__current { display: none; }

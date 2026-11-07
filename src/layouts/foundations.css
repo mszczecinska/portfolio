@@ -17,6 +17,8 @@
 
 :root {
   color-scheme: light;
+  /* Start growing from 1920px at the default browser font size. */
+  font-size: clamp(100%, calc(0.75vw + 10%), 350%);
 
   --font-body: "Satoshi", "Avenir Next", "Segoe UI", sans-serif;
   --font-label: "Geist Mono", "SFMono-Regular", Consolas, monospace;

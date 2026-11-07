@@ -201,38 +201,39 @@ const workingMethods = [
   }
   @media (min-width: 64rem) {
     .about-page { gap: var(--space-30); padding-bottom: var(--space-30); }
-    .about-page h2 { font-size: 40px; }
-    .about-intro { grid-template-columns: minmax(0, 412fr) minmax(0, 701fr); column-gap: clamp(40px, 8vw, 103px); row-gap: var(--space-10); }
+    .about-page h2 { font-size: 2.5rem; }
+    .about-intro { grid-template-columns: minmax(0, 412fr) minmax(0, 701fr); column-gap: clamp(2.5rem, 8vw, 6.4375rem); row-gap: var(--space-10); }
     .about-intro-copy { gap: var(--space-10); }
-    .about-intro h1 { font-size: 64px; }
+    .about-intro h1 { font-size: 4rem; }
     .about-portrait { grid-column: 1; grid-row: 1; width: 100%; aspect-ratio: 412 / 472; }
-    .about-bio { font-size: 16px; }
-    .about-bio p + p { margin-top: 24px; }
+    .about-bio { font-size: var(--text-body); }
+    .about-bio p + p { margin-top: var(--space-6); }
     .about-socials { grid-column: 2; justify-content: flex-start; align-items: start; gap: var(--space-5); }
     .about-tools { gap: var(--space-10); }
-    .about-tools__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 61px; }
-    .about-tools__grid li { gap: var(--space-5); font-size: 18px; }
-    .tool-icon { width: 44px; height: 44px; }
-    .tool-icon > img, .tool-icon picture img { width: 44px; }
-    .tool-icon--crop { height: 44.6875px; }
+    .about-tools__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 3.8125rem; }
+    .about-tools__grid li { gap: var(--space-5); font-size: 1.125rem; }
+    .tool-icon { width: 2.75rem; height: 2.75rem; }
+    .tool-icon > img, .tool-icon picture img { width: 2.75rem; }
+    .tool-icon--crop { height: 2.793rem; }
     .tool-icon--crop > img { width: 126.73%; }
-    .tool-icon--vercel { height: 37.8125px; }
+    .tool-icon--vercel { height: 2.363rem; }
     .about-process { grid-template-columns: minmax(0, 491fr) minmax(0, 705fr); gap: var(--space-5); }
-    .about-process__intro { font-size: 16px; line-height: 30px; margin-bottom: var(--space-10); }
+    .about-process__intro { font-size: var(--text-body); line-height: 1.875; margin-bottom: var(--space-10); }
     .process-dots { display: none; }
     .process-slides { display: block; overflow: visible; }
     .process-slide { grid-template-columns: minmax(0, 262fr) minmax(0, 419fr); padding-block: var(--space-3); }
     .process-slide:first-child { padding-top: 0; }
     .process-slide + .process-slide { border-top: 1px solid var(--color-border); }
-    .process-slide p { font-size: 16px; }
+    .process-slide p { font-size: var(--text-body); line-height: 1.5625; }
     .recommendation-controls button { padding: var(--space-4); }
     .recommendation { padding-block: var(--space-6); }
-    .recommendation blockquote { font-size: 20px; }
-    .recommendation figcaption { gap: var(--space-5); margin-top: var(--space-10); font-size: 16px; }
-    .recommendation figcaption > img { width: 64px; height: 64px; }
+    .recommendation blockquote { font-size: 1.25em; }
+    .recommendation figcaption { gap: var(--space-5); margin-top: var(--space-10); font-size: var(--text-body); line-height: 1.5; }
+    .recommendation figcaption > img { width: var(--space-16); height: var(--space-16); }
     .recommendation-role { margin-top: var(--space-2); }
-    .about-contact > div { width: 700px; max-width: 100%; margin-left: auto; }
+    .about-contact > div { width: 43.75rem; max-width: 100%; margin-left: auto; }
     .about-contact__button { align-self: flex-start; }
+    .about-socials img, .about-contact__arrow img { width: var(--space-6); height: auto; }
   }
 </style>
 
