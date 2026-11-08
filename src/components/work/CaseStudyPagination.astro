@@ -5,22 +5,24 @@ import { getProjectCover } from "../../lib/projectCovers";
 import { wideImageSize } from "../../lib/responsiveImages";
 
 import { projectCards } from "../../lib/work";
+import { languageFromPath, languagePath } from "../../i18n/routes";
 
 interface Props { slug: string; }
 const { slug } = Astro.props;
+const language = languageFromPath(Astro.url.pathname);
 const currentIndex = projectCards.findIndex(project => project.slug === slug);
 if (currentIndex === -1) throw new Error(`Project missing from work listing: ${slug}`);
 const previous = projectCards[(currentIndex - 1 + projectCards.length) % projectCards.length];
 const next = projectCards[(currentIndex + 1) % projectCards.length];
 const projects = [
-  { ...next, href: `/work/${next.slug}`, direction: "next", label: "Następny projekt" },
-  { ...previous, href: `/work/${previous.slug}`, direction: "previous", label: "Poprzedni projekt" },
+  { ...next, direction: "next", label: "Następny projekt" },
+  { ...previous, direction: "previous", label: "Poprzedni projekt" },
 ];
 ---
 
 <nav class="case-pagination page-container" aria-label="Inne projekty">
   {projects.map(project => (
-    <a class:list={["case-pagination__project", `case-pagination__${project.direction}`]} href={project.href}>
+    <a class:list={["case-pagination__project", `case-pagination__${project.direction}`]} href={languagePath(`/${project.slug}`, language)}>
       <div class="case-pagination__direction">
         {project.direction === "previous" && <TablerIcon name="arrow-narrow-right" class="case-pagination__arrow case-pagination__arrow--previous" />}
         <p class="type-label">{project.label}</p>

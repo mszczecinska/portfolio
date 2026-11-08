@@ -104,10 +104,12 @@ const workingMethods = [
         <button class="btn-primary" type="button" aria-label="Następna rekomendacja" data-recommendation-next><img src="/assets/about/arrow-right.svg" width="24" height="24" alt="" /></button>
       </div>
       <div aria-live="polite" aria-atomic="true">
-        {testimonials.map((item, index) => <figure class="recommendation" hidden={index !== 0} data-recommendation role="group" aria-roledescription="slajd" aria-label={`${index + 1} z ${testimonials.length}`}>
-          <blockquote>{item.quote}</blockquote>
-          <figcaption><img src={item.photo} width="64" height="64" alt="" loading="lazy" /><div><p>{item.name}</p><p class="recommendation-role">{item.role}</p></div></figcaption>
-        </figure>)}
+        {testimonials.map((item, index) => <div class="recommendation" hidden={index !== 0} data-recommendation role="group" aria-roledescription="slajd" aria-label={`${index + 1} z ${testimonials.length}`}>
+          <figure>
+            <blockquote>{item.quote}</blockquote>
+            <figcaption><img src={item.photo} width="64" height="64" alt="" loading="lazy" /><div><p>{item.name}</p><p class="recommendation-role">{item.role}</p></div></figcaption>
+          </figure>
+        </div>)}
       </div>
     </section>
 

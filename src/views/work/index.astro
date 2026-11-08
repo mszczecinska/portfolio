@@ -5,78 +5,81 @@ import { getProjectCover } from "../../lib/projectCovers";
 import { wideImageSize } from "../../lib/responsiveImages";
 
 import { projectCards, experimentCards } from "../../lib/work";
+import { experimentsPath, languageFromPath, languagePath, workPath } from "../../i18n/routes";
 
+const language = languageFromPath(Astro.url.pathname);
 const groups = [
-  { id: "projects", label: "Projekty", cards: projectCards },
-  { id: "experiments", label: "Eksperymenty", cards: experimentCards },
+  { id: "projects", path: workPath, label: "Projekty", cards: projectCards },
+  { id: "experiments", path: experimentsPath, label: "Eksperymenty", cards: experimentCards },
 ];
-const activeGroup = Astro.url.searchParams.get("category") === "experiments" ? "experiments" : "projects";
+const isExperiments = languagePath(Astro.url.pathname, "pl") === experimentsPath;
+const group = isExperiments ? groups[1] : groups[0];
+const title = isExperiments ? "Eksperymenty" : "Work";
+const description = isExperiments
+  ? "Eksperymenty Magdy Szczecińskiej z identyfikacją wizualną i projektowaniem stron."
+  : "Projekty UX/UI, design systemy i eksperymenty Magdaleny Szczecińskiej.";
 ---
 
-<Layout title="Work" description="Projekty UX/UI, design systemy i eksperymenty Magdaleny Szczecińskiej." workPage>
-  <h1 class="sr-only">Realizacje i eksperymenty</h1>
+<Layout title={title} description={description} workPage>
+  <h1 class="sr-only">{isExperiments ? "Eksperymenty" : "Realizacje i eksperymenty"}</h1>
   <div class="work-page" data-work-page>
     <nav class="work-categories page-container" aria-label="Kategorie realizacji">
-      {groups.map((group) => (
+      {groups.map((item) => (
         <a
-          href={group.id === "projects" ? "/work" : "/work?category=experiments"}
+          href={languagePath(item.path, language)}
           class="work-category"
-          aria-current={activeGroup === group.id ? "true" : undefined}
-          data-work-category={group.id}
-          aria-controls={`work-${group.id}`}
+          aria-current={item.id === group.id ? "page" : undefined}
+          data-work-category={item.id}
         >
-          <span class="entry-mask"><span data-entry-reveal>{group.label} ({String(group.cards.length).padStart(2, "0")})</span></span>
+          <span class="entry-mask"><span data-entry-reveal>{item.label} ({String(item.cards.length).padStart(2, "0")})</span></span>
         </a>
       ))}
     </nav>
 
-    {groups.map((group) => (
-      <section
-        id={`work-${group.id}`}
-        class:list={["work-grid", { "work-grid--experiments": group.id === "experiments" }]}
-        data-work-group={group.id}
-        aria-label={group.label}
-        hidden={activeGroup !== group.id}
-      >
-        {group.cards.map((card, index) => {
-          const cover = getProjectCover(card.slug);
-          const href = `/work/${card.slug}`;
-          return (
-            <article class:list={["work-card", { "work-card--featured": group.id === "projects" && index < 2 }]}>
-              <a
-                href={href}
-                class="work-card__link"
-                aria-labelledby={`title-${card.slug}`}
-              >
-                <div class="work-card__heading">
-                  <p class="work-card__badges type-label">{card.badges}</p>
-                  <h2 id={`title-${card.slug}`}>{card.title}</h2>
-                  <span class="work-card__arrow" aria-hidden="true">
-                    <img src="/assets/work/arrow-down-left.svg" width="46" height="46" alt="" />
-                  </span>
-                </div>
-                <div class:list={["work-card__media", { "media-placeholder": !cover }]} aria-hidden="true" data-project-cover={cover ? card.slug : undefined}>
-                  {cover && <Picture
-                    src={cover}
-                    alt=""
-                    formats={["avif", "webp"]}
-                    widths={[480, 800, 1200, 1600, 2400]}
-                    sizes={group.id === "experiments"
-                      ? `${wideImageSize(30.375)}, (min-width: 1280px) 486px, (min-width: 1024px) calc(40.635vw - 34.134px), calc(100vw - 40px)`
-                      : index < 2
-                        ? `${wideImageSize(35.5)}, (min-width: 1280px) 568px, (min-width: 1024px) calc(50vw - 72px), calc(100vw - 40px)`
-                        : `auto, ${wideImageSize(16.875)}, (min-width: 1280px) 270px, (min-width: 1024px) calc(25vw - 46px), calc(100vw - 40px)`}
-                    quality={85}
-                    loading={activeGroup === group.id && index === 0 ? "eager" : "lazy"}
-                  />}
-                </div>
-                <p class="work-card__description">{card.description}</p>
-              </a>
-            </article>
-          );
-        })}
-      </section>
-    ))}
+    <section
+      id={`work-${group.id}`}
+      class:list={["work-grid", { "work-grid--experiments": group.id === "experiments" }]}
+      data-work-group={group.id}
+      aria-label={group.label}
+    >
+      {group.cards.map((card, index) => {
+        const cover = getProjectCover(card.slug);
+        const href = languagePath(`/${card.slug}`, language);
+        return (
+          <article class:list={["work-card", { "work-card--featured": group.id === "projects" && index < 2 }]}>
+            <a
+              href={href}
+              class="work-card__link"
+              aria-labelledby={`title-${card.slug}`}
+            >
+              <div class="work-card__heading">
+                <p class="work-card__badges type-label">{card.badges}</p>
+                <h2 id={`title-${card.slug}`}>{card.title}</h2>
+                <span class="work-card__arrow" aria-hidden="true">
+                  <img src="/assets/work/arrow-down-left.svg" width="46" height="46" alt="" />
+                </span>
+              </div>
+              <div class:list={["work-card__media", { "media-placeholder": !cover }]} aria-hidden="true" data-project-cover={cover ? card.slug : undefined}>
+                {cover && <Picture
+                  src={cover}
+                  alt=""
+                  formats={["avif", "webp"]}
+                  widths={[480, 800, 1200, 1600, 2400]}
+                  sizes={group.id === "experiments"
+                    ? `${wideImageSize(30.375)}, (min-width: 1280px) 486px, (min-width: 1024px) calc(40.635vw - 34.134px), calc(100vw - 40px)`
+                    : index < 2
+                      ? `${wideImageSize(35.5)}, (min-width: 1280px) 568px, (min-width: 1024px) calc(50vw - 72px), calc(100vw - 40px)`
+                      : `auto, ${wideImageSize(16.875)}, (min-width: 1280px) 270px, (min-width: 1024px) calc(25vw - 46px), calc(100vw - 40px)`}
+                  quality={85}
+                  loading={index === 0 ? "eager" : "lazy"}
+                />}
+              </div>
+              <p class="work-card__description">{card.description}</p>
+            </a>
+          </article>
+        );
+      })}
+    </section>
   </div>
 </Layout>
 
@@ -86,7 +89,6 @@ const activeGroup = Astro.url.searchParams.get("category") === "experiments" ? "
   .work-category { color: var(--color-text-muted); font-size: 20px; line-height: normal; text-decoration: none; white-space: nowrap; }
   .work-category[aria-current] { color: var(--color-text); font-size: 24px; font-weight: var(--weight-regular); }
   .work-grid { border-top: 1px solid var(--color-border); padding-top: 8px; }
-  .work-grid[hidden] { display: none; }
   .work-card { position: relative; isolation: isolate; min-width: 0; padding: 20px; border-bottom: 1px solid var(--color-border); }
   .work-card::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: var(--color-surface); opacity: 0; transition: opacity 240ms var(--ease-editorial); }
   .work-card + .work-card { margin-top: 8px; }
@@ -171,37 +173,24 @@ const activeGroup = Astro.url.searchParams.get("category") === "experiments" ? "
 </style>
 
 <script>
-  import { enterWorkCategory } from "../../scripts/page-entry";
+  import { experimentsPath, languageFromPath, languagePath, workPath } from "../../i18n/routes";
 
-  function setupWorkCategories() {
-    const root = document.querySelector<HTMLElement>("[data-work-page]");
-    if (!root || root.dataset.initialized) return;
-    root.dataset.initialized = "true";
-    const links = [...root.querySelectorAll<HTMLAnchorElement>("[data-work-category]")];
-    const groups = [...root.querySelectorAll<HTMLElement>("[data-work-group]")];
-    let activeCategory = "";
-    const select = (category: string, animate = false) => {
-      if (category === activeCategory) return false;
-      activeCategory = category;
-      links.forEach((link) => {
-        if (link.dataset.workCategory === category) link.setAttribute("aria-current", "true");
-        else link.removeAttribute("aria-current");
-      });
-      groups.forEach((group) => { group.hidden = group.dataset.workGroup !== category; });
-      const selectedGroup = groups.find(group => !group.hidden);
-      if (animate && selectedGroup) enterWorkCategory(selectedGroup);
-      return true;
-    };
-    select(new URLSearchParams(location.search).get("category") === "experiments" ? "experiments" : "projects");
-    links.forEach((link) => link.addEventListener("click", (event) => {
-      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
-      event.preventDefault();
-      if (select(link.dataset.workCategory!, true)) history.pushState({}, "", link.href);
-    }));
-    window.addEventListener("popstate", () => {
-      if (root.isConnected) select(new URLSearchParams(location.search).get("category") === "experiments" ? "experiments" : "projects", true);
-    });
+  // Preserve links to the previous filter on static previews and other hosts.
+  function redirectLegacyCategory() {
+    const url = new URL(window.location.href);
+    const path = languagePath(url.pathname, "pl");
+    if (path !== workPath && path !== experimentsPath) return;
+    if (url.searchParams.get("category") !== "experiments") return;
+
+    url.searchParams.delete("category");
+    if (path === experimentsPath) {
+      history.replaceState(history.state, "", url);
+    } else {
+      url.pathname = languagePath(experimentsPath, languageFromPath(url.pathname));
+      window.location.replace(url);
+    }
   }
-  setupWorkCategories();
-  document.addEventListener("astro:page-load", setupWorkCategories);
+
+  redirectLegacyCategory();
+  document.addEventListener("astro:page-load", redirectLegacyCategory);
 </script>

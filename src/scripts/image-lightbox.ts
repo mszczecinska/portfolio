@@ -10,7 +10,9 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
   const title = dialog.querySelector<HTMLElement>("[data-lightbox-title]")!;
   const message = dialog.querySelector<HTMLElement>("[data-lightbox-message]")!;
   const status = dialog.querySelector<HTMLElement>("[data-lightbox-status]")!;
-  const original = dialog.querySelector<HTMLAnchorElement>("[data-lightbox-original]")!;
+  const original = document.createElement("a");
+  original.target = "_blank";
+  original.rel = "noopener noreferrer";
   const zoomIn = dialog.querySelector<HTMLButtonElement>("[data-zoom-in]")!;
   const zoomOut = dialog.querySelector<HTMLButtonElement>("[data-zoom-out]")!;
   const reset = dialog.querySelector<HTMLButtonElement>("[data-zoom-reset]")!;
@@ -127,6 +129,7 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     ready = false;
     image.hidden = true;
     image.removeAttribute("src");
+    original.remove();
     if (trigger?.isConnected) trigger.focus({ preventScroll: true });
     trigger = null;
   };
@@ -141,8 +144,6 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     image.alt = title.textContent;
     message.hidden = false;
     status.textContent = uiText("Wczytywanie obrazu…");
-    original.href = link.href;
-    original.hidden = true;
     stage.setAttribute("aria-busy", "true");
     ready = false;
     image.hidden = true;
@@ -176,11 +177,13 @@ export function setupImageLightbox(dialog: HTMLDialogElement) {
     }
   }, { signal });
   image.addEventListener("error", () => {
-    if (!dialog.open) return;
+    if (!dialog.open || !trigger) return;
     ready = false;
     stage.setAttribute("aria-busy", "false");
     status.textContent = uiText("Nie udało się wczytać obrazu.");
-    original.hidden = false;
+    original.href = trigger.href;
+    original.textContent = uiText("Otwórz plik obrazu");
+    message.append(original);
     render();
   }, { signal });
   dialog.querySelector("[data-lightbox-close]")!.addEventListener("click", requestClose, { signal });

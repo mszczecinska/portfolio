@@ -7,6 +7,7 @@ const messages: Record<string, string> = {
   'Podgląd obrazu': 'Image preview',
   'Wczytywanie obrazu…': 'Loading image…',
   'Nie udało się wczytać obrazu.': 'The image could not be loaded.',
+  'Otwórz plik obrazu': 'Open image file',
   'Nie udało się pobrać filmu.': 'The video could not be downloaded.',
   'Przeglądarka nie mogła odczytać filmu.': 'The browser could not decode the video.',
   'Przeglądarka nie obsługuje dostępnych formatów filmu.': 'The browser does not support the available video formats.',

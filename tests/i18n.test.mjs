@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readdir, readFile, access } from 'node:fs/promises';
+import { readFile, access } from 'node:fs/promises';
 import { parse } from 'parse5';
 
 const dictionary = JSON.parse(await readFile(new URL('../src/i18n/en.json', import.meta.url), 'utf8'));
@@ -23,21 +23,23 @@ function inspect(html) {
   return { nodes, texts };
 }
 const attr = (node, name) => node.attrs.find(a => a.name === name)?.value;
-async function pages(directory, prefix = '') {
-  const result = [];
-  for (const entry of await readdir(directory, { withFileTypes: true })) {
-    if (entry.isDirectory()) result.push(...await pages(new URL(`${entry.name}/`, directory), `${prefix}${entry.name}/`));
-    else if (entry.name === 'index.html') result.push(`${prefix}index.html`);
-  }
-  return result;
-}
-const englishPages = (await pages(new URL('en/', dist))).filter(path => !path.startsWith('contact/') && !path.startsWith('work/szczecinska-design-portfolio/'));
+const site = 'https://szczecinska.design';
+const redirects = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8')).redirects;
+const pagePairs = [
+  ['/', '/en/'],
+  ['/o-mnie', '/en/about'],
+  ['/realizacje', '/en/work'],
+  ['/eksperymenty', '/en/experiments'],
+  ...['akademia', 'aurapura', 'insightx', 'miropoix', 'mova', 'obrys', 'readyset']
+    .map(slug => [`/${slug}`, `/en/${slug}`]),
+];
+const pageFile = path => new URL(`.${path.replace(/\/$/, '')}/index.html`, dist);
+const readPage = path => readFile(pageFile(path), 'utf8');
 
-test('All ten public pages have a complete English equivalent', async () => {
-  assert.equal(englishPages.length, 10);
-  for (const path of englishPages) {
-    const pl = inspect(await readFile(new URL(path, dist), 'utf8'));
-    const en = inspect(await readFile(new URL(`en/${path}`, dist), 'utf8'));
+test('All public pages have a complete English equivalent', async () => {
+  for (const [path, englishPath] of pagePairs) {
+    const pl = inspect(await readPage(path));
+    const en = inspect(await readPage(englishPath));
     assert.deepEqual(en.texts, pl.texts.map(source => dictionary[source] ?? source), `${path}: Every text and accessible label must match its counterpart`);
     const translated = new Set(en.texts);
     for (const source of pl.texts) {
@@ -50,34 +52,34 @@ test('All ten public pages have a complete English equivalent', async () => {
   }
 });
 
-test('English navigation stays in English and every local destination exists', async () => {
-  for (const path of englishPages) {
-    const { nodes } = inspect(await readFile(new URL(`en/${path}`, dist), 'utf8'));
-    for (const node of nodes.filter(n => n.tagName === 'a')) {
-      const href = attr(node, 'href');
-      if (!href?.startsWith('/') || href.startsWith('//')) continue;
-      if (node.attrs.some(a => a.name === 'data-language-switch')) {
-        assert.ok(!href.startsWith('/en'), `${path}: Switch must return to Polish`);
-        continue;
-      }
-      if (/^\/(?:work|about|contact)(?:[/?#]|$)/.test(href) || /^\/(?:#|$)/.test(href)) assert.fail(`${path}: Language lost at ${href}`);
-      if (href.startsWith('/en')) {
-        const target = new URL(href, 'https://szczecinska.design').pathname.replace(/\/$/, '');
-        await access(new URL(`${target.slice(1)}/index.html`, dist));
+test('Internal links use canonical paths in the current language', async () => {
+  for (const index of [0, 1]) {
+    const paths = new Set(pagePairs.map(pair => pair[index]));
+    for (const path of paths) {
+      const { nodes } = inspect(await readPage(path));
+      for (const node of nodes.filter(n => n.tagName === 'a' && attr(n, 'data-language-switch') === undefined)) {
+        const href = attr(node, 'href');
+        if (!href?.startsWith('/') || href.startsWith('//')) continue;
+        const target = new URL(href, site);
+        if (target.pathname.startsWith('/_astro/') || target.pathname.startsWith('/assets/')) {
+          await access(new URL('.' + target.pathname, dist));
+        } else {
+          assert.ok(paths.has(target.pathname), `${path}: ${href}`);
+          assert.equal(target.searchParams.has('category'), false, href);
+        }
       }
     }
   }
 });
 
 test('Canonical and alternate language URLs identify the corresponding pages', async () => {
-  for (const path of englishPages) {
-    const suffix = path === 'index.html' ? '' : path.replace('/index.html', '');
-    for (const language of ['pl', 'en']) {
-      const { nodes } = inspect(await readFile(new URL(`${language === 'en' ? 'en/' : ''}${path}`, dist), 'utf8'));
+  for (const [plPath, enPath] of pagePairs) {
+    const expectedPl = site + plPath;
+    const expectedEn = site + enPath;
+    for (const [path, canonical] of [[plPath, expectedPl], [enPath, expectedEn]]) {
+      const { nodes } = inspect(await readPage(path));
       const links = nodes.filter(n => n.tagName === 'link');
-      const expectedPl = `https://szczecinska.design/${suffix}`;
-      const expectedEn = `https://szczecinska.design/en/${suffix}`.replace(/\/$/, suffix ? '' : '/');
-      assert.equal(attr(links.find(n => attr(n, 'rel') === 'canonical'), 'href'), language === 'pl' ? expectedPl : expectedEn);
+      assert.equal(attr(links.find(n => attr(n, 'rel') === 'canonical'), 'href'), canonical);
       for (const [lang, url] of [['pl', expectedPl], ['en', expectedEn], ['x-default', expectedPl]]) {
         assert.equal(attr(links.find(n => attr(n, 'hreflang') === lang), 'href'), url);
       }
@@ -85,15 +87,42 @@ test('Canonical and alternate language URLs identify the corresponding pages', a
   }
 });
 
+test('Social previews use the localised metadata and an existing image', async () => {
+  for (const [plPath, enPath] of pagePairs) {
+    let polishImage;
+    for (const [path, language] of [[plPath, 'pl'], [enPath, 'en']]) {
+      const { nodes } = inspect(await readPage(path));
+      const meta = nodes.filter(n => n.tagName === 'meta');
+      const og = name => attr(meta.find(n => attr(n, 'property') === `og:${name}`), 'content');
+      const canonical = nodes.find(n => n.tagName === 'link' && attr(n, 'rel') === 'canonical');
+      const title = nodes.find(n => n.tagName === 'title').childNodes[0].value;
+      assert.equal(og('title'), title, path);
+      assert.equal(og('description'), attr(meta.find(n => attr(n, 'name') === 'description'), 'content'), path);
+      assert.equal(og('url'), attr(canonical, 'href'), path);
+      assert.equal(og('locale'), language === 'en' ? 'en_GB' : 'pl_PL', path);
+      assert.equal(og('image:width'), '1200', path);
+      assert.equal(og('image:height'), '630', path);
+      assert.ok(og('image:alt'), path);
+      const image = new URL(og('image'));
+      assert.equal(image.origin, new URL(og('url')).origin, path);
+      await access(new URL(image.pathname.slice(1), dist));
+      if (language === 'pl') polishImage = image.href;
+      else assert.equal(image.href, polishImage, path);
+    }
+  }
+});
+
 test('Both language switches point to the exact same page in the other language', async () => {
-  for (const path of englishPages) {
-    const suffix = path === 'index.html' ? '' : path.replace('/index.html', '');
-    for (const language of ['pl', 'en']) {
-      const { nodes } = inspect(await readFile(new URL(`${language === 'en' ? 'en/' : ''}${path}`, dist), 'utf8'));
+  for (const [plPath, enPath] of pagePairs) {
+    for (const [path, target, targetLanguage] of [[plPath, enPath, 'en'], [enPath, plPath, 'pl']]) {
+      const { nodes } = inspect(await readPage(path));
       const switches = nodes.filter(n => n.attrs.some(a => a.name === 'data-language-switch'));
       assert.equal(switches.length, 1);
-      assert.equal(attr(switches[0], 'href'), language === 'en' ? `/${suffix}` : `/en/${suffix}`);
-      assert.equal(attr(switches[0], 'hreflang'), language === 'en' ? 'pl' : 'en');
+      assert.equal(attr(switches[0], 'href'), target);
+      assert.equal(attr(switches[0], 'hreflang'), targetLanguage);
+      const visibleLabel = normalise(switches[0].childNodes[0].value);
+      assert.equal(visibleLabel, targetLanguage.toUpperCase());
+      assert.ok(attr(switches[0], 'aria-label').startsWith(visibleLabel + ' '), path);
     }
   }
 });
@@ -103,18 +132,18 @@ test('Translation preserves images, videos, scripts, IDs and external links', as
     .filter(a => ['src', 'srcset', 'poster', 'id', 'aria-controls', 'aria-labelledby', 'aria-describedby'].includes(a.name)
       || (node.tagName === 'a' && a.name === 'href' && /^(?:https?:\/\/|\/\/)/.test(a.value)))
     .map(a => `${node.tagName}:${a.name}:${a.value}`));
-  for (const path of englishPages) {
-    const pl = inspect(await readFile(new URL(path, dist), 'utf8'));
-    const en = inspect(await readFile(new URL(`en/${path}`, dist), 'utf8'));
+  for (const [path, englishPath] of pagePairs) {
+    const pl = inspect(await readPage(path));
+    const en = inspect(await readPage(englishPath));
     assert.deepEqual(resources(en.nodes), resources(pl.nodes), path);
     const scripts = html => [...html.matchAll(/<script\b[^>]*>[\s\S]*?<\/script>/g)].map(match => match[0]);
-    assert.deepEqual(scripts(await readFile(new URL(`en/${path}`, dist), 'utf8')), scripts(await readFile(new URL(path, dist), 'utf8')), path);
+    assert.deepEqual(scripts(await readPage(englishPath)), scripts(await readPage(path)), path);
   }
 });
 
 test('Email links have an English subject and keep the same recipient', async () => {
-  for (const path of englishPages) {
-    const { nodes } = inspect(await readFile(new URL(`en/${path}`, dist), 'utf8'));
+  for (const [, englishPath] of pagePairs) {
+    const { nodes } = inspect(await readPage(englishPath));
     const mailLinks = nodes.filter(n => attr(n, 'href')?.startsWith('mailto:'));
     assert.ok(mailLinks.length > 0);
     for (const link of mailLinks) {
@@ -125,12 +154,37 @@ test('Email links have an English subject and keep the same recipient', async ()
   }
 });
 
-test('Sitemap contains every English page and no redirect pages', async () => {
+test('Sitemap lists only the canonical public URLs', async () => {
   const sitemap = await readFile(new URL('sitemap-0.xml', dist), 'utf8');
   const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => match[1]);
-  for (const path of englishPages) {
-    const suffix = path === 'index.html' ? '' : path.replace('/index.html', '');
-    assert.ok(locations.includes(`https://szczecinska.design/en/${suffix}${suffix ? '/' : ''}`), suffix);
+  assert.deepEqual(locations.sort(), pagePairs.flat().map(path => site + path).sort());
+});
+
+test('Legacy paths have a permanent Vercel rule and a static fallback', async () => {
+  const publicPaths = new Set(pagePairs.flat());
+  for (const { source, destination, permanent, has } of redirects) {
+    const target = new URL(destination, site);
+    assert.ok(publicPaths.has(target.pathname), destination);
+    assert.equal(permanent, true, source);
+    if (has) {
+      assert.deepEqual(has, [{ type: 'query', key: 'category', value: 'experiments' }]);
+      assert.equal(target.pathname, source.startsWith('/en/') ? '/en/experiments' : '/eksperymenty');
+      continue;
+    }
+    assert.ok(!publicPaths.has(source), source);
+    const { nodes } = inspect(await readPage(source));
+    const refresh = nodes.find(n => n.tagName === 'meta' && attr(n, 'http-equiv') === 'refresh');
+    const canonical = nodes.find(n => n.tagName === 'link' && attr(n, 'rel') === 'canonical');
+    assert.equal(attr(refresh, 'content'), `0;url=${destination}`);
+    assert.equal(attr(canonical, 'href'), target.href);
   }
-  assert.ok(!locations.some(url => /\/(?:contact|project)(?:\/|$)/.test(url) || url.includes('szczecinska-design-portfolio')));
+});
+
+test('Robots policy separates training from ChatGPT search and reading', async () => {
+  const robots = await readFile(new URL('robots.txt', dist), 'utf8');
+  assert.match(robots, /^User-agent: GPTBot\r?\nDisallow: \/$/m);
+  assert.match(robots, /^User-agent: OAI-SearchBot\r?\nAllow: \/$/m);
+  assert.match(robots, /^User-agent: ChatGPT-User\r?\nAllow: \/$/m);
+  assert.match(robots, /^User-agent: \*\r?\nAllow: \/$/m);
+  assert.match(robots, /^Sitemap: https:\/\/[^/]+\/sitemap-index\.xml$/m);
 });

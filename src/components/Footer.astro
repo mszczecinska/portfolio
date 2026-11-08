@@ -2,16 +2,18 @@
 import { socialLinks } from "../lib/social";
 import TablerIcon from "./TablerIcon.astro";
 import { contactEmail, contactMailto } from "../lib/contact";
+import { aboutPath, languageFromPath, languagePath, workPath } from "../i18n/routes";
 
 interface Props { showDivider?: boolean; }
 const { showDivider = true } = Astro.props;
 
 const currentYear = new Date().getFullYear();
+const language = languageFromPath(Astro.url.pathname);
 
 const footerNav = [
-  { label: "Główna", href: "/" },
-  { label: "Realizacje", href: "/work" },
-  { label: "O mnie", href: "/about" },
+  { label: "Główna", href: languagePath("/", language) },
+  { label: "Realizacje", href: languagePath(workPath, language) },
+  { label: "O mnie", href: languagePath(aboutPath, language) },
 ] as const;
 
 const desktopDots = [

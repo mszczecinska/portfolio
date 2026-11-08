@@ -2,12 +2,14 @@
 import Layout from "../../layouts/Layout.astro";
 import "./case-study.css";
 import ImageLightbox from "./ImageLightbox.astro";
+import { getProjectCover } from "../../lib/projectCovers";
 
 interface Props { title: string; description: string; }
 const { title, description } = Astro.props;
+const slug = Astro.url.pathname.split("/").filter(Boolean).at(-1) ?? "";
 ---
 
-<Layout title={title} description={description} caseStudyHeader>
+<Layout title={title} description={description} socialImage={getProjectCover(slug)} caseStudyHeader>
   <article class="case-study" aria-labelledby="case-study-title">
     <slot />
   </article>

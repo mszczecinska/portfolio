@@ -137,18 +137,6 @@ export function enterRecommendation(slide: HTMLElement) {
   });
 }
 
-export function enterWorkCategory(group: HTMLElement) {
-  // Fast toggles should restart the cards, never stack entrances on them.
-  animations.forEach(animation => {
-    const target = (animation.effect as KeyframeEffect | null)?.target;
-    if (target instanceof HTMLElement && target.matches(".work-card__link")) animation.cancel();
-  });
-  if (!shouldAnimate()) return;
-  group.querySelectorAll<HTMLElement>(".work-card__link").forEach(card => {
-    if (visible(card)) enterContent(card, 0, 220);
-  });
-}
-
 function enterPage(root: HTMLElement) {
   if (!root.isConnected || root.dataset.entryPlayed) return;
   root.dataset.entryPlayed = "true";

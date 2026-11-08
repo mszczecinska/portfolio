@@ -6,13 +6,13 @@ import AurapuraCaseContent from "../../components/work/cases/AurapuraCaseContent
 import { getProjectCover } from "../../lib/projectCovers";
 import { getProjectBySlug } from "../../lib/projects";
 
-const project = getProjectBySlug("aurapura-design-system");
-if (!project) return Astro.redirect("/work");
+const project = getProjectBySlug("aurapura");
+if (!project) return Astro.redirect("/realizacje");
 ---
 
 <CaseStudyShell title="AuraPura - od założeń marki do design systemu" description={project.description}>
   <CaseStudyIntro
-    cover={getProjectCover("aurapura-design-system")}
+    cover={getProjectCover("aurapura")}
     title="AuraPura"
     subtitle="Od założeń marki do design systemu"
     overview="AuraPura to koncepcyjny design system dla e-commerce, przygotowany w ramach kursu Design System Intro. Przełożyłam brief i materiały marki na tokeny, komponenty oraz responsywne widoki mobile, tablet i desktop."
@@ -26,5 +26,5 @@ if (!project) return Astro.redirect("/work");
     ]}
   />
   <AurapuraCaseContent />
-  <CaseStudyPagination slug="aurapura-design-system" />
+  <CaseStudyPagination slug="aurapura" />
 </CaseStudyShell>

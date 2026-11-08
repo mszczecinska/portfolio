@@ -6,7 +6,10 @@ import { getProjectCover } from "../lib/projectCovers";
 import { wideImageSize } from "../lib/responsiveImages";
 import { featuredCards } from "../lib/work";
 import homePhoto from "../assets/home/home-photo.jpg";
+import { aboutPath, languageFromPath, languagePath, workPath } from "../i18n/routes";
 
+const language = languageFromPath(Astro.url.pathname);
+const workHref = languagePath(workPath, language);
 const featuredProjects = featuredCards.map(project => ({
   ...project,
   cover: getProjectCover(project.slug),
@@ -20,7 +23,7 @@ const services = [
 ];
 ---
 
-<Layout title="Główna" description="Magda Szczecińska - projektantka UX/UI. Projektuję strony i aplikacje, od koncepcji po wdrożenie." homePage>
+<Layout title="Magda Szczecińska – projektantka UX/UI" description="Magda Szczecińska - projektantka UX/UI. Projektuję strony i aplikacje, od koncepcji po wdrożenie." homePage>
   <div class="home-page">
     <section class="home-hero page-container" aria-labelledby="home-title">
       <div class="home-hero__heading">
@@ -43,8 +46,8 @@ const services = [
         </div>
         <p>Projektuję strony i aplikacje, łącząc potrzeby użytkowników z dopracowanym UI. Wybrane projekty rozwijam od koncepcji po wdrożenie, korzystając z narzędzi AI.</p>
         <div class="home-hero__actions">
-          <a href="/work" class="btn-primary home-primary-button">Zobacz moje prace <span class="home-primary-arrow" aria-hidden="true"><img class="home-button-arrow" src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /><img class="home-button-arrow home-primary-arrow--hover" src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" /></span></a>
-          <a href="/about" class="btn-secondary">O mnie <img class="home-button-arrow" src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /></a>
+          <a href={workHref} class="btn-primary home-primary-button">Zobacz moje prace <span class="home-primary-arrow" aria-hidden="true"><img class="home-button-arrow" src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /><img class="home-button-arrow home-primary-arrow--hover" src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" /></span></a>
+          <a href={languagePath(aboutPath, language)} class="btn-secondary">O mnie <img class="home-button-arrow" src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /></a>
         </div>
       </div>
     </section>
@@ -54,7 +57,7 @@ const services = [
       <div class="home-featured__list">
         {featuredProjects.map(project => (
           <article class="home-project">
-            <a href={`/work/${project.slug}`} class="home-project__link page-container" aria-labelledby={`home-${project.slug}`}>
+            <a href={languagePath(`/${project.slug}`, language)} class="home-project__link page-container" aria-labelledby={`home-${project.slug}`}>
               <div class="home-project__heading">
                 <p class="home-project__badges type-label">{project.badges}</p>
                 <h3 id={`home-${project.slug}`}>{project.title}</h3>
@@ -77,7 +80,7 @@ const services = [
         ))}
       </div>
       <div class="home-featured__more page-container">
-        <a href="/work" class="btn-primary home-primary-button">Zobacz wszystkie projekty <span class="home-primary-arrow" aria-hidden="true"><img class="home-button-arrow" src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /><img class="home-button-arrow home-primary-arrow--hover" src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" /></span></a>
+        <a href={workHref} class="btn-primary home-primary-button">Zobacz wszystkie projekty <span class="home-primary-arrow" aria-hidden="true"><img class="home-button-arrow" src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /><img class="home-button-arrow home-primary-arrow--hover" src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" /></span></a>
       </div>
     </section>
 
@@ -162,6 +165,9 @@ const services = [
     .home-services, .home-contact { margin-top: var(--section-gap); }
     .home-services { gap: var(--space-8); }
     .home-contact__content { gap: var(--space-8); }
+  }
+  @media (max-width: 47.999rem) {
+    .home-hero { row-gap: var(--space-6); }
   }
   @media (max-width: 22.5rem) {
     .home-hero__actions { gap: var(--space-2); }

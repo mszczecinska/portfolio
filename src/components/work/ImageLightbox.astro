@@ -15,7 +15,6 @@
     <img class="image-lightbox__image" data-lightbox-image alt="" draggable="false" hidden />
     <div class="image-lightbox__message" data-lightbox-message role="status">
       <p data-lightbox-status>Wczytywanie obrazu…</p>
-      <a data-lightbox-original target="_blank" rel="noopener noreferrer" hidden>Otwórz plik obrazu</a>
     </div>
   </div>
   <p class="image-lightbox__help" id="image-lightbox-help">Powiększ przyciskami, kółkiem myszy lub dwoma palcami. Przesuń obraz, aby zobaczyć szczegóły. Kliknij obraz, aby przybliżyć lub wrócić do widoku początkowego.</p>
@@ -40,7 +39,7 @@
   .image-lightbox__stage[data-zoomed] { cursor: grab; }
   .image-lightbox__stage[data-dragging] { cursor: grabbing; }
   .image-lightbox__image { position: absolute; left: 50%; top: 50%; display: block; max-width: none; max-height: none; user-select: none; -webkit-user-drag: none; cursor: zoom-in; transform-origin: center; }
-  .image-lightbox__image[hidden], .image-lightbox__message[hidden], [data-lightbox-original][hidden] { display: none; }
+  .image-lightbox__image[hidden], .image-lightbox__message[hidden] { display: none; }
   [data-zoomed] .image-lightbox__image { cursor: inherit; }
   .image-lightbox__message { position: absolute; inset: 0; display: grid; place-content: center; gap: var(--space-3); padding: var(--space-5); text-align: center; font-size: var(--text-small); }
   .image-lightbox__message a { text-decoration: underline; }

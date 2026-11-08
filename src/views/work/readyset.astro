@@ -6,13 +6,13 @@ import ReadySetCaseContent from "../../components/work/cases/ReadySetCaseContent
 import { getProjectCover } from "../../lib/projectCovers";
 import { getProjectBySlug } from "../../lib/projects";
 
-const project = getProjectBySlug("readyset-aplikacja-do-planowania-wyjazdow");
-if (!project) return Astro.redirect("/work");
+const project = getProjectBySlug("readyset");
+if (!project) return Astro.redirect("/realizacje");
 ---
 
 <CaseStudyShell title="ReadySet - wspólny wyjazd, jeden plan" description={project.description}>
   <CaseStudyIntro
-    cover={getProjectCover("readyset-aplikacja-do-planowania-wyjazdow")}
+    cover={getProjectCover("readyset")}
     title="ReadySet"
     subtitle="Wspólny wyjazd. Jeden plan."
     overview="ReadySet to koncepcja aplikacji mobilnej do grupowego planowania wyjazdów. Łączy propozycje, głosowanie i ustalony harmonogram, pomagając uczestnikom wspólnie podejmować decyzje."
@@ -30,5 +30,5 @@ if (!project) return Astro.redirect("/work");
     ]}
   />
   <ReadySetCaseContent />
-  <CaseStudyPagination slug="readyset-aplikacja-do-planowania-wyjazdow" />
+  <CaseStudyPagination slug="readyset" />
 </CaseStudyShell>

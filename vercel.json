@@ -1,0 +1,49 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/work",
+      "has": [{ "type": "query", "key": "category", "value": "experiments" }],
+      "destination": "/eksperymenty",
+      "permanent": true
+    },
+    {
+      "source": "/realizacje",
+      "has": [{ "type": "query", "key": "category", "value": "experiments" }],
+      "destination": "/eksperymenty",
+      "permanent": true
+    },
+    {
+      "source": "/en/work",
+      "has": [{ "type": "query", "key": "category", "value": "experiments" }],
+      "destination": "/en/experiments",
+      "permanent": true
+    },
+    { "source": "/about", "destination": "/o-mnie", "permanent": true },
+    { "source": "/work", "destination": "/realizacje", "permanent": true },
+    { "source": "/en/contact", "destination": "/en/#footer-contact", "permanent": true },
+    { "source": "/work/akademia-e-commerce-dla-e-bookow-edukacyjnych", "destination": "/akademia", "permanent": true },
+    { "source": "/en/work/akademia-e-commerce-dla-e-bookow-edukacyjnych", "destination": "/en/akademia", "permanent": true },
+    { "source": "/project/akademia-e-commerce-dla-e-bookow-edukacyjnych", "destination": "/akademia", "permanent": true },
+    { "source": "/work/aurapura-design-system", "destination": "/aurapura", "permanent": true },
+    { "source": "/en/work/aurapura-design-system", "destination": "/en/aurapura", "permanent": true },
+    { "source": "/project/aurapura-design-system", "destination": "/aurapura", "permanent": true },
+    { "source": "/work/koncepcja-wizji-produktu-b2c", "destination": "/insightx", "permanent": true },
+    { "source": "/en/work/koncepcja-wizji-produktu-b2c", "destination": "/en/insightx", "permanent": true },
+    { "source": "/project/koncepcja-wizji-produktu-b2c", "destination": "/insightx", "permanent": true },
+    { "source": "/work/miropoix-saas-dla-szefow-kuchni", "destination": "/miropoix", "permanent": true },
+    { "source": "/en/work/miropoix-saas-dla-szefow-kuchni", "destination": "/en/miropoix", "permanent": true },
+    { "source": "/project/miropoix-saas-dla-szefow-kuchni", "destination": "/miropoix", "permanent": true },
+    { "source": "/work/mova-aplikacja-do-nauki-jezykow", "destination": "/mova", "permanent": true },
+    { "source": "/en/work/mova-aplikacja-do-nauki-jezykow", "destination": "/en/mova", "permanent": true },
+    { "source": "/project/mova-aplikacja-do-nauki-jezykow", "destination": "/mova", "permanent": true },
+    { "source": "/work/obrys-studio", "destination": "/obrys", "permanent": true },
+    { "source": "/en/work/obrys-studio", "destination": "/en/obrys", "permanent": true },
+    { "source": "/work/readyset-aplikacja-do-planowania-wyjazdow", "destination": "/readyset", "permanent": true },
+    { "source": "/en/work/readyset-aplikacja-do-planowania-wyjazdow", "destination": "/en/readyset", "permanent": true },
+    { "source": "/project/readyset-aplikacja-do-planowania-wyjazdow", "destination": "/readyset", "permanent": true },
+    { "source": "/work/szczecinska-design-portfolio", "destination": "/realizacje", "permanent": true },
+    { "source": "/en/work/szczecinska-design-portfolio", "destination": "/en/work", "permanent": true },
+    { "source": "/project/szczecinska-design-portfolio", "destination": "/realizacje", "permanent": true }
+  ]
+}

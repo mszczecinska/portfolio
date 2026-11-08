@@ -14,13 +14,15 @@ interface Props {
   projectType: string;
   tools: readonly { src: string; alt: string }[];
   liveUrl?: string;
+  liveUnavailable?: boolean;
   showLiveInfo?: boolean;
   liveHoverColor?: string;
   liveHoverTextColor?: string;
   liveHoverBorderColor?: string;
   facts?: readonly { title: string; text: string }[];
 }
-const { title, cover, subtitle, overview, role, roleLabel = "Rola", projectType, tools, liveUrl, showLiveInfo = false, liveHoverColor = "var(--color-surface)", liveHoverTextColor = "var(--color-text)", liveHoverBorderColor = "var(--color-text)", facts = [] } = Astro.props;
+const { title, cover, subtitle, overview, role, roleLabel = "Rola", projectType, tools, liveUrl, liveUnavailable = false, showLiveInfo = false, liveHoverColor = "var(--color-surface)", liveHoverTextColor = "var(--color-text)", liveHoverBorderColor = "var(--color-text)", facts = [] } = Astro.props;
+const hasLiveInfo = liveUnavailable || showLiveInfo;
 ---
 
 <header class="case-intro">
@@ -36,12 +38,22 @@ const { title, cover, subtitle, overview, role, roleLabel = "Rola", projectType,
         <h1 id="case-study-title" class="type-title entry-mask" data-case-entry><span data-entry-reveal>{title}</span></h1>
         <p class="case-intro__subtitle" data-case-entry>{subtitle}</p>
       </div>
-      {liveUrl && <div class="case-intro__live" data-case-entry data-live-info={showLiveInfo ? true : undefined}>
-        <a class="btn-primary" style={`--button-hover-fill: ${liveHoverColor}; --button-hover-text: ${liveHoverTextColor}; --button-hover-border: ${liveHoverBorderColor};`} href={liveUrl} target="_blank" rel="noopener noreferrer">Zobacz live <TablerIcon name="arrow-up-right" class="size-6" /></a>
-        {showLiveInfo && <><button class="case-intro__info" type="button" aria-label="Informacja o wdrożonej stronie" aria-describedby="live-site-info" data-live-info-trigger>
-          <TablerIcon name="info-circle" class="size-5" />
-        </button>
-        <span class="case-intro__tooltip" id="live-site-info" role="tooltip" hidden>Wdrożona strona może różnić się od prezentowanego projektu.</span></>}
+      {(liveUrl || liveUnavailable) && <div class="case-intro__live" data-case-entry data-live-info={hasLiveInfo ? true : undefined}>
+        {liveUnavailable ? (
+          <button class="btn-primary case-intro__live-unavailable" type="button" aria-describedby="live-site-info" data-live-info-trigger>
+            Zobacz live <TablerIcon name="info-circle" class="size-5" />
+          </button>
+        ) : (
+          <>
+            <a class="btn-primary" style={`--button-hover-fill: ${liveHoverColor}; --button-hover-text: ${liveHoverTextColor}; --button-hover-border: ${liveHoverBorderColor};`} href={liveUrl} target="_blank" rel="noopener noreferrer">Zobacz live <TablerIcon name="arrow-up-right" class="size-6" /></a>
+            {showLiveInfo && <button class="case-intro__info" type="button" aria-label="Informacja o wdrożonej stronie" aria-describedby="live-site-info" data-live-info-trigger>
+              <TablerIcon name="info-circle" class="size-5" />
+            </button>}
+          </>
+        )}
+        {hasLiveInfo && <span class="case-intro__tooltip" id="live-site-info" role="tooltip" hidden>
+          {liveUnavailable ? "Strona została wdrożona, ale obecnie jest niedostępna pod adresem klienta." : "Wdrożona strona może różnić się od prezentowanego projektu."}
+        </span>}
       </div>}
     </div>
 
@@ -63,9 +75,11 @@ const { title, cover, subtitle, overview, role, roleLabel = "Rola", projectType,
 
 <style>
   .case-intro__live { position: relative; display: flex; align-items: center; gap: var(--space-2); max-width: 100%; }
+  .case-intro__live-unavailable { --button-hover-text: var(--color-text-muted); --button-hover-border: var(--color-text-muted); border-color: var(--color-border); background: var(--color-surface); color: var(--color-text-muted); box-shadow: none; cursor: help; }
   .case-intro__info { display: grid; place-items: center; width: var(--control-height); height: var(--control-height); flex: none; color: var(--color-text-muted); cursor: help; }
   .case-intro__info:focus-visible { outline: 2px solid var(--color-text); outline-offset: 2px; }
   .case-intro__tooltip { position: absolute; z-index: 10; left: 0; bottom: calc(100% + var(--space-2)); width: min(20rem, calc(100vw - 2 * var(--page-gutter))); padding: var(--space-3) var(--space-4); border: 1px solid var(--color-border); background: var(--color-background); color: var(--color-text); font-size: var(--text-small); line-height: 1.5; }
+  .case-intro__tooltip::before { content: ""; position: absolute; inset: -8px; }
   .case-intro { display: flex; flex-direction: column; gap: var(--space-6); }
   .case-intro > .page-container:first-child { margin-bottom: calc(-1 * var(--space-4)); }
   .case-intro__details { display: grid; gap: var(--space-5); }
@@ -120,23 +134,27 @@ const { title, cover, subtitle, overview, role, roleLabel = "Rola", projectType,
         tooltip.style.width = `${Math.min(320, beside ? availableWidth : headingRect.width)}px`;
         tooltip.hidden = false;
       };
-      const hide = () => { tooltip.hidden = true; };
-      let wasOpenOnPointerDown = false;
+      let pinned = false;
+      const hide = () => {
+        pinned = false;
+        tooltip.hidden = true;
+      };
       trigger.addEventListener("pointerenter", event => {
         if (event.pointerType !== "touch") show();
       });
-      trigger.addEventListener("pointerleave", hide);
-      trigger.addEventListener("pointerdown", () => {
-        wasOpenOnPointerDown = !tooltip.hidden;
+      root.addEventListener("pointerleave", () => {
+        if (!pinned && !trigger.matches(":focus-visible")) hide();
       });
       trigger.addEventListener("focus", () => {
         if (trigger.matches(":focus-visible")) show();
       });
       trigger.addEventListener("blur", hide);
-      trigger.addEventListener("click", event => {
-        const shouldHide = event.detail === 0 ? !tooltip.hidden : wasOpenOnPointerDown;
-        if (shouldHide) hide();
-        else show();
+      trigger.addEventListener("click", () => {
+        if (pinned) hide();
+        else {
+          pinned = true;
+          show();
+        }
       });
       const onPointerDown = (event: PointerEvent) => {
         if (event.target instanceof Node && !trigger.contains(event.target) && !tooltip.contains(event.target)) hide();

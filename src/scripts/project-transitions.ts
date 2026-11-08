@@ -1,8 +1,13 @@
-import { withoutLanguage } from "../i18n/routes";
+import { experimentsPath, languagePath, withoutLanguage, workPath } from "../i18n/routes";
 import { isTransitionBeforePreparationEvent, isTransitionBeforeSwapEvent } from "astro:transitions/client";
 import { shouldAnimate } from "./motion";
 
 const coverImageProperty = "--project-cover-image";
+
+function isWorkListing(pathname: string) {
+  const path = languagePath(pathname, "pl");
+  return path === workPath || path === experimentsPath;
+}
 
 // Decode the same responsive picture the destination will display before capture.
 // A detached document does not load its images, so use a hidden, inert clone.
@@ -41,12 +46,13 @@ document.addEventListener("astro:before-preparation", event => {
   });
   // History uses the router's scroll restoration and a normal page swap.
   // Explicit links from home, the listing and adjacent-project cards share a cover.
-  const fromPath = withoutLanguage(event.from.pathname);
-  const fromProject = /^\/work\/[^/]+$/.test(fromPath);
-  if (event.navigationType === "traverse" || (!fromProject && !["/", "/work"].includes(fromPath))) return;
-  const match = withoutLanguage(event.to.pathname).match(/^\/work\/([^/]+)\/?$/);
-  if (!match || !document.startViewTransition || !shouldAnimate()) return;
-  const selector = `[data-project-cover="${CSS.escape(match[1])}"]`;
+  if (event.navigationType === "traverse") return;
+  const fromProject = document.querySelector("main .case-study");
+  const fromPath = event.from.pathname;
+  if (!fromProject && withoutLanguage(fromPath) !== "/" && !isWorkListing(fromPath)) return;
+  const slug = withoutLanguage(event.to.pathname).slice(1);
+  if (!slug || slug.includes("/") || !document.startViewTransition || !shouldAnimate()) return;
+  const selector = `[data-project-cover="${CSS.escape(slug)}"]`;
   const source = event.sourceElement?.querySelector<HTMLElement>(selector);
   const image = source?.querySelector("img");
   if (!source || !image) return;

@@ -1,0 +1,35 @@
+---
+import Home from './index.astro';
+import About from '../views/about.astro';
+import Work from '../views/work/index.astro';
+import LegacyRedirect from '../components/LegacyRedirect.astro';
+import { aboutPath, experimentsPath, languagePath, workPath } from '../i18n/routes';
+import { redirects } from '../../vercel.json';
+
+export function getStaticPaths() {
+  const cases = import.meta.glob('../views/work/*.astro', { eager: true, import: 'default' });
+  const views = [
+    { path: aboutPath, Page: About },
+    { path: workPath, Page: Work },
+    { path: experimentsPath, Page: Work },
+    ...Object.entries(cases)
+      .filter(([file]) => !file.endsWith('/index.astro'))
+      .map(([file, Page]) => ({ path: `/${file.split('/').at(-1)!.replace('.astro', '')}`, Page })),
+  ];
+  return [
+    { params: { path: 'en' }, props: { Page: Home } },
+    ...views.flatMap(({ path, Page }) => (['pl', 'en'] as const).map(language => ({
+      params: { path: languagePath(path, language).slice(1) },
+      props: { Page },
+    }))),
+    ...redirects.filter(rule => !rule.has).map(({ source, destination }) => ({
+      params: { path: source.slice(1) },
+      props: { destination },
+    })),
+  ];
+}
+
+const { Page, destination } = Astro.props;
+---
+
+{Page ? <Page /> : <LegacyRedirect destination={destination} />}

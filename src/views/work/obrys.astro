@@ -5,12 +5,12 @@ import ObrysCaseContent from "../../components/work/cases/ObrysCaseContent.astro
 import { getProjectCover } from "../../lib/projectCovers";
 import { getProjectBySlug } from "../../lib/projects";
 
-const project = getProjectBySlug("obrys-studio")!;
+const project = getProjectBySlug("obrys")!;
 ---
 
 <CaseStudyShell title="OBRYS Studio - identyfikacja i strona studia wnętrzarskiego" description={project.description}>
   <CaseStudyIntro
-    cover={getProjectCover("obrys-studio")}
+    cover={getProjectCover("obrys")}
     title="OBRYS Studio"
     subtitle="Identyfikacja i strona studia wnętrzarskiego"
     overview="Autorska koncepcja marki i strony studia wnętrzarskiego. Projekt powstał jako przestrzeń do eksplorowania relacji między znakiem, typografią, fotografią i spokojnym interfejsem."

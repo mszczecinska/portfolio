@@ -7,14 +7,12 @@ import { languageFromPath, languagePath, withoutLanguage } from '../src/i18n/rou
 import { uiText } from '../src/i18n/ui.ts';
 
 test('Language routes round-trip every page, without mistaking similar prefixes for English', () => {
-  for (const path of ['/', '/about', '/work', '/work/obrys-studio']) {
-    for (const ending of path === '/' ? [''] : ['', '/']) {
-      const original = path + ending;
-      const en = languagePath(original, 'en');
-      assert.equal(languageFromPath(en), 'en');
-      assert.equal(languagePath(en, 'pl'), withoutLanguage(original));
-      assert.equal(languagePath(en, 'en'), en);
+  for (const [pl, en] of [['/', '/en/'], ['/o-mnie', '/en/about'], ['/realizacje', '/en/work'], ['/eksperymenty', '/en/experiments'], ['/obrys', '/en/obrys']]) {
+    for (const path of [pl, en, pl.endsWith('/') ? pl : pl + '/', en.endsWith('/') ? en : en + '/']) {
+      assert.equal(languagePath(path, 'pl'), pl);
+      assert.equal(languagePath(path, 'en'), en);
     }
+    assert.equal(languageFromPath(en), 'en');
   }
   assert.equal(languageFromPath('/en'), 'en');
   assert.equal(withoutLanguage('/en/'), '/');
@@ -57,7 +55,7 @@ test('Interactive messages read the current language after each page swap', () =
 const switchCode = stripTypeScriptTypes((await readFile(new URL('../src/scripts/language-switch.ts', import.meta.url), 'utf8')).replace(/^import .*;\n/, ''));
 function switchPage() {
   const handlers = new Map();
-  const location = { pathname: '/work', search: '', hash: '' };
+  const location = { pathname: '/realizacje', search: '', hash: '' };
   const link = { href: '' };
   class Element { closest() { return link; } }
   const document = {
@@ -70,13 +68,14 @@ function switchPage() {
 }
 
 for (const event of ['click', 'auxclick', 'contextmenu']) {
-  test(`Language switch preserves a changed filter and anchor for ${event}`, () => {
+  test(`Language switch preserves the experiments page, query and anchor for ${event}`, () => {
     const { handlers, location, link, Element } = switchPage();
     assert.equal(link.href, '/en/work');
-    location.search = '?category=experiments';
+    location.pathname = '/eksperymenty';
+    location.search = '?ref=portfolio';
     location.hash = '#work-experiments';
     handlers.get(event)?.({ target: new Element() });
-    assert.equal(link.href, '/en/work?category=experiments#work-experiments');
+    assert.equal(link.href, '/en/experiments?ref=portfolio#work-experiments');
   });
 }
 
@@ -84,9 +83,8 @@ test('Language switch refreshes its destination after navigation and browser his
   const { handlers, location, link } = switchPage();
   location.pathname = '/en/about';
   handlers.get('astro:page-load')();
-  assert.equal(link.href, '/about');
-  location.pathname = '/work';
-  location.search = '?category=experiments';
+  assert.equal(link.href, '/o-mnie');
+  location.pathname = '/eksperymenty';
   handlers.get('popstate')();
-  assert.equal(link.href, '/en/work?category=experiments');
+  assert.equal(link.href, '/en/experiments');
 });

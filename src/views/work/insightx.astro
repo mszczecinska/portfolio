@@ -6,13 +6,13 @@ import KoncepcjaCaseContent from "../../components/work/cases/KoncepcjaCaseConte
 import { getProjectBySlug } from "../../lib/projects";
 import { getProjectCover } from "../../lib/projectCovers";
 
-const project = getProjectBySlug("koncepcja-wizji-produktu-b2c");
-if (!project) return Astro.redirect("/work");
+const project = getProjectBySlug("insightx");
+if (!project) return Astro.redirect("/realizacje");
 ---
 
 <CaseStudyShell title="InsightX - od hipotez do kierunku produktu B2C" description={project.description}>
   <CaseStudyIntro
-    cover={getProjectCover("koncepcja-wizji-produktu-b2c")}
+    cover={getProjectCover("insightx")}
     title="InsightX"
     subtitle="od hipotez do kierunku produktu B2C"
     overview="InsightX miał silny silnik analityczny i rozpoznawalne narzędzia B2B, ale potrzebował kierunku dla samodzielnego produktu B2C. Projekt polegał na przejściu od szerokich hipotez do konkretnej wizji produktu dla zaawansowanych traderów."
@@ -30,5 +30,5 @@ if (!project) return Astro.redirect("/work");
     ]}
   />
   <KoncepcjaCaseContent />
-  <CaseStudyPagination slug="koncepcja-wizji-produktu-b2c" />
+  <CaseStudyPagination slug="insightx" />
 </CaseStudyShell>

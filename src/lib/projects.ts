@@ -14,7 +14,7 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: "akademia-e-commerce-dla-e-bookow-edukacyjnych",
+    slug: "akademia",
     category: "projects",
     featured: true,
     card: {
@@ -29,7 +29,7 @@ export const projects: Project[] = [
     tags: ["UX/UI Design", "E-commerce", "EduTech"],
   },
   {
-    slug: "miropoix-saas-dla-szefow-kuchni",
+    slug: "miropoix",
     category: "projects",
     featured: true,
     card: {
@@ -44,7 +44,7 @@ export const projects: Project[] = [
     tags: ["UI Design", "Development", "Web", "Motion Design"],
   },
   {
-    slug: "koncepcja-wizji-produktu-b2c",
+    slug: "insightx",
     category: "projects",
     card: {
       title: "InsightX",
@@ -57,7 +57,7 @@ export const projects: Project[] = [
     tags: ["UX Design", "FinTech", "Research"],
   },
   {
-    slug: "readyset-aplikacja-do-planowania-wyjazdow",
+    slug: "readyset",
     category: "projects",
     card: {
       title: "ReadySet",
@@ -70,7 +70,7 @@ export const projects: Project[] = [
     tags: ["UX/UI Design", "Mobile", "Travel"],
   },
   {
-    slug: "mova-aplikacja-do-nauki-jezykow",
+    slug: "mova",
     category: "projects",
     card: {
       title: "Mova",
@@ -83,7 +83,7 @@ export const projects: Project[] = [
     tags: ["UX/UI Design", "Web & Mobile", "EduTech"],
   },
   {
-    slug: "aurapura-design-system",
+    slug: "aurapura",
     category: "projects",
     card: {
       title: "AuraPura",
@@ -96,7 +96,7 @@ export const projects: Project[] = [
     tags: ["UI Design", "Design system", "Web", "E-commerce"],
   },
   {
-    slug: "obrys-studio",
+    slug: "obrys",
     category: "experiments",
     card: {
       title: "OBRYS Studio",

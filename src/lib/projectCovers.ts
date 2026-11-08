@@ -12,13 +12,13 @@ import mova from "../assets/case-studies/mova/okładka.jpg";
 import aurapura from "../assets/case-studies/Aurapura/okładka.jpg";
 
 const covers: Record<string, ImageMetadata> = {
-  "akademia-e-commerce-dla-e-bookow-edukacyjnych": akademia,
-  "obrys-studio": obrys,
-  "miropoix-saas-dla-szefow-kuchni": miropoix,
-  "koncepcja-wizji-produktu-b2c": insightx,
-  "readyset-aplikacja-do-planowania-wyjazdow": readyset,
-  "mova-aplikacja-do-nauki-jezykow": mova,
-  "aurapura-design-system": aurapura,
+  "akademia": akademia,
+  "obrys": obrys,
+  "miropoix": miropoix,
+  "insightx": insightx,
+  "readyset": readyset,
+  "mova": mova,
+  "aurapura": aurapura,
 };
 
 export function getProjectCover(slug: string): ImageMetadata | undefined {

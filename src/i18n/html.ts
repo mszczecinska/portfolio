@@ -1,6 +1,5 @@
 import { parse, serialize, type DefaultTreeAdapterMap } from 'parse5';
 import english from './en.json';
-import { languagePath } from './routes';
 
 const translations: Record<string, string> = english;
 const textAttributes = new Set(['alt', 'title', 'placeholder', 'aria-label', 'aria-description', 'aria-roledescription', 'data-image-label']);
@@ -23,14 +22,11 @@ export function translateHtml(html: string): string {
     }
     if ('tagName' in node) {
       if (['script', 'style'].includes(node.tagName)) return;
-      const isSwitch = node.attrs.some(attr => attr.name === 'data-language-switch');
-      const isDescription = node.tagName === 'meta' && node.attrs.some(attr => attr.name === 'name' && attr.value === 'description');
+      const hasLocalisedContent = node.tagName === 'meta' && node.attrs.some(attr =>
+        (attr.name === 'name' && attr.value === 'description')
+        || (attr.name === 'property' && ['og:title', 'og:description', 'og:image:alt'].includes(attr.value)));
       for (const attr of node.attrs) {
-        if (textAttributes.has(attr.name) || (isDescription && attr.name === 'content')) attr.value = translateText(attr.value);
-        if (node.tagName === 'a' && attr.name === 'href' && !isSwitch && /^\/(?:$|#|work(?:[/?#]|$)|about(?:[/?#]|$)|contact(?:[/?#]|$))/.test(attr.value)) {
-          const url = new URL(attr.value, 'https://szczecinska.design');
-          attr.value = languagePath(url.pathname, 'en') + url.search + url.hash;
-        }
+        if (textAttributes.has(attr.name) || (hasLocalisedContent && attr.name === 'content')) attr.value = translateText(attr.value);
         if (attr.name === 'href' && attr.value.startsWith('mailto:')) {
           const url = new URL(attr.value);
           if (url.searchParams.has('subject')) url.searchParams.set('subject', 'Project enquiry');
