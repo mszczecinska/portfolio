@@ -1,0 +1,34 @@
+---
+import CaseStudyShell from "../../components/work/CaseStudyShell.astro";
+import CaseStudyIntro from "../../components/work/CaseStudyIntro.astro";
+import CaseStudyPagination from "../../components/work/CaseStudyPagination.astro";
+import KoncepcjaCaseContent from "../../components/work/cases/KoncepcjaCaseContent.astro";
+import { getProjectBySlug } from "../../lib/projects";
+import { getProjectCover } from "../../lib/projectCovers";
+
+const project = getProjectBySlug("insightx");
+if (!project) return Astro.redirect("/realizacje");
+---
+
+<CaseStudyShell title="InsightX - od hipotez do kierunku produktu B2C" description={project.description}>
+  <CaseStudyIntro
+    cover={getProjectCover("insightx")}
+    title="InsightX"
+    subtitle="od hipotez do kierunku produktu B2C"
+    overview="InsightX miał silny silnik analityczny i rozpoznawalne narzędzia B2B, ale potrzebował kierunku dla samodzielnego produktu B2C. Projekt polegał na przejściu od szerokich hipotez do konkretnej wizji produktu dla zaawansowanych traderów."
+    role="UX/UI designer"
+    projectType="Projekt komercyjny"
+    tools={[
+      { src: "/icons/tool-figma.png", alt: "Figma" },
+      { src: "/icons/tool-notion.png", alt: "Notion" },
+      { src: "/icons/tool-openai.png", alt: "OpenAI" },
+    ]}
+    facts={[
+      { title: "Problem", text: "Technologia InsightX docierała do milionów użytkowników przez integracje B2B, ale marka pozostawała w tle. Wyzwaniem było określenie kierunku samodzielnego produktu B2C, z którego użytkownicy korzystaliby bezpośrednio." },
+      { title: "Cel", text: "Określenie grupy docelowej, propozycji wartości i kierunku rozwoju produktu B2C." },
+      { title: "Efekt", text: "Koncepcja przestrzeni analitycznej dla traderów, oparta na rozpoznanych potrzebach i analizie dostępnych rozwiązań." },
+    ]}
+  />
+  <KoncepcjaCaseContent />
+  <CaseStudyPagination slug="insightx" />
+</CaseStudyShell>

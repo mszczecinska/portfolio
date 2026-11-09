@@ -1,0 +1,34 @@
+---
+import CaseStudyShell from "../../components/work/CaseStudyShell.astro";
+import CaseStudyIntro from "../../components/work/CaseStudyIntro.astro";
+import CaseStudyPagination from "../../components/work/CaseStudyPagination.astro";
+import ReadySetCaseContent from "../../components/work/cases/ReadySetCaseContent.astro";
+import { getProjectCover } from "../../lib/projectCovers";
+import { getProjectBySlug } from "../../lib/projects";
+
+const project = getProjectBySlug("readyset");
+if (!project) return Astro.redirect("/realizacje");
+---
+
+<CaseStudyShell title="ReadySet - wspólny wyjazd, jeden plan" description={project.description}>
+  <CaseStudyIntro
+    cover={getProjectCover("readyset")}
+    title="ReadySet"
+    subtitle="Wspólny wyjazd. Jeden plan."
+    overview="ReadySet to koncepcja aplikacji mobilnej do grupowego planowania wyjazdów. Łączy propozycje, głosowanie i ustalony harmonogram, pomagając uczestnikom wspólnie podejmować decyzje."
+    role="UX/UI designer"
+    projectType="Projekt koncepcyjny"
+    tools={[
+      { src: "/icons/tool-figma.png", alt: "Figma" },
+      { src: "/icons/tool-notion.png", alt: "Notion" },
+      { src: "/icons/tool-openai.png", alt: "OpenAI" },
+    ]}
+    facts={[
+      { title: "Problem", text: "Pomysły i ustalenia dotyczące wyjazdu giną w rozmowach, a zebranie ich w jeden plan wymaga dodatkowej pracy." },
+      { title: "Cel", text: "Zaprojektowanie miejsca, w którym grupa może zgłaszać propozycje, wybierać je i układać wspólny harmonogram." },
+      { title: "Efekt", text: "Interaktywny prototyp aplikacji, sprawdzony w testach wybranych zadań." },
+    ]}
+  />
+  <ReadySetCaseContent />
+  <CaseStudyPagination slug="readyset" />
+</CaseStudyShell>

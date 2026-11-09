@@ -1,0 +1,320 @@
+---
+import { socialLinks } from "../lib/social";
+import Layout from "../layouts/Layout.astro";
+import { contactMailto } from "../lib/contact";
+
+const testimonials = [
+  {
+    quote:
+      "Magda to jedna z tych osób, na które po prostu można liczyć. Pracowaliśmy razem przy kilku projektach i za każdym razem dowoziła temat od A do Z. Było bardzo terminowo i zawsze jakościowo. Świetnie radzi sobie z nietypowymi zadaniami. Szybko łapie nowe narzędzia i potrafi znaleźć rozwiązanie tam, gdzie inni widzą problem. Implementacje stron, które przygotowywała, potrafiły wyrwać z butów. Natomiast dla mnie najważniejsza w trakcie pracy jest komunikacja i tu była na naprawdę na wysokim poziomie. Zawsze miałem jasność, co jest zrobione, co jest w toku i co planujemy dalej. Jeśli będę miał okazję, chętnie znów z nią popracuję. Zdecydowanie polecam.",
+    name: "Kamil",
+    role: "All the fancy words: marketing, vibe coding, no coding",
+    photo: "/references/kamil.jpeg",
+  },
+  {
+    quote:
+      "Z pełnym przekonaniem polecam Magdę jako projektantkę UI. Współpraca developer-designer przebiegała wzorowo. Magda błyskawicznie wyłapywała wymagania techniczne, podsuwała estetyczne i funkcjonalne rozwiązania oraz była zawsze otwarta na konstruktywny feedback. Praca z taką osobą była czystą przyjemnością 😊",
+    name: "Andrzej",
+    role: "Frontend Engineer",
+    photo: "/references/andrzej.jpeg" ,
+  },
+  {
+    quote:
+      "Współpraca z Magdą była dla mnie ogromną wartością, zarówno projektowo, jak i rozwojowo. Jej zaangażowanie, otwartość i chęć dzielenia się wiedzą sprawiały, że każdy projekt wchodził na wyższy poziom! Jej wkład w nasze wspólne projekty zawsze cechował się wysoką jakością, a proponowane rozwiązania często przewyższały oczekiwania. Dzięki jej zaangażowaniu zespół osiągał lepsze rezultaty, a produkt stawał się nie tylko bardziej dopracowany wizualnie, ale przede wszystkim intuicyjny i skuteczny dla użytkowników. Magdalena łączy świetne wyczucie estetyki z głębokim zrozumieniem zasad UI/UX. Bardzo doceniam jej szybkość uczenia się, szerokie kompetencje oraz umiejętność przeprowadzania projektu od pomysłu aż po wdrożenie. Jej kreatywność, inteligencja i sposób rozwiązywania problemów są wyjątkowe i jestem bardzo wdzięczna, że miałam okazję współpracować z Magdą i wiele się od niej nauczyć. GORĄCO POLECAM Magdalenę jako UX/UI designera. Każdy, kto będzie miał okazję współpracować z Magdą, szybko przekona się, jak dużą wartość wnosi do zespołu.",
+    name: "Martyna",
+    role: "Data Analyst",
+    photo: "/references/martyna.jpeg",
+  },
+  {
+    quote:
+      "Miałam ogromną przyjemność współpracować z Magdaleną podczas projektowania i wykonania strony. Magda wykazała się ponadprzeciętna znajomością zasad UX/UI które jako pomysły z lekkością wdrażała w nasz wspólny projekt. Magda wykazała się również dociekliwością i starannością w samym projekcie graficznym strony, ktora finalnie przewyższała oczekiwania Klienta. Współpraca z nią to czysta przyjemność, kontakt jest niesamowicie ciepły i zrozumiały. Polecam serdecznie współpracę z Magdą 💕",
+    name: "Natalia",
+    role: "Psycholog Biznesu | Łączę wiedzę o kliencie z marketingiem i strategią ",
+    photo: "/references/natalia.png",
+  },
+] as const;
+
+const tools = [
+  { label: "Figma", file: "/icons/tool-figma.png" },
+  { label: "Jitter", file: "/icons/tool-jitter.png" },
+  { label: "Notion", file: "/icons/tool-notion.png" },
+  { label: "Slack", file: "/icons/tool-slack.png" },
+  { label: "Miro", file: "miro.png" },
+  { label: "Google Workspace", file: "google-workspace.png", lines: ["Google", "Workspace"] },
+  { label: "Codex", file: "codex.png", crop: true },
+  { label: "ChatGPT", file: "chatgpt.svg", mobile: true },
+  { label: "Claude Code", file: "/icons/tool-claude-code.png", lines: ["Claude", "Code"] },
+  { label: "Vercel", file: "vercel.svg", mobile: true },
+  { label: "Visual Studio Code", file: "vscode.png", lines: ["Visual\u00a0Studio", "Code"] },
+];
+const workingMethods = [
+  { title: "W zespole", text: "Lubię wspólnie szukać rozwiązań, omawiać pomysły i korzystać z perspektywy innych osób. Dzielę się swoim podejściem, słucham feedbacku i dopracowuję projekt, uwzględniając potrzeby użytkowników, cele biznesowe oraz możliwości techniczne." },
+  { title: "Z myślą o wdrożeniu", text: "Dbam o spójność komponentów, stany interakcji i zachowanie widoków na różnych ekranach. Zależy mi, żeby osoba przejmująca projekt rozumiała, jak poszczególne elementy mają działać i jak łączą się w całą ścieżkę użytkownika." },
+  { title: "Od projektu do realizacji", text: "Wybrane strony samodzielnie wdrażam przy wsparciu narzędzi AI. Praca bezpośrednio w przeglądarce pozwala mi dopracować responsywność, animacje i szczegóły interfejsu oraz lepiej rozumieć, jak decyzje z Figmy przekładają się na gotową stronę." },
+];
+---
+
+<Layout title="O mnie" description="Poznaj Magdę Szczecińską - projektantkę UX/UI. Design systemy, współpraca i wdrażanie stron z pomocą AI." aboutPage>
+  <div class="about-page">
+    <section class="about-intro page-container" aria-labelledby="about-title">
+      <img class="about-portrait" src="/assets/about/portrait.png" width="412" height="472" alt="Magda siedząca na krześle w słonecznej pracowni" fetchpriority="high" decoding="async" />
+      <div class="about-intro-copy">
+      <h1 id="about-title" aria-label="Cześć jestem Magda">
+        <span class="entry-mask"><span data-entry-reveal>Cześć</span></span>
+        <span class="entry-mask"><span data-entry-reveal>jestem Magda</span></span>
+      </h1>
+      <div class="about-bio">
+        <p>Lubię porządkować pomysły, szukać rozwiązań i dopracowywać szczegóły, które składają się na czytelny interfejs. W designie najbardziej chcę rozwijać się w kierunku design systemów. Interesuje mnie, jak z pojedynczych elementów budować spójną całość i ułatwiać pracę nad kolejnymi widokami.</p>
+        <p>Nie chcę jednak ograniczać się do samego projektowania. Eksperymentuję z motion i wdrażaniem stron przy wsparciu AI. Dzięki temu mogę sprawdzać swoje pomysły w działaniu i lepiej rozumieć, co dzieje się z projektem po wyjściu z Figmy.</p>
+      </div>
+      <ul class="about-socials">
+        {socialLinks.map(link => <li><a class="btn-secondary" href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<img src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /></a></li>)}
+      </ul>
+      </div>
+    </section>
+
+    <section class="about-tools page-container page-container--reading" aria-labelledby="tools-title">
+      <h2 id="tools-title">Narzędzia</h2>
+      <ul class="about-tools__grid">
+        {tools.map(tool => <li>
+          <span class:list={["tool-icon", { "tool-icon--crop": tool.crop, "tool-icon--vercel": tool.label === "Vercel" }]}>
+            {tool.mobile ? <picture><source media="(max-width: 1023px)" srcset={`/assets/about/mobile-${tool.file}`} /><img src={tool.file.startsWith("/") ? tool.file : `/assets/about/${tool.file}`} alt="" loading="lazy" /></picture> : <img src={tool.file.startsWith("/") ? tool.file : `/assets/about/${tool.file}`} alt="" loading="lazy" />}
+          </span>
+          <span>{tool.lines ? tool.lines.map((line, i) => <>{i > 0 && <br />}{line}</>) : tool.label}</span>
+        </li>)}
+      </ul>
+    </section>
+
+    <section class="about-process page-container" aria-labelledby="process-title">
+      <h2 id="process-title">Jak pracuję</h2>
+      <div class="about-process__content">
+        <p class="about-process__intro">Zakres mojej pracy zależy od projektu. Mam doświadczenie we współpracy z projektantami, developerami, analitykami i zespołami marketingowymi. Wybrane realizacje prowadzę też samodzielnie, od pierwszej koncepcji do działającej strony.</p>
+        <div class="process-dots" aria-label="Wybierz obszar współpracy">
+          {workingMethods.map((method, index) => <button type="button" class="process-dot" aria-label={method.title} aria-pressed={index === 0 ? "true" : "false"} aria-controls={`method-${index}`} data-process-dot={index}><span></span></button>)}
+        </div>
+        <div class="process-slides" tabindex="0" aria-label="Obszary współpracy">
+          {workingMethods.map((method, index) => <article class="process-slide" id={`method-${index}`}><h3 class="type-label">{method.title}</h3><p>{method.text}</p></article>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="about-recommendations page-container page-container--reading" aria-label="Rekomendacje" aria-roledescription="karuzela" data-recommendations>
+      <div class="recommendation-controls">
+        <button class="btn-primary recommendation-prev" type="button" aria-label="Poprzednia rekomendacja" disabled data-recommendation-prev><img src="/assets/about/arrow-down.svg" width="24" height="24" alt="" /></button>
+        <button class="btn-primary" type="button" aria-label="Następna rekomendacja" data-recommendation-next><img src="/assets/about/arrow-right.svg" width="24" height="24" alt="" /></button>
+      </div>
+      <div aria-live="polite" aria-atomic="true">
+        {testimonials.map((item, index) => <div class="recommendation" hidden={index !== 0} data-recommendation role="group" aria-roledescription="slajd" aria-label={`${index + 1} z ${testimonials.length}`}>
+          <figure>
+            <blockquote>{item.quote}</blockquote>
+            <figcaption><img src={item.photo} width="64" height="64" alt="" loading="lazy" /><div><p>{item.name}</p><p class="recommendation-role">{item.role}</p></div></figcaption>
+          </figure>
+        </div>)}
+      </div>
+    </section>
+
+    <section class="about-contact page-container" aria-labelledby="contact-title">
+      <div><h2 id="contact-title">Masz projekt do zaprojektowania albo szukasz projektantki do zespołu?</h2>
+        <a href={contactMailto} class="btn-primary about-contact__button">Porozmawiajmy <span class="about-contact__arrow" aria-hidden="true"><img src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" /><img class="about-contact__hover" src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" /></span></a>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .about-page { display: flex; flex-direction: column; gap: var(--space-10); padding-block: var(--space-10); }
+  .about-page h1, .about-page h2 { font-weight: var(--weight-regular); }
+  .about-page h2 { font-size: 24px; line-height: 1.3; }
+  .about-intro { display: grid; gap: var(--space-5); }
+  .about-intro-copy { display: contents; }
+  .about-intro h1 { grid-row: 1; font-size: 40px; line-height: 1; }
+  .about-portrait { grid-row: 2; }
+  .about-portrait { width: min(285px, 100%); height: auto; aspect-ratio: 285 / 326; object-fit: cover; }
+  .about-bio { font-size: 14px; line-height: 1.5; }
+  .about-bio p + p { margin-top: 21px; }
+  .about-socials { display: flex; justify-content: space-between; flex-wrap: wrap; }
+  .about-socials img { transform: rotate(180deg); flex: none; }
+  .about-tools { display: flex; flex-direction: column; gap: var(--space-5); }
+  .about-tools__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: var(--space-10); }
+  .about-tools__grid li { display: flex; align-items: center; flex-direction: column; gap: var(--space-3); text-align: center; font-size: 14px; font-weight: var(--weight-regular); line-height: 1.35; }
+  .tool-icon { display: block; width: 36px; height: 36px; position: relative; }
+  .tool-icon > img, .tool-icon picture img { display: block; width: 36px; height: auto; }
+  .tool-icon--crop { overflow: hidden; height: 36.9px; }
+  .tool-icon--crop > img { position: absolute; width: 126.73%; height: 123.67%; max-width: none; top: -12.32%; left: -13.37%; }
+  .tool-icon--vercel { height: 30.6px; }
+  .about-process { display: grid; gap: var(--space-5); }
+  .about-process__content { min-width: 0; }
+  .about-process__intro { font-size: 14px; line-height: 1.5; }
+  .process-dots { display: flex; justify-content: center; margin-block: var(--space-5); }
+  .process-dot { width: 44px; height: 44px; display: grid; place-items: center; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+  .process-dot span { width: 16px; height: 16px; border: 1px solid var(--color-border); border-radius: 50%; transition: background-color var(--duration-ui) var(--ease-ui), border-color var(--duration-ui) var(--ease-ui); }
+  .process-dot[aria-pressed="true"] span { background: var(--color-text); border-color: var(--color-text); }
+  .process-slides { display: flex; gap: var(--space-3); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .process-slides::-webkit-scrollbar { display: none; }
+  .process-slide { display: grid; grid-template-columns: minmax(0, 156fr) minmax(0, 181fr); align-items: center; gap: var(--space-6); flex: 0 0 100%; scroll-snap-align: start; }
+  .process-slide p { font-size: 14px; line-height: 25px; }
+  .recommendation-controls { display: flex; gap: var(--space-3); }
+  .recommendation-controls button { --button-hover-fill: var(--color-text); --button-hover-text: #fff; padding: var(--space-3); cursor: pointer; }
+  .recommendation-controls button img { transition: filter var(--duration-ui) var(--ease-ui); }
+  .recommendation-controls button:not(:disabled):focus-visible img { filter: brightness(0) invert(1); }
+  .recommendation-controls button:disabled { border-color: var(--color-border); opacity: .4; cursor: default; }
+  .recommendation-prev img { transform: rotate(90deg); }
+  .recommendation-controls button:last-child img { transform: rotate(-90deg); }
+  .recommendation { margin: 0; padding-block: var(--space-5); }
+  .recommendation[hidden] { display: none; }
+  .recommendation blockquote { font-size: 16px; line-height: 1.5; }
+  .recommendation figcaption { display: flex; gap: var(--space-3); align-items: center; margin-top: var(--space-5); font-size: 14px; line-height: 24px; }
+  .recommendation figcaption > img { width: 52px; height: 52px; object-fit: cover; flex: none; }
+  .recommendation-role { color: var(--color-text-muted); margin-top: var(--space-1); }
+  .about-contact > div { display: flex; flex-direction: column; gap: var(--space-8); }
+  .about-contact__button { align-self: flex-end; }
+  .about-contact__arrow { display: inline-grid; }
+  .about-contact__arrow img { grid-area: 1 / 1; transform: rotate(180deg); }
+  .about-contact__hover { opacity: 0; }
+  .about-contact__button:focus-visible .about-contact__arrow img:first-child { opacity: 0; }
+  .about-contact__button:focus-visible .about-contact__hover { opacity: 1; }
+  @media (hover: hover) and (pointer: fine) {
+    .recommendation-controls button:not(:disabled):hover img { filter: brightness(0) invert(1); }
+    .about-contact__button:hover .about-contact__arrow img:first-child { opacity: 0; }
+    .about-contact__button:hover .about-contact__hover { opacity: 1; }
+  }
+  @media (max-width: 374px) {
+    .about-socials .btn-secondary { padding-inline: 6px; gap: 4px; }
+  }
+  @media (max-width: 47.999rem) {
+    .about-page { gap: var(--space-20); padding-bottom: var(--space-20); }
+    .about-intro { gap: var(--space-8); }
+    .about-intro h1 { display: flex; flex-wrap: wrap; gap: 0.12em 0.24em; }
+    .about-tools { gap: var(--space-8); }
+    .about-process { gap: var(--space-6); }
+    .process-dots { margin-block: var(--space-6); }
+    .recommendation { padding-block: var(--space-6); }
+    .recommendation figcaption { margin-top: var(--space-6); }
+  }
+  @media (min-width: 48rem) {
+    .about-intro { align-items: start; }
+    .about-intro-copy { display: flex; flex-direction: column; gap: var(--space-6); min-width: 0; }
+    .about-portrait { grid-column: 1; grid-row: 1; }
+  }
+  @media (min-width: 48rem) and (max-width: 63.999rem) {
+    .about-intro { grid-template-columns: 285px minmax(0, 1fr); gap: 24px; }
+    .about-tools__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .about-socials { justify-content: flex-start; }
+  }
+  @media (min-width: 64rem) {
+    .about-page { gap: var(--space-30); padding-bottom: var(--space-30); }
+    .about-page h2 { font-size: 2.5rem; }
+    .about-intro { grid-template-columns: minmax(0, 412fr) minmax(0, 701fr); column-gap: clamp(2.5rem, 8vw, 6.4375rem); row-gap: var(--space-10); }
+    .about-intro-copy { gap: var(--space-10); }
+    .about-intro h1 { font-size: 4rem; }
+    .about-portrait { grid-column: 1; grid-row: 1; width: 100%; aspect-ratio: 412 / 472; }
+    .about-bio { font-size: var(--text-body); }
+    .about-bio p + p { margin-top: var(--space-6); }
+    .about-socials { grid-column: 2; justify-content: flex-start; align-items: start; gap: var(--space-5); }
+    .about-tools { gap: var(--space-10); }
+    .about-tools__grid { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 3.8125rem; }
+    .about-tools__grid li { gap: var(--space-5); font-size: 1.125rem; }
+    .tool-icon { width: 2.75rem; height: 2.75rem; }
+    .tool-icon > img, .tool-icon picture img { width: 2.75rem; }
+    .tool-icon--crop { height: 2.793rem; }
+    .tool-icon--crop > img { width: 126.73%; }
+    .tool-icon--vercel { height: 2.363rem; }
+    .about-process { grid-template-columns: minmax(0, 491fr) minmax(0, 705fr); gap: var(--space-5); }
+    .about-process__intro { font-size: var(--text-body); line-height: 1.875; margin-bottom: var(--space-10); }
+    .process-dots { display: none; }
+    .process-slides { display: block; overflow: visible; }
+    .process-slide { grid-template-columns: minmax(0, 262fr) minmax(0, 419fr); padding-block: var(--space-3); }
+    .process-slide:first-child { padding-top: 0; }
+    .process-slide + .process-slide { border-top: 1px solid var(--color-border); }
+    .process-slide p { font-size: var(--text-body); line-height: 1.5625; }
+    .recommendation-controls button { padding: var(--space-4); }
+    .recommendation { padding-block: var(--space-6); }
+    .recommendation blockquote { font-size: 1.25em; }
+    .recommendation figcaption { gap: var(--space-5); margin-top: var(--space-10); font-size: var(--text-body); line-height: 1.5; }
+    .recommendation figcaption > img { width: var(--space-16); height: var(--space-16); }
+    .recommendation-role { margin-top: var(--space-2); }
+    .about-contact > div { width: 43.75rem; max-width: 100%; margin-left: auto; }
+    .about-contact__button { align-self: flex-start; }
+    .about-socials img, .about-contact__arrow img { width: var(--space-6); height: auto; }
+  }
+</style>
+
+<script>
+  import { enterRecommendation } from "../scripts/page-entry";
+  import { shouldAnimate } from "../scripts/motion";
+
+  function setupAboutPage() {
+    const root = document.querySelector<HTMLElement>(".about-page");
+    if (!root || root.dataset.initialized) return;
+    root.dataset.initialized = "true";
+    const slides = [...root.querySelectorAll<HTMLElement>("[data-recommendation]")];
+    const prev = root.querySelector<HTMLButtonElement>("[data-recommendation-prev]")!;
+    const next = root.querySelector<HTMLButtonElement>("[data-recommendation-next]")!;
+    let current = 0;
+    const selectRecommendation = (index: number) => {
+      const selected = Math.max(0, Math.min(slides.length - 1, index));
+      if (selected === current) return;
+      current = selected;
+      slides.forEach((slide, i) => { slide.hidden = i !== current; });
+      prev.disabled = current === 0;
+      next.disabled = current === slides.length - 1;
+      enterRecommendation(slides[current]);
+    };
+    prev.addEventListener("click", () => selectRecommendation(current - 1));
+    next.addEventListener("click", () => selectRecommendation(current + 1));
+    const track = root.querySelector<HTMLElement>(".process-slides")!;
+    const methods = [...root.querySelectorAll<HTMLElement>(".process-slide")];
+    const dots = [...root.querySelectorAll<HTMLButtonElement>("[data-process-dot]")];
+    const setActiveDot = (index: number) => dots.forEach((dot, i) => dot.setAttribute("aria-pressed", String(i === index)));
+    let targetIndex: number | null = null;
+    let scrollIdle: ReturnType<typeof setTimeout> | undefined;
+    const positionOf = (index: number) => methods[index].offsetLeft - methods[0].offsetLeft;
+    const syncDots = () => {
+      const step = positionOf(1);
+      if (step <= 0) return;
+      setActiveDot(Math.max(0, Math.min(methods.length - 1, Math.round(track.scrollLeft / step))));
+    };
+    const settleScroll = () => {
+      clearTimeout(scrollIdle);
+      targetIndex = null;
+      syncDots();
+    };
+    const selectMethod = (index: number) => {
+      clearTimeout(scrollIdle);
+      targetIndex = index;
+      setActiveDot(index);
+      const instant = !shouldAnimate();
+      const alreadyThere = Math.abs(track.scrollLeft - positionOf(index)) <= 1;
+      track.scrollTo({ left: positionOf(index), behavior: instant || alreadyThere ? "instant" : "smooth" });
+      if (instant || alreadyThere) settleScroll();
+    };
+    dots.forEach((dot, i) => dot.addEventListener("click", () => selectMethod(i)));
+    track.addEventListener("scroll", () => {
+      // A click selects the destination immediately. Intermediate scroll
+      // positions must not switch the indicator back to an earlier slide.
+      if (targetIndex === null) syncDots();
+      else if (Math.abs(track.scrollLeft - positionOf(targetIndex)) <= 1) settleScroll();
+      clearTimeout(scrollIdle);
+      scrollIdle = setTimeout(settleScroll, 150);
+    }, { passive: true });
+    track.addEventListener("scrollend", () => {
+      if (targetIndex === null || Math.abs(track.scrollLeft - positionOf(targetIndex)) <= 1) settleScroll();
+    });
+    // Swiping or scrolling manually takes over from a pending dot click.
+    track.addEventListener("pointerdown", settleScroll, { passive: true });
+    track.addEventListener("wheel", settleScroll, { passive: true });
+    window.addEventListener("resize", settleScroll);
+    document.addEventListener("astro:before-swap", () => {
+      clearTimeout(scrollIdle);
+      window.removeEventListener("resize", settleScroll);
+    }, { once: true });
+    track.addEventListener("keydown", event => {
+      if (!window.matchMedia("(max-width: 1023px)").matches || !["ArrowLeft", "ArrowRight"].includes(event.key)) return;
+      event.preventDefault();
+      const index = dots.findIndex(dot => dot.getAttribute("aria-pressed") === "true");
+      selectMethod(Math.max(0, Math.min(methods.length - 1, index + (event.key === "ArrowRight" ? 1 : -1))));
+    });
+  }
+  setupAboutPage();
+  document.addEventListener("astro:page-load", setupAboutPage);
+</script>

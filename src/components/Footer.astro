@@ -1,18 +1,19 @@
 ---
+import { socialLinks } from "../lib/social";
 import TablerIcon from "./TablerIcon.astro";
+import { contactEmail, contactMailto } from "../lib/contact";
+import { aboutPath, languageFromPath, languagePath, workPath } from "../i18n/routes";
+
+interface Props { showDivider?: boolean; }
+const { showDivider = true } = Astro.props;
 
 const currentYear = new Date().getFullYear();
+const language = languageFromPath(Astro.url.pathname);
 
 const footerNav = [
-  { label: "Home", href: "/" },
-  { label: "Work", href: "/work" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-] as const;
-
-const socialLinks = [
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/magdalena-szczecinska/" },
-  { label: "GitHub", href: "https://github.com/mszczecinska" },
+  { label: "Główna", href: languagePath("/", language) },
+  { label: "Realizacje", href: languagePath(workPath, language) },
+  { label: "O mnie", href: languagePath(aboutPath, language) },
 ] as const;
 
 const desktopDots = [
@@ -76,12 +77,12 @@ const mobileDots = [
 ] as const;
 ---
 
-<footer class="w-full border-t border-[var(--color-divider)] pb-[16px] pt-[24px] sm:pb-[18px] sm:pt-[32px] lg:pb-[20px] lg:pt-[40px]" aria-labelledby="site-footer-title">
+<footer class:list={["site-footer w-full pb-[16px] pt-[24px] sm:pb-[18px] sm:pt-[32px] lg:pb-[20px] lg:pt-[40px]", showDivider && "border-t border-[var(--color-divider)]"]} aria-labelledby="site-footer-title">
   <h2 id="site-footer-title" class="sr-only">Stopka strony</h2>
 
-  <div class="w-full px-[32px] sm:px-10 lg:px-16">
+  <div class="page-container">
     <div class="flex flex-col gap-[24px] sm:gap-[32px] lg:gap-[40px]">
-      <div class="flex items-start justify-between sm:gap-[40px] lg:justify-start lg:gap-[200px]">
+      <div class="footer-columns">
         <div class="relative size-[32px] lg:size-[40px]" aria-hidden="true">
           {
             mobileDots.map(([left, top]) => (
@@ -96,12 +97,12 @@ const mobileDots = [
         </div>
 
         <nav aria-label="Nawigacja stopki">
-          <ul class="flex w-[63px] flex-col items-start gap-[12px] text-[14px] leading-[24px] text-[var(--color-text)] lg:text-[16px] lg:leading-[32px]">
+          <ul class="footer-links flex w-max flex-col items-start gap-[12px] text-[14px] leading-[24px] text-[var(--color-text)]">
             {
               footerNav.map((item) => (
                 <li>
-                  <a href={item.href} class="px-[10px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]">
-                    {item.label}
+                  <a href={item.href} class="footer-link px-[10px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]">
+                    <span class="footer-link__label">{item.label}</span>
                   </a>
                 </li>
               ))
@@ -110,7 +111,7 @@ const mobileDots = [
         </nav>
 
         <div>
-          <ul class="flex flex-col items-start gap-[12px] text-[14px] leading-[24px] text-[var(--color-text)] lg:text-[16px] lg:leading-[32px]">
+          <ul class="footer-links flex flex-col items-start gap-[12px] text-[14px] leading-[24px] text-[var(--color-text)]">
             {
               socialLinks.map((item) => (
                 <li>
@@ -118,12 +119,12 @@ const mobileDots = [
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="group inline-flex items-center gap-[12px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
+                    class="footer-link inline-flex items-center gap-[12px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
                   >
-                    <span>{item.label}</span>
+                    <span class="footer-link__label">{item.label}</span>
                     <TablerIcon
                       name="arrow-up-right"
-                      class="size-6 transition-transform duration-200 group-hover:-translate-y-[1px] group-hover:translate-x-[1px] lg:size-8"
+                      class="footer-link__arrow size-4 lg:size-6"
                     />
                   </a>
                 </li>
@@ -131,17 +132,28 @@ const mobileDots = [
             }
           </ul>
         </div>
+        <div id="footer-contact" class="footer-contact">
+          <a class="footer-contact__title footer-link" href={contactMailto}><span class="footer-link__label">Napisz do mnie</span></a>
+          <div class="footer-contact__email">
+            <span data-footer-email>{contactEmail}</span>
+            <button type="button" class="btn-icon" aria-label="Skopiuj adres e-mail" data-footer-copy-email>
+              <span data-footer-copy-icon><TablerIcon name="copy" class="size-5" /></span>
+              <span data-footer-copy-check hidden><TablerIcon name="copy-check" class="size-5" /></span>
+            </button>
+          </div>
+          <span role="status" class="footer-contact__status" data-footer-copy-status></span>
+        </div>
       </div>
 
-      <div class="flex items-center justify-between text-[12px] leading-[16px] text-[var(--color-text)] lg:text-[14px] lg:leading-[19px]">
+      <div class="footer-credits flex items-center justify-between text-[12px] leading-[16px] text-[var(--color-text)]">
         <a
           href="https://github.com/mszczecinska/portfolio"
           target="_blank"
           rel="noopener noreferrer"
-          class="group inline-flex items-center gap-[6px] text-[var(--color-text-muted)] transition-colors duration-200 hover:text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
+          class="footer-link footer-link--credit inline-flex items-center gap-[6px] text-[var(--color-text-muted)] transition-colors duration-200 hover:text-[var(--color-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-text)]"
         >
-          <span>developed by me</span>
-          <TablerIcon name="arrow-narrow-right" class="size-4 transition-transform duration-200 group-hover:translate-x-[2px]" />
+          <span class="footer-link__label">developed by me</span>
+          <TablerIcon name="arrow-narrow-right" class="footer-link__arrow size-4" />
         </a>
         <p>
           &copy; Magdalena Szczecińska {currentYear}
@@ -150,3 +162,91 @@ const mobileDots = [
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-link { --footer-arrow-shift: 2px -2px; }
+  .footer-link--credit { --footer-arrow-shift: 3px 0; }
+  .footer-link__label { position: relative; display: inline-block; }
+  .footer-link__label::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: transform 240ms var(--ease-editorial);
+  }
+  .footer-link :global(.footer-link__arrow) { transition: translate 240ms var(--ease-editorial); }
+  .footer-link:focus-visible .footer-link__label::after { transform: scaleX(1); transform-origin: left center; }
+  .footer-link:focus-visible :global(.footer-link__arrow) { translate: var(--footer-arrow-shift); }
+  @media (hover: hover) and (pointer: fine) {
+    .footer-link:hover .footer-link__label::after { transform: scaleX(1); transform-origin: left center; }
+    .footer-link:hover :global(.footer-link__arrow) { translate: var(--footer-arrow-shift); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .footer-link { --footer-arrow-shift: 0 0; }
+    .footer-link__label::after { transition: none; }
+    .footer-link :global(.footer-link__arrow) { transition: none; }
+  }
+  .footer-columns { display: grid; grid-template-columns: auto auto auto; align-items: start; justify-content: space-between; gap: var(--space-8) var(--space-4); }
+  .footer-contact { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-2); min-width: 0; font-size: var(--text-small); }
+  .footer-contact__title { font-size: var(--text-body); line-height: 2rem; }
+  .footer-contact__email { display: flex; align-items: center; gap: var(--space-2); max-width: 100%; }
+  .footer-contact__email > span { min-width: 0; overflow-wrap: anywhere; }
+  .footer-contact a { overflow-wrap: anywhere; }
+  .footer-contact__status { color: var(--color-text-muted); }
+  .footer-contact .btn-icon { cursor: pointer; }
+  @media (max-width: 63.999rem) {
+    .site-footer a[href="https://github.com/mszczecinska/portfolio"] { display: none; }
+    .site-footer > div > div > div:last-child { justify-content: flex-end; }
+  }
+  @media (min-width: 64rem) {
+    .footer-columns { grid-template-columns: minmax(40px, .7fr) minmax(100px, 1fr) minmax(100px, 1fr) minmax(260px, 1.4fr); column-gap: var(--space-6); }
+    .footer-contact { grid-column: auto; }
+    .site-footer > div > div > div:first-child { padding-block: var(--space-6); }
+    .footer-links { font-size: var(--text-body); line-height: 2; }
+    .footer-credits { font-size: var(--text-small); line-height: 1.1875rem; }
+  }
+</style>
+
+<script>
+  import { uiText } from "../i18n/ui";
+  function setupFooterEmail() {
+    const button = document.querySelector<HTMLButtonElement>('[data-footer-copy-email]');
+    const status = document.querySelector<HTMLElement>('[data-footer-copy-status]');
+    if (!button || !status || button.dataset.initialized) return;
+    button.dataset.initialized = 'true';
+    const copyIcon = button.querySelector<HTMLElement>('[data-footer-copy-icon]')!;
+    const checkIcon = button.querySelector<HTMLElement>('[data-footer-copy-check]')!;
+    let resetTimer: ReturnType<typeof setTimeout>;
+    const reset = () => {
+      copyIcon.hidden = false;
+      checkIcon.hidden = true;
+      status.textContent = '';
+      button.setAttribute('aria-label', uiText('Skopiuj adres e-mail'));
+    };
+    button.addEventListener('click', async () => {
+      const email = button.previousElementSibling;
+      if (!(email instanceof HTMLElement)) return;
+      try {
+        await navigator.clipboard.writeText(email.textContent?.trim() ?? '');
+        clearTimeout(resetTimer);
+        copyIcon.hidden = true;
+        checkIcon.hidden = false;
+        status.textContent = uiText('Skopiowano adres');
+        button.setAttribute('aria-label', uiText('Skopiowano adres e-mail'));
+        resetTimer = setTimeout(reset, 3000);
+      } catch {
+        clearTimeout(resetTimer);
+        reset();
+        status.textContent = uiText('Zaznacz i skopiuj adres e-mail.');
+      }
+    });
+    document.addEventListener('astro:before-swap', () => clearTimeout(resetTimer), { once: true });
+  }
+  setupFooterEmail();
+  document.addEventListener('astro:page-load', setupFooterEmail);
+</script>

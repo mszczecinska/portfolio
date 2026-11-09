@@ -1,0 +1,30 @@
+---
+import CaseStudyShell from "../../components/work/CaseStudyShell.astro";
+import CaseStudyIntro from "../../components/work/CaseStudyIntro.astro";
+import CaseStudyPagination from "../../components/work/CaseStudyPagination.astro";
+import AurapuraCaseContent from "../../components/work/cases/AurapuraCaseContent.astro";
+import { getProjectCover } from "../../lib/projectCovers";
+import { getProjectBySlug } from "../../lib/projects";
+
+const project = getProjectBySlug("aurapura");
+if (!project) return Astro.redirect("/realizacje");
+---
+
+<CaseStudyShell title="AuraPura - od założeń marki do design systemu" description={project.description}>
+  <CaseStudyIntro
+    cover={getProjectCover("aurapura")}
+    title="AuraPura"
+    subtitle="Od założeń marki do design systemu"
+    overview="AuraPura to koncepcyjny design system dla e-commerce, przygotowany w ramach kursu Design System Intro. Przełożyłam brief i materiały marki na tokeny, komponenty oraz responsywne widoki mobile, tablet i desktop."
+    role="UX/UI designer"
+    projectType="Projekt koncepcyjny, kurs Design System Intro"
+    tools={[{ src: "/icons/tool-figma.png", alt: "Figma" }]}
+    facts={[
+      { title: "Problem", text: "Przełożenie materiałów marki na spójne zasady projektowania, które sprawdzą się w różnych komponentach i wielkościach ekranu." },
+      { title: "Cel", text: "Zbudowanie podstaw systemu, który pozwala rozwijać interfejs bez definiowania tych samych rozwiązań od początku." },
+      { title: "Efekt", text: "Biblioteka oparta na tokenach core i alias, Figma Variables oraz komponentach wykorzystanych w widokach na trzy wielkości ekranu." },
+    ]}
+  />
+  <AurapuraCaseContent />
+  <CaseStudyPagination slug="aurapura" />
+</CaseStudyShell>

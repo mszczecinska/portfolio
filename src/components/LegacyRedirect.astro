@@ -1,0 +1,27 @@
+---
+import { languageFromPath } from '../i18n/routes';
+
+interface Props { destination: string; }
+const { destination } = Astro.props;
+const language = languageFromPath(Astro.url.pathname);
+---
+
+<!doctype html>
+<html lang={language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={new URL(destination, Astro.site)} />
+    <title>{language === 'en' ? 'Redirecting…' : 'Przekierowanie…'}</title>
+    <script is:inline define:vars={{ destination }}>
+      const target = new URL(destination, window.location.origin);
+      target.search = window.location.search;
+      target.hash ||= window.location.hash;
+      window.location.replace(target);
+    </script>
+    <meta http-equiv="refresh" content={`0;url=${destination}`} />
+  </head>
+  <body>
+    <a href={destination}>{destination}</a>
+  </body>
+</html>
