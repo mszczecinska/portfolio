@@ -32,9 +32,9 @@ Rozmiary podano dla bazowego rozmiaru przeglądarki 16 px. Duże style płynnie 
 | Klasa | Rozmiar | Interlinia |
 | --- | --- | --- |
 | `.type-display` | 64 px przy 393 px viewportu, do 128 px na desktopie; mniejszy na wąskich ekranach | 1 |
-| `.type-title` | 40–64 px | 1.15 |
-| `.type-heading` | 32–40 px | 1.3 |
-| `.type-subheading` | 24–32 px | 1.3 |
+| `.type-title` | 40-64 px | 1.15 |
+| `.type-heading` | 32-40 px | 1.3 |
+| `.type-subheading` | 24-32 px | 1.3 |
 | `.type-body` | 16 px | 1.6 |
 | `.type-small` | 14 px | 1.6 |
 | `.type-label` | 12 px, Geist Mono, uppercase | 1.5 |
