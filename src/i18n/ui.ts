@@ -1,3 +1,5 @@
+import { keepPolishShortWords } from './typography.ts';
+
 // Keep interactive messages separate so the browser never downloads case studies.
 const messages: Record<string, string> = {
   'Skopiuj adres e-mail': 'Copy email address',
@@ -17,5 +19,5 @@ const messages: Record<string, string> = {
   'Karta': 'Card',
 };
 export function uiText(text: string): string {
-  return document.documentElement.lang === 'en' ? messages[text] ?? text : text;
+  return document.documentElement.lang === 'en' ? messages[text] ?? text : keepPolishShortWords(text);
 }

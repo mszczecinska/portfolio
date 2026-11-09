@@ -26,10 +26,10 @@ test('Interactive messages read the current language after each page swap', () =
   const saved = globalThis.document;
   try {
     globalThis.document = { documentElement: { lang: 'en' } };
-    for (const [pl, en] of [
+    for (const [pl, en, polishDisplay = pl] of [
       ['Skopiuj adres e-mail', 'Copy email address'],
       ['Skopiowano adres', 'Email address copied'],
-      ['Zaznacz i skopiuj adres e-mail.', 'Select and copy the email address.'],
+      ['Zaznacz i skopiuj adres e-mail.', 'Select and copy the email address.', 'Zaznacz i\u00a0skopiuj adres e-mail.'],
       ['Podgląd obrazu', 'Image preview'],
       ['Wczytywanie obrazu…', 'Loading image…'],
       ['Nie udało się wczytać obrazu.', 'The image could not be loaded.'],
@@ -44,7 +44,7 @@ test('Interactive messages read the current language after each page swap', () =
       document.documentElement.lang = 'en';
       assert.equal(uiText(pl), en);
       document.documentElement.lang = 'pl';
-      assert.equal(uiText(pl), pl);
+      assert.equal(uiText(pl), polishDisplay);
     }
   } finally {
     if (saved === undefined) delete globalThis.document;

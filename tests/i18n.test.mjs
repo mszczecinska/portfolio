@@ -36,6 +36,14 @@ const pagePairs = [
 const pageFile = path => new URL(`.${path.replace(/\/$/, '')}/index.html`, dist);
 const readPage = path => readFile(pageFile(path), 'utf8');
 
+test('Polish pages keep short words together in rendered copy', async () => {
+  const polish = await readPage('/');
+  const english = await readPage('/en/');
+  assert.match(polish, /użytkowników z(?:&nbsp;|\u00a0)dopracowanym UI/);
+  assert.match(polish, /O(?:&nbsp;|\u00a0)mnie/);
+  assert.match(english, /I design websites and apps/);
+});
+
 test('All public pages have a complete English equivalent', async () => {
   for (const [path, englishPath] of pagePairs) {
     const pl = inspect(await readPage(path));
