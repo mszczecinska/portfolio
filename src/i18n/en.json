@@ -495,5 +495,22 @@
   "Kolejnym krokiem byłoby sprawdzenie aplikacji podczas planowania prawdziwego wyjazdu. Pozwoliłoby to ocenić współpracę grupy, potrzebę trybu gościa i to, czy rozwiązanie pomaga domykać decyzje. Osobnej weryfikacji wymagałyby dostępność interfejsu oraz niezawodność pobierania danych z linków.": "The next step would be to test the app while planning a real trip. This would help assess group collaboration, the need for a guest mode and whether the solution helps people reach decisions. Interface accessibility and the reliability of fetching data from links would need separate validation.",
   "EN — zmień język na angielski": "PL — switch to Polish",
   "karuzela": "carousel",
-  "slajd": "slide"
+  "slajd": "slide",
+  "Zobacz projekt": "View project",
+  "Zobacz projekt: Miropoix": "View project: Miropoix",
+  "Zobacz projekt: OBRYS Studio": "View project: OBRYS Studio",
+  "Zobacz projekt: Akademia": "View project: Akademia",
+  "Zobacz projekt: Mova": "View project: Mova",
+  "Mova - aplikacja na laptopie i telefonie": "Mova - app on a laptop and phone",
+  "Wybierz obszar i zobacz przykład": "Choose an area and see an example",
+  "Czytelne stany i codzienne działania w aplikacji.": "Clear states and everyday actions in the app.",
+  "Od charakteru marki do projektu strony.": "From brand identity to website design.",
+  "Zakupione materiały zawsze pod ręką.": "Purchased resources always within reach.",
+  "Ruch, który wyjaśnia działanie produktu.": "Motion that explains how the product works.",
+  "Od projektu do działającej strony internetowej.": "From design to a working website.",
+  "Miropoix - pusta lista zamówień": "Miropoix - empty order list",
+  "Miropoix - zamówienia według dostawców": "Miropoix - orders by supplier",
+  "OBRYS Studio - projekt strony studia wnętrzarskiego": "OBRYS Studio - interior design studio website",
+  "Akademia - biblioteka zakupionych e-booków": "Akademia - library of purchased e-books",
+  "Miropoix - animacja zamówienia według dostawcy": "Miropoix - orders by supplier animation"
 }

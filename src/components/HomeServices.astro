@@ -1,0 +1,134 @@
+---
+import { Picture } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import mova from "../assets/case-studies/mova/okładka.jpg";
+import commerce from "../assets/case-studies/Akademia/widoki desktop i mobile.jpg";
+import website from "../assets/case-studies/Miropoix/okładka.jpg";
+import { languageFromPath, languagePath } from "../i18n/routes";
+import { wideImageSize } from "../lib/responsiveImages";
+
+const language = languageFromPath(Astro.url.pathname);
+const sizes = `${wideImageSize(36.75)}, (min-width: 1280px) 588px, (min-width: 1024px) calc(50vw - 52px), (min-width: 768px) calc(100vw - 64px), calc(100vw - 32px)`;
+interface Service {
+  id: string;
+  title: string;
+  text: string;
+  project: string;
+  href: string;
+  images: ImageMetadata[];
+  alt: string[];
+  video?: { src: string; label: string };
+}
+const services: Service[] = [
+  { id: "ux", title: "UX/UI design", text: "Porządkuję strukturę produktu, ścieżki użytkownika i interfejsy aplikacji.", project: "Mova", href: "/mova#learning-contexts", images: [mova], alt: ["Mova - aplikacja na laptopie i telefonie"] },
+  { id: "web", title: "Strony internetowe", text: "Przekładam charakter marki i jej ofertę na czytelną stronę.", project: "OBRYS Studio", href: "/obrys#obrys-website", images: [], alt: [], video: { src: "/assets/case-studies/obrys/obrys-motion.mp4", label: "OBRYS Studio - motion strony" } },
+  { id: "commerce", title: "E-commerce", text: "Układam ścieżkę od poznania produktu do zakupu i dostępu do zamówienia.", project: "Akademia", href: "/akademia#purchase", images: [commerce], alt: ["Akademia - widoki desktop i mobile"] },
+  { id: "motion", title: "Motion", text: "Tworzę animacje interfejsów i materiałów prezentujących produkt.", project: "Miropoix", href: "/miropoix#process", images: [], alt: [], video: { src: "/assets/case-studies/miropoix/miropoix-animation-2.mp4", label: "Miropoix - animacja zamówienia według dostawcy" } },
+  { id: "ai", title: "Wdrożenia z AI", text: "Zamieniam projekty stron w działające rozwiązania przy wsparciu narzędzi AI.", project: "Miropoix", href: "/miropoix#implementation", images: [website], alt: ["Miropoix - wdrożona strona internetowa"] },
+];
+---
+
+<section class="home-services page-container" aria-labelledby="home-services-title" data-home-services>
+  <header class="services-heading">
+    <h2 id="home-services-title">Czym się zajmuję</h2>
+  </header>
+  <div class="services-content">
+    {services.map((service, index) => (
+      <div class="service" style={`--service-row: ${index + 1}`}>
+        <div class="service-selector">
+          <h3>
+            <button id={`service-${service.id}`} type="button" aria-expanded={index === 0 ? "true" : "false"} aria-controls={`service-preview-${service.id} service-description-${service.id}`} aria-describedby={`service-description-${service.id}`} disabled data-service-trigger>
+              <span class="service-number type-label" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+              <span>{service.title}</span>
+            </button>
+          </h3>
+          <p id={`service-description-${service.id}`} class="service-description">{service.text}</p>
+        </div>
+        <div id={`service-preview-${service.id}`} class="service-preview" role="region" aria-labelledby={`service-${service.id}`} hidden={index !== 0} data-service-preview>
+          <div class="service-media">
+            {service.video ? (
+              <video controls muted playsinline loop={service.id === "web"} preload="none" poster={service.video.src.replace(/\.mp4$/, ".poster.webp")} aria-label={service.video.label}>
+                <source data-src={service.video.src.replace(/\.mp4$/, ".webm")} type="video/webm" />
+                <source data-src={service.video.src} type="video/mp4" />
+                <a href={service.video.src}>Otwórz film</a>
+              </video>
+            ) : service.images.map((src, i) => (
+              <Picture src={src} alt={service.alt[i]} formats={["avif", "webp"]} widths={[240, 480, 800, 1200]} sizes={`(min-width: 1024px) 12rem, ${sizes}`} quality={85} loading="lazy" decoding="async" />
+            ))}
+          </div>
+        </div>
+        <a href={languagePath(service.href.split("#")[0], language) + (service.href.includes("#") ? `#${service.href.split("#")[1]}` : "")} class="btn-primary service-project-link" aria-label={`Zobacz projekt: ${service.project}`}>
+          <span class="service-arrow" aria-hidden="true">
+            <img src="/assets/home/arrow-down-left.svg" width="24" height="24" alt="" />
+            <img src="/assets/home/arrow-down-left-hover.svg" width="24" height="24" alt="" />
+          </span>
+        </a>
+      </div>
+    ))}
+    <div class="services-stage" data-service-stage></div>
+  </div>
+</section>
+
+<style>
+  .home-services { margin-top: var(--space-20); }
+  .services-heading { display: grid; gap: var(--space-4); margin-bottom: var(--space-8); }
+  .services-heading h2 { font-size: 24px; font-weight: var(--weight-regular); line-height: 1.3; }
+  .services-content { position: relative; border-bottom: 1px solid var(--color-border); }
+  .services-stage { display: none; }
+  .service { display: grid; grid-template-columns: minmax(0, 1fr) var(--control-height); column-gap: var(--space-4); align-items: start; padding-block: var(--space-5); border-top: 1px solid var(--color-border); }
+  .service-selector { grid-column: 1; grid-row: 1; min-width: 0; }
+  .service-selector h3 { margin: 0; font-weight: var(--weight-regular); }
+  .service-selector button { display: grid; grid-template-columns: var(--space-6) minmax(0, 1fr); align-items: baseline; gap: var(--space-3); width: 100%; min-height: var(--control-height); border: 0; padding: var(--space-3) 0; background: transparent; color: var(--color-text-muted); text-align: left; cursor: pointer; font-family: var(--font-label); font-size: var(--text-body); font-weight: var(--weight-regular); text-transform: uppercase; line-height: 1.5; scroll-margin-top: 96px; transition: color var(--duration-ui) var(--ease-ui); }
+  .service-selector button:disabled { cursor: default; }
+  .service-selector button[aria-expanded="true"] { color: var(--color-text); }
+  .service-selector button:focus-visible { outline: 2px solid var(--color-text); outline-offset: 5px; }
+  .service-number { flex: none; color: var(--color-text-muted); }
+  .service-description { display: none; margin: var(--space-2) 0 var(--space-3) calc(var(--space-6) + var(--space-3)); font-size: var(--text-small); line-height: 1.6; color: var(--color-text-muted); }
+  .service-selector:has([aria-expanded="true"]) .service-description { display: block; }
+  .service-preview { grid-column: 1 / -1; grid-row: 2; min-width: 0; padding-top: var(--space-3); }
+  .service-preview[hidden] { display: none; }
+  .service-media { display: flex; justify-content: center; align-items: center; width: 100%; aspect-ratio: 4 / 3; background: var(--color-surface); overflow: hidden; }
+  .service-media :global(picture) { display: block; width: 100%; height: 100%; }
+  .service-media :global(img), .service-media video { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .service-media video { object-fit: contain; }
+  .service-project-link { --button-hover-fill: var(--color-text); --button-hover-text: var(--color-background); grid-column: 2; grid-row: 1; width: var(--control-height); height: var(--control-height); padding: 0; box-shadow: none; visibility: hidden; opacity: 0; pointer-events: none; }
+  .service:has([aria-expanded="true"]) .service-project-link { visibility: visible; opacity: 1; pointer-events: auto; }
+  .service-arrow { display: grid; transition: translate var(--duration-ui) var(--ease-editorial); }
+  .service-arrow img { grid-area: 1 / 1; transform: rotate(180deg); transition: opacity var(--duration-ui) var(--ease-ui); }
+  .service-arrow img:last-child { opacity: 0; }
+  .service-project-link:focus-visible .service-arrow img:first-child { opacity: 0; }
+  .service-project-link:focus-visible .service-arrow img:last-child { opacity: 1; }
+  @media (hover: hover) and (pointer: fine) {
+    .service:hover .service-selector button { color: var(--color-text); }
+    .service:hover .service-project-link { color: var(--color-background); }
+    .service:hover .service-project-link::before { transform: scaleY(1); }
+    .service:hover .service-arrow img:first-child { opacity: 0; }
+    .service:hover .service-arrow img:last-child { opacity: 1; }
+    .service-project-link:hover .service-arrow { translate: 2px -2px; }
+  }
+  @media (min-width: 64rem) {
+    .home-services { margin-top: var(--space-16); }
+    .services-heading { margin-bottom: var(--space-10); }
+    .services-heading h2 { font-size: 2.5rem; }
+    .service { grid-template-columns: 12rem minmax(0, 1fr) var(--control-height); column-gap: var(--space-10); height: 7rem; padding-block: var(--space-4); align-items: center; }
+    .service-selector { grid-column: 2; display: flex; flex-direction: column; justify-content: center; height: 5rem; }
+    .service-selector button { min-height: 2rem; padding-block: 0; font-size: 1.25rem; line-height: 1.4; }
+    .service-description, .service-selector:has([aria-expanded="true"]) .service-description { display: block; min-height: 0; max-height: 0; overflow: hidden; margin: 0 0 0 calc(var(--space-6) + var(--space-3)); font-size: var(--text-body); line-height: 1.5; visibility: hidden; opacity: 0; transform: translateY(6px); transition: max-height 240ms var(--ease-editorial), opacity 220ms var(--ease-editorial), transform 240ms var(--ease-editorial), visibility 0s 220ms; }
+    .service-selector:has([aria-expanded="true"]) .service-description { max-height: 3rem; visibility: visible; opacity: 1; transform: translateY(0); transition-delay: 0s; }
+    .services-stage { display: block; position: absolute; z-index: 1; top: 0; left: 0; width: 12rem; height: 6rem; overflow: hidden; opacity: 0; visibility: hidden; pointer-events: none; transition: transform 340ms var(--ease-editorial), opacity 180ms var(--ease-editorial), visibility 0s 180ms; }
+    .services-stage.is-visible { opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
+    .services-stage .service-media { height: 100%; aspect-ratio: auto; }
+    .service-preview { position: absolute; inset: 0; padding-top: 0; }
+    .service-project-link { grid-column: 3; visibility: visible; opacity: 1; pointer-events: auto; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .service-arrow, .service-arrow img, .services-stage, .service-selector button, .service-description { transition: none; }
+    .service-selector:has([aria-expanded="true"]) .service-description { transform: none; }
+  }
+</style>
+
+<script>
+  import { setupHomeServices } from "../scripts/home-services";
+  setupHomeServices();
+  document.addEventListener("astro:page-load", setupHomeServices);
+</script>
