@@ -11,7 +11,6 @@ Podgląd lokalny: `bun dev`. Build: `bun run build`.
 
 - Dane projektów, teksty kart i wybór projektów na główną: `src/lib/projects.ts`.
 - Wspólne linki społecznościowe: `src/lib/social.ts`.
-- Interaktywne usługi na głównej: `src/components/HomeServices.astro` (przykłady i układ) i `src/scripts/home-services.ts` (przełączanie, klawiatura i odtwarzanie). Desktop ma wiersze o stałej wysokości i wspólny pływający podgląd przesuwany między usługami przy najechaniu lub ustawieniu fokusu; mobile rozwija opis i obraz po dotknięciu nazwy. Nazwy usług są w Geist Mono, a przyciski ze strzałkami z portfolio prowadzą do projektów: na desktopie są stale widoczne, na mobile pojawiają się po rozwinięciu wiersza. Filmy (OBRYS przy stronach i Miropoix przy Motion) wczytują się dopiero przy wybranej, widocznej usłudze; ograniczenie ruchu wyłącza automatyczne odtwarzanie.
 - Filmy: WebM/VP9 i zapasowy MP4 z natywnym autoplay i `preload="metadata"`, podgląd `<nazwa>.poster.webp`, zatrzymywanie poza ekranem i widoczny przycisk ręcznego odtwarzania. Preferencja ograniczenia ruchu wyłącza autoplay; kontrolki pozostają dostępne.
 - Build automatycznie usuwa z `dist/_astro` nieużywane oryginały obrazów. Pliki źródłowe i wygenerowane warianty responsywne zostają. Mechanizm dotyczy obecnej strony statycznej; przy dynamicznym składaniu adresów obrazów należy go ponownie zweryfikować.
 - Przekierowania starych adresów są w `vercel.json`. Podgląd statyczny korzysta z tych samych celów. Sitemap zawiera tylko aktualne adresy.
