@@ -1,0 +1,304 @@
+---
+import { Picture } from "astro:assets";
+import before from "../../../assets/case-studies/Miropoix/dashboard-before.png";
+import after from "../../../assets/case-studies/Miropoix/dashboard-after.png";
+
+const decisionPairs = [
+  {
+    before: null,
+    after: {
+      title: "Większe przyciski",
+      description: "Powiększyłam obszary klikalne, aby ułatwić obsługę aplikacji podczas pracy w kuchni, również zabrudzonymi dłońmi.",
+      side: "right", x: 108, targetX: 86, y: 21,
+    },
+  },
+  {
+    before: {
+      title: "Hierarchia informacji",
+      description: "Uporządkować układ zamówień i dostawców oraz wyraźniej wyróżnić najważniejsze działania.",
+      side: "left", x: -8, targetX: 15, y: 42,
+    },
+    after: {
+      title: "Czytelna hierarchia działań",
+      description: "Wyróżniłam przycisk dodawania zamówienia i uporządkowałam informacje na kartach, aby ułatwić odnalezienie potrzebnych działań.",
+      side: "left", x: -8, targetX: 15, y: 30,
+    },
+  },
+  {
+    before: {
+      title: "Kontakt z dostawcą",
+      description: "Uporządkować przyciski e-mail i WhatsApp na kartach dostawców.",
+      side: "right", x: 108, targetX: 77, y: 61,
+    },
+    after: {
+      title: "Kontakt z dostawcą pod ręką",
+      description: "Z wywiadów wynikało, że użytkownicy najczęściej kontaktują się z dostawcami przez e-mail lub WhatsApp. Dlatego obie akcje umieściłam bezpośrednio na karcie dostawcy.",
+      side: "right", x: 108, targetX: 82, y: 49,
+    },
+  },
+  {
+    before: {
+      title: "Czytelność i warstwa wizualna",
+      description: "Poprawić kontrast tekstów i ujednolicić kolory, typografię oraz komponenty.",
+      side: "left", x: -8, targetX: 15, y: 23,
+    },
+    after: {
+      title: "Nowa warstwa wizualna",
+      description: "Ujednoliciłam kolory, typografię i komponenty. Zestawiłam jasne tło z ciemnym tekstem, aby poprawić czytelność interfejsu.",
+      side: "left", x: -8, targetX: 12, y: 77,
+    },
+  },
+];
+
+const screens = [
+  { version: "before" as const, src: before, label: "Dashboard Miropoix przed zmianami" },
+  { version: "after" as const, src: after, label: "Dashboard Miropoix po zmianach" },
+].map(screen => ({
+  ...screen,
+  decisions: decisionPairs.flatMap((pair, index) => {
+    const decision = pair[screen.version];
+    const number = screen.version === "before" && index === 3 ? 1 : index + 1;
+    return decision ? [{
+      ...decision,
+      key: `${screen.version}-${index + 1}`,
+      pair: String(index + 1),
+      number: String(number).padStart(2, "0"),
+      label: `${number}. ${decision.title}`,
+    }] : [];
+  }),
+}));
+---
+
+<case-comparison class="comparison" data-version="before" role="region" aria-label="Miropoix — porównanie przed i po zmianach">
+  <div class="comparison__toolbar" data-comparison-controls hidden>
+    <div class="comparison__versions" role="group" aria-label="Wybierz wersję ekranu">
+      <button class="btn-primary comparison__version" type="button" data-version-button="before" aria-pressed="true" aria-controls="miropoix-comparison-screen">Przed</button>
+      <button class="btn-primary comparison__version" type="button" data-version-button="after" aria-pressed="false" aria-controls="miropoix-comparison-screen">Po</button>
+    </div>
+    <p class="comparison__hint" data-before-hint>Kliknij +, aby zobaczyć obszary do poprawy.</p>
+    <p class="comparison__hint" data-after-hint hidden>Kliknij +, aby zobaczyć, co się zmieniło.</p>
+  </div>
+
+  <div class="comparison__stage" id="miropoix-comparison-screen">
+    <div class="comparison__phone">
+      {screens.map(screen => (
+        <div class:list={["comparison__image", `comparison__image--${screen.version}`]} data-version-image={screen.version}>
+          <span class="comparison__fallback-label type-label">{screen.version === "before" ? "Przed" : "Po"}</span>
+          <Picture src={screen.src} alt={screen.label} formats={["webp"]} widths={[336, screen.src.width]} sizes="(min-width: 768px) 360px, calc(100vw - 32px)" loading="eager" />
+          <div class="comparison__pins" data-pins={screen.version} hidden>
+            {screen.decisions.map((decision, index) => (
+              <div class="comparison__annotation" style={`--pin-x: ${decision.x}%; --pin-y: ${decision.y}%; --line-start: ${Math.min(decision.x, decision.targetX)}%; --line-width: ${Math.abs(decision.x - decision.targetX)}%; --target-x: ${decision.targetX}%; --pin-delay: ${index * 30}ms;`}>
+                <span class="comparison__connector" aria-hidden="true"></span>
+                <span class="comparison__target" aria-hidden="true"></span>
+                <button class="btn-primary comparison__pin" type="button" data-pin={decision.key} data-pair={decision.pair} aria-label={decision.label} aria-expanded="false" aria-controls={`miropoix-decision-${decision.key}`}>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5v14" /></svg>
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="comparison__notes">
+      {screens.flatMap(screen => screen.decisions.map(decision => (
+        <section class:list={["comparison__note", `comparison__note--${decision.side}`]} style={`--note-y: ${decision.y}%;`} id={`miropoix-decision-${decision.key}`} data-note={decision.key} role="region" aria-labelledby={`miropoix-decision-title-${decision.key}`} tabindex="-1" hidden>
+          <div class="comparison__note-heading">
+            <span class="type-label comparison__number" aria-hidden="true">{decision.number}</span>
+            <h3 id={`miropoix-decision-title-${decision.key}`}>{decision.title}</h3>
+          </div>
+          <p id={`miropoix-decision-description-${decision.key}`}>{decision.description}</p>
+        </section>
+      )))}
+    </div>
+  </div>
+</case-comparison>
+
+<style>
+  .comparison { display: grid; gap: var(--space-8); width: 100%; padding-block: var(--space-8); }
+  .comparison [hidden] { display: none !important; }
+  .comparison__toolbar { display: grid; justify-items: center; gap: var(--space-4); }
+  .comparison__versions { display: inline-flex; justify-content: center; gap: var(--space-3); }
+  .comparison__version { min-width: 7rem; cursor: pointer; }
+  .comparison__version[aria-pressed="true"], .comparison__pin[aria-expanded="true"] { --button-hover-fill: var(--color-text); --button-hover-text: var(--color-background); background: var(--color-text); color: var(--color-background); }
+  .comparison__version[aria-pressed="true"] { --button-hover-border: transparent; border-color: transparent; box-shadow: none; }
+  .comparison__version:focus-visible { outline: none; text-decoration: underline; text-underline-offset: .25rem; text-decoration-thickness: 2px; }
+  .comparison__hint { min-height: 1.5em; margin: 0; color: var(--color-text-muted); font-size: var(--text-small); line-height: var(--leading-body); text-align: center; }
+  .comparison__stage { position: relative; min-width: 0; }
+  .comparison__phone { position: relative; width: min(100%, 22.5rem); margin-inline: auto; }
+  .comparison__image { position: relative; }
+  .comparison__image :global(picture), .comparison__image :global(img) { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .comparison__fallback-label { display: block; margin-block: var(--space-2); text-align: center; }
+  .comparison[data-ready] .comparison__phone { aspect-ratio: 432 / 852; }
+  .comparison[data-ready] .comparison__image { position: absolute; inset: 0; transition: opacity 220ms var(--ease-ui); }
+  .comparison[data-ready] .comparison__fallback-label { display: none; }
+  .comparison[data-ready][data-version="before"] .comparison__image--after,
+  .comparison[data-ready][data-version="after"] .comparison__image--before { opacity: 0; pointer-events: none; }
+  .comparison__pins { position: absolute; inset: 0; }
+  .comparison__annotation { position: absolute; top: var(--pin-y); left: 0; width: 100%; height: 0; }
+  .comparison__connector, .comparison__target { display: none; }
+  .comparison__pin { position: absolute; top: 0; left: clamp(1.5rem, var(--pin-x), calc(100% - 1.5rem)); width: var(--control-height); height: var(--control-height); min-width: 0; padding: 0; border-radius: 50%; translate: -50% -50%; cursor: pointer; }
+  .comparison__pin svg { transition: rotate 160ms var(--ease-ui); }
+  .comparison__pin[aria-expanded="true"] svg { rotate: 45deg; }
+  .comparison__notes { width: min(100%, 22.5rem); margin-inline: auto; }
+  .comparison__note { --note-enter-x: 0px; --note-enter-y: 4px; margin-top: var(--space-6); padding-top: var(--space-4); border-top: 1px solid var(--color-text); background: var(--color-background); scroll-margin-block: var(--space-10); }
+  .comparison__note-heading { display: flex; gap: var(--space-3); align-items: baseline; margin-bottom: var(--space-3); }
+  .comparison__number { color: var(--color-text-muted); }
+  .comparison__note h3 { margin: 0; font-size: var(--text-body); line-height: var(--leading-heading); font-weight: var(--weight-regular); text-wrap: balance; }
+  .comparison__note p { margin: 0; color: var(--color-text-muted); font-size: var(--text-small); line-height: var(--leading-body); text-wrap: pretty; }
+  @media (min-width: 64rem) {
+    .comparison { padding-block: var(--space-10); }
+    .comparison__pin { left: var(--pin-x); }
+    .comparison__connector { display: block; position: absolute; top: -.5px; left: var(--line-start); width: var(--line-width); height: 1px; background: var(--color-border); }
+    .comparison__target { display: block; position: absolute; top: 0; left: var(--target-x); width: .3125rem; height: .3125rem; border-radius: 50%; background: var(--color-text); transform: translate(-50%, -50%); }
+    .comparison__notes { display: contents; }
+    .comparison__note { position: absolute; top: var(--note-y); width: min(20rem, calc((100% - 22.5rem) / 2 - 5rem)); margin: 0; transform: translateY(-1.375rem); }
+    .comparison__note--right { --note-enter-x: -6px; --note-enter-y: 0px; left: calc(50% + 11.25rem + 4rem); }
+    .comparison__note--left { --note-enter-x: 6px; --note-enter-y: 0px; right: calc(50% + 11.25rem + 4rem); }
+    .comparison__note p { font-size: var(--text-body); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .comparison__annotation { animation: comparison-marker-in 180ms var(--ease-ui) var(--pin-delay) both; }
+    .comparison__note:not([hidden]) { animation: comparison-note-in 180ms var(--ease-ui) both; }
+  }
+  @media (prefers-reduced-motion: no-preference) and (hover: hover) and (pointer: fine) {
+    .comparison__pin:not(:active):hover { transform: scale(1.04); }
+  }
+  @keyframes comparison-marker-in {
+    from { opacity: 0; translate: 0 4px; }
+    to { opacity: 1; translate: 0 0; }
+  }
+  @keyframes comparison-note-in {
+    from { opacity: 0; translate: var(--note-enter-x) var(--note-enter-y); }
+    to { opacity: 1; translate: 0 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .comparison[data-ready] .comparison__image, .comparison__pin svg { transition: none; }
+  }
+</style>
+
+<script>
+  import { shouldAnimate } from "../../../scripts/motion";
+
+  class CaseComparison extends HTMLElement {
+    private cleanup?: AbortController;
+    private closingNotes = new Map<HTMLElement, Animation>();
+
+    connectedCallback() {
+      if (this.cleanup) return;
+      this.cleanup = new AbortController();
+      const { signal } = this.cleanup;
+      const versions = [...this.querySelectorAll<HTMLButtonElement>("[data-version-button]")];
+      const pinGroups = [...this.querySelectorAll<HTMLElement>("[data-pins]")];
+      const beforeHint = this.querySelector<HTMLElement>("[data-before-hint]")!;
+      const afterHint = this.querySelector<HTMLElement>("[data-after-hint]")!;
+      const pinButtons = [...this.querySelectorAll<HTMLButtonElement>("[data-pin]")];
+      const notes = [...this.querySelectorAll<HTMLElement>("[data-note]")];
+      let activePin: HTMLButtonElement | undefined;
+
+      const closeNote = (restoreFocus = false, animateClose = false) => {
+        notes.forEach(note => {
+          const opacity = animateClose && !note.hidden ? getComputedStyle(note).opacity : "1";
+          this.closingNotes.get(note)?.cancel();
+          this.closingNotes.delete(note);
+          note.inert = true;
+          note.setAttribute("aria-hidden", "true");
+          if (note.hidden || !animateClose || !shouldAnimate()) {
+            note.hidden = true;
+            return;
+          }
+          const animation = note.animate([{ opacity }, { opacity: 0 }], {
+            duration: 110,
+            easing: "cubic-bezier(0.23, 1, 0.32, 1)",
+            fill: "forwards",
+          });
+          this.closingNotes.set(note, animation);
+          animation.onfinish = () => {
+            if (this.closingNotes.get(note) !== animation) return;
+            note.hidden = true;
+            this.closingNotes.delete(note);
+            animation.cancel();
+          };
+        });
+        pinButtons.forEach(pin => {
+          pin.setAttribute("aria-expanded", "false");
+          pin.removeAttribute("aria-describedby");
+        });
+        if (restoreFocus) activePin?.focus({ preventScroll: matchMedia("(min-width: 64rem)").matches });
+        activePin = undefined;
+      };
+
+      const update = () => {
+        const after = this.dataset.version === "after";
+        pinGroups.forEach(group => group.hidden = group.dataset.pins !== this.dataset.version);
+        beforeHint.hidden = after;
+        afterHint.hidden = !after;
+        this.querySelectorAll<HTMLElement>("[data-version-image]").forEach(image => {
+          image.setAttribute("aria-hidden", String(image.dataset.versionImage !== this.dataset.version));
+        });
+        versions.forEach(button => button.setAttribute("aria-pressed", String(button.dataset.versionButton === this.dataset.version)));
+      };
+
+      const openNote = (button: HTMLButtonElement, keyboard: boolean) => {
+        activePin = button;
+        button.setAttribute("aria-expanded", "true");
+        button.setAttribute("aria-describedby", `miropoix-decision-description-${button.dataset.pin}`);
+        const note = notes.find(note => note.dataset.note === button.dataset.pin)!;
+        note.hidden = false;
+        note.inert = false;
+        note.removeAttribute("aria-hidden");
+        if (keyboard) note.focus({ preventScroll: true });
+        note.scrollIntoView({
+          block: "nearest",
+          behavior: keyboard || matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+        });
+      };
+
+      this.addEventListener("click", event => {
+        if (!(event.target instanceof Element)) return;
+        const button = event.target.closest<HTMLButtonElement>("button");
+        if (!button) return;
+        if (button.dataset.versionButton) {
+          if (button.dataset.versionButton === this.dataset.version) return;
+          const pair = activePin?.dataset.pair;
+          closeNote();
+          this.dataset.version = button.dataset.versionButton;
+          update();
+          if (pair) {
+            const counterpart = pinButtons.find(pin => pin.dataset.pin === `${this.dataset.version}-${pair}`);
+            if (counterpart) openNote(counterpart, event.detail === 0);
+          }
+        } else if (button.dataset.pin) {
+          const wasOpen = activePin === button;
+          closeNote(false, wasOpen);
+          if (wasOpen) return;
+          openNote(button, event.detail === 0);
+        }
+      }, { signal });
+
+      this.addEventListener("keydown", event => {
+        if (event.key === "Escape" && activePin) {
+          event.preventDefault();
+          closeNote(true);
+        }
+      }, { signal });
+      document.addEventListener("pointerdown", event => {
+        if (event.target instanceof Element && !event.target.closest(".comparison__note, .comparison__pin, [data-version-button]")) closeNote(false, true);
+      }, { signal });
+
+      closeNote();
+      this.dataset.ready = "true";
+      this.querySelectorAll<HTMLElement>("[data-comparison-controls]").forEach(control => control.hidden = false);
+      update();
+    }
+
+    disconnectedCallback() {
+      this.cleanup?.abort();
+      this.cleanup = undefined;
+      this.closingNotes.forEach(animation => animation.cancel());
+      this.closingNotes.clear();
+    }
+  }
+
+  if (!customElements.get("case-comparison")) customElements.define("case-comparison", CaseComparison);
+</script>
