@@ -84,7 +84,7 @@ const screens = [
       {screens.map(screen => (
         <div class:list={["comparison__image", `comparison__image--${screen.version}`]} data-version-image={screen.version}>
           <span class="comparison__fallback-label type-label">{screen.version === "before" ? "Przed" : "Po"}</span>
-          <Picture src={screen.src} alt={screen.label} formats={["webp"]} widths={[336, screen.src.width]} sizes="(min-width: 768px) 360px, calc(100vw - 32px)" loading="eager" />
+          <Picture src={screen.src} alt={screen.label} formats={["webp"]} widths={[336, screen.src.width]} sizes="(min-width: 768px) 360px, 224px" loading="eager" />
           <div class="comparison__pins" data-pins={screen.version} hidden>
             {screen.decisions.map((decision, index) => (
               <div class="comparison__annotation" style={`--pin-x: ${decision.x}%; --pin-y: ${decision.y}%; --line-start: ${Math.min(decision.x, decision.targetX)}%; --line-width: ${Math.abs(decision.x - decision.targetX)}%; --target-x: ${decision.targetX}%; --pin-delay: ${index * 30}ms;`}>
@@ -146,6 +146,19 @@ const screens = [
   .comparison__number { color: var(--color-text-muted); }
   .comparison__note h3 { margin: 0; font-size: var(--text-body); line-height: var(--leading-heading); font-weight: var(--weight-regular); text-wrap: balance; }
   .comparison__note p { margin: 0; color: var(--color-text-muted); font-size: var(--text-small); line-height: var(--leading-body); text-wrap: pretty; }
+  @media (max-width: 47.999rem) {
+    .comparison { gap: var(--space-4); padding-block: var(--space-4); }
+    .comparison__hint { min-height: 3.2em; }
+    .comparison__phone { width: min(100%, 14rem, calc((100svh - 14rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) * 432 / 852)); }
+  }
+  @media (max-width: 63.999rem) and (max-height: 30rem) and (orientation: landscape) {
+    .comparison { grid-template-columns: 12rem minmax(0, 1fr); align-items: start; gap: var(--space-4); padding-block: var(--space-4); }
+    .comparison__toolbar { justify-items: start; }
+    .comparison__versions { gap: var(--space-2); }
+    .comparison__version { min-width: 5.5rem; }
+    .comparison__hint { min-height: 3.2em; text-align: left; }
+    .comparison__phone { width: min(100%, 14rem, calc((100svh - 5.5rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) * 432 / 852)); }
+  }
   @media (min-width: 64rem) {
     .comparison { padding-block: var(--space-10); }
     .comparison__pin { left: var(--pin-x); }
