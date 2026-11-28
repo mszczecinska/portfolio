@@ -3,7 +3,7 @@ import CaseStudySection from "../CaseStudySection.astro";
 import CaseStudyMedia from "../CaseStudyMedia.astro";
 import CaseStudyGallery from "../CaseStudyGallery.astro";
 import CaseStudyScreens from "../CaseStudyScreens.astro";
-import comparison from "../../../assets/case-studies/Miropoix/porównanie aplikacji przed i po zmianach.png";
+import MiropoixComparison from "./MiropoixComparison.astro";
 import branding from "../../../assets/case-studies/Miropoix/branding.png";
 import website from "../../../assets/case-studies/Miropoix/wdrożona strona internetowa.jpg";
 import empty from "../../../assets/case-studies/Miropoix/Pusta lista zamówień.png";
@@ -15,10 +15,10 @@ const halfSizes = "(min-width: 1280px) 588px, (min-width: 1024px) calc(50vw - 52
 const screenSizes = "(min-width: 1024px) 322.5px, 207px";
 ---
 
-<CaseStudySection id="context" title="Punkt wyjścia" layout="split" mediaSide="left">
-  <p>Projekt opierał się na istniejącym produkcie oraz dostarczonym wireframie i tekstach strony. Moim zadaniem było nadanie im wizualnej formy, przygotowanie materiałów prezentujących aplikację i przełożenie projektu na działającą stronę.</p>
+<CaseStudySection id="context" title="Punkt wyjścia">
+  <p>Miropoix miało już aplikację i stronę internetową. Moim zadaniem było zaprojektowanie nowej strony na podstawie dostarczonego wireframe’u i tekstów oraz jej wdrożenie.</p>
   <p>Dodatkowo odświeżyłam wybrane ekrany aplikacji potrzebne do pokazania produktu na stronie. Zakres tych zmian dotyczył materiałów prezentacyjnych, a nie przebudowy całej aplikacji.</p>
-  <CaseStudyMedia slot="media" src={comparison} sizes={halfSizes} label="Miropoix - porównanie aplikacji przed i po zmianach" />
+  <MiropoixComparison slot="visuals" />
 </CaseStudySection>
 
 <CaseStudySection id="process" title="Proces" layout="centered">
@@ -44,7 +44,7 @@ const screenSizes = "(min-width: 1024px) 322.5px, 207px";
       { src: notifications, sizes: screenSizes, label: "Powiadomienia i akceptacja zgłoszeń", ratio: "207 / 424.94", desktopRatio: "322.48 / 662" },
     ]}
   >
-    <p>Odświeżając wybrane ekrany, uwzględniłam warunki pracy kucharzy. Większe przyciski i obszary klikalne miały ułatwiać szybką obsługę, również przy zabrudzonych dłoniach. Hierarchia informacji eksponuje zamówienia, dostawców i działania wymagające reakcji. Przygotowane na potrzeby strony widoki pokazują różne stany aplikacji: pustą listę, zgłoszenia oczekujące na akceptację i zamówienia pogrupowane według dostawców.</p>
+    <p>Przygotowane na potrzeby strony widoki pokazują różne stany aplikacji: pustą listę, zgłoszenia oczekujące na akceptację i zamówienia pogrupowane według dostawców.</p>
   </CaseStudyScreens>
 </CaseStudySection>
 
